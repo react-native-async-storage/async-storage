@@ -5,11 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.facebook.react.modules.storage;
-
-import java.util.ArrayDeque;
-import java.util.HashSet;
-import java.util.concurrent.Executor;
+package com.reactnativecommunity.asyncstorage;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
@@ -30,15 +26,20 @@ import com.facebook.react.common.annotations.VisibleForTesting;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.common.ModuleDataCleaner;
 
-import static com.facebook.react.modules.storage.ReactDatabaseSupplier.KEY_COLUMN;
-import static com.facebook.react.modules.storage.ReactDatabaseSupplier.TABLE_CATALYST;
-import static com.facebook.react.modules.storage.ReactDatabaseSupplier.VALUE_COLUMN;
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.concurrent.Executor;
+
+import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.KEY_COLUMN;
+import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.TABLE_CATALYST;
+import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.VALUE_COLUMN;
 
 @ReactModule(name = AsyncStorageModule.NAME)
 public final class AsyncStorageModule
     extends ReactContextBaseJavaModule implements ModuleDataCleaner.Cleanable {
 
-  public static final String NAME = "AsyncSQLiteDBStorage";
+  // changed name to not conflict with AsyncStorage from RN repo
+  public static final String NAME = "RNC_AsyncSQLiteDBStorage";
 
   // SQL variable number limit, defined by SQLITE_LIMIT_VARIABLE_NUMBER:
   // https://raw.githubusercontent.com/android/platform_external_sqlite/master/dist/sqlite3.c
@@ -79,7 +80,7 @@ public final class AsyncStorageModule
   }
 
   private final SerialExecutor executor;
-  
+
   public AsyncStorageModule(ReactApplicationContext reactContext) {
     this(reactContext, AsyncTask.THREAD_POOL_EXECUTOR);
   }
