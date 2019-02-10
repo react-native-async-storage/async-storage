@@ -1,0 +1,6 @@
+rootProject.name = 'AsyncStorageExample'
+
+include ':app'
+include ':rnAsyncStorage'
+
+project(':rnAsyncStorage').projectDir = new File(rootProject.projectDir, '../../android')

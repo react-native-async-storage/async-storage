@@ -1,0 +1,85 @@
+# JS
+node_modules
+yarn.lock
+
+# Project files
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+README.md
+
+# Config files
+.babelrc
+babel.config.js
+.editorconfig
+.eslintrc
+.flowconfig
+.watchmanconfig
+jsconfig.json
+.npmrc
+.gitattributes
+.circleci
+*.coverage.json
+.opensource
+.circleci
+.eslintignore
+codecov.yml
+
+# Example
+example/
+
+# Android
+android/*/build/
+android/gradlew
+android/build
+android/gradlew.bat
+android/gradle/
+android/com_crashlytics_export_strings.xml
+android/local.properties
+android/.gradle/
+android/.signing/
+android/.idea/gradle.xml
+android/.idea/libraries/
+android/.idea/workspace.xml
+android/.idea/tasks.xml
+android/.idea/.name
+android/.idea/compiler.xml
+android/.idea/copyright/profiles_settings.xml
+android/.idea/encodings.xml
+android/.idea/misc.xml
+android/.idea/modules.xml
+android/.idea/scopes/scope_settings.xml
+android/.idea/vcs.xml
+android/*.iml
+android/.settings
+
+# iOS
+ios/*.xcodeproj/xcuserdata
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+
+# Misc
+.DS_Store
+.DS_Store?
+*.DS_Store
+coverage.android.json
+coverage.ios.json
+coverage
+npm-debug.log
+.github
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.dbandroid/gradle
+docs
+.idea
+tests/
+bin/test.js
+codorials
+.vscode
+.nyc_output

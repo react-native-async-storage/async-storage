@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.facebook.react.modules.storage;
+package com.reactnativecommunity.asyncstorage;
 
 import javax.annotation.Nullable;
 
@@ -22,9 +22,9 @@ import com.facebook.react.bridge.ReadableArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.facebook.react.modules.storage.ReactDatabaseSupplier.KEY_COLUMN;
-import static com.facebook.react.modules.storage.ReactDatabaseSupplier.TABLE_CATALYST;
-import static com.facebook.react.modules.storage.ReactDatabaseSupplier.VALUE_COLUMN;
+import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.KEY_COLUMN;
+import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.TABLE_CATALYST;
+import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.VALUE_COLUMN;
 
 /**
  * Helper for database operations.

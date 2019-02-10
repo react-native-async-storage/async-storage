@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.facebook.react.modules.storage;
+package com.reactnativecommunity.asyncstorage;
 
 import javax.annotation.Nullable;
 
