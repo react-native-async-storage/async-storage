@@ -1,24 +1,61 @@
-# react-native-async-storage
+# React Native Async Storage
 
-Asynchronous, persistent, key-value storage system for React Native.
-
-## Getting started
+An asynchronous, persistent, key-value storage system for React Native.
 
 
-### Install 
-
-`yarn add @react-native-community/async-storage`
-
-or
-
-`npm install @react-native-community/async-storage --save`
+## Getting Started
 
 
-### Link
+```
+# Install
+$ yarn add @react-native-community/async-storage
 
-`react-native link @react-native-community/async-storage`
+# Link
+$ react-native link @react-native-community/async-storage
+```
+
+See docs for [manual linking guide.](docs/Linking.md)
+
 
 ## Usage
 
-ToDo
+### Import
 
+```js
+import AsyncStorage from '@react-native-community/async-storage';
+```
+
+### Store data
+```jsx
+
+storeData = async () => {
+  try {
+    await AsyncStorage.setItem('@storage_Key', 'stored value')
+  } catch (e) {
+    // saving error
+  }
+}
+
+```
+
+### Read data 
+```jsx
+
+getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('@storage_Key')
+    if(value !== null) {
+      // value previously stored
+    }
+  } catch(e) {
+    // error reading value
+  }
+}
+
+```
+
+See docs for [api and more examples.](docs/API.md)
+
+## License
+
+MIT
