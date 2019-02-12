@@ -19,7 +19,12 @@
     "url": "https://github.com/react-native-community/react-native-async-storage.git"
   },
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start:android": "react-native run-android --root example/",
+    "start:ios": "react-native run-ios --project-path example/ios",
+    "test": "yarn test:lint && yarn test:flow",
+    "test:flow": "flow check",
+    "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'"
   },
   "peerDependencies": {
     "react": "^16.0",

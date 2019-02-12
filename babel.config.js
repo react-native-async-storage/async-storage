@@ -5,7 +5,7 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          '@react-native-community/asyns-storage': './lib/AsyncStorage',
+          '@react-native-community/async-storage': './lib/AsyncStorage',
         },
         cwd: 'babelrc',
       },

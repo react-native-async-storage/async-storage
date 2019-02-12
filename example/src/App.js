@@ -45,14 +45,8 @@ export default class App extends Component<Props, State> {
     restarting: false,
   };
 
-  componentDidUpdate() {
-    if (this.state.restarting) {
-      this.setState({restarting: false});
-    }
-  }
-
   _simulateRestart = () => {
-    this.setState({restarting: true});
+    this.setState({restarting: true}, () => this.setState({restarting: false}));
   };
 
   render() {
@@ -75,7 +69,7 @@ export default class App extends Component<Props, State> {
                     {example.description}
                   </Text>
                   <View style={styles.exampleInnerContainer}>
-                    {example.render(this._simulateRestart)}
+                    {example.render()}
                   </View>
                 </View>
               );
