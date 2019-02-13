@@ -28,9 +28,9 @@ jobs:
           key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
           paths:
             - node_modules
-          persist_to_workspace:
-            -root: .
-            -paths: .
+      - persist_to_workspace:
+          -root: .
+          -paths: .
 
   "Test: lint":
     <<: *defaults
