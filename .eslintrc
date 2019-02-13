@@ -5,6 +5,7 @@
 
   "env": {
     "es6": true,
+    "jest/globals": true
   },
 
   "plugins": [
@@ -14,7 +15,7 @@
     "react",
     "react-hooks",
     "react-native",
-    "jest",
+    "jest"
   ],
 
   // Map from global var to bool specifying if it can be redefined
@@ -50,7 +51,7 @@
     "setInterval": false,
     "setTimeout": false,
     "window": false,
-    "XMLHttpRequest": false,
+    "XMLHttpRequest": false
   },
 
   "rules": {

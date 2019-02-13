@@ -11,11 +11,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 
-import AsyncStorage from '@react-native-community/asyns-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
-type Props = {
-  resetFunction: () => void,
-};
+type Props = {};
 type State = {
   storedNumber: number,
   needRestart: boolean,

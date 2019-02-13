@@ -1,0 +1,61 @@
+version: 2
+
+# Defaults
+default job config: &defaults
+  working_directory: ~/async_storage
+  docker:
+    - image: circleci/node:8
+
+checkout step for each job: &addWorkspace
+  attach_workspace:
+    at: ~/
+
+
+jobs:
+  "Setup environment":
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore node modules
+          keys:
+            - node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
+      - run:
+          name: Install dependencies
+          command: yarn --pure-lockfile --non-interactive
+      - save_cache:
+          name: Save node modules
+          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
+          paths:
+            - node_modules
+          persist_to_workspace:
+            -root: .
+            -paths: .
+
+  "Test: lint":
+    <<: *defaults
+    steps:
+      - *addWorkspace
+      - run:
+          name: Lint check
+          command: yarn test:lint
+
+  "Test: flow":
+    <<: *defaults
+    steps:
+      - *addWorkspace
+      - run:
+          name: Flow check
+          command: yarn test:flow
+
+workflows:
+  version: 2
+  "Basic check":
+    jobs:
+      - "Setup environment"
+      - "Test: lint":
+          requires:
+            - "Setup environment"
+      - "Test: flow":
+          requires:
+            - "Setup environment"

@@ -11,15 +11,12 @@
 import React, {Component} from 'react';
 import {Text, View, Button} from 'react-native';
 
-import AsyncStorage from '@react-native-community/asyns-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {STORAGE_KEY} from './GetSet';
 
-type Props = {
-  resetFunction: () => void,
-};
+type Props = {};
 type State = {
-  storedNumber: number,
   needRestart: boolean,
 };
 export default class Clear extends Component<Props, State> {
