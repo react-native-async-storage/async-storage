@@ -15,12 +15,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 type Props = {};
 type State = {
-  storedNumber: number,
+  storedNumber: string,
   needRestart: boolean,
 };
 export default class GetSet extends Component<Props, State> {
   state = {
-    storedNumber: -1,
+    storedNumber: '',
     needRestart: false,
   };
 
@@ -34,8 +34,8 @@ export default class GetSet extends Component<Props, State> {
   }
 
   storeRandom = async () => {
-    const randomNum = Math.round(Math.random() * 100);
-    await AsyncStorage.setItem(STORAGE_KEY, `${randomNum}`);
+    const randomNum = Math.round(Math.random() * 100).toString();
+    await AsyncStorage.setItem(STORAGE_KEY, randomNum);
 
     this.setState({storedNumber: randomNum, needRestart: true});
   };
