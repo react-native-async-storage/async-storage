@@ -40,13 +40,32 @@ export default class GetSet extends Component<Props, State> {
     this.setState({storedNumber: randomNum, needRestart: true});
   };
 
+  increaseByTen = async () => {
+    const {storedNumber} = this.state;
+
+    const newNumber = +storedNumber > 0 ? +storedNumber + 10 : 10;
+
+    await AsyncStorage.setItem(STORAGE_KEY, `${newNumber}`);
+
+    this.setState({storedNumber: `${newNumber}`});
+  };
+
   render() {
     const {storedNumber, needRestart} = this.state;
     return (
       <View>
-        <Text style={styles.text}>Currently stored: {storedNumber}</Text>
+        <Text style={styles.text}>Currently stored: </Text>
+        <Text testID="text_storedNumber" style={styles.text}>
+          {storedNumber}
+        </Text>
 
         <Button title="Save random number" onPress={this.storeRandom} />
+
+        <Button
+          testID="increaseByTen_button"
+          title="Increase by 10"
+          onPress={this.increaseByTen}
+        />
 
         {needRestart ? <Text>Hit restart to see effect</Text> : null}
       </View>

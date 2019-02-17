@@ -15,6 +15,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView,
 } from 'react-native';
 
 import SimpleGetSet from './examples/GetSet';
@@ -23,6 +24,7 @@ import ClearStorage from './examples/ClearSingle';
 const EXAMPLES = [
   {
     title: 'Simple Get/Set value',
+    testId: 'get-set',
     description: 'Store and retrieve persisted data',
     render() {
       return <SimpleGetSet />;
@@ -30,6 +32,7 @@ const EXAMPLES = [
   },
   {
     title: 'Clear',
+    testId: 'clear',
     description: 'Clear persisting data storage',
     render() {
       return <ClearStorage />;
@@ -54,26 +57,32 @@ export default class App extends Component<Props, State> {
     return (
       <SafeAreaView style={styles.container}>
         <TouchableOpacity
+          testID="restart_button"
           onPress={this._simulateRestart}
           style={styles.restartButton}
           activeOpacity={0.6}>
           <Text>Simulate Restart</Text>
         </TouchableOpacity>
-        {restarting
-          ? null
-          : EXAMPLES.map(example => {
-              return (
-                <View key={example.title} style={styles.exampleContainer}>
-                  <Text style={styles.exampleTitle}>{example.title}</Text>
-                  <Text style={styles.exampleDescription}>
-                    {example.description}
-                  </Text>
-                  <View style={styles.exampleInnerContainer}>
-                    {example.render()}
+        <ScrollView testID="examples_container">
+          {restarting
+            ? null
+            : EXAMPLES.map(example => {
+                return (
+                  <View
+                    testID={`example-${example.testId}`}
+                    key={example.title}
+                    style={styles.exampleContainer}>
+                    <Text style={styles.exampleTitle}>{example.title}</Text>
+                    <Text style={styles.exampleDescription}>
+                      {example.description}
+                    </Text>
+                    <View style={styles.exampleInnerContainer}>
+                      {example.render()}
+                    </View>
                   </View>
-                </View>
-              );
-            })}
+                );
+              })}
+        </ScrollView>
       </SafeAreaView>
     );
   }

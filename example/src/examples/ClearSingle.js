@@ -34,7 +34,11 @@ export default class Clear extends Component<Props, State> {
     const {needRestart} = this.state;
     return (
       <View>
-        <Button title="Clear Local State" onPress={this.cleanItem} />
+        <Button
+          testID="clear_button"
+          title="Clear Local State"
+          onPress={this.cleanItem}
+        />
 
         {needRestart ? <Text>Hit restart to see effect</Text> : null}
       </View>

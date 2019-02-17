@@ -51,7 +51,10 @@
     "setInterval": false,
     "setTimeout": false,
     "window": false,
-    "XMLHttpRequest": false
+    "XMLHttpRequest": false,
+    "device": true,
+    "element": true,
+    "by": true
   },
 
   "rules": {

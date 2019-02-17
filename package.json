@@ -24,7 +24,9 @@
     "start:ios": "react-native run-ios --project-path example/ios",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
-    "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'"
+    "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'",
+    "test:detox:ios": "detox test -c ios.debug",
+    "test:detox:android": "detox test -c android.debug"
   },
   "peerDependencies": {
     "react": "^16.0",
@@ -36,6 +38,7 @@
     "babel-eslint": "9.0.0",
     "babel-jest": "24.1.0",
     "babel-plugin-module-resolver": "^3.1.3",
+    "detox": "^10.0.7",
     "eslint": "5.1.0",
     "eslint-config-fb-strict": "22.1.0",
     "eslint-config-fbjs": "2.0.1",
@@ -47,7 +50,7 @@
     "eslint-plugin-react-hooks": "^1.0.1",
     "eslint-plugin-react-native": "3.5.0",
     "flow-bin": "0.86.0",
-    "jest": "24.1.0",
+    "jest": "^24.1.0",
     "metro-react-native-babel-preset": "0.51.1",
     "prettier": "^1.16.4",
     "react": "16.6.3",
@@ -56,5 +59,23 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "test-runner": "jest",
+    "runner-config": "example/e2e/config.json",
+    "configurations": {
+      "ios.debug": {
+        "binaryPath": "example/ios/build/Build/Products/Debug-iphonesimulator/AsyncStorageExample.app",
+        "build": "xcodebuild -project example/ios/AsyncStorageExample.xcodeproj -scheme AsyncStorageExample -configuration Debug -sdk iphonesimulator -derivedDataPath example/ios/build  -UseModernBuildSystem=NO",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      },
+      "android.debug": {
+        "binaryPath": "example/android/app/build/outputs/apk/debug/app-debug.apk",
+        "build": "cd example/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ../..",
+        "type": "android.emulator",
+        "name": "Emu_API_21"
+      }
+    }
   }
 }
