@@ -113,11 +113,11 @@ export default class Merge extends Component<Props, State> {
   };
 
   restoreItem = async () => {
-    let storedItem;
+    let storedItem = {};
 
     try {
-      storedItem = await AsyncStorage.getItem(KEY);
-      storedItem = JSON.parse(storedItem);
+      const saved = await AsyncStorage.getItem(KEY);
+      storedItem = JSON.parse(saved || '{"traits": {}}');
     } catch (e) {
       console.warn(e);
     }
@@ -135,12 +135,8 @@ export default class Merge extends Component<Props, State> {
   };
 
   render() {
-    const {
-      needRestart,
-      name,
-      age,
-      traits: {trait1, trait2},
-    } = this.state;
+    const {needRestart, name, age, traits} = this.state;
+    const {trait1, trait2} = traits;
     return (
       <View>
         <View>
@@ -152,6 +148,25 @@ export default class Merge extends Component<Props, State> {
         </View>
 
         {INPUTS.map(input => {
+          const isTraitsPart = input.stateFragment.includes('trait');
+
+          const value = isTraitsPart
+            ? // $FlowFixMe
+              traits[input.stateFragment]
+            : // $FlowFixMe
+              this.state[input.stateFragment];
+
+          const onChangeHandler = text => {
+            isTraitsPart
+              ? this.setState(({traits: currentTraits}) => ({
+                  traits: {
+                    ...currentTraits,
+                    [input.stateFragment]: text,
+                  },
+                }))
+              : this.setState({[input.stateFragment]: text});
+          };
+
           return (
             <View key={input.title}>
               <Text>{input.title}:</Text>
@@ -159,19 +174,8 @@ export default class Merge extends Component<Props, State> {
                 testID={input.testId}
                 style={styles.inputView}
                 keyboardType={input.inputType || 'default'}
-                onChangeText={text => {
-                  if (input.stateFragment.includes('trait')) {
-                    this.setState(({traits}) => ({
-                      traits: {
-                        ...traits,
-                        [input.stateFragment]: text,
-                      },
-                    }));
-                  } else {
-                    this.setState({[input.stateFragment]: text});
-                  }
-                }}
-                value={this.state[input.stateFragment]}
+                onChangeText={onChangeHandler}
+                value={value}
               />
             </View>
           );
