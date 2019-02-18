@@ -13,8 +13,6 @@ import {Text, View, Button} from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {STORAGE_KEY} from './GetSet';
-
 type Props = {};
 type State = {
   needRestart: boolean,
@@ -24,8 +22,8 @@ export default class Clear extends Component<Props, State> {
     needRestart: false,
   };
 
-  cleanItem = async () => {
-    await AsyncStorage.removeItem(STORAGE_KEY);
+  clearAsyncStorage = async () => {
+    await AsyncStorage.clear();
 
     this.setState({needRestart: true});
   };
@@ -37,7 +35,7 @@ export default class Clear extends Component<Props, State> {
         <Button
           testID="clear_button"
           title="Clear Local State"
-          onPress={this.cleanItem}
+          onPress={this.clearAsyncStorage}
         />
 
         {needRestart ? <Text>Hit restart to see effect</Text> : null}

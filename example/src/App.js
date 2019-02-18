@@ -16,10 +16,12 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Keyboard,
 } from 'react-native';
 
 import SimpleGetSet from './examples/GetSet';
 import ClearStorage from './examples/ClearSingle';
+import MergeItem from './examples/MergeItem';
 
 const EXAMPLES = [
   {
@@ -36,6 +38,14 @@ const EXAMPLES = [
     description: 'Clear persisting data storage',
     render() {
       return <ClearStorage />;
+    },
+  },
+  {
+    title: 'Merge item',
+    testId: 'merge-item',
+    description: 'Merge object with already stored data',
+    render() {
+      return <MergeItem />;
     },
   },
 ];
@@ -56,6 +66,12 @@ export default class App extends Component<Props, State> {
     const {restarting} = this.state;
     return (
       <SafeAreaView style={styles.container}>
+        <TouchableOpacity
+          style={styles.closeKeyboardView}
+          onPress={() => Keyboard.dismiss()}
+          testID="closeKeyboard"
+        />
+
         <TouchableOpacity
           testID="restart_button"
           onPress={this._simulateRestart}
@@ -121,5 +137,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'flex-end',
+  },
+  closeKeyboardView: {
+    width: 5,
+    height: 5,
+    margin: 20,
   },
 });

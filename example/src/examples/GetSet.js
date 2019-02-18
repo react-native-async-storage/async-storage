@@ -33,13 +33,6 @@ export default class GetSet extends Component<Props, State> {
     }
   }
 
-  storeRandom = async () => {
-    const randomNum = Math.round(Math.random() * 100).toString();
-    await AsyncStorage.setItem(STORAGE_KEY, randomNum);
-
-    this.setState({storedNumber: randomNum, needRestart: true});
-  };
-
   increaseByTen = async () => {
     const {storedNumber} = this.state;
 
@@ -47,7 +40,7 @@ export default class GetSet extends Component<Props, State> {
 
     await AsyncStorage.setItem(STORAGE_KEY, `${newNumber}`);
 
-    this.setState({storedNumber: `${newNumber}`});
+    this.setState({storedNumber: `${newNumber}`, needRestart: true});
   };
 
   render() {
@@ -58,8 +51,6 @@ export default class GetSet extends Component<Props, State> {
         <Text testID="text_storedNumber" style={styles.text}>
           {storedNumber}
         </Text>
-
-        <Button title="Save random number" onPress={this.storeRandom} />
 
         <Button
           testID="increaseByTen_button"
