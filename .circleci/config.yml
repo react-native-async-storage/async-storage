@@ -1,39 +1,68 @@
 version: 2
 
-# Defaults
+# DEFAULTS FOR JOBS
 default job config: &defaults
   working_directory: ~/async_storage
+  
+checkout step for each job: &addWorkspace
+  attach_workspace:
+    at: ~/async_storage
+
+
+# ENVIRONMENT DEFAULTS
+
+default config for js: &js_defaults
+  <<: *defaults
   docker:
     - image: circleci/node:8
 
-checkout step for each job: &addWorkspace
-  attach_workspace:
-    at: ~/
+default config for macOS: &macos_defaults
+  <<: *defaults
+  resource_class: 'medium'
+  macos:
+    xcode: '10.1.0'
 
+
+# CACHE SETTINGS
+save brew cache: &cache_save_brew
+  paths:
+    - /usr/local/Homebrew
+    - ~/Library/Caches/Homebrew
+  key: v1-brew-cache-{{ arch }}
+
+restore brew cache: &cache_restore_brew
+  keys:
+    - v1-brew-cache-{{ arch }}
+
+save yarn cache: &cache_save_yarn
+  paths:
+    - ~/.cache/yarn
+    - ~/Library/Detox
+  key: v1-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
+
+restore yarn cache: &cache_restore_yarn
+  keys: 
+    - v1-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
+
+# JOBS
 
 jobs:
+
   "Setup environment":
-    <<: *defaults
+    <<: *js_defaults
     steps:
       - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
+      - restore-cache: *cache_restore_yarn
       - run:
           name: Install dependencies
-          command: yarn --pure-lockfile --non-interactive
-      - save_cache:
-          name: Save node modules
-          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
-          paths:
-            - node_modules
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
       - persist_to_workspace:
           root: .
           paths: .
 
   "Test: lint":
-    <<: *defaults
+    <<: *js_defaults
     steps:
       - *addWorkspace
       - run:
@@ -41,16 +70,43 @@ jobs:
           command: yarn test:lint
 
   "Test: flow":
-    <<: *defaults
+    <<: *js_defaults
     steps:
       - *addWorkspace
       - run:
           name: Flow check
           command: yarn test:flow
 
+  "Test: iOS e2e":
+    <<: *macos_defaults
+    steps:
+      - *addWorkspace
+      - restore-cache: *cache_restore_brew
+      - run:
+          name: Configure OSX Environment
+          command: |
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install node@8 >/dev/null
+            HOMEBREW_NO_AUTO_UPDATE=1 brew tap wix/brew >/dev/null
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install applesimutils >/dev/null
+            touch .watchmanconfig
+            node -v
+      - save-cache: *cache_save_brew
+      - restore-cache: *cache_restore_yarn
+      - run: 
+          name: Ensure dotex post install
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
+      - run:
+          name: Build iOS app
+          command: yarn build:e2e:ios
+
+      - run:
+          name: Run e2e tests
+          command: yarn test:e2e:ios
+
 workflows:
   version: 2
-  "Basic check":
+  "Testing":
     jobs:
       - "Setup environment"
       - "Test: lint":
@@ -59,3 +115,7 @@ workflows:
       - "Test: flow":
           requires:
             - "Setup environment"
+      - "Test: iOS e2e":
+          requires:
+            - "Test: lint"
+            - "Test: flow"
