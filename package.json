@@ -23,6 +23,7 @@
     "start:android": "react-native run-android --root example/",
     "start:ios": "react-native run-ios --project-path example/ios",
     "build:e2e:ios": "detox build -c ios",
+    "build:e2e:android": "detox build -c android",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
     "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'",
@@ -72,10 +73,10 @@
         "name": "iPhone X"
       },
       "android": {
-        "binaryPath": "example/android/app/build/outputs/apk/debug/app-debug.apk",
-        "build": "cd example/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ../..",
+        "binaryPath": "example/android/app/build/outputs/apk/release/app-release.apk",
+        "build": ".circleci/scripts/run_android_e2e.sh",
         "type": "android.emulator",
-        "name": "Emu_API_21"
+        "name": "Emu_E2E"
       }
     }
   }

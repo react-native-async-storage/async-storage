@@ -206,15 +206,14 @@ export default class Merge extends Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-  horizontalBlock: {},
   inputView: {
-    flex: 1,
     borderColor: '#333',
     borderWidth: 0.5,
     borderStyle: 'solid',
+    fontSize: 14,
+    padding: 0,
   },
   bottomButtons: {
-    flex: 1,
     justifyContent: 'space-around',
     marginTop: 20,
     flexDirection: 'row',
