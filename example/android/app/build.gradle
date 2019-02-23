@@ -72,18 +72,12 @@ import com.android.build.OutputFile
  * ]
  */
 
- def useCIConfig = "$System.env.CIRCLECI"
 
 project.ext.react = [
-    entryFile: "index.js",
-]
-
-if(useCIConfig != null) {
-    project.ext.react = [
         cliPath: "../node_modules/react-native/local-cli/cli.js",
         entryFile: "example/index.js"
-    ]
-}
+]
+
 
 apply from: "./scripts/CI.gradle"
 apply from: "../../../node_modules/react-native/react.gradle"

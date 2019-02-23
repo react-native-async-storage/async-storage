@@ -26,6 +26,17 @@ default config for macOS: &macos_defaults
   macos:
     xcode: '10.1.0'
 
+default config for android apk builds: &android_defaults
+  <<: *defaults
+  docker:
+    - image: reactnativecommunity/react-native-android
+  resource_class: 'medium'
+  working_directory: ~/async_storage
+  environment:
+    - _JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xmx2048m'
+    - GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:+HeapDumpOnOutOfMemoryError -Xmx2048m"'
+    - BUILD_THREADS: 2
+
 # ==============================
 # CACHE CONFIG
 # ==============================
@@ -73,23 +84,23 @@ save gradle wrapper cache: &cache_save_gradle_wrapper
   name: Saving Gradle Wrapper cache
   paths:
     - ~/.gradle/wrapper
-  key: gradle-wrapper-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
+  key: gradle-wrapper-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
 
 save gradle build cache: &cache_save_gradle_build
   name: Saving Gradle app/build cache
   paths:
     - ~/.gradle/caches
-  key: v1-app-build-gradle-{{ checksum "example/android/app/build.gradle" }}
+  key: app-build-gradle-v1-{{ checksum "example/android/app/build.gradle" }}
 
 restore gradle wrapper cache: &cache_restore_gradle_wrapper
   name: Restoring Gradle Wrapper cache
   keys: 
-    - gradle-wrapper-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
+    - gradle-wrapper-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
 
 restore gradle build cache: &cache_restore_gradle_build
   name: Restoring Gradle app/build cache
   keys: 
-    - v1-app-build-gradle-{{ checksum "example/android/app/build.gradle" }}
+    - app-build-gradle-v1-{{ checksum "example/android/app/build.gradle" }}
 
 
 # ==============================
@@ -152,7 +163,36 @@ jobs:
       - run:
           name: Run e2e tests
           command: yarn test:e2e:ios
-  
+
+  "Build: Android release apk":
+    <<: *android_defaults
+    steps:
+      - *addWorkspace
+      - restore-cache: *cache_restore_yarn
+      - run:
+          name: Installing Yarn dependencies
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
+
+      # Gradle
+      - restore-cache: *cache_restore_gradle_wrapper
+      - restore-cache: *cache_restore_gradle_build
+      - run:
+          name: Downloading Gradle dependencies
+          command: cd example/android && ./gradlew --max-workers 2 fetchDependencies
+      - save-cache: *cache_save_gradle_wrapper
+      - save-cache: *cache_save_gradle_build
+
+    # Build and test
+      - run:
+          name: Build Android apk
+          command: cd example/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2
+
+      - persist_to_workspace:
+          root: ~/async_storage
+          paths:
+            - example/android/app/build/outputs/apk/*
+
   "Test: Android e2e":
     <<: *macos_defaults
     steps:
@@ -197,32 +237,17 @@ jobs:
             adb kill-server
             ls -la ~/.android
 
-      # Yarn
-      - restore-cache: *cache_restore_yarn
-      - run: 
-          name: Installing Yarn dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
-      - save-cache: *cache_save_yarn
-
-      # Gradle
-      - restore-cache: *cache_restore_gradle_wrapper
-      - restore-cache: *cache_restore_gradle_build
-      - run:
-          name: Downloading Gradle dependencies
-          command: cd example/android && ./gradlew --max-workers 2 fetchDependencies
-      - save-cache: *cache_save_gradle_wrapper
-      - save-cache: *cache_save_gradle_build
-
       - run:
           name: Create emulator
           command: |
             avdmanager create avd \
                    --force \
                    -n "Emu_E2E" \
-                   -c "1200M" \
                    -k "system-images;android-21;google_apis;x86" \
                    -g "google_apis" \
-                   -d "Nexus 5"
+                   -d "Nexus 4"
+
+
 
       - run:
           name: Start emulator in background
@@ -230,23 +255,32 @@ jobs:
           command: |
             emulator -avd "Emu_E2E" \
                 -cores 1 \
-                -gpu host \
+                -gpu auto \
                 -accel on \
                 -memory 1024 \
                 -no-audio \
                 -no-snapshot \
                 -no-boot-anim \
+                -no-window \
                 -logcat '*:W' | grep -i "ReactNative"
 
-      # Build and test
       - run:
-          name: Build Android app
+          name: Wait for emulator to boot
           command: yarn build:e2e:android
+
+      - run:
+          name: Wake device
+          command: |
+            adb shell input keyevent
+            adb shell input keyevent 82 &
 
       - run:
           name: Run e2e tests
           command: yarn test:e2e:android
 
+# ==============================
+# WORK FLOWS
+# ==============================
 workflows:
   version: 2
   "Testing":
@@ -262,7 +296,12 @@ workflows:
           requires:
             - "Test: lint"
             - "Test: flow"
+      - "Build: Android release apk":
+          requires:
+            - "Test: lint"
+            - "Test: flow"
       - "Test: Android e2e":
           requires:
             - "Test: lint"
             - "Test: flow"
+            - "Build: Android release apk"
