@@ -51,7 +51,10 @@
     "setInterval": false,
     "setTimeout": false,
     "window": false,
-    "XMLHttpRequest": false
+    "XMLHttpRequest": false,
+    "device": true,
+    "element": true,
+    "by": true
   },
 
   "rules": {
@@ -171,7 +174,7 @@
 
   // Prettier Plugin
   // https://github.com/prettier/eslint-plugin-prettier
-    "prettier/prettier": [2, "fb", "@format"],
+    "prettier/prettier": "error",
 
   // Stylistic Issues
   // These rules are purely matters of style and are quite subjective.

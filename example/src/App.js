@@ -15,65 +15,95 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ScrollView,
+  Keyboard,
+  Button,
 } from 'react-native';
 
-import SimpleGetSet from './examples/GetSet';
-import ClearStorage from './examples/ClearSingle';
+import GetSetClear from './examples/GetSetClear';
+import MergeItem from './examples/MergeItem';
 
-const EXAMPLES = [
-  {
+const TESTS = {
+  GetSetClear: {
     title: 'Simple Get/Set value',
+    testId: 'get-set-clear',
     description: 'Store and retrieve persisted data',
     render() {
-      return <SimpleGetSet />;
+      return <GetSetClear />;
     },
   },
-  {
-    title: 'Clear',
-    description: 'Clear persisting data storage',
+  MergeItem: {
+    title: 'Merge item',
+    testId: 'merge-item',
+    description: 'Merge object with already stored data',
     render() {
-      return <ClearStorage />;
+      return <MergeItem />;
     },
   },
-];
+};
 
 type Props = {};
-type State = {restarting: boolean};
+type State = {restarting: boolean, currentTest: Object};
 
 export default class App extends Component<Props, State> {
   state = {
     restarting: false,
+    currentTest: TESTS.GetSetClear,
   };
 
   _simulateRestart = () => {
     this.setState({restarting: true}, () => this.setState({restarting: false}));
   };
 
+  _changeTest = testName => {
+    this.setState({currentTest: TESTS[testName]});
+  };
+
   render() {
-    const {restarting} = this.state;
+    const {restarting, currentTest} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <TouchableOpacity
+          style={styles.closeKeyboardView}
+          onPress={() => Keyboard.dismiss()}
+          testID="closeKeyboard"
+        />
+
+        <TouchableOpacity
+          testID="restart_button"
           onPress={this._simulateRestart}
           style={styles.restartButton}
           activeOpacity={0.6}>
           <Text>Simulate Restart</Text>
         </TouchableOpacity>
-        {restarting
-          ? null
-          : EXAMPLES.map(example => {
-              return (
-                <View key={example.title} style={styles.exampleContainer}>
-                  <Text style={styles.exampleTitle}>{example.title}</Text>
-                  <Text style={styles.exampleDescription}>
-                    {example.description}
-                  </Text>
-                  <View style={styles.exampleInnerContainer}>
-                    {example.render()}
-                  </View>
-                </View>
-              );
-            })}
+
+        <View style={styles.testPickerContainer}>
+          <Button
+            testID="testType_getSetClear"
+            title="Get/Set/Clear"
+            onPress={() => this._changeTest('GetSetClear')}
+          />
+          <Button
+            testID="testType_mergeItem"
+            title="Merge Item"
+            onPress={() => this._changeTest('MergeItem')}
+          />
+        </View>
+
+        {restarting ? null : (
+          <View
+            testID={`example-${currentTest.testId}`}
+            key={currentTest.title}
+            style={styles.exampleContainer}>
+            <Text style={styles.exampleTitle}>{currentTest.title}</Text>
+            <Text style={styles.exampleDescription}>
+              {currentTest.description}
+            </Text>
+            <View style={styles.exampleInnerContainer}>
+              {currentTest.render()}
+            </View>
+          </View>
+        )}
       </SafeAreaView>
     );
   }
@@ -83,7 +113,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
-    padding: 14,
+    padding: 8,
   },
   exampleContainer: {
     padding: 16,
@@ -91,6 +121,7 @@ const styles = StyleSheet.create({
     borderColor: '#EEE',
     borderTopWidth: 1,
     borderBottomWidth: 1,
+    flex: 1,
   },
   exampleTitle: {
     fontSize: 18,
@@ -102,15 +133,24 @@ const styles = StyleSheet.create({
   exampleInnerContainer: {
     borderColor: '#EEE',
     borderTopWidth: 1,
-    paddingTop: 16,
+    paddingTop: 10,
+    flex: 1,
   },
   restartButton: {
-    padding: 15,
+    padding: 6,
     fontSize: 16,
     borderRadius: 5,
     backgroundColor: '#F3F3F3',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'flex-end',
+  },
+  closeKeyboardView: {
+    width: 5,
+    height: 5,
+  },
+  testPickerContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 });

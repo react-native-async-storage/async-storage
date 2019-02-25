@@ -22,39 +22,62 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:android": "react-native run-android --root example/",
     "start:ios": "react-native run-ios --project-path example/ios",
+    "build:e2e:ios": "detox build -c ios",
+    "build:e2e:android": "detox build -c android",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
-    "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'"
+    "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'",
+    "test:e2e:ios": "detox test -c ios",
+    "test:e2e:android": "detox test -c android"
   },
   "peerDependencies": {
     "react": "^16.0",
     "react-native": "^0.57.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
+    "@babel/core": "7.0.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "24.1.0",
-    "babel-plugin-module-resolver": "^3.1.3",
+    "babel-plugin-module-resolver": "3.1.3",
+    "detox": "10.0.7",
     "eslint": "5.1.0",
     "eslint-config-fb-strict": "22.1.0",
     "eslint-config-fbjs": "2.0.1",
-    "eslint-plugin-eslint-comments": "^3.0.1",
+    "eslint-plugin-eslint-comments": "3.0.1",
     "eslint-plugin-flowtype": "2.43.0",
     "eslint-plugin-jest": "21.8.0",
     "eslint-plugin-prettier": "2.6.0",
     "eslint-plugin-react": "7.8.2",
-    "eslint-plugin-react-hooks": "^1.0.1",
+    "eslint-plugin-react-hooks": "1.0.1",
     "eslint-plugin-react-native": "3.5.0",
     "flow-bin": "0.86.0",
     "jest": "24.1.0",
     "metro-react-native-babel-preset": "0.51.1",
-    "prettier": "^1.16.4",
+    "prettier": "1.16.4",
     "react": "16.6.3",
     "react-native": "0.58.4",
     "react-test-renderer": "16.6.3"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "test-runner": "jest",
+    "runner-config": "example/e2e/config.json",
+    "configurations": {
+      "ios": {
+        "binaryPath": "example/ios/build/Build/Products/Release-iphonesimulator/AsyncStorageExample.app",
+        "build": ".circleci/scripts/run_ios_e2e.sh \"iPhone X\"",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      },
+      "android": {
+        "binaryPath": "example/android/app/build/outputs/apk/release/app-release.apk",
+        "build": ".circleci/scripts/run_android_e2e.sh",
+        "type": "android.emulator",
+        "name": "Emu_E2E"
+      }
+    }
   }
 }

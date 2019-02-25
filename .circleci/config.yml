@@ -1,39 +1,128 @@
 version: 2
 
-# Defaults
+# ==============================
+# DEFAULTS FOR JOBS
+# ==============================
+
 default job config: &defaults
   working_directory: ~/async_storage
+  
+checkout step for each job: &addWorkspace
+  attach_workspace:
+    at: ~/async_storage
+
+# ==============================
+# ENVIRONMENT VARIABLES
+# ==============================
+
+default config for js: &js_defaults
+  <<: *defaults
   docker:
     - image: circleci/node:8
 
-checkout step for each job: &addWorkspace
-  attach_workspace:
-    at: ~/
+default config for macOS: &macos_defaults
+  <<: *defaults
+  resource_class: 'medium'
+  macos:
+    xcode: '10.1.0'
 
+default config for android apk builds: &android_defaults
+  <<: *defaults
+  docker:
+    - image: reactnativecommunity/react-native-android
+  resource_class: 'medium'
+  working_directory: ~/async_storage
+  environment:
+    - _JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xmx2048m'
+    - GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:+HeapDumpOnOutOfMemoryError -Xmx2048m"'
+    - BUILD_THREADS: 2
+
+# ==============================
+# CACHE CONFIG
+# ==============================
+
+# brew
+save brew cache: &cache_save_brew
+  name: Saving Brew cache
+  paths:
+    - /usr/local/Homebrew
+    - ~/Library/Caches/Homebrew
+  key: v1-brew-cache-{{ arch }}
+
+restore brew cache: &cache_restore_brew
+  name: Restoring Brew cache
+  keys:
+    - v1-brew-cache-{{ arch }}
+
+save brew cache for android: &cache_save_brew_android
+  name: Saving Brew cache for android
+  paths:
+  - /usr/local/Homebrew
+  - ~/Library/Caches/Homebrew
+  key: v1-brew-cache-{{ arch }}-android
+
+restore brew cache for android: &cache_restore_brew_android
+  name: Restoring Brew cache for android
+  keys:
+  - v1-brew-cache-{{ arch }}-android
+
+# yarn
+save yarn cache: &cache_save_yarn
+  name: Saving Yarn cache
+  paths:
+    - ~/.cache/yarn
+    - ~/Library/Detox
+  key: v1-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
+
+restore yarn cache: &cache_restore_yarn
+  name: Restoring Yarn cache
+  keys: 
+    - v1-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
+
+# gradle
+save gradle wrapper cache: &cache_save_gradle_wrapper
+  name: Saving Gradle Wrapper cache
+  paths:
+    - ~/.gradle/wrapper
+  key: gradle-wrapper-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
+
+save gradle build cache: &cache_save_gradle_build
+  name: Saving Gradle app/build cache
+  paths:
+    - ~/.gradle/caches
+  key: app-build-gradle-v1-{{ checksum "example/android/app/build.gradle" }}
+
+restore gradle wrapper cache: &cache_restore_gradle_wrapper
+  name: Restoring Gradle Wrapper cache
+  keys: 
+    - gradle-wrapper-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
+
+restore gradle build cache: &cache_restore_gradle_build
+  name: Restoring Gradle app/build cache
+  keys: 
+    - app-build-gradle-v1-{{ checksum "example/android/app/build.gradle" }}
+
+
+# ==============================
+# JOBS
+# ==============================
 
 jobs:
   "Setup environment":
-    <<: *defaults
+    <<: *js_defaults
     steps:
       - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
+      - restore-cache: *cache_restore_yarn
       - run:
           name: Install dependencies
-          command: yarn --pure-lockfile --non-interactive
-      - save_cache:
-          name: Save node modules
-          key: node_modules-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ arch }}
-          paths:
-            - node_modules
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
       - persist_to_workspace:
           root: .
           paths: .
 
   "Test: lint":
-    <<: *defaults
+    <<: *js_defaults
     steps:
       - *addWorkspace
       - run:
@@ -41,16 +130,160 @@ jobs:
           command: yarn test:lint
 
   "Test: flow":
-    <<: *defaults
+    <<: *js_defaults
     steps:
       - *addWorkspace
       - run:
           name: Flow check
           command: yarn test:flow
 
+  "Test: iOS e2e":
+    <<: *macos_defaults
+    steps:
+      - *addWorkspace
+      - restore-cache: *cache_restore_brew
+      - run:
+          name: Configure OSX Environment
+          command: |
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install node@8 >/dev/null
+            HOMEBREW_NO_AUTO_UPDATE=1 brew tap wix/brew >/dev/null
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install applesimutils >/dev/null
+            touch .watchmanconfig
+            node -v
+      - save-cache: *cache_save_brew
+      - restore-cache: *cache_restore_yarn
+      - run: 
+          name: Installing Yarn dependencies
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
+      - run:
+          name: Build iOS app
+          command: yarn build:e2e:ios
+
+      - run:
+          name: Run e2e tests
+          command: yarn test:e2e:ios
+
+  "Build: Android release apk":
+    <<: *android_defaults
+    steps:
+      - *addWorkspace
+      - restore-cache: *cache_restore_yarn
+      - run:
+          name: Installing Yarn dependencies
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
+
+      # Gradle
+      - restore-cache: *cache_restore_gradle_wrapper
+      - restore-cache: *cache_restore_gradle_build
+      - run:
+          name: Downloading Gradle dependencies
+          command: cd example/android && ./gradlew --max-workers 2 fetchDependencies
+      - save-cache: *cache_save_gradle_wrapper
+      - save-cache: *cache_save_gradle_build
+
+    # Build and test
+      - run:
+          name: Build Android apk
+          command: cd example/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2
+
+      - persist_to_workspace:
+          root: ~/async_storage
+          paths:
+            - example/android/app/build/outputs/apk/*
+
+  "Test: Android e2e":
+    <<: *macos_defaults
+    steps:
+      - *addWorkspace
+      - run:
+          name: Configure env variables
+          command: |
+            echo 'export ANDROID_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
+            echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> $BASH_ENV
+            echo 'export PATH="$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/tools/bin:$PATH"' >> $BASH_ENV
+            echo 'export QEMU_AUDIO_DRV=none' >> $BASH_ENV
+            echo 'export JAVA_HOME=/Library/Java/Home' >> $BASH_ENV
+            source $BASH_ENV
+
+    # Android tools
+      - restore-cache: *cache_restore_brew_android
+      - run:
+          name: Install Android SDK tools
+          command: |
+            HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/cask >/dev/null
+            HOMEBREW_NO_AUTO_UPDATE=1 brew cask install android-sdk >/dev/null
+            HOMEBREW_NO_AUTO_UPDATE=1 brew cask install intel-haxm >/dev/null
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install node@8 >/dev/null >/dev/null
+      - save-cache: *cache_save_brew_android
+
+      - run:
+          name: Install Android emulator
+          shell: /bin/bash -e
+          command: |
+            yes | sdkmanager "platform-tools"  "tools" >/dev/null
+            yes | sdkmanager "platforms;android-28" "system-images;android-21;google_apis;x86" >/dev/null
+            yes | sdkmanager "emulator" --channel=3 >/dev/null
+            yes | sdkmanager "build-tools;28.0.3" >/dev/null
+            yes | sdkmanager --licenses >/dev/null
+            yes | sdkmanager --list
+
+      - run:
+          name: ADB start/stop
+          command: |
+            adb start-server
+            adb devices
+            adb kill-server
+            ls -la ~/.android
+
+      - run:
+          name: Create emulator
+          command: |
+            avdmanager create avd \
+                   --force \
+                   -n "Emu_E2E" \
+                   -k "system-images;android-21;google_apis;x86" \
+                   -g "google_apis" \
+                   -d "Nexus 4"
+
+
+
+      - run:
+          name: Start emulator in background
+          background: true
+          command: |
+            emulator -avd "Emu_E2E" \
+                -cores 1 \
+                -gpu auto \
+                -accel on \
+                -memory 1024 \
+                -no-audio \
+                -no-snapshot \
+                -no-boot-anim \
+                -no-window \
+                -logcat '*:W' | grep -i "ReactNative"
+
+      - run:
+          name: Wait for emulator to boot
+          command: yarn build:e2e:android
+
+      - run:
+          name: Wake device
+          command: |
+            adb shell input keyevent
+            adb shell input keyevent 82 &
+
+      - run:
+          name: Run e2e tests
+          command: yarn test:e2e:android
+
+# ==============================
+# WORK FLOWS
+# ==============================
 workflows:
   version: 2
-  "Basic check":
+  "Testing":
     jobs:
       - "Setup environment"
       - "Test: lint":
@@ -59,3 +292,16 @@ workflows:
       - "Test: flow":
           requires:
             - "Setup environment"
+      - "Test: iOS e2e":
+          requires:
+            - "Test: lint"
+            - "Test: flow"
+      - "Build: Android release apk":
+          requires:
+            - "Test: lint"
+            - "Test: flow"
+      - "Test: Android e2e":
+          requires:
+            - "Test: lint"
+            - "Test: flow"
+            - "Build: Android release apk"
