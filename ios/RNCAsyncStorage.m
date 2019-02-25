@@ -5,18 +5,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "RCTAsyncLocalStorage.h"
+#import "RNCAsyncStorage.h"
 
 #import <Foundation/Foundation.h>
 
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonDigest.h>
 
-#import "RCTConvert.h"
-#import "RCTLog.h"
-#import "RCTUtils.h"
+#import <React/RCTConvert.h>
+#import <React/RCTLog.h>
+#import <React/RCTUtils.h>
 
-static NSString *const RCTStorageDirectory = @"RCTAsyncLocalStorage_V1";
+static NSString *const RCTStorageDirectory = @"RNCAsyncLocalStorage_V1";
 static NSString *const RCTManifestFileName = @"manifest.json";
 static const NSUInteger RCTInlineValueThreshold = 1024;
 
@@ -156,9 +156,9 @@ static NSDictionary *RCTDeleteStorageDirectory()
   return error ? RCTMakeError(@"Failed to delete storage directory.", error, nil) : nil;
 }
 
-#pragma mark - RCTAsyncLocalStorage
+#pragma mark - RNCAsyncStorage
 
-@implementation RCTAsyncLocalStorage
+@implementation RNCAsyncStorage
 {
   BOOL _haveSetup;
   // The manifest is a dictionary of all keys with small values inlined.  Null values indicate values that are stored
