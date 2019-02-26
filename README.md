@@ -67,7 +67,6 @@ import { useAsyncStorage } from '@react-native-community/async-storage';
   const readItemFromStorage = async () => {
     const item = await getItem();
     console.log(item);
-    // here you can save it to component state
   }
 
   useEffect(() => {
