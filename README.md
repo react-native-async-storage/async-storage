@@ -38,7 +38,7 @@ storeData = async () => {
 
 ```
 
-### Read data 
+### Read data
 ```jsx
 
 getData = async () => {
@@ -52,6 +52,27 @@ getData = async () => {
   }
 }
 
+```
+
+### useAsyncStorage hook
+
+```js
+import { useEffect } from 'react';
+import { useAsyncStorage } from '@react-native-community/async-storage';
+```
+
+```jsx
+  const { getItem } = useAsyncStorage('@storage_key');
+
+  const readItemFromStorage = async () => {
+    const item = await getItem();
+    console.log(item);
+    // here you can save it to component state
+  }
+
+  useEffect(() => {
+    readItemFromStorage();
+  }, []);
 ```
 
 See docs for [api and more examples.](docs/API.md)
