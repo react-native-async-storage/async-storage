@@ -13,7 +13,7 @@
   - [multiRemove](#multiRemove)
   - [clear](#clear)
   - [flushGetRequests](#flushGetRequests)
-  - [hooks](#hooks)
+  - [useAsyncStorage](#useAsyncStorage)
 
 <br />
 
@@ -500,7 +500,7 @@ static flushGetRequests(): void
 <!-- ------------------------ HOOKS ------------------------ -->
 
 
-## `useAsyncStorageHook`
+## `useAsyncStorage`
 
 Uses the new [hooks api](https://reactjs.org/docs/hooks-intro.html) to give you convenience functions to get, set, merge and delete a value from a location.
 
@@ -530,6 +530,7 @@ static useAsyncStorage(key: string): {
 `object`
 
 **Specific Example**:
+
 You can replace your `App.js` with the following to see it in action.
 
 ```jsx
