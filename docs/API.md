@@ -502,9 +502,9 @@ static flushGetRequests(): void
 
 ## `useAsyncStorage`
 
-Uses the new [hooks api](https://reactjs.org/docs/hooks-intro.html) to give you convenience functions to get, set, merge and delete a value from a location.
+Uses the new [hooks api](https://reactjs.org/docs/hooks-intro.html) to give you convenience functions so you can get, set, merge and delete a value for a given key from Async Storage.
 
-The `useAsyncStorage` returns an object that exposes all all the methods that allow you to interact with the stored value.
+The `useAsyncStorage` returns an object that exposes all methods that allow you to interact with the stored value.
 
 **Signature**:
 
@@ -579,4 +579,4 @@ In this example:
 
 1. On mount, we read the value at `@storage_key` and save it to the state under `value`
 2. When pressing on "update value", a new string gets generated, saved to async storage, and to the component state
-3. Try refreshing the app with `cmd + R` - you'll see that the last value is still being read from async storage
+3. Try to reload your app - you'll see that the last value is still being read from async storage
