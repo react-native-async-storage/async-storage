@@ -196,7 +196,7 @@ public final class AsyncStorageModule
   @ReactMethod
   public void multiSet(final ReadableArray keyValueArray, final Callback callback) {
     if (keyValueArray.size() == 0) {
-      callback.invoke(AsyncStorageErrorUtil.getInvalidKeyError(null));
+      callback.invoke();
       return;
     }
 
@@ -261,7 +261,7 @@ public final class AsyncStorageModule
   @ReactMethod
   public void multiRemove(final ReadableArray keys, final Callback callback) {
     if (keys.size() == 0) {
-      callback.invoke(AsyncStorageErrorUtil.getInvalidKeyError(null));
+      callback.invoke();
       return;
     }
 
