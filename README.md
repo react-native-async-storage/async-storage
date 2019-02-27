@@ -56,6 +56,8 @@ getData = async () => {
 
 ### useAsyncStorage hook
 
+From React 16.8 onwards, you can use the new hooks API. React hooks allow you to use state and async requests without writing a class. For more info on hooks and how to use them, see [hooks documentation](https://reactjs.org/docs/hooks-intro.html).
+
 ```js
 import { useEffect } from 'react';
 import { useAsyncStorage } from '@react-native-community/async-storage';
