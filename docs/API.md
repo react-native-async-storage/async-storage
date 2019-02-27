@@ -13,6 +13,7 @@
   - [multiRemove](#multiRemove)
   - [clear](#clear)
   - [flushGetRequests](#flushGetRequests)
+  - [useAsyncStorage](#useAsyncStorage)
 
 <br />
 
@@ -28,7 +29,7 @@ Fetches a data for a given `key`, invokes (optional) callback once completed.
 static getItem(key: string, [callback]: ?(error: ?Error, result: ?string) => void): Promise
 ```
 
-**Returns**: 
+**Returns**:
 
 `Promise` with data, if exists, `null` otherwise.
 
@@ -44,7 +45,7 @@ getMyValue = async () => {
   }
 
   console.log('Done'.)
-  
+
 }
 ```
 
@@ -78,7 +79,7 @@ setValue = async () => {
   } catch(e) {
     // save error
   }
-  
+
   console.log('Done.')
 }
 ```
@@ -181,7 +182,7 @@ removeValue = async () => {
   } catch(e) {
     // remove error
   }
-  
+
   console.log('Done.')
 }
 ```
@@ -260,7 +261,7 @@ getMultiple = async () => {
     // read error
   }
   console.log(values)
-  
+
   // example console.log output:
   // [ ['@MyApp_user', 'myUserValue'], ['@MyApp_key', 'myKeyValue'] ]
 }
@@ -299,7 +300,7 @@ multiSet = async () => {
   } catch(e) {
     //save error
   }
-  
+
   console.log("Done.")
 }
 
@@ -372,31 +373,31 @@ mergeMultiple = async () => {
   } catch(e) {
     // error
   }
-  
+
   console.log(currentlyMerged)
   // console.log output:
-  // [ 
-  //   [ 
+  // [
+  //   [
   //     'USER_1',
-  //     { 
+  //     {
   //       name:"Tom",
   //       age:30,
-  //       traits: { 
-  //         hair: 'brown' 
+  //       traits: {
+  //         hair: 'brown'
   //         eyes: 'blue'
   //       }
   //     }
   //   ],
-  //   [ 
+  //   [
   //     'USER_2',
-  //     { 
+  //     {
   //       name:'Sarah',
   //       age:26,
   //       traits: {
-  //         hair: 'green' 
+  //         hair: 'green'
   //       }
   //     }
-  //   ] 
+  //   ]
   // ]
 }
 
@@ -432,10 +433,10 @@ removeFew = async () => {
   } catch(e) {
     // remove error
   }
-  
+
   console.log('Done')
 }
-  
+
 ```
 
 
@@ -467,7 +468,7 @@ clearAll = async () => {
   } catch(e) {
     // clear error
   }
-  
+
   console.log('Done.')
 }
 
@@ -494,3 +495,88 @@ static flushGetRequests(): void
 **Returns**:
 
 `undefined`
+
+
+<!-- ------------------------ HOOKS ------------------------ -->
+
+
+## `useAsyncStorage`
+
+Uses the new [hooks api](https://reactjs.org/docs/hooks-intro.html) to give you convenience functions so you can get, set, merge and delete a value for a given key from Async Storage.
+
+The `useAsyncStorage` returns an object that exposes all methods that allow you to interact with the stored value.
+
+**Signature**:
+
+```js
+static useAsyncStorage(key: string): {
+  getItem: (
+    callback?: ?(error: ?Error, result: string | null) => void,
+  ) => Promise<string | null>,
+  setItem: (
+    value: string,
+    callback?: ?(error: ?Error) => void,
+  ) => Promise<null>,
+  mergeItem: (
+    value: string,
+    callback?: ?(error: ?Error) => void,
+  ) => Promise<null>,
+  removeItem: (callback?: ?(error: ?Error) => void) => Promise<null>,
+}
+```
+
+**Returns**:
+
+`object`
+
+**Specific Example**:
+
+You can replace your `App.js` with the following to see it in action.
+
+```jsx
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useAsyncStorage } from '@react-native-community/async-storage';
+
+export default function App() {
+  const [value, setValue] = useState('value');
+  const { getItem, setItem } = useAsyncStorage('@storage_key');
+
+  const readItemFromStorage = async () => {
+    const item = await getItem();
+    setValue(item);
+  };
+
+  const writeItemToStorage = async newValue => {
+    await setItem(newValue);
+    setValue(newValue);
+  };
+
+  useEffect(() => {
+    readItemFromStorage();
+  }, []);
+
+  return (
+    <View style={{ margin: 40 }}>
+      <Text>Current value: {value}</Text>
+      <TouchableOpacity
+        onPress={() =>
+          writeItemToStorage(
+            Math.random()
+              .toString(36)
+              .substr(2, 5)
+          )
+        }
+      >
+        <Text>Update value</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+```
+
+In this example:
+
+1. On mount, we read the value at `@storage_key` and save it to the state under `value`
+2. When pressing on "update value", a new string gets generated, saved to async storage, and to the component state
+3. Try to reload your app - you'll see that the last value is still being read from async storage

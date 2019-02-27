@@ -38,7 +38,7 @@ storeData = async () => {
 
 ```
 
-### Read data 
+### Read data
 ```jsx
 
 getData = async () => {
@@ -52,6 +52,25 @@ getData = async () => {
   }
 }
 
+```
+
+### useAsyncStorage hook
+
+React hooks (introduced in 16.8) allow you to use state and async requests without writing a class. For more info on hooks and how to use them, see [hooks documentation](https://reactjs.org/docs/hooks-intro.html) or the [hooks example](docs/Hooks.md) in this repo.
+
+`useAsyncStorage` has no hard-coded dependencies in react hooks, it is just a convenience wrapper around `AsyncStorage`.
+
+```js
+import { useAsyncStorage } from '@react-native-community/async-storage';
+```
+
+```jsx
+const {
+  getItem,
+  setItem,
+  mergeItem,
+  removeItem
+} = useAsyncStorage('@storage_key');
 ```
 
 See docs for [api and more examples.](docs/API.md)

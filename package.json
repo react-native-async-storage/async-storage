@@ -2,7 +2,7 @@
   "name": "@react-native-community/async-storage",
   "version": "1.0.2",
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
-  "main": "lib/AsyncStorage.js",
+  "main": "lib/index.js",
   "author": "Krzysztof Borowy <krizzu.dev@gmail.com>",
   "contributors": [],
   "homepage": "https://github.com/react-native-community/react-native-async-storage#readme",
