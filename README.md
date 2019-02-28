@@ -56,6 +56,10 @@ getData = async () => {
 
 See docs for [api and more examples.](docs/API.md)
 
+## Contribution
+
+See the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out.
+
 ## License
 
 MIT
