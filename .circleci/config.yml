@@ -278,6 +278,18 @@ jobs:
           name: Run e2e tests
           command: yarn test:e2e:android
 
+  "Publish: semantic release":
+    <<: *js_defaults
+    steps:
+      - restore-cache: *cache_restore_yarn
+      - run:
+          name: Install dependencies
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
+      - run:
+        name: Publish to NPM registry
+        command: yarn ci:publish 
+
 # ==============================
 # WORK FLOWS
 # ==============================
@@ -305,3 +317,10 @@ workflows:
             - "Test: lint"
             - "Test: flow"
             - "Build: Android release apk"
+      - "Publish: semantic release":
+          requires:
+            - "Test: Android e2e"
+            - "Test: iOS e2e"
+          filters:
+            branches:
+              only: master
