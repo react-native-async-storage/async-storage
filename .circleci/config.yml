@@ -281,11 +281,7 @@ jobs:
   "Publish: semantic release":
     <<: *js_defaults
     steps:
-      - restore-cache: *cache_restore_yarn
-      - run:
-          name: Install dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
-      - save-cache: *cache_save_yarn
+      - *addWorkspace
       - run:
         name: Publish to NPM registry
         command: yarn ci:publish 
