@@ -75,6 +75,13 @@ declare module '@react-native-community/async-storage' {
     multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<void>;
   }
 
+  export function useAsyncStorage(key: string): {
+    getItem(callback?: (error?: Error, result?: string) => void): Promise<string | null>;
+    setItem(value: string, callback?: (error?: Error) => void): Promise<void>;
+    mergeItem(value: string, callback?: (error?: Error) => void): Promise<void>;
+    removeItem(callback?: (error?: Error) => void): Promise<void>;
+  }
+
   const AsyncStorage: AsyncStorageStatic;
 
   export default AsyncStorage;
