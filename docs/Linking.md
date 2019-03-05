@@ -3,7 +3,7 @@
 ## iOS
 
 ## Android
-1. Edit `android/settings.gradle` to look like this (without the +):
+1. Add project to `android/settings.gradle`:
 ```diff
 rootProject.name = 'MyApp'
 
