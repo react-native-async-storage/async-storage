@@ -13,7 +13,7 @@ include ':app'
 + project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
   ```
 
-2. And in `android/app/build.gradle` add this to dependencies:
+2. In `android/app/build.gradle` add to dependencies:
 ```diff
 dependencies {
   ...
