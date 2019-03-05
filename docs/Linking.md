@@ -1,7 +1,6 @@
 # Manual Linking
 
 ## iOS
--
 
 ## Android
 1. Edit `android/settings.gradle` to look like this (without the +):
