@@ -1,5 +1,5 @@
 ---
-name: ':wrench: Feature request'
+name: '🔧 Feature request'
 about: New functionality for Async Storage
 label: 'Enhancement'
 ---

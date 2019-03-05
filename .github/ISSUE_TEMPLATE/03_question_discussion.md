@@ -1,5 +1,5 @@
 ---
-name: ':speaking_head: Have a question / start a discussion'
+name: '🗣 Have a question / start a discussion'
 about: You want to ask or discuss something
 label: 'Question/Discussion'
 ---
