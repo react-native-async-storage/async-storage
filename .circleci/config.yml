@@ -283,8 +283,8 @@ jobs:
     steps:
       - *addWorkspace
       - run:
-        name: Publish to NPM registry
-        command: yarn ci:publish 
+          name: Publish to NPM registry
+          command: yarn ci:publish 
 
 # ==============================
 # WORK FLOWS
