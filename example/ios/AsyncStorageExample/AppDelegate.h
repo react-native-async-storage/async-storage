@@ -7,7 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import <RNCAsyncStorage/RNCAsyncStorageDelegate.h>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RNCAsyncStorageDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
