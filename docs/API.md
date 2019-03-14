@@ -502,7 +502,8 @@ static flushGetRequests(): void
 
 ## `useAsyncStorage`
 
-Uses the new [hooks api](https://reactjs.org/docs/hooks-intro.html) to give you convenience functions so you can get, set, merge and delete a value for a given key from Async Storage.
+**Note**: A hooks-like interface that we're experimenting with. This will change in the nearest future to fully leverage Hooks API, so feel free to [follow this discussion to learn more](https://github.com/react-native-community/react-native-async-storage/issues/32).
+
 
 The `useAsyncStorage` returns an object that exposes all methods that allow you to interact with the stored value.
 
