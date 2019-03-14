@@ -15,7 +15,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ScrollView,
   Keyboard,
   Button,
 } from 'react-native';
