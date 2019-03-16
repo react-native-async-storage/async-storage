@@ -17,16 +17,16 @@
 #import <React/RCTUtils.h>
 
 typedef NS_ENUM(NSInteger, RCTStorageLocation) {
-  Documents,
-  ApplicationSupport
+  NSDocuments,
+  NSApplicationSupport
  };
 
 @implementation RCTConvert (RCTStorageLocation)
 
 RCT_ENUM_CONVERTER(RCTStorageLocation, (@{
-  @"documents": @(Documents),
-  @"applicationSupport": @(ApplicationSupport),
-}), Documents, integerValue)
+  @"documents": @(NSDocuments),
+  @"applicationSupport": @(NSApplicationSupport),
+}), NSDocuments, integerValue)
 
 @end
 
@@ -213,11 +213,11 @@ RCT_EXPORT_MODULE()
 {
   dispatch_async(RCTGetMethodQueue(), ^{
     [RCTGetCache() removeAllObjects];
-    if (RCTStorageDirectoryExists(Documents)) {
-      RCTDeleteStorageDirectory(Documents);
+    if (RCTStorageDirectoryExists(NSDocuments)) {
+      RCTDeleteStorageDirectory(NSDocuments);
     }
-    if (RCTStorageDirectoryExists(ApplicationSupport)) {
-      RCTDeleteStorageDirectory(ApplicationSupport);
+    if (RCTStorageDirectoryExists(NSApplicationSupport)) {
+      RCTDeleteStorageDirectory(NSApplicationSupport);
     }
   });
 }
@@ -491,8 +491,10 @@ RCT_EXPORT_METHOD(getAllKeys:(RCTResponseSenderBlock)callback)
 
 RCT_EXPORT_METHOD(setStorageLocation:(RCTStorageLocation)location)
 {
-  storageLocation = location;
-  [self invalidate];
+  if (location != storageLocation) {
+    storageLocation = location;
+    [self invalidate];
+  }
 }
 
 @end
