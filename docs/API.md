@@ -7,6 +7,7 @@
   - [setItem](#setItem)
   - [mergeItem](#mergeItem)
   - [removeItem](#removeItem)
+  - [getAllKeys](#getAllKeys)
   - [multiGet](#multiGet)
   - [multiSet](#multiSet)
   - [multiMerge](#multiMerge)
