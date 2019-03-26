@@ -54,7 +54,7 @@ getData = async () => {
 
 ```
 
-See docs for [api and more examples.](docs/API.md)
+See docs for [api and more examples](docs/API.md), and [some advanced usage](docs/AdvancedUsage.md).
 
 ## Writing tests
 
