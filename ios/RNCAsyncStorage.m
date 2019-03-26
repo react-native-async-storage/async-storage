@@ -357,6 +357,11 @@ RCT_EXPORT_MODULE()
   callback(@[RCTNullIfNil(errors), result]);
 }
 
+- (BOOL)_passthroughDelegate
+{
+    return [self.delegate respondsToSelector:@selector(isPassthrough)] && self.delegate.isPassthrough;
+}
+
 #pragma mark - Exported JS Functions
 
 RCT_EXPORT_METHOD(multiGet:(NSArray<NSString *> *)keys
@@ -380,7 +385,10 @@ RCT_EXPORT_METHOD(multiGet:(NSArray<NSString *> *)keys
                         }
                       }];
     }];
-    return;
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
   }
 
   NSDictionary *errorOut = [self _ensureSetup];
@@ -409,7 +417,10 @@ RCT_EXPORT_METHOD(multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
       NSArray<NSDictionary *> *errors = RCTMakeErrors(results);
       callback(@[RCTNullIfNil(errors)]);
     }];
-    return;
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
   }
 
   NSDictionary *errorOut = [self _ensureSetup];
@@ -443,7 +454,10 @@ RCT_EXPORT_METHOD(multiMerge:(NSArray<NSArray<NSString *> *> *)kvPairs
       NSArray<NSDictionary *> *errors = RCTMakeErrors(results);
       callback(@[RCTNullIfNil(errors)]);
     }];
-    return;
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
   }
 
   NSDictionary *errorOut = [self _ensureSetup];
@@ -487,7 +501,10 @@ RCT_EXPORT_METHOD(multiRemove:(NSArray<NSString *> *)keys
       NSArray<NSDictionary *> *errors = RCTMakeErrors(results);
       callback(@[RCTNullIfNil(errors)]);
     }];
-    return;
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
   }
 
   NSDictionary *errorOut = [self _ensureSetup];
@@ -543,7 +560,10 @@ RCT_EXPORT_METHOD(getAllKeys:(RCTResponseSenderBlock)callback)
     [self.delegate allKeys:^(NSArray<id<NSObject>> *keys) {
       callback(@[(id)kCFNull, keys]);
     }];
-    return;
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
   }
 
   NSDictionary *errorOut = [self _ensureSetup];

@@ -32,6 +32,10 @@ typedef void (^RNCAsyncStorageResultCallback)(NSArray<id<NSObject>> * valuesOrEr
 - (void)valuesForKeys:(NSArray<NSString *> *)keys
            completion:(RNCAsyncStorageResultCallback)block;
 
+@optional
+
+@property (nonatomic, readonly, getter=isPassthrough) BOOL passthrough;
+
 @end
 
 NS_ASSUME_NONNULL_END
