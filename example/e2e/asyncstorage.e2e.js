@@ -30,7 +30,9 @@ describe('Async Storage', () => {
 
   describe('get / set / clear item test', () => {
     beforeAll(async () => {
-      await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
+      if (device.getPlatform() === 'ios') {
+        await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
+      }
     });
 
     it('should be visible', async () => {
@@ -71,7 +73,9 @@ describe('Async Storage', () => {
 
   describe('merge item test', () => {
     beforeAll(async () => {
-      await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
+      if (device.getPlatform() === 'ios') {
+        await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
+      }
     });
 
     it('should be visible', async () => {
@@ -151,7 +155,9 @@ describe('Async Storage', () => {
 
   describe('get / set / clear item delegate test', () => {
     beforeAll(async () => {
-      await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
+      if (device.getPlatform() === 'ios') {
+        await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
+      }
     });
 
     it('should be visible', async () => {
@@ -192,7 +198,9 @@ describe('Async Storage', () => {
 
   describe('merge item delegate test', () => {
     beforeAll(async () => {
-      await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
+      if (device.getPlatform() === 'ios') {
+        await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
+      }
     });
 
     it('should be visible', async () => {
@@ -207,6 +215,11 @@ describe('Async Storage', () => {
     });
 
     it('should crash when merging items in async storage', async () => {
+      if (device.getPlatform() === 'android') {
+        // Not yet supported.
+        return;
+      }
+
       const buttonMergeItem = await element(by.id('mergeItem_button'));
       try {
         await buttonMergeItem.tap();
