@@ -48,8 +48,8 @@
     "flow-bin": "0.86.0",
     "jest": "24.1.0",
     "metro-react-native-babel-preset": "0.51.1",
-    "react": "16.6.3",
-    "react-native": "0.58.4",
+    "react": ">16.6.3",
+    "react-native": ">0.58.4",
     "react-test-renderer": "16.6.3",
     "semantic-release": "15.13.3"
   },
