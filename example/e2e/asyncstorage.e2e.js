@@ -30,7 +30,7 @@ describe('Async Storage', () => {
 
   describe('get / set / clear item test', () => {
     beforeAll(async () => {
-      await device.openURL({ url: 'rnc-asyncstorage://unset-delegate' });
+      await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
     });
 
     it('should be visible', async () => {
@@ -71,7 +71,7 @@ describe('Async Storage', () => {
 
   describe('merge item test', () => {
     beforeAll(async () => {
-      await device.openURL({ url: 'rnc-asyncstorage://unset-delegate' });
+      await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
     });
 
     it('should be visible', async () => {
@@ -151,7 +151,7 @@ describe('Async Storage', () => {
 
   describe('get / set / clear item delegate test', () => {
     beforeAll(async () => {
-      await device.openURL({ url: 'rnc-asyncstorage://set-delegate' });
+      await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
     });
 
     it('should be visible', async () => {
@@ -192,7 +192,7 @@ describe('Async Storage', () => {
 
   describe('merge item delegate test', () => {
     beforeAll(async () => {
-      await device.openURL({ url: 'rnc-asyncstorage://set-delegate' });
+      await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
     });
 
     it('should be visible', async () => {
@@ -210,6 +210,9 @@ describe('Async Storage', () => {
       const buttonMergeItem = await element(by.id('mergeItem_button'));
       try {
         await buttonMergeItem.tap();
+
+        // Not quite sure why ESLint thinks Jest hasn't defined fail().
+        // eslint-disable-next-line no-undef
         fail();
       } catch {
         // Expected
