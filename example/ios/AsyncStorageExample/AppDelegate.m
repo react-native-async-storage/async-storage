@@ -14,6 +14,7 @@
 
 @implementation AppDelegate {
   NSMutableDictionary<NSString *, NSString *> *_memoryStorage;
+  __weak RCTBridge *_bridge;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -66,7 +67,27 @@
     return;
   }
 
+  _bridge = bridge;
   [self addDevMenuItemsForBridge:bridge];
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+  if (![url.scheme isEqualToString:@"rnc-asyncstorage"]) {
+    return NO;
+  }
+
+  if ([url.host isEqualToString:@"set-delegate"]) {
+    RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
+    asyncStorage.delegate = self;
+  } else if ([url.host isEqualToString:@"unset-delegate"]) {
+    RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
+    asyncStorage.delegate = nil;
+  }
+
+  return YES;
 }
 
 #pragma mark - RNCAsyncStorageDelegate
@@ -80,6 +101,8 @@
             forKeys:(nonnull NSArray<NSString *> *)keys
          completion:(nonnull RNCAsyncStorageResultCallback)block
 {
+  [NSException raise:@"Unimplemented"
+              format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
 }
 
 - (void)removeAllValues:(nonnull RNCAsyncStorageCompletion)completion

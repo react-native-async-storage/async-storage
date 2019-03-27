@@ -29,12 +29,17 @@ describe('Async Storage', () => {
   });
 
   describe('get / set / clear item test', () => {
+    beforeAll(async () => {
+      await device.openURL({ url: 'rnc-asyncstorage://unset-delegate' });
+    });
+
     it('should be visible', async () => {
       await test_getSetClear.tap();
       await expect(element(by.id('clear_button'))).toExist();
       await expect(element(by.id('increaseByTen_button'))).toExist();
       await expect(element(by.id('storedNumber_text'))).toExist();
     });
+
     it('should store value in async storage', async () => {
       const storedNumberText = await element(by.id('storedNumber_text'));
       const increaseByTenButton = await element(by.id('increaseByTen_button'));
@@ -65,6 +70,10 @@ describe('Async Storage', () => {
   });
 
   describe('merge item test', () => {
+    beforeAll(async () => {
+      await device.openURL({ url: 'rnc-asyncstorage://unset-delegate' });
+    });
+
     it('should be visible', async () => {
       await test_mergeItem.tap();
       await expect(element(by.id('saveItem_button'))).toExist();
@@ -137,6 +146,74 @@ describe('Async Storage', () => {
       await restartButton.tap();
       await buttonRestoreItem.tap();
       expect(storyText).toHaveText(newStory);
+    });
+  });
+
+  describe('get / set / clear item delegate test', () => {
+    beforeAll(async () => {
+      await device.openURL({ url: 'rnc-asyncstorage://set-delegate' });
+    });
+
+    it('should be visible', async () => {
+      await test_getSetClear.tap();
+      await expect(element(by.id('clear_button'))).toExist();
+      await expect(element(by.id('increaseByTen_button'))).toExist();
+      await expect(element(by.id('storedNumber_text'))).toExist();
+    });
+
+    it('should store value in async storage', async () => {
+      const storedNumberText = await element(by.id('storedNumber_text'));
+      const increaseByTenButton = await element(by.id('increaseByTen_button'));
+
+      await expect(storedNumberText).toHaveText('');
+
+      const tapTimes = Math.round(Math.random() * 9) + 1;
+
+      for (let i = 0; i < tapTimes; i++) {
+        await increaseByTenButton.tap();
+      }
+
+      await expect(storedNumberText).toHaveText(`${tapTimes * 10}`);
+      await restartButton.tap();
+      await expect(storedNumberText).toHaveText(`${tapTimes * 10}`);
+    });
+
+    it('should clear item', async () => {
+      const storedNumberText = await element(by.id('storedNumber_text'));
+      const increaseByTenButton = await element(by.id('increaseByTen_button'));
+      const clearButton = await element(by.id('clear_button'));
+
+      await increaseByTenButton.tap();
+      await clearButton.tap();
+      await restartButton.tap();
+      await expect(storedNumberText).toHaveText('');
+    });
+  });
+
+  describe('merge item delegate test', () => {
+    beforeAll(async () => {
+      await device.openURL({ url: 'rnc-asyncstorage://set-delegate' });
+    });
+
+    it('should be visible', async () => {
+      await test_mergeItem.tap();
+      await expect(element(by.id('saveItem_button'))).toExist();
+      await expect(element(by.id('mergeItem_button'))).toExist();
+      await expect(element(by.id('restoreItem_button'))).toExist();
+      await expect(element(by.id('testInput-name'))).toExist();
+      await expect(element(by.id('testInput-age'))).toExist();
+      await expect(element(by.id('testInput-eyes'))).toExist();
+      await expect(element(by.id('testInput-shoe'))).toExist();
+    });
+
+    it('should crash when merging items in async storage', async () => {
+      const buttonMergeItem = await element(by.id('mergeItem_button'));
+      try {
+        await buttonMergeItem.tap();
+        fail();
+      } catch {
+        // Expected
+      }
     });
   });
 });
