@@ -93,7 +93,7 @@ static NSString *RCTGetStorageDirectory(RCTStorageLocation storageLocation)
     storageDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
 #else
     NSSearchPathDirectory path = NSDocumentDirectory;
-    if (storageLocation == ApplicationSupport) {
+    if (storageLocation == NSApplicationSupport) {
       path = NSApplicationSupportDirectory;
     }
     storageDirectory = NSSearchPathForDirectoriesInDomains(path, NSUserDomainMask, YES).firstObject;

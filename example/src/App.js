@@ -18,6 +18,7 @@ import {
   Keyboard,
   Button,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import GetSetClear from './examples/GetSetClear';
 import MergeItem from './examples/MergeItem';
@@ -41,6 +42,11 @@ const TESTS = {
   },
 };
 
+const STORAGE_OPTIONS = {
+  documents: 'Documents',
+  applicationSupport: 'Application Support'
+};
+
 type Props = {};
 type State = {restarting: boolean, currentTest: Object};
 
@@ -48,7 +54,18 @@ export default class App extends Component<Props, State> {
   state = {
     restarting: false,
     currentTest: TESTS.GetSetClear,
+    storageLocation: STORAGE_OPTIONS.documents
   };
+
+  _changeStorage = () => {
+    if (this.state.storageLocation === STORAGE_OPTIONS.documents) {
+      AsyncStorage.setStorageLocationIOS(AsyncStorage.StorageLocationIOS.applicationSupport);
+      this.setState({ storageLocation: STORAGE_OPTIONS.applicationSupport });
+    } else {
+      AsyncStorage.setStorageLocationIOS(AsyncStorage.StorageLocationIOS.documents);
+      this.setState({ storageLocation: STORAGE_OPTIONS.documents });
+    }
+  }
 
   _simulateRestart = () => {
     this.setState({restarting: true}, () => this.setState({restarting: false}));
@@ -68,13 +85,23 @@ export default class App extends Component<Props, State> {
           testID="closeKeyboard"
         />
 
-        <TouchableOpacity
-          testID="restart_button"
-          onPress={this._simulateRestart}
-          style={styles.restartButton}
-          activeOpacity={0.6}>
-          <Text>Simulate Restart</Text>
-        </TouchableOpacity>
+        <View style={styles.topButtonContainer}>
+          <TouchableOpacity
+            testID="change_storage"
+            onPress={this._changeStorage}
+            style={styles.topButton}
+            activeOpacity={0.6}>
+            <Text>Storage location: {this.state.storageLocation}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            testID="restart_button"
+            onPress={this._simulateRestart}
+            style={styles.topButton}
+            activeOpacity={0.6}>
+            <Text>Simulate Restart</Text>
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.testPickerContainer}>
           <Button
@@ -135,14 +162,15 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     flex: 1,
   },
-  restartButton: {
+  topButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  topButton: {
     padding: 6,
     fontSize: 16,
     borderRadius: 5,
-    backgroundColor: '#F3F3F3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'flex-end',
+    backgroundColor: '#F3F3F3'
   },
   closeKeyboardView: {
     width: 5,
