@@ -56,6 +56,10 @@ getData = async () => {
 
 See docs for [api and more examples.](docs/API.md)
 
+## Writing tests
+
+Using [Jest](https://jestjs.io/) for testing? Make sure to check out [docs on how to integrate it with this module.](./docs/Jest-integration.md)
+
 ## Contribution
 
 See the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out.

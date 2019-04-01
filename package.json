@@ -54,7 +54,8 @@
     "semantic-release": "15.13.3"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": ["./example/jest.setup.js"]
   },
   "detox": {
     "test-runner": "jest",

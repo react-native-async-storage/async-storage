@@ -1,4 +1,5 @@
 {
     "setupFilesAfterEnv": ["./init.js"],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testMatch": [ "**/?(*.)+(e2e).[jt]s?(x)" ]
 }
