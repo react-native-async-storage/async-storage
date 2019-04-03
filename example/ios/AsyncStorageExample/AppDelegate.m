@@ -7,13 +7,14 @@
 
 #import "AppDelegate.h"
 
+#import "AppDelegate+RNCAsyncStorageDelegate.h"
+
 #import <RNCAsyncStorage/RNCAsyncStorage.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTDevMenu.h>
 #import <React/RCTRootView.h>
 
 @implementation AppDelegate {
-  NSMutableDictionary<NSString *, NSString *> *_memoryStorage;
   __weak RCTBridge *_bridge;
 }
 
@@ -88,59 +89,6 @@
   }
 
   return YES;
-}
-
-#pragma mark - RNCAsyncStorageDelegate
-
-- (void)allKeys:(nonnull RNCAsyncStorageResultCallback)completion
-{
-  completion(_memoryStorage.allKeys);
-}
-
-- (void)mergeValues:(nonnull NSArray<NSString *> *)values
-            forKeys:(nonnull NSArray<NSString *> *)keys
-         completion:(nonnull RNCAsyncStorageResultCallback)block
-{
-  [NSException raise:@"Unimplemented"
-              format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
-}
-
-- (void)removeAllValues:(nonnull RNCAsyncStorageCompletion)completion
-{
-  [_memoryStorage removeAllObjects];
-  completion(nil);
-}
-
-- (void)removeValuesForKeys:(nonnull NSArray<NSString *> *)keys
-                 completion:(nonnull RNCAsyncStorageResultCallback)completion
-{
-  for (NSString *key in keys) {
-    [_memoryStorage removeObjectForKey:key];
-  }
-  completion(@[]);
-}
-
-- (void)setValues:(nonnull NSArray<NSString *> *)values
-          forKeys:(nonnull NSArray<NSString *> *)keys
-       completion:(nonnull RNCAsyncStorageResultCallback)completion
-{
-  for (NSUInteger i = 0; i < values.count; ++i) {
-    NSString *value = values[i];
-    NSString *key = keys[i];
-    [_memoryStorage setObject:value forKey:key];
-  }
-  completion(@[]);
-}
-
-- (void)valuesForKeys:(nonnull NSArray<NSString *> *)keys
-           completion:(nonnull RNCAsyncStorageResultCallback)completion
-{
-  NSMutableArray *values = [NSMutableArray arrayWithCapacity:keys.count];
-  for (NSString *key in keys) {
-    NSString *value = _memoryStorage[key];
-    [values addObject:value == nil ? [NSNull null] : value];
-  }
-  completion(values);
 }
 
 @end

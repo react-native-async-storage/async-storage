@@ -7,10 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <RNCAsyncStorage/RNCAsyncStorageDelegate.h>
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RNCAsyncStorageDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *memoryStorage;
 
 @end
