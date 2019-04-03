@@ -1,6 +1,6 @@
 # Advanced Usage
 
-## Integrating with Existing Storage Solutions in Hybrid Apps
+## Integrating with Existing Storage Solutions in RN Brownfield Apps
 
 ### iOS
 
