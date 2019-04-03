@@ -160,13 +160,6 @@ describe('Async Storage', () => {
       }
     });
 
-    it('should be visible', async () => {
-      await test_getSetClear.tap();
-      await expect(element(by.id('clear_button'))).toExist();
-      await expect(element(by.id('increaseByTen_button'))).toExist();
-      await expect(element(by.id('storedNumber_text'))).toExist();
-    });
-
     it('should store value in async storage', async () => {
       const storedNumberText = await element(by.id('storedNumber_text'));
       const increaseByTenButton = await element(by.id('increaseByTen_button'));
@@ -201,17 +194,6 @@ describe('Async Storage', () => {
       if (device.getPlatform() === 'ios') {
         await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
       }
-    });
-
-    it('should be visible', async () => {
-      await test_mergeItem.tap();
-      await expect(element(by.id('saveItem_button'))).toExist();
-      await expect(element(by.id('mergeItem_button'))).toExist();
-      await expect(element(by.id('restoreItem_button'))).toExist();
-      await expect(element(by.id('testInput-name'))).toExist();
-      await expect(element(by.id('testInput-age'))).toExist();
-      await expect(element(by.id('testInput-eyes'))).toExist();
-      await expect(element(by.id('testInput-shoe'))).toExist();
     });
 
     it('should crash when merging items in async storage', async () => {
