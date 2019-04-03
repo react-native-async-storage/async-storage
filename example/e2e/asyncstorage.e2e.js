@@ -33,10 +33,10 @@ describe('Async Storage', () => {
       if (device.getPlatform() === 'ios') {
         await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
       }
+      await test_getSetClear.tap();
     });
 
     it('should be visible', async () => {
-      await test_getSetClear.tap();
       await expect(element(by.id('clear_button'))).toExist();
       await expect(element(by.id('increaseByTen_button'))).toExist();
       await expect(element(by.id('storedNumber_text'))).toExist();
@@ -76,10 +76,10 @@ describe('Async Storage', () => {
       if (device.getPlatform() === 'ios') {
         await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
       }
+      await test_mergeItem.tap();
     });
 
     it('should be visible', async () => {
-      await test_mergeItem.tap();
       await expect(element(by.id('saveItem_button'))).toExist();
       await expect(element(by.id('mergeItem_button'))).toExist();
       await expect(element(by.id('restoreItem_button'))).toExist();
