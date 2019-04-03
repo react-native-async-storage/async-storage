@@ -158,6 +158,7 @@ describe('Async Storage', () => {
       if (device.getPlatform() === 'ios') {
         await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
       }
+      await test_getSetClear.tap();
     });
 
     it('should store value in async storage', async () => {
@@ -194,6 +195,7 @@ describe('Async Storage', () => {
       if (device.getPlatform() === 'ios') {
         await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
       }
+      await test_mergeItem.tap();
     });
 
     it('should crash when merging items in async storage', async () => {
