@@ -21,7 +21,7 @@ The delegate must conform to the protocol `RNCAsyncStorageDelegate`:
 Returns all keys currently stored. If none, an empty array is returned.
 Called by `getAllKeys` in JS.
 
-<br />
+---
 
 ```objc
 - (void)mergeValues:(NSArray<NSString *> *)values
@@ -32,7 +32,7 @@ Called by `getAllKeys` in JS.
 Merges values with the corresponding values stored at specified keys.
 Called by `mergeItem` and `multiMerge` in JS.
 
-<br />
+---
 
 ```objc
 - (void)removeAllValues:(RNCAsyncStorageCompletion)block;
@@ -40,7 +40,7 @@ Called by `mergeItem` and `multiMerge` in JS.
 
 Removes all values from the store. Called by `clear` in JS.
 
-<br />
+---
 
 ```objc
 - (void)removeValuesForKeys:(NSArray<NSString *> *)keys
@@ -50,7 +50,7 @@ Removes all values from the store. Called by `clear` in JS.
 Removes all values associated with specified keys.
 Called by `removeItem` and `multiRemove` in JS.
 
-<br />
+---
 
 ```objc
 - (void)setValues:(NSArray<NSString *> *)values
@@ -60,7 +60,7 @@ Called by `removeItem` and `multiRemove` in JS.
 
 Sets specified key-value pairs. Called by `setItem` and `multiSet` in JS.
 
-<br />
+---
 
 ```objc
 - (void)valuesForKeys:(NSArray<NSString *> *)keys
@@ -70,7 +70,7 @@ Sets specified key-value pairs. Called by `setItem` and `multiSet` in JS.
 Returns values associated with specified keys.
 Called by `getItem` and `multiGet` in JS.
 
-<br />
+---
 
 ```objc
 @optional
