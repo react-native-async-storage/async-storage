@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 
 #import "AppDelegate+RNCAsyncStorageDelegate.h"
+#import "RNCTestAsyncStorageDelegate.h"
 
 #import <RNCAsyncStorage/RNCAsyncStorage.h>
 #import <React/RCTBundleURLProvider.h>
@@ -16,6 +17,7 @@
 
 @implementation AppDelegate {
   __weak RCTBridge *_bridge;
+  RNCTestAsyncStorageDelegate *_testDelegate;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -81,8 +83,11 @@
   }
 
   if ([url.host isEqualToString:@"set-delegate"]) {
+    if (_testDelegate == nil) {
+      _testDelegate = [RNCTestAsyncStorageDelegate new];
+    }
     RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
-    asyncStorage.delegate = self;
+    asyncStorage.delegate = _testDelegate;
   } else if ([url.host isEqualToString:@"unset-delegate"]) {
     RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
     asyncStorage.delegate = nil;
