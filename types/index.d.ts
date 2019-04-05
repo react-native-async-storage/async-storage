@@ -51,8 +51,8 @@ declare module '@react-native-community/async-storage' {
      */
     multiGet(
       keys: string[],
-      callback?: (errors?: Error[], result?: [string, string][]) => void
-    ): Promise<[string, string][]>;
+      callback?: (errors?: Error[], result?: [string, string | null][]) => void
+    ): Promise<[string, string | null][]>;
 
     /**
      * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
