@@ -319,4 +319,4 @@ workflows:
             - "Test: iOS e2e"
           filters:
             branches:
-              only: master
+              only: release

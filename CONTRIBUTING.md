@@ -23,7 +23,7 @@ When you're sending a pull request:
 
 
 ## Commits and versioning
-All PRs are squashed into `master` and wrapped up in a single commit, following [conventional commit message](https://www.conventionalcommits.org/en/v1.0.0-beta.3). Combined with [semantic versioning](https://semver.org/), this allows us to have a frequent releases of the library.
+All PRs are squashed into `release` branch and wrapped up in a single commit, following [conventional commit message](https://www.conventionalcommits.org/en/v1.0.0-beta.3). Combined with [semantic versioning](https://semver.org/), this allows us to have a frequent releases of the library.
 
 *Note*: We don't force this convention on Pull Requests from contributors, but it's a clean way to see what type of changes are made, so feel free to follow it. 
 
@@ -40,8 +40,7 @@ Most notably prefixes you'll see:
 
 
 ## Release process
-We use [Semantic Release](http://semantic-release.org) to automatically release new versions of the library when changes are merged into master. Using the commit message convention described above, it will detect if we need to release a patch, minor, or major version of the library.
-
+We use [Semantic Release](http://semantic-release.org) to automatically release new versions of the library when changes are merged into `release` branch. We plan to keep the `master` stable, before cutting the new versions. Bugs fixes take priority in release order.
 
 ## Reporting issues
 You can report issues on our [bug tracker](https://github.com/react-native-community/react-native-async-storage/issues). Please search for existing issues and follow the issue template when opening an one.
