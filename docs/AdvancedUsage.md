@@ -1,10 +1,11 @@
-# Advanced Usage
+# Integrating Async Storage with embedded React Native apps
 
-## Integrating with Existing Storage Solutions in RN Brownfield Apps
+If you're embedding React Native into native application, you can also integrate
+Async Storage module, so that both worlds will use one storage solution.
 
-### iOS
+## iOS
 
-On iOS, AsyncStorage can be controlled by the hosting app via the delegate on
+AsyncStorage can be controlled by the hosting app via the delegate on
 `RNCAsyncStorage`:
 
 ```objc
@@ -12,7 +13,11 @@ RNCAsyncStorage *asyncStorage = [bridge moduleForClass:[RNCAsyncStorage class]];
 asyncStorage.delegate = self;
 ```
 
-The delegate must conform to the protocol `RNCAsyncStorageDelegate`:
+### The procotol
+
+The delegate must conform to the `RNCAsyncStorageDelegate` protocol
+
+---
 
 ```objc
 - (void)allKeys:(RNCAsyncStorageResultCallback)block;
