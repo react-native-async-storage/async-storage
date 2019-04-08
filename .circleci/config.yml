@@ -271,8 +271,7 @@ jobs:
       - run:
           name: Wake device
           command: |
-            adb shell input keyevent
-            adb shell input keyevent 82 &
+            adb shell input keyevent 82
 
       - run:
           name: Run e2e tests
