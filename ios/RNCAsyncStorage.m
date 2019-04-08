@@ -78,17 +78,23 @@ static NSString *RCTReadFile(NSString *filePath, NSString *key, NSDictionary **e
   return nil;
 }
 
+static NSString *RCTCreateStorageDirectoryPath(NSString *storageDir) {
+  NSString *storageDirectoryPath;
+#if TARGET_OS_TV
+  storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+#else
+  storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+#endif
+  storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:RCTStorageDirectory];
+  return storageDirectoryPath;
+}
+
 static NSString *RCTGetStorageDirectory()
 {
   static NSString *storageDirectory = nil;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-#if TARGET_OS_TV
-    storageDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-#else
-    storageDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
-#endif
-    storageDirectory = [storageDirectory stringByAppendingPathComponent:RCTStorageDirectory];
+    storageDirectory = RCTCreateStorageDirectoryPath(RCTStorageDirectory);
   });
   return storageDirectory;
 }
@@ -168,6 +174,12 @@ static NSDictionary *RCTDeleteStorageDirectory()
   return error ? RCTMakeError(@"Failed to delete storage directory.", error, nil) : nil;
 }
 
+static void RCTPerformDirectoryMigrationCheck() {
+//  NSString *oldRCTStorageDirectory = @"RNCAsyncLocalStorage_V1";
+//  NSString *storageDir = RCTCreateStorageDirectoryPath(oldRCTStorageDirectory);
+//  printf("%s%s\n", "TESTING: ", [storageDir UTF8String]);
+}
+
 #pragma mark - RNCAsyncStorage
 
 @implementation RNCAsyncStorage
@@ -177,6 +189,19 @@ static NSDictionary *RCTDeleteStorageDirectory()
   // in separate files (as opposed to nil values which don't exist).  The manifest is read off disk at startup, and
   // written to disk after all mutations.
   NSMutableDictionary<NSString *, NSString *> *_manifest;
+}
+
++ (BOOL)requiresMainQueueSetup {
+  return YES;
+}
+
+- (instancetype)init
+{
+  if (!(self = [super init])) {
+    return nil;
+  }
+  RCTPerformDirectoryMigrationCheck();
+  return self;
 }
 
 RCT_EXPORT_MODULE()
@@ -441,7 +466,7 @@ RCT_EXPORT_METHOD(multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
 }
 
 RCT_EXPORT_METHOD(multiMerge:(NSArray<NSArray<NSString *> *> *)kvPairs
-                    callback:(RCTResponseSenderBlock)callback)
+                  callback:(RCTResponseSenderBlock)callback)
 {
   if (self.delegate != nil) {
     NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:kvPairs.count];
@@ -575,3 +600,4 @@ RCT_EXPORT_METHOD(getAllKeys:(RCTResponseSenderBlock)callback)
 }
 
 @end
+
