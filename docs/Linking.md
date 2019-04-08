@@ -1,19 +1,24 @@
 # Manual Linking
 
 ## iOS
-1. Open your project `.xcodeproj`
+1. Open your project `.xcodeproj` on xcode.
 
-2. Add `RNCAsyncStorage.xcodeproj` to your project Libraries (right click on libraries folder and select `Add files to "yourProject"`)
+2. Right click on the Libraries folder and select `Add files to "yourProjectName"`.
 
-3. Go to your projects Build Phases -> Link Binary with Libraries and add: `libRNCAsyncStorage.a`
+3. Add `RNCAsyncStorage.xcodeproj` to your project Libraries.
 
-4. Add this line to your Podfile (if you haven't one simply run `cd ios/ && pod init` on your project's root folder), just below the last pod:
+3. Go to `Build Phases -> Link Binary with Libraries` and add:  `libRNCAsyncStorage.a`.
+
+4. Enter into iOS Folder `cd ios/` (on your project's root folder).
+
+5. Add this line to your `Podfile` just below the last pod: (if you don't one just create a new runnning: `pod init`).
 
 ```
 pod 'react-native-async-storage', :path => '../node_modules/@react-native-community/async-storage'
 ```
 
-after that run `pod install`
+6. Run `pod install`
+
 
 ## Android
 1. Add project to `android/settings.gradle`:
