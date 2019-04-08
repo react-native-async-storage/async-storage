@@ -2,7 +2,7 @@
 
 ## iOS
 
-#### Step one
+#### Project linking
 1. Open your project `.xcodeproj` on xcode.
 
 2. Right click on the Libraries folder and select `Add files to "yourProjectName"`.
@@ -11,8 +11,7 @@
 
 3. Go to `Build Phases -> Link Binary with Libraries` and add:  `libRNCAsyncStorage.a`.
 
-#### Step two
-
+#### Using 'Pods'
 1. Enter into iOS Folder `cd ios/` (on your project's root folder).
 
 2. Add this line to your `Podfile` just below the last pod: (if you don't one just create a new runnning: `pod init`).
