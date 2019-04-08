@@ -12,6 +12,9 @@ $ yarn add @react-native-community/async-storage
 
 # Link
 $ react-native link @react-native-community/async-storage
+
+# Pod installation
+$ cd ios/ && pod install
 ```
 
 See docs for [manual linking guide.](docs/Linking.md)
