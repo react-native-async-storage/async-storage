@@ -85,7 +85,7 @@ static NSString *RCTCreateStorageDirectoryPath(NSString *storageDir) {
 #else
   storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
 #endif
-  storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:RCTStorageDirectory];
+  storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:storageDir];
   return storageDirectoryPath;
 }
 
@@ -174,10 +174,60 @@ static NSDictionary *RCTDeleteStorageDirectory()
   return error ? RCTMakeError(@"Failed to delete storage directory.", error, nil) : nil;
 }
 
-static void RCTPerformDirectoryMigrationCheck() {
-//  NSString *oldRCTStorageDirectory = @"RNCAsyncLocalStorage_V1";
-//  NSString *storageDir = RCTCreateStorageDirectoryPath(oldRCTStorageDirectory);
-//  printf("%s%s\n", "TESTING: ", [storageDir UTF8String]);
+/**
+ * This check is added to make sure that anyone coming from pre-1.2.2 does not lose cached data.
+ * Data is migrated from the "RNCAsyncLocalStorage_V1" directory to the "RCTAsyncLocalStorage_V1" directory.
+ */
+static void RCTStorageDirectoryMigrationCheck() {
+  NSString *oldStorageDir = RCTCreateStorageDirectoryPath(@"RNCAsyncLocalStorage_V1");
+
+  BOOL isDir;
+  BOOL oldExists = [[NSFileManager defaultManager] fileExistsAtPath:oldStorageDir isDirectory:&isDir];
+
+  // If the old directory exists, it means we need to migrate data to the new directory
+  if (oldExists && isDir) {
+    NSError *error;
+    BOOL migrationSuccess;
+    // If the new storage directory already exists, then this may be caused by ever older data being left behind from previous versions.
+    // This old data will need to be overwritten.
+    NSString *newStorageDir = RCTGetStorageDirectory();
+    BOOL newExists = [[NSFileManager defaultManager] fileExistsAtPath:newStorageDir isDirectory:&isDir];
+    if (newExists && isDir) {
+      NSString *backupStorageDir = RCTCreateStorageDirectoryPath(@"RCTBackupAsyncLocalStorage_V1");
+      // Replace any possible existing data in the new storage with old storage directory
+      migrationSuccess = [[NSFileManager defaultManager] replaceItemAtURL:[[NSURL alloc] initWithString:newStorageDir]
+                                                        withItemAtURL:[[NSURL alloc] initWithString:oldStorageDir]
+                                                       backupItemName:backupStorageDir
+                                                              options:NSFileManagerItemReplacementUsingNewMetadataOnly
+                                                     resultingItemURL:nil
+                                                                error:&error];
+      if (error || !success) {
+        // Attempt to recover from failed overwriting
+        [[NSFileManager defaultManager] removeItemAtPath:newStorageDir error:nil];
+        [[NSFileManager defaultManager] copyItemAtPath:backupStorageDir toPath:newStorageDir error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:backupStorageDir error:nil];
+        if (error) {
+          RCTMakeError(@"Failed to overwrite old storage directory to new storage directory location during migration", error, nil);
+          return;
+        }
+      }
+    } else {
+      // Copy over the old storage directory to new storage directory path
+      migrationSuccess = [[NSFileManager defaultManager] copyItemAtPath:oldStorageDir toPath:newStorageDir error:&error];
+      if (error) {
+        RCTMakeError(@"Failed to copy old storage directory to new storage directory location during migration", error, nil);
+        return;
+      }
+    }
+
+    // If the migration was a success, remove old storage directory
+    if (migrationSuccess) {
+      [[NSFileManager defaultManager] removeItemAtPath:oldStorageDir error:error];
+      if (error) {
+        RCTMakeError(@"Failed to remove old storage directory after migration", error, nil);
+      }
+    }
+  }
 }
 
 #pragma mark - RNCAsyncStorage
@@ -200,7 +250,7 @@ static void RCTPerformDirectoryMigrationCheck() {
   if (!(self = [super init])) {
     return nil;
   }
-  RCTPerformDirectoryMigrationCheck();
+  RCTStorageDirectoryMigrationCheck();
   return self;
 }
 
