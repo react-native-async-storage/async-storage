@@ -185,7 +185,7 @@ static NSDate *RCTManifestModificationDate(NSString *manifestFilePath)
   return [attributes fileModificationDate];
 }
 
-NSString *const RCTOldStorageDirectory = @"RNCAsyncLocalStorage_V1";
+static NSString *const RCTOldStorageDirectory = @"RNCAsyncLocalStorage_V1";
 /**
  * Creates an NSException used during Storage Directory Migration.
  */
