@@ -506,7 +506,7 @@ RCT_EXPORT_METHOD(multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
 }
 
 RCT_EXPORT_METHOD(multiMerge:(NSArray<NSArray<NSString *> *> *)kvPairs
-                  callback:(RCTResponseSenderBlock)callback)
+                    callback:(RCTResponseSenderBlock)callback)
 {
   if (self.delegate != nil) {
     NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:kvPairs.count];
@@ -640,4 +640,3 @@ RCT_EXPORT_METHOD(getAllKeys:(RCTResponseSenderBlock)callback)
 }
 
 @end
-
