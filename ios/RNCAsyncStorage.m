@@ -175,15 +175,12 @@ static NSDictionary *RCTDeleteStorageDirectory()
 }
 
 
-NSString *OldStorageDirectory = @"RNCAsyncLocalStorage_V1";
+NSString *const RCTOldStorageDirectory = @"RNCAsyncLocalStorage_V1";
 /**
  * Creates an NSException used during Storage Directory Migration.
  */
-static NSException *RCTStorageDirectionMigrationException(NSString *reason, NSError *error) {
-  NSMutableString *reasonString = [[NSMutableString alloc] initWithString:reason];
-  [reasonString appendString:@" - "];
-  [reasonString appendString:[error description]];
-  return [[NSException alloc] initWithName:@"RCTStorageDirectoryMigrationFailure" reason:reasonString userInfo:nil];
+static void RCTStorageDirectoryMigrationLogError(NSString *reason, NSError *error) {
+  NSLog(@"%@: %@", reason, error ? error.description : @"");
 }
 
 /**
@@ -196,24 +193,24 @@ static void RCTStorageDirectoryMigrationCheck() {
     NSError *error;
     BOOL isDir;
     // If the old directory exists, it means we need to migrate data to the new directory
-    if ([[NSFileManager defaultManager] fileExistsAtPath:RCTCreateStorageDirectoryPath(OldStorageDirectory) isDirectory:&isDir] && isDir) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:RCTCreateStorageDirectoryPath(RCTOldStorageDirectory) isDirectory:&isDir] && isDir) {
       // Check if the new storage directory location already exists
       BOOL newStorageDirectoryExists = [[NSFileManager defaultManager] fileExistsAtPath:RCTGetStorageDirectory() isDirectory:&isDir];
       if (newStorageDirectoryExists) {
         // If the new storage directory location already exists, remove existing directory
         newStorageDirectoryExists = !([[NSFileManager defaultManager] removeItemAtPath:RCTGetStorageDirectory() error:&error]);
         if (newStorageDirectoryExists) {
-          @throw RCTStorageDirectionMigrationException(@"Failed to clear pre-existing storage directory", error);
+          RCTStorageDirectoryMigrationLogError(@"Failed to clear pre-existing storage directory", error);
         }
       }
       if (!newStorageDirectoryExists) {
         // If new storage direction doesn't exist, copy old storage directory to new location
-        if (![[NSFileManager defaultManager] copyItemAtPath:RCTCreateStorageDirectoryPath(OldStorageDirectory) toPath:RCTGetStorageDirectory() error:&error]) {
-          @throw RCTStorageDirectionMigrationException(@"Failed to copy old storage directory to new storage directory", error);
+        if (![[NSFileManager defaultManager] copyItemAtPath:RCTCreateStorageDirectoryPath(RCTOldStorageDirectory) toPath:RCTGetStorageDirectory() error:&error]) {
+          RCTStorageDirectoryMigrationLogError(@"Failed to copy old storage directory to new storage directory", error);
         } else {
           // If copying succeeds, remove old storage directory
-          [[NSFileManager defaultManager] removeItemAtPath:RCTCreateStorageDirectoryPath(OldStorageDirectory) error:&error];
-          if (error) @throw RCTStorageDirectionMigrationException(@"Failed to remove old storage directory after migration", error);
+          [[NSFileManager defaultManager] removeItemAtPath:RCTCreateStorageDirectoryPath(RCTOldStorageDirectory) error:&error];
+          if (error) RCTStorageDirectoryMigrationLogError(@"Failed to remove old storage directory after migration", error);
         }
       }
     }
@@ -232,7 +229,7 @@ static void RCTStorageDirectoryMigrationCheck() {
 }
 
 + (BOOL)requiresMainQueueSetup {
-  return YES;
+  return NO;
 }
 
 - (instancetype)init
@@ -506,7 +503,7 @@ RCT_EXPORT_METHOD(multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
 }
 
 RCT_EXPORT_METHOD(multiMerge:(NSArray<NSArray<NSString *> *> *)kvPairs
-                    callback:(RCTResponseSenderBlock)callback)
+                  callback:(RCTResponseSenderBlock)callback)
 {
   if (self.delegate != nil) {
     NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:kvPairs.count];
@@ -640,3 +637,4 @@ RCT_EXPORT_METHOD(getAllKeys:(RCTResponseSenderBlock)callback)
 }
 
 @end
+
