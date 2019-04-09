@@ -7,7 +7,7 @@
 
 2. Right click on the Libraries folder and select `Add files to "yourProjectName"`.
 
-3. Add `RNCAsyncStorage.xcodeproj` to your project Libraries.
+3. Add `RNCAsyncStorage.xcodeproj` (located at `node_modules/@react-native-community/async-storage/ios`) to your project Libraries.
 
 3. Go to `Build Phases -> Link Binary with Libraries` and add:  `libRNCAsyncStorage.a`.
 
@@ -16,8 +16,8 @@
 
 2. Add this line to your `Podfile` just below the last pod: (if you don't one just create a new runnning: `pod init`).
 
-```
-pod 'react-native-async-storage', :path => '../node_modules/@react-native-community/async-storage'
+```diff
++ pod 'react-native-async-storage', :path => '../node_modules/@react-native-community/async-storage'
 ```
 
 3. Run `pod install`
