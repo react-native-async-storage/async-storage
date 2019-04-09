@@ -181,12 +181,13 @@ static NSDictionary *RCTDeleteStorageDirectory()
 static void RCTStorageDirectoryMigrationCheck() {
   NSString *oldStorageDir = RCTCreateStorageDirectoryPath(@"RNCAsyncLocalStorage_V1");
 
+  NSError *error;
   BOOL isDir;
   BOOL oldExists = [[NSFileManager defaultManager] fileExistsAtPath:oldStorageDir isDirectory:&isDir];
 
   // If the old directory exists, it means we need to migrate data to the new directory
   if (oldExists && isDir) {
-    NSError *error;
+
     BOOL migrationSuccess;
     // If the new storage directory already exists, then this may be caused by ever older data being left behind from previous versions.
     // This old data will need to be overwritten.
@@ -196,12 +197,12 @@ static void RCTStorageDirectoryMigrationCheck() {
       NSString *backupStorageDir = RCTCreateStorageDirectoryPath(@"RCTBackupAsyncLocalStorage_V1");
       // Replace any possible existing data in the new storage with old storage directory
       migrationSuccess = [[NSFileManager defaultManager] replaceItemAtURL:[[NSURL alloc] initWithString:newStorageDir]
-                                                        withItemAtURL:[[NSURL alloc] initWithString:oldStorageDir]
-                                                       backupItemName:backupStorageDir
-                                                              options:NSFileManagerItemReplacementUsingNewMetadataOnly
-                                                     resultingItemURL:nil
-                                                                error:&error];
-      if (error || !success) {
+                                                            withItemAtURL:[[NSURL alloc] initWithString:oldStorageDir]
+                                                           backupItemName:backupStorageDir
+                                                                  options:NSFileManagerItemReplacementUsingNewMetadataOnly
+                                                         resultingItemURL:nil
+                                                                    error:&error];
+      if (error || !migrationSuccess) {
         // Attempt to recover from failed overwriting
         [[NSFileManager defaultManager] removeItemAtPath:newStorageDir error:nil];
         [[NSFileManager defaultManager] copyItemAtPath:backupStorageDir toPath:newStorageDir error:nil];
@@ -222,7 +223,7 @@ static void RCTStorageDirectoryMigrationCheck() {
 
     // If the migration was a success, remove old storage directory
     if (migrationSuccess) {
-      [[NSFileManager defaultManager] removeItemAtPath:oldStorageDir error:error];
+      [[NSFileManager defaultManager] removeItemAtPath:oldStorageDir error:&error];
       if (error) {
         RCTMakeError(@"Failed to remove old storage directory after migration", error, nil);
       }
