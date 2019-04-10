@@ -191,7 +191,7 @@ static NSString *const RCTOldStorageDirectory = @"RNCAsyncLocalStorage_V1";
  */
 static void RCTStorageDirectoryMigrationLogError(NSString *reason, NSError *error)
 {
-  NSLog(@"%@: %@", reason, error ? error.description : @"");
+  RCTLogWarn(@"%@: %@", reason, error ? error.description : @"");
 }
 
 static void RCTStorageDirectoryCleanupOld()
