@@ -101,7 +101,7 @@ static NSString *RCTGetStorageDirectory()
 
 static NSString *RCTCreateManifestFilePath(NSString *storageDirectory)
 {
-  return [RCTCreateStorageDirectoryPath(storageDirectory) stringByAppendingString:RCTManifestFileName];
+  return [RCTCreateStorageDirectoryPath(storageDirectory) stringByAppendingPathComponent:RCTManifestFileName];
 }
 
 static NSString *RCTGetManifestFilePath()
