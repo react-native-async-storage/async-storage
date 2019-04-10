@@ -16,6 +16,11 @@ $ react-native link @react-native-community/async-storage
 
 See docs for [manual linking guide.](docs/Linking.md)
 
+**Note:** For iOS project using `pods`, run:
+	```
+	$ cd ios/ && pod install
+	```
+
 
 ## Usage
 
