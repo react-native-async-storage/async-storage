@@ -43,6 +43,18 @@ static void RCTAppendError(NSDictionary *error, NSMutableArray<NSDictionary *> *
   }
 }
 
+static NSArray<NSDictionary *> *RCTMakeErrors(NSArray<id<NSObject>> *results) {
+  NSMutableArray<NSDictionary *> *errors;
+  for (id object in results) {
+    if ([object isKindOfClass:[NSError class]]) {
+      NSError *error = (NSError *)object;
+      NSDictionary *keyError = RCTMakeError(error.localizedDescription, error, nil);
+      RCTAppendError(keyError, &errors);
+    }
+  }
+  return errors;
+}
+
 static NSString *RCTReadFile(NSString *filePath, NSString *key, NSDictionary **errorOut)
 {
   if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
@@ -329,30 +341,88 @@ RCT_EXPORT_MODULE()
   return errorOut;
 }
 
-#pragma mark - Exported JS Functions
-
-RCT_EXPORT_METHOD(multiGet:(NSArray<NSString *> *)keys
-                  callback:(RCTResponseSenderBlock)callback)
+- (void)_multiGet:(NSArray<NSString *> *)keys
+         callback:(RCTResponseSenderBlock)callback
+           getter:(NSString *(^)(NSUInteger i, NSString *key, NSDictionary **errorOut))getValue
 {
-  NSDictionary *errorOut = [self _ensureSetup];
-  if (errorOut) {
-    callback(@[@[errorOut], (id)kCFNull]);
-    return;
-  }
   NSMutableArray<NSDictionary *> *errors;
-  NSMutableArray<NSArray<NSString *> *> *result = [[NSMutableArray alloc] initWithCapacity:keys.count];
-  for (NSString *key in keys) {
+  NSMutableArray<NSArray<NSString *> *> *result = [NSMutableArray arrayWithCapacity:keys.count];
+  for (NSUInteger i = 0; i < keys.count; ++i) {
+    NSString *key = keys[i];
     id keyError;
-    id value = [self _getValueForKey:key errorOut:&keyError];
+    id value = getValue(i, key, &keyError);
     [result addObject:@[key, RCTNullIfNil(value)]];
     RCTAppendError(keyError, &errors);
   }
   callback(@[RCTNullIfNil(errors), result]);
 }
 
+- (BOOL)_passthroughDelegate
+{
+    return [self.delegate respondsToSelector:@selector(isPassthrough)] && self.delegate.isPassthrough;
+}
+
+#pragma mark - Exported JS Functions
+
+RCT_EXPORT_METHOD(multiGet:(NSArray<NSString *> *)keys
+                  callback:(RCTResponseSenderBlock)callback)
+{
+  if (self.delegate != nil) {
+    [self.delegate valuesForKeys:keys completion:^(NSArray<id<NSObject>> *valuesOrErrors) {
+      [self _multiGet:keys
+             callback:callback
+               getter:^NSString *(NSUInteger i, NSString *key, NSDictionary **errorOut) {
+                        id valueOrError = valuesOrErrors[i];
+                        if ([valueOrError isKindOfClass:[NSError class]]) {
+                          NSError *error = (NSError *)valueOrError;
+                          NSDictionary *extraData = @{@"key": RCTNullIfNil(key)};
+                          *errorOut = RCTMakeError(error.localizedDescription, error, extraData);
+                          return nil;
+                        } else {
+                          return [valueOrError isKindOfClass:[NSString class]]
+                            ? (NSString *)valueOrError
+                            : nil;
+                        }
+                      }];
+    }];
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
+  }
+
+  NSDictionary *errorOut = [self _ensureSetup];
+  if (errorOut) {
+    callback(@[@[errorOut], (id)kCFNull]);
+    return;
+  }
+  [self _multiGet:keys
+         callback:callback
+           getter:^(NSUInteger i, NSString *key, NSDictionary **errorOut) {
+                    return [self _getValueForKey:key errorOut:errorOut];
+                  }];
+}
+
 RCT_EXPORT_METHOD(multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
                   callback:(RCTResponseSenderBlock)callback)
 {
+  if (self.delegate != nil) {
+    NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:kvPairs.count];
+    NSMutableArray<NSString *> *values = [NSMutableArray arrayWithCapacity:kvPairs.count];
+    for (NSArray<NSString *> *entry in kvPairs) {
+      [keys addObject:entry[0]];
+      [values addObject:entry[1]];
+    }
+    [self.delegate setValues:values forKeys:keys completion:^(NSArray<id<NSObject>> *results) {
+      NSArray<NSDictionary *> *errors = RCTMakeErrors(results);
+      callback(@[RCTNullIfNil(errors)]);
+    }];
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
+  }
+
   NSDictionary *errorOut = [self _ensureSetup];
   if (errorOut) {
     callback(@[@[errorOut]]);
@@ -373,6 +443,23 @@ RCT_EXPORT_METHOD(multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
 RCT_EXPORT_METHOD(multiMerge:(NSArray<NSArray<NSString *> *> *)kvPairs
                     callback:(RCTResponseSenderBlock)callback)
 {
+  if (self.delegate != nil) {
+    NSMutableArray<NSString *> *keys = [NSMutableArray arrayWithCapacity:kvPairs.count];
+    NSMutableArray<NSString *> *values = [NSMutableArray arrayWithCapacity:kvPairs.count];
+    for (NSArray<NSString *> *entry in kvPairs) {
+      [keys addObject:entry[0]];
+      [values addObject:entry[1]];
+    }
+    [self.delegate mergeValues:values forKeys:keys completion:^(NSArray<id<NSObject>> *results) {
+      NSArray<NSDictionary *> *errors = RCTMakeErrors(results);
+      callback(@[RCTNullIfNil(errors)]);
+    }];
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
+  }
+
   NSDictionary *errorOut = [self _ensureSetup];
   if (errorOut) {
     callback(@[@[errorOut]]);
@@ -407,8 +494,19 @@ RCT_EXPORT_METHOD(multiMerge:(NSArray<NSArray<NSString *> *> *)kvPairs
 }
 
 RCT_EXPORT_METHOD(multiRemove:(NSArray<NSString *> *)keys
-                  callback:(RCTResponseSenderBlock)callback)
+                     callback:(RCTResponseSenderBlock)callback)
 {
+  if (self.delegate != nil) {
+    [self.delegate removeValuesForKeys:keys completion:^(NSArray<id<NSObject>> *results) {
+      NSArray<NSDictionary *> *errors = RCTMakeErrors(results);
+      callback(@[RCTNullIfNil(errors)]);
+    }];
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
+  }
+
   NSDictionary *errorOut = [self _ensureSetup];
   if (errorOut) {
     callback(@[@[errorOut]]);
@@ -439,6 +537,17 @@ RCT_EXPORT_METHOD(multiRemove:(NSArray<NSString *> *)keys
 
 RCT_EXPORT_METHOD(clear:(RCTResponseSenderBlock)callback)
 {
+  if (self.delegate != nil) {
+    [self.delegate removeAllValues:^(NSError *error) {
+      NSDictionary *result = nil;
+      if (error != nil) {
+        result = RCTMakeError(error.localizedDescription, error, nil);
+      }
+      callback(@[RCTNullIfNil(result)]);
+    }];
+    return;
+  }
+
   [_manifest removeAllObjects];
   [RCTGetCache() removeAllObjects];
   NSDictionary *error = RCTDeleteStorageDirectory();
@@ -447,6 +556,16 @@ RCT_EXPORT_METHOD(clear:(RCTResponseSenderBlock)callback)
 
 RCT_EXPORT_METHOD(getAllKeys:(RCTResponseSenderBlock)callback)
 {
+  if (self.delegate != nil) {
+    [self.delegate allKeys:^(NSArray<id<NSObject>> *keys) {
+      callback(@[(id)kCFNull, keys]);
+    }];
+
+    if (![self _passthroughDelegate]) {
+      return;
+    }
+  }
+
   NSDictionary *errorOut = [self _ensureSetup];
   if (errorOut) {
     callback(@[errorOut, (id)kCFNull]);
