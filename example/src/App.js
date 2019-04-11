@@ -44,28 +44,36 @@ const TESTS = {
 
 const STORAGE_OPTIONS = {
   documents: 'Documents',
-  applicationSupport: 'Application Support'
+  applicationSupport: 'Application Support',
 };
 
 type Props = {};
-type State = {restarting: boolean, currentTest: Object};
+type State = {
+  restarting: boolean,
+  currentTest: Object,
+  storageLocation: string,
+};
 
 export default class App extends Component<Props, State> {
   state = {
     restarting: false,
     currentTest: TESTS.GetSetClear,
-    storageLocation: STORAGE_OPTIONS.documents
+    storageLocation: STORAGE_OPTIONS.documents,
   };
 
   _changeStorage = () => {
     if (this.state.storageLocation === STORAGE_OPTIONS.documents) {
-      AsyncStorage.setStorageLocationIOS(AsyncStorage.StorageLocationIOS.applicationSupport);
-      this.setState({ storageLocation: STORAGE_OPTIONS.applicationSupport });
+      AsyncStorage.setStorageLocationIOS(
+        AsyncStorage.StorageLocationIOS.applicationSupport,
+      );
+      this.setState({storageLocation: STORAGE_OPTIONS.applicationSupport});
     } else {
-      AsyncStorage.setStorageLocationIOS(AsyncStorage.StorageLocationIOS.documents);
-      this.setState({ storageLocation: STORAGE_OPTIONS.documents });
+      AsyncStorage.setStorageLocationIOS(
+        AsyncStorage.StorageLocationIOS.documents,
+      );
+      this.setState({storageLocation: STORAGE_OPTIONS.documents});
     }
-  }
+  };
 
   _simulateRestart = () => {
     this.setState({restarting: true}, () => this.setState({restarting: false}));
@@ -164,13 +172,13 @@ const styles = StyleSheet.create({
   },
   topButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   topButton: {
     padding: 6,
     fontSize: 16,
     borderRadius: 5,
-    backgroundColor: '#F3F3F3'
+    backgroundColor: '#F3F3F3',
   },
   closeKeyboardView: {
     width: 5,
