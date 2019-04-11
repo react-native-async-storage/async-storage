@@ -17,6 +17,7 @@
 #import <React/RCTUtils.h>
 
 static NSString *const RCTStorageDirectory = @"RCTAsyncLocalStorage_V1";
+static NSString *const RCTOldStorageDirectory = @"RNCAsyncLocalStorage_V1";
 static NSString *const RCTManifestFileName = @"manifest.json";
 static const NSUInteger RCTInlineValueThreshold = 1024;
 
@@ -185,7 +186,6 @@ static NSDate *RCTManifestModificationDate(NSString *manifestFilePath)
   return [attributes fileModificationDate];
 }
 
-static NSString *const RCTOldStorageDirectory = @"RNCAsyncLocalStorage_V1";
 /**
  * Creates an NSException used during Storage Directory Migration.
  */
