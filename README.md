@@ -16,6 +16,11 @@ $ react-native link @react-native-community/async-storage
 
 See docs for [manual linking guide.](docs/Linking.md)
 
+**Note:** For iOS project using `pods`, run:
+	```
+	$ cd ios/ && pod install
+	```
+
 
 ## Usage
 
@@ -54,7 +59,11 @@ getData = async () => {
 
 ```
 
-See docs for [api and more examples.](docs/API.md)
+See docs for [api and more examples](docs/API.md), and [brownfield integration guide](docs/AdvancedUsage.md).
+
+## Writing tests
+
+Using [Jest](https://jestjs.io/) for testing? Make sure to check out [docs on how to integrate it with this module.](./docs/Jest-integration.md)
 
 ## Contribution
 

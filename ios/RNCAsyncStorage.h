@@ -7,6 +7,7 @@
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTInvalidating.h>
+#import <RNCAsyncStorage/RNCAsyncStorageDelegate.h>
 
 /**
  * A simple, asynchronous, persistent, key-value storage system designed as a
@@ -20,6 +21,8 @@
  * Keys and values must always be strings or an error is returned.
  */
 @interface RNCAsyncStorage : NSObject <RCTBridgeModule,RCTInvalidating>
+
+@property (nonatomic, weak, nullable) id<RNCAsyncStorageDelegate> delegate;
 
 @property (nonatomic, assign) BOOL clearOnInvalidate;
 
@@ -36,6 +39,5 @@
 
 // Add multiple key value pairs to the cache.
 - (void)multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs callback:(RCTResponseSenderBlock)callback;
-
 
 @end
