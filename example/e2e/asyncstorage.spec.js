@@ -9,9 +9,11 @@
 
 describe('Async Storage', () => {
   let restartButton;
+  let changeStorageButton;
   let closeKeyboard;
   let test_getSetClear;
   let test_mergeItem;
+  let isAndroid;
 
   beforeAll(async () => {
     await device.reloadReactNative();
@@ -20,7 +22,10 @@ describe('Async Storage', () => {
     closeKeyboard = await element(by.id('closeKeyboard'));
     test_getSetClear = await element(by.id('testType_getSetClear'));
     test_mergeItem = await element(by.id('testType_mergeItem'));
+    isAndroid = device.getPlatform() === 'android';
   });
+
+  const testRunOnlyOnIos = test => (isAndroid ? test.skip : test);
 
   it('should load default screen', async () => {
     await expect(restartButton).toExist();
@@ -34,7 +39,7 @@ describe('Async Storage', () => {
     await expect(element(by.id('clear_button'))).toExist();
     await expect(element(by.id('increaseByTen_button'))).toExist();
     await expect(element(by.id('storedNumber_text'))).toExist();
-  }
+  };
   const getSetClearTestsShouldStoreValueInAsyncStorageTest = async () => {
     const storedNumberText = await element(by.id('storedNumber_text'));
     const increaseByTenButton = await element(by.id('increaseByTen_button'));
@@ -50,7 +55,7 @@ describe('Async Storage', () => {
     await expect(storedNumberText).toHaveText(`${tapTimes * 10}`);
     await restartButton.tap();
     await expect(storedNumberText).toHaveText(`${tapTimes * 10}`);
-  }
+  };
   const getSetClearTestsShouldClearItemTest = async () => {
     const storedNumberText = await element(by.id('storedNumber_text'));
     const increaseByTenButton = await element(by.id('increaseByTen_button'));
@@ -60,7 +65,7 @@ describe('Async Storage', () => {
     await clearButton.tap();
     await restartButton.tap();
     await expect(storedNumberText).toHaveText('');
-  }
+  };
 
   const mergeItemTestsShouldBeVisibleTest = async () => {
     await test_mergeItem.tap();
@@ -71,7 +76,7 @@ describe('Async Storage', () => {
     await expect(element(by.id('testInput-age'))).toExist();
     await expect(element(by.id('testInput-eyes'))).toExist();
     await expect(element(by.id('testInput-shoe'))).toExist();
-  }
+  };
   const mergeItemTestsShouldMergeItemsInAsyncStorage = async () => {
     const buttonSaveItem = await element(by.id('saveItem_button'));
     const buttonMergeItem = await element(by.id('mergeItem_button'));
@@ -133,7 +138,7 @@ describe('Async Storage', () => {
     await restartButton.tap();
     await buttonRestoreItem.tap();
     expect(storyText).toHaveText(newStory);
-  }
+  };
 
   describe('storage location: default - get / set / clear item test', () => {
     it('should be visible', async () => {
@@ -159,25 +164,26 @@ describe('Async Storage', () => {
   });
 
   describe('storage location: applicationSupport - get / set / clear item test', () => {
-    it('should be visible', async () => {
+    testRunOnlyOnIos(isAndroid, 'should be visible', async () => {
       await changeStorageButton.tap();
       await getSetClearTestsShouldBeVisibleTest();
     });
-    it('should store value in async storage', async () => {
+
+    testRunOnlyOnIos('should store value in async storage', async () => {
       await getSetClearTestsShouldStoreValueInAsyncStorageTest();
     });
 
-    it('should clear item', async () => {
+    testRunOnlyOnIos('should clear item', async () => {
       await getSetClearTestsShouldClearItemTest();
     });
   });
 
   describe('storage location: applicationSupport - merge item test', () => {
-    it('should be visible', async () => {
+    testRunOnlyOnIos('should be visible', async () => {
       await mergeItemTestsShouldBeVisibleTest();
     });
 
-    it('should merge items in async storage', async () => {
+    testRunOnlyOnIos('should merge items in async storage', async () => {
       await mergeItemTestsShouldMergeItemsInAsyncStorage();
     });
   });

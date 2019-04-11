@@ -87,19 +87,16 @@ static NSString *RCTGetStorageDirectory(RCTStorageLocation storageLocation)
   if (storageDirectory != nil) {
     return storageDirectory;
   }
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
 #if TARGET_OS_TV
-    storageDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+  storageDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
 #else
-    NSSearchPathDirectory path = NSDocumentDirectory;
-    if (storageLocation == NSApplicationSupport) {
-      path = NSApplicationSupportDirectory;
-    }
-    storageDirectory = NSSearchPathForDirectoriesInDomains(path, NSUserDomainMask, YES).firstObject;
+  NSSearchPathDirectory path = NSDocumentDirectory;
+  if (storageLocation == NSApplicationSupport) {
+    path = NSApplicationSupportDirectory;
+  }
+  storageDirectory = NSSearchPathForDirectoriesInDomains(path, NSUserDomainMask, YES).firstObject;
 #endif
-    storageDirectory = [storageDirectory stringByAppendingPathComponent:RCTStorageDirectory];
-  });
+  storageDirectory = [storageDirectory stringByAppendingPathComponent:RCTStorageDirectory];
   return storageDirectory;
 }
 
