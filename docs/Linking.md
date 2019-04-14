@@ -14,10 +14,10 @@
 #### Using 'Pods'
 1. Enter into iOS Folder `cd ios/` (on your project's root folder).
 
-2. Add this line to your `Podfile` just below the last pod: (if you don't one just create a new runnning: `pod init`).
+2. Add this line to your `Podfile` just below the last pod (if you don't have one, you can create it by running `pod init`):
 
 ```diff
-+ pod 'react-native-async-storage', :path => '../node_modules/@react-native-community/async-storage'
++ pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 ```
 
 3. Run `pod install`
