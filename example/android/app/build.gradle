@@ -159,8 +159,8 @@ dependencies {
     // tests
     androidTestImplementation project(":detox")
     androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
 }
 
 // Run this once to be able to run the application with BUCK
