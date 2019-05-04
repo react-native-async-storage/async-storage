@@ -159,8 +159,6 @@ dependencies {
     // tests
     androidTestImplementation ('com.wix:detox:+') { transitive = true }
     androidTestImplementation 'junit:junit:4.12'
-    // androidTestImplementation 'androidx.test:runner:1.1.1'
-    // androidTestImplementation 'androidx.test:rules:1.1.1'
 }
 
 // Run this once to be able to run the application with BUCK
