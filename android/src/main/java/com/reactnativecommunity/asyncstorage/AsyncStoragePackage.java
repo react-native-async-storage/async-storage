@@ -19,7 +19,6 @@ import java.util.List;
 
 public class AsyncStoragePackage implements ReactPackage {
 
-
     long mSize = 6L * 1024L * 1024L;
 
     public AsyncStoragePackage(){
