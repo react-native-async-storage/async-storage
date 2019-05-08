@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
- 
+
 package com.reactnativecommunity.asyncstorage;
 
 import javax.annotation.Nullable;
@@ -45,14 +45,15 @@ public class ReactDatabaseSupplier extends SQLiteOpenHelper {
   private @Nullable SQLiteDatabase mDb;
   private long mMaximumDatabaseSize =  6L * 1024L * 1024L; // 6 MB in bytes
 
-  private ReactDatabaseSupplier(Context context) {
+  private ReactDatabaseSupplier(Context context, long size) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
     mContext = context;
+    mMaximumDatabaseSize = size;
   }
 
-  public static ReactDatabaseSupplier getInstance(Context context) {
+  public static ReactDatabaseSupplier getInstance(Context context, long size) {
     if (sReactDatabaseSupplierInstance == null) {
-      sReactDatabaseSupplierInstance = new ReactDatabaseSupplier(context.getApplicationContext());
+      sReactDatabaseSupplierInstance = new ReactDatabaseSupplier(context.getApplicationContext(), size);
     }
     return sReactDatabaseSupplierInstance;
   }
