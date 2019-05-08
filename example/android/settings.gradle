@@ -2,8 +2,6 @@ rootProject.name = 'AsyncStorageExample'
 
 include ':app'
 include ':rnAsyncStorage'
-include ':detox'
 
 
 project(':rnAsyncStorage').projectDir = new File(rootProject.projectDir, '../../android')
-project(':detox').projectDir = new File(rootProject.projectDir, '../../node_modules/detox/android/detox')

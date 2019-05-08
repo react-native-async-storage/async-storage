@@ -117,8 +117,7 @@ android {
         versionCode 1
         versionName "1.0"
         testBuildType System.getProperty('testBuildType', 'debug')
-        missingDimensionStrategy "minReactNative", "minReactNative46"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     splits {
         abi {
@@ -132,6 +131,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
             signingConfig signingConfigs.release
             matchingFallbacks = ['release']
         }
@@ -157,10 +157,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     // tests
-    androidTestImplementation project(":detox")
+    androidTestImplementation ('com.wix:detox:+') { transitive = true }
     androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
 }
 
 // Run this once to be able to run the application with BUCK
