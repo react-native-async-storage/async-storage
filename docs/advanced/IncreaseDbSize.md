@@ -10,7 +10,7 @@ Disclaimer: This 6MB limit is a sane limit to protect the user from the app stor
 
 ### Increase limit
 
-Go to your MainApplication.java and change the initialization of AsyncStorage in your getPackages() from
+Modify your `MainApplication.java`'s `getPackages`:
 
 ```
 new AsyncStorage()
