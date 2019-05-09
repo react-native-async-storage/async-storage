@@ -22,4 +22,4 @@ to
 new AsyncStorage(100L * 1024L * 1024L)
 ```
 
-where the 100 defines the number in MB, the new database limit will be. In this example the new database size is 100 MB.
+Where the 100 defines the new size in MB. In this example, new limit is 100 MB.
