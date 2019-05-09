@@ -59,7 +59,8 @@ getData = async () => {
 
 ```
 
-See docs for [api and more examples](docs/API.md), and [brownfield integration guide](docs/AdvancedUsage.md).
+### Advanced
+See docs for [api and more examples](docs/API.md), [brownfield integration guide](docs/advanced/BrownfieldIntegration.md) and [increased storage size on Android](docs/advanced/IncreaseDbSize.md) .
 
 ## Writing tests
 
