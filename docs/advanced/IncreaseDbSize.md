@@ -1,5 +1,7 @@
 # Increase Async Storage size
 
+## Android
+
 Current Async Storage's size is set to 6MB. Going over this limit causes `database or disk is full` error.
 
 ```
@@ -23,3 +25,8 @@ new AsyncStorage(100L * 1024L * 1024L)
 ```
 
 Where the 100 defines the new size in MB. In this example, new limit is 100 MB.
+
+
+## iOS
+
+Async Storage size is not limited programmatically on iOS.
