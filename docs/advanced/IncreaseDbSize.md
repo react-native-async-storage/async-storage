@@ -1,6 +1,6 @@
 # Increase AsyncStorage Database Size on Android
 
-On Android there is a default size limit of 6MB an AsyncStorage. If you try to add more data to your AsyncStorage you will recieve an error like this: 
+Current Async Storage's size is set to 6MB. Going over this limit causes `database or disk is full` error.
 
 ```
 database or disk is full (code 13)
