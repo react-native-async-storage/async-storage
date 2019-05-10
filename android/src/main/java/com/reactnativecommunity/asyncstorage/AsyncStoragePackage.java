@@ -18,10 +18,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class AsyncStoragePackage implements ReactPackage {
-
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-      return Arrays.<NativeModule>asList(new AsyncStorageModule(reactContext, mSize));
+      return Arrays.<NativeModule>asList(new AsyncStorageModule(reactContext));
     }
 
     // Deprecated in RN 0.47
