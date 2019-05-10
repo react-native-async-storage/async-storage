@@ -58,8 +58,8 @@ getData = async () => {
 }
 
 ```
-
-See docs for [api and more examples](docs/API.md), and [brownfield integration guide](docs/AdvancedUsage.md).
+### Advanced
+See docs for [api and more examples](docs/API.md) or [advanced usages](docs/advanced).
 
 ## Writing tests
 
