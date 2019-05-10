@@ -81,15 +81,15 @@ public final class AsyncStorageModule
 
   private final SerialExecutor executor;
 
-  public AsyncStorageModule(ReactApplicationContext reactContext, long size) {
-    this(reactContext, AsyncTask.THREAD_POOL_EXECUTOR, size);
+  public AsyncStorageModule(ReactApplicationContext reactContext) {
+    this(reactContext, AsyncTask.THREAD_POOL_EXECUTOR);
   }
 
   @VisibleForTesting
-  AsyncStorageModule(ReactApplicationContext reactContext, Executor executor, long size) {
+  AsyncStorageModule(ReactApplicationContext reactContext, Executor executor) {
     super(reactContext);
     this.executor = new SerialExecutor(executor);
-    mReactDatabaseSupplier = ReactDatabaseSupplier.getInstance(reactContext, size);
+    mReactDatabaseSupplier = ReactDatabaseSupplier.getInstance(reactContext);
   }
 
   @Override

@@ -18,6 +18,18 @@ def getExtOrIntegerDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['RNAsyncStorage_' + name]).toInteger()
 }
 
+// AsyncStorage has default size of 6MB.
+// This is a sane limit to protect the user from the app storing too much data in the database.
+// This also protects the database from filling up the disk cache and becoming malformed.
+// If you really need bigger size, please keep in mind the potential consequences.
+long dbSizeInMB = 6L
+
+def newDbSize = rootProject.properties['AsyncStorage_db_size_in_MB']
+
+if( newDbSize != null && newDbSize.isLong()) {
+    dbSizeInMB = newDbSize.toLong()
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -27,6 +39,8 @@ android {
     defaultConfig {
         minSdkVersion getExtOrIntegerDefault('minSdkVersion')
         targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
+
+        buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
     }
 }
 
@@ -37,4 +51,3 @@ repositories {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
 }
-  

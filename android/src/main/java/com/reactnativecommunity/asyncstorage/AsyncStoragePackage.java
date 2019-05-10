@@ -19,17 +19,6 @@ import java.util.List;
 
 public class AsyncStoragePackage implements ReactPackage {
 
-    long mSize = 6L * 1024L * 1024L;
-
-    public AsyncStoragePackage(){
-        super();
-    }
-
-    public AsyncStoragePackage(long size){
-        super();
-        mSize = size;
-    }
-
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
       return Arrays.<NativeModule>asList(new AsyncStorageModule(reactContext, mSize));
