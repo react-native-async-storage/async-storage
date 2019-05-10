@@ -1,6 +1,6 @@
 # React Native Async Storage
 
-An asynchronous, persistent, key-value storage system for React Native.
+An asynchronous, unencrypted, persistent, key-value storage system for React Native.
 
 
 ## Getting Started
