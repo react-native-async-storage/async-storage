@@ -30,10 +30,6 @@ import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.concurrent.Executor;
 
-import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.KEY_COLUMN;
-import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.TABLE_CATALYST;
-import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.VALUE_COLUMN;
-
 @ReactModule(name = AsyncStorageModule.NAME)
 public final class AsyncStorageModule
     extends ReactContextBaseJavaModule implements ModuleDataCleaner.Cleanable {
@@ -135,13 +131,13 @@ public final class AsyncStorageModule
           return;
         }
 
-        String[] columns = {KEY_COLUMN, VALUE_COLUMN};
+        String[] columns = {ReactDatabaseSupplier.KEY_COLUMN, ReactDatabaseSupplier.VALUE_COLUMN};
         HashSet<String> keysRemaining = new HashSet<>();
         WritableArray data = Arguments.createArray();
         for (int keyStart = 0; keyStart < keys.size(); keyStart += MAX_SQL_KEYS) {
           int keyCount = Math.min(keys.size() - keyStart, MAX_SQL_KEYS);
           Cursor cursor = mReactDatabaseSupplier.get().query(
-              TABLE_CATALYST,
+              ReactDatabaseSupplier.TABLE_CATALYST,
               columns,
               AsyncLocalStorageUtil.buildKeySelection(keyCount),
               AsyncLocalStorageUtil.buildKeySelectionArgs(keys, keyStart, keyCount),
@@ -208,7 +204,7 @@ public final class AsyncStorageModule
           return;
         }
 
-        String sql = "INSERT OR REPLACE INTO " + TABLE_CATALYST + " VALUES (?, ?);";
+        String sql = "INSERT OR REPLACE INTO " + ReactDatabaseSupplier.TABLE_CATALYST + " VALUES (?, ?);";
         SQLiteStatement statement = mReactDatabaseSupplier.get().compileStatement(sql);
         WritableMap error = null;
         try {
@@ -279,7 +275,7 @@ public final class AsyncStorageModule
           for (int keyStart = 0; keyStart < keys.size(); keyStart += MAX_SQL_KEYS) {
             int keyCount = Math.min(keys.size() - keyStart, MAX_SQL_KEYS);
             mReactDatabaseSupplier.get().delete(
-                TABLE_CATALYST,
+                    ReactDatabaseSupplier.TABLE_CATALYST,
                 AsyncLocalStorageUtil.buildKeySelection(keyCount),
                 AsyncLocalStorageUtil.buildKeySelectionArgs(keys, keyStart, keyCount));
           }
@@ -405,9 +401,9 @@ public final class AsyncStorageModule
           return;
         }
         WritableArray data = Arguments.createArray();
-        String[] columns = {KEY_COLUMN};
+        String[] columns = {ReactDatabaseSupplier.KEY_COLUMN};
         Cursor cursor = mReactDatabaseSupplier.get()
-            .query(TABLE_CATALYST, columns, null, null, null, null, null);
+            .query(ReactDatabaseSupplier.TABLE_CATALYST, columns, null, null, null, null, null);
         try {
           if (cursor.moveToFirst()) {
             do {
