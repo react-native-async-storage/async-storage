@@ -32,7 +32,7 @@ info #import <React/RCTBridgeModule.h>
 info 1 error generated.
 ```
 
-- Make sure that you've run `pod install` (see also CocoaPods issues).
+- Make sure that you've run `pod install` (see also [CocoaPods issues](#ios-cocoapods-issues)).
 
 - If you've manually linked React Native, but use CocoaPods for AsyncStorage,
   AsyncStorage will not be able to find React headers. You'll need to set header
