@@ -32,7 +32,8 @@ info #import <React/RCTBridgeModule.h>
 info 1 error generated.
 ```
 
-- Make sure that you've run `pod install` (see also [CocoaPods issues](#ios-cocoapods-issues)).
+- Make sure that you've run `pod install` or `pod update RNCAsyncStorage` (see
+  also [CocoaPods issues](#ios-cocoapods-issues)).
 
 - If you've manually linked React Native, but use CocoaPods for AsyncStorage,
   AsyncStorage will not be able to find React headers. You'll need to set header
@@ -54,3 +55,18 @@ info 1 error generated.
 
 - Try switching back to the legacy build system in Xcode. You can find it in
   File > Project/Workspace Settings sheet.
+
+## [@RNC/AsyncStorage]: NativeModule: AsyncStorage is null
+
+### iOS
+
+This error means that AsyncStorage was unable to find its native module. This
+occurs because AsyncStorage was not linked into the final app bundle.
+
+- Make sure that you've run `pod install` or `pod update RNCAsyncStorage` (see
+  also [CocoaPods issues](#ios-cocoapods-issues)).
+
+- If you have an Expo app, AsyncStorage will not work unless you eject the app.
+  After ejecting the app, you may have to
+  [manually link](Linking.md#project-linking) depending on whether you chose to
+  use Expo SDK.
