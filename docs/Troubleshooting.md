@@ -7,7 +7,7 @@
 3. If you're using CocoaPods:
     1. Make sure your `Podfile` has this entry:
         ```Podfile
-        pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/sync-storage'
+        pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
         ```
     2. Make sure your `Podfile` does _not_ have an entry for `react-native-async-storage`.
     3. `pod install`
