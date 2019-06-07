@@ -7,7 +7,7 @@
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTInvalidating.h>
-#import <RNCAsyncStorage/RNCAsyncStorageDelegate.h>
+#import "RNCAsyncStorageDelegate.h"
 
 /**
  * A simple, asynchronous, persistent, key-value storage system designed as a
