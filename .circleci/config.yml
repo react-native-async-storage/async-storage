@@ -6,7 +6,7 @@ version: 2
 
 default job config: &defaults
   working_directory: ~/async_storage
-  
+
 checkout step for each job: &addWorkspace
   attach_workspace:
     at: ~/async_storage
@@ -76,7 +76,7 @@ save yarn cache: &cache_save_yarn
 
 restore yarn cache: &cache_restore_yarn
   name: Restoring Yarn cache
-  keys: 
+  keys:
     - v1-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
 
 # gradle
@@ -94,12 +94,12 @@ save gradle build cache: &cache_save_gradle_build
 
 restore gradle wrapper cache: &cache_restore_gradle_wrapper
   name: Restoring Gradle Wrapper cache
-  keys: 
+  keys:
     - gradle-wrapper-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
 
 restore gradle build cache: &cache_restore_gradle_build
   name: Restoring Gradle app/build cache
-  keys: 
+  keys:
     - app-build-gradle-v1-{{ checksum "example/android/app/build.gradle" }}
 
 
@@ -152,7 +152,7 @@ jobs:
             node -v
       - save-cache: *cache_save_brew
       - restore-cache: *cache_restore_yarn
-      - run: 
+      - run:
           name: Installing Yarn dependencies
           command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
       - save-cache: *cache_save_yarn
@@ -277,14 +277,6 @@ jobs:
           name: Run e2e tests
           command: yarn test:e2e:android
 
-  "Publish: semantic release":
-    <<: *js_defaults
-    steps:
-      - *addWorkspace
-      - run:
-          name: Publish to NPM registry
-          command: yarn ci:publish 
-
 # ==============================
 # WORK FLOWS
 # ==============================
@@ -312,10 +304,3 @@ workflows:
             - "Test: lint"
             - "Test: flow"
             - "Build: Android release apk"
-      - "Publish: semantic release":
-          requires:
-            - "Test: Android e2e"
-            - "Test: iOS e2e"
-          filters:
-            branches:
-              only: master

@@ -29,8 +29,7 @@
     "test:flow": "flow check",
     "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'",
     "test:e2e:ios": "detox test -c ios",
-    "test:e2e:android": "detox test -c android",
-    "ci:publish": "yarn semantic-release"
+    "test:e2e:android": "detox test -c android"
   },
   "peerDependencies": {
     "react": "^16.0",
@@ -39,7 +38,6 @@
   "devDependencies": {
     "@babel/core": "7.0.0",
     "@react-native-community/eslint-config": "0.0.2",
-    "@semantic-release/git": "7.0.8",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "24.1.0",
     "babel-plugin-module-resolver": "3.1.3",
@@ -50,8 +48,7 @@
     "metro-react-native-babel-preset": "0.51.1",
     "react": "16.6.3",
     "react-native": "0.58.4",
-    "react-test-renderer": "16.6.3",
-    "semantic-release": "15.13.3"
+    "react-test-renderer": "16.6.3"
   },
   "jest": {
     "preset": "react-native",
