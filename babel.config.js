@@ -1,14 +1,7 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: ['@babel/preset-typescript'],
   plugins: [
-    [
-      'module-resolver',
-      {
-        alias: {
-          '@react-native-community/async-storage': './lib/index',
-        },
-        cwd: 'babelrc',
-      },
-    ],
+    '@babel/proposal-class-properties',
+    '@babel/proposal-object-rest-spread',
   ],
 };

@@ -1,0 +1,9 @@
+{
+  "packages": [
+    "core",
+    "storages/*"
+  ],
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true
+}

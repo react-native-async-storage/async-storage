@@ -280,27 +280,5 @@ jobs:
 # ==============================
 # WORK FLOWS
 # ==============================
-workflows:
-  version: 2
-  "Testing":
-    jobs:
-      - "Setup environment"
-      - "Test: lint":
-          requires:
-            - "Setup environment"
-      - "Test: flow":
-          requires:
-            - "Setup environment"
-      - "Test: iOS e2e":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-      - "Build: Android release apk":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-      - "Test: Android e2e":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-            - "Build: Android release apk"
+
+# TODO: Create CI config
