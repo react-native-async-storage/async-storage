@@ -6,7 +6,7 @@
 type KeysType = Array<string>;
 type KeyValueType = Array<Array<*>>;
 type CallbackType = ((?Error) => void) | void;
-type ItemGetCallbackType = (?Error, ?string) => void;
+type ItemGetCallbackType = ((?Error, ?string) => void) | void;
 type ResultCallbackType = ((?Error, ?KeyValueType) => void) | void;
 
 const asMock = {
