@@ -1,74 +1,13 @@
-# React Native Async Storage
+# Async Storage
 
-An asynchronous, unencrypted, persistent, key-value storage system for React Native.
+A storage system for React Native.
 
+## Work in progress
 
-## Getting Started
+Async Storage v2 is still under development.
 
+If you're looking for published and operational Async Storage version, please check out [`LEGACY`](https://github.com/react-native-community/async-storage/tree/LEGACY) branch.
 
-```
-# Install
-$ yarn add @react-native-community/async-storage
-
-# Link
-$ react-native link @react-native-community/async-storage
-```
-
-See docs for [manual linking guide.](docs/Linking.md)
-
-**Note:** For iOS project using `pods`, run:
-	```
-	$ cd ios/ && pod install
-	```
+If you'd like to see the progress of v2, [please visit Project page.](https://github.com/react-native-community/async-storage/projects/1) 
 
 
-## Usage
-
-### Import
-
-```js
-import AsyncStorage from '@react-native-community/async-storage';
-```
-
-### Store data
-```jsx
-
-storeData = async () => {
-  try {
-    await AsyncStorage.setItem('@storage_Key', 'stored value')
-  } catch (e) {
-    // saving error
-  }
-}
-
-```
-
-### Read data
-```jsx
-
-getData = async () => {
-  try {
-    const value = await AsyncStorage.getItem('@storage_Key')
-    if(value !== null) {
-      // value previously stored
-    }
-  } catch(e) {
-    // error reading value
-  }
-}
-
-```
-### Advanced
-See docs for [api and more examples](docs/API.md) or [advanced usages](docs/advanced).
-
-## Writing tests
-
-Using [Jest](https://jestjs.io/) for testing? Make sure to check out [docs on how to integrate it with this module.](./docs/Jest-integration.md)
-
-## Contribution
-
-See the [CONTRIBUTING](CONTRIBUTING.md) file for how to help out.
-
-## License
-
-MIT

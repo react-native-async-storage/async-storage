@@ -8,7 +8,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
-  
+lerna-debug.log
 
 # Xcode
 #
@@ -29,7 +29,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
-      
+
 
 # Android/IntelliJ
 #
@@ -46,3 +46,8 @@ buck-out/
 
 # Editor config
 .vscode
+
+
+# Async Storage
+core/build
+storages/**/build

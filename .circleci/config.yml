@@ -129,13 +129,13 @@ jobs:
           name: Lint check
           command: yarn test:lint
 
-  "Test: flow":
+  "Test: types":
     <<: *js_defaults
     steps:
       - *addWorkspace
       - run:
-          name: Flow check
-          command: yarn test:flow
+          name: Type check
+          command: yarn test:types
 
   "Test: iOS e2e":
     <<: *macos_defaults
@@ -282,25 +282,12 @@ jobs:
 # ==============================
 workflows:
   version: 2
-  "Testing":
+  build_and_test_wip:
     jobs:
       - "Setup environment"
       - "Test: lint":
           requires:
             - "Setup environment"
-      - "Test: flow":
+      - "Test: types":
           requires:
             - "Setup environment"
-      - "Test: iOS e2e":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-      - "Build: Android release apk":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-      - "Test: Android e2e":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-            - "Build: Android release apk"
