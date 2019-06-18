@@ -4,6 +4,10 @@ class AsyncStorage implements IAsyncStorage {
   constructor(storageBackend: IStorageBackend) {
     this.backend = storageBackend;
   }
+
+  set(): Promise<void> {
+    return Promise.resolve(undefined);
+  }
 }
 
 export default AsyncStorage;

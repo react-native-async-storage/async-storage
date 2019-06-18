@@ -1,4 +1,5 @@
 {
+  "name": "react-native-async-storage",
   "private": true,
   "workspaces": {
     "packages": [
@@ -15,14 +16,7 @@
   "author": "Krzysztof Borowy <dev@krizzu.dev>",
   "contributors": [],
   "homepage": "https://github.com/react-native-community/react-native-async-storage#readme",
-  "keywords": [
-    "react-native",
-    "react native",
-    "async storage",
-    "asyncstorage",
-    "async-storage",
-    "react native storage"
-  ],
+
   "repository": {
     "type": "git",
     "url": "https://github.com/react-native-community/react-native-async-storage.git"
@@ -30,7 +24,8 @@
   "scripts": {
     "build": "lerna run build",
     "clean": "lerna run clean",
-    "test:lint": "eslint core/src/** storages/**",
+    "test": "yarn test:lint && yarn test:types",
+    "test:lint": "eslint core/src/** storages/**/src",
     "test:types": "tsc --noEmit --declaration false -emitDeclarationOnly false"
   },
   "devDependencies": {
@@ -45,5 +40,12 @@
     "typescript": "3.5.2"
   },
   "license": "MIT",
-  "name": "react-native-async-storage"
+  "keywords": [
+    "react-native",
+    "react native",
+    "async storage",
+    "asyncstorage",
+    "async-storage",
+    "react native storage"
+  ]
 }
