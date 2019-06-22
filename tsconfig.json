@@ -16,8 +16,11 @@
     "esModuleInterop": true
   },
   "include": [
-    "core/src",
+    "core/src/",
     "core/types/",
-    "storages/**/src"
+    "core/__tests__/",
+    "storages/**/src/",
+    "storages/**/types/",
+    "storages/**/__tests__/"
   ]
 }
