@@ -1,4 +1,4 @@
-import {simpleErrorHandler, simpleLogger} from './defaults';
+import {simpleErrorHandler, simpleLogger, noop} from './defaults';
 
 class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
   private readonly _backend: STR;
@@ -10,15 +10,23 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
     this._backend = storageBackend;
     this._config = asOptions;
 
-    this.log =
-      typeof this._config.logger === 'function'
-        ? this._config.logger
-        : simpleLogger;
+    // off by default
+    this.log = noop;
+    this.error = noop;
 
-    this.error =
-      typeof this._config.errorHandler === 'function'
-        ? this._config.errorHandler
-        : simpleErrorHandler;
+    if (this._config.logger) {
+      this.log =
+        typeof this._config.logger === 'function'
+          ? this._config.logger
+          : simpleLogger;
+    }
+
+    if (this._config.errorHandler) {
+      this.error =
+        typeof this._config.errorHandler === 'function'
+          ? this._config.errorHandler
+          : simpleErrorHandler;
+    }
   }
 
   async get(key: string, opts?: StorageOptions): Promise<VAL | null> {
