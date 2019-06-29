@@ -137,6 +137,14 @@ jobs:
           name: Type check
           command: yarn test:types
 
+  "Test: unit":
+    <<: *js_defaults
+    steps:
+      - *addWorkspace
+      - run:
+          name: Unit tests run
+          command: yarn test:unit
+
   "Test: iOS e2e":
     <<: *macos_defaults
     steps:
@@ -289,5 +297,8 @@ workflows:
           requires:
             - "Setup environment"
       - "Test: types":
+          requires:
+            - "Setup environment"
+      - "Test: unit":
           requires:
             - "Setup environment"

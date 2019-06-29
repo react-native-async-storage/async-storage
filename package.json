@@ -24,7 +24,7 @@
     "build": "lerna run build",
     "clean": "lerna run clean",
     "test": "yarn test:lint && yarn test:unit && yarn test:types",
-    "test:lint": "eslint core/src/** storages/**/src",
+    "test:lint": "eslint core/src/**",
     "test:types": "tsc --noEmit --declaration false -emitDeclarationOnly false",
     "test:unit": "jest"
   },
