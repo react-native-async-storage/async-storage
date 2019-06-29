@@ -16,6 +16,7 @@
     "esModuleInterop": true
   },
   "include": [
+    "@types/jest",
     "core/src/",
     "core/types/",
     "core/__tests__/",

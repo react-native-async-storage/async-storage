@@ -107,4 +107,4 @@ declare const console: any;
 
 declare type StorageOptions = {
   [key: string]: any;
-};
+} | null;

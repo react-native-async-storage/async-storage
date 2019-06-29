@@ -29,7 +29,7 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
     }
   }
 
-  async get(key: string, opts?: StorageOptions): Promise<VAL | null> {
+  async get(key: string, opts: StorageOptions = null): Promise<VAL | null> {
     let value = null;
     try {
       this.log({
@@ -44,7 +44,11 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
     return value;
   }
 
-  async set(key: string, value: VAL, opts?: StorageOptions): Promise<void> {
+  async set(
+    key: string,
+    value: VAL,
+    opts: StorageOptions = null,
+  ): Promise<void> {
     try {
       this.log({
         action: 'save-single',
@@ -59,7 +63,7 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
 
   async getMultiple(
     keys: Array<string>,
-    opts?: StorageOptions,
+    opts: StorageOptions = null,
   ): Promise<Array<VAL | null>> {
     let values: Array<VAL | null> = [];
 
@@ -78,7 +82,7 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
 
   async setMultiple(
     keyValues: Array<{[key: string]: VAL}>,
-    opts?: StorageOptions,
+    opts: StorageOptions = null,
   ): Promise<void> {
     try {
       this.log({
@@ -91,7 +95,7 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
     }
   }
 
-  async remove(key: string, opts?: StorageOptions): Promise<void> {
+  async remove(key: string, opts: StorageOptions = null): Promise<void> {
     try {
       this.log({
         action: 'delete-single',
@@ -105,7 +109,7 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
 
   async removeMultiple(
     keys: Array<string>,
-    opts?: StorageOptions,
+    opts: StorageOptions = null,
   ): Promise<void> {
     try {
       this.log({
@@ -118,7 +122,7 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
     }
   }
 
-  async getKeys(opts?: StorageOptions): Promise<Array<string>> {
+  async getKeys(opts: StorageOptions = null): Promise<Array<string>> {
     let keys: Array<string> = [];
 
     try {
@@ -133,7 +137,7 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
     return keys;
   }
 
-  async clearStorage(opts?: StorageOptions): Promise<void> {
+  async clearStorage(opts: StorageOptions = null): Promise<void> {
     try {
       this.log({
         action: 'drop',
