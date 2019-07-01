@@ -7,8 +7,11 @@ An asynchronous, unencrypted, persistent, key-value storage system for React Nat
 
 
 ```
-# Install
+# Install using yarn
 $ yarn add @react-native-community/async-storage
+			(or)
+# Install using npm 
+$ npm install @react-native-community/async-storage
 
 # Link
 $ react-native link @react-native-community/async-storage
