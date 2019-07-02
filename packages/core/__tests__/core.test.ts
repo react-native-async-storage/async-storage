@@ -15,10 +15,12 @@ describe('SimpleLogger', () => {
   });
 
   beforeEach(() => {
+    // @ts-ignore spy
     console.log.mockReset();
   });
 
   afterAll(() => {
+    // @ts-ignore spy
     console.log.mockRestore();
   });
 
@@ -33,10 +35,11 @@ describe('SimpleLogger', () => {
 
     expect(console.log).toBeCalledTimes(1);
 
-    const callArgs = console.log.mock.calls[0][0];
-    expect(callArgs).toContain('[AsyncStorage]');
-    expect(callArgs).toContain(actionInfo.key);
-    expect(callArgs).toContain(actionInfo.value);
+    expect(console.log).toBeCalledWith(
+      `[AsyncStorage] Saving a value: ${actionInfo.value} for a key: ${
+        actionInfo.key
+      }`,
+    );
   });
 
   it('handles unknown action by logging it', () => {
@@ -60,10 +63,12 @@ describe('SimpleErrorHandler', () => {
   });
 
   beforeEach(() => {
+    // @ts-ignore spy
     console.error.mockReset();
   });
 
   afterAll(() => {
+    // @ts-ignore spy
     console.error.mockRestore();
   });
   it('logs error when it is a string', () => {
