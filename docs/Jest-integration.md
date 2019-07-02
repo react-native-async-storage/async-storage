@@ -82,6 +82,6 @@ Optionally, you can transform whole scope for `react-native-community` and `reac
 
 ```json
 "jest": {
-  "transformIgnorePatterns": ["node_modules/(?!(@react-native-community|react-native))"]
+  "transformIgnorePatterns": ["node_modules/(?!(@react-native-community|react-native)/)"]
 }
 ```
