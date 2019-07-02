@@ -3,7 +3,9 @@ import {factoryOptions} from './defaults';
 
 class AsyncStorageFactory {
   constructor() {
-    throw new Error('Do not instantiate AsyncStorageFactory!');
+    throw new Error(
+      "[AsyncStorage] AsyncStorageFactory must not be instantiated.\nInstead, use static functions, like 'create' to get AsyncStorage instance.",
+    );
   }
 
   static create<STR extends IStorageBackend>(

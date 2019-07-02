@@ -3,7 +3,9 @@ import {simpleLogger, simpleErrorHandler} from '../src/defaults';
 
 describe('AsyncStorageFactory', () => {
   it('Throws when tried to instantiate', () => {
-    expect(() => new Factory()).toThrow();
+    expect(() => new Factory()).toThrow(
+      "[AsyncStorage] AsyncStorageFactory must not be instantiated.\nInstead, use static functions, like 'create' to get AsyncStorage instance.",
+    );
   });
 });
 
@@ -40,15 +42,15 @@ describe('SimpleLogger', () => {
   it('handles unknown action by logging it', () => {
     const actionInfo: LoggerAction = {
       // @ts-ignore need to handle unknown
-      action: 'unknown-action',
+      action: 'my-action',
     };
 
     simpleLogger(actionInfo);
 
     expect(console.log).toBeCalledTimes(1);
-
-    const callArgs = console.log.mock.calls;
-    expect(callArgs[0][0]).toContain('unknown-action');
+    expect(console.log).toBeCalledWith(
+      '[AsyncStorage] Unknown action: my-action',
+    );
   });
 });
 
@@ -70,7 +72,7 @@ describe('SimpleErrorHandler', () => {
     simpleErrorHandler(errorMessage);
 
     expect(console.error).toBeCalledTimes(1);
-    expect(console.error.mock.calls[0][0]).toEqual(errorMessage);
+    expect(console.error).toBeCalledWith(errorMessage);
   });
 
   it('logs error when it is an Error', () => {
@@ -79,6 +81,6 @@ describe('SimpleErrorHandler', () => {
     simpleErrorHandler(error);
 
     expect(console.error).toBeCalledTimes(1);
-    expect(console.error.mock.calls[0][0]).toEqual(error.message);
+    expect(console.error).toBeCalledWith('Fatal!');
   });
 });

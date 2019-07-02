@@ -148,6 +148,8 @@ class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
     }
   }
 
+  // todo: think how we could provide additional functions through AS, without returning the instance
+  // some kind of extension-like functionality
   instance(): STR {
     return this._backend;
   }

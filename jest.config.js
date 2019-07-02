@@ -1,7 +1,4 @@
 const commonSettings = {
-  transform: {
-    '^.+\\.tsx?$': 'babel-jest',
-  },
   globals: {
     __DEV__: true,
   },
