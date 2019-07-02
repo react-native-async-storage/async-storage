@@ -3,11 +3,7 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*",
-      "example"
-    ],
-    "nohoist": [
-      "example/react-native"
+      "packages/*"
     ]
   },
   "version": "2.0.0",
