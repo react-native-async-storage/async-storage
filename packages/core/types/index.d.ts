@@ -102,9 +102,6 @@ declare type LoggerAction = {
   key?: string | Array<string>;
 };
 
-declare const __DEV__: boolean;
-declare const console: any;
-
 declare type StorageOptions = {
   [key: string]: any;
 } | null;

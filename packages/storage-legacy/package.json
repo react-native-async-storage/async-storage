@@ -3,5 +3,13 @@
   "version": "2.0.0",
   "main": "index.js",
   "author": "Krzysztof Borowy <dev@krizzu.dev>",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.0",
+    "react-native": ">=0.58"
+  },
+  "devDependencies": {
+    "react": "^16.0",
+    "react-native": ">=0.58"
+  }
 }

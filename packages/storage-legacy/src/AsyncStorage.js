@@ -4,14 +4,11 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @format
- * @flow
- * @jsdoc
  */
 
 'use strict';
 
-const {NativeModules} = require('react-native');
+import {NativeModules} from 'react-native';
 
 const RCTAsyncStorage =
   NativeModules.RNC_AsyncSQLiteDBStorage ||
@@ -37,20 +34,20 @@ If none of these fix the issue, please open an issue on the Github repository: h
 `);
 }
 
-type ReadOnlyArrayString = $ReadOnlyArray<string>;
-
-type MultiGetCallbackFunction = (
-  errors: ?$ReadOnlyArray<Error>,
-  result: ?$ReadOnlyArray<ReadOnlyArrayString>,
-) => void;
-
-type MultiRequest = {|
-  keys: $ReadOnlyArray<string>,
-  callback: ?MultiGetCallbackFunction,
-  keyIndex: number,
-  resolve: ?(result?: Promise<?$ReadOnlyArray<ReadOnlyArrayString>>) => void,
-  reject: ?(error?: any) => void,
-|};
+// type ReadOnlyArrayString = $ReadOnlyArray<string>;
+//
+// type MultiGetCallbackFunction = (
+//   errors: ?$ReadOnlyArray<Error>,
+//   result: ?$ReadOnlyArray<ReadOnlyArrayString>,
+// ) => void;
+//
+// type MultiRequest = {|
+//   keys: $ReadOnlyArray<string>,
+//   callback: ?MultiGetCallbackFunction,
+//   keyIndex: number,
+//   resolve: ?(result?: Promise<?$ReadOnlyArray<ReadOnlyArrayString>>) => void,
+//   reject: ?(error?: any) => void,
+// |};
 
 /**
  * `AsyncStorage` is a simple, unencrypted, asynchronous, persistent, key-value
@@ -185,21 +182,7 @@ const AsyncStorage = {
    *
    * See http://facebook.github.io/react-native/docs/asyncstorage.html#getallkeys
    */
-  getAllKeys: function(
-    callback?: ?(error: ?Error, keys: ?ReadOnlyArrayString) => void,
-  ): Promise<ReadOnlyArrayString> {
-    return new Promise((resolve, reject) => {
-      RCTAsyncStorage.getAllKeys(function(error, keys) {
-        const err = convertError(error);
-        callback && callback(err, keys);
-        if (err) {
-          reject(err);
-        } else {
-          resolve(keys);
-        }
-      });
-    });
-  },
+
 
   /**
    * The following batched functions are useful for executing a lot of
@@ -216,36 +199,6 @@ const AsyncStorage = {
    *
    * See http://facebook.github.io/react-native/docs/asyncstorage.html#flushgetrequests
    * */
-  flushGetRequests: function(): void {
-    const getRequests = this._getRequests;
-    const getKeys = this._getKeys;
-
-    this._getRequests = [];
-    this._getKeys = [];
-
-    RCTAsyncStorage.multiGet(getKeys, function(errors, result) {
-      // Even though the runtime complexity of this is theoretically worse vs if we used a map,
-      // it's much, much faster in practice for the data sets we deal with (we avoid
-      // allocating result pair arrays). This was heavily benchmarked.
-      //
-      // Is there a way to avoid using the map but fix the bug in this breaking test?
-      // https://github.com/facebook/react-native/commit/8dd8ad76579d7feef34c014d387bf02065692264
-      const map = {};
-      result &&
-        result.forEach(([key, value]) => {
-          map[key] = value;
-          return value;
-        });
-      const reqLength = getRequests.length;
-      for (let i = 0; i < reqLength; i++) {
-        const request = getRequests[i];
-        const requestKeys = request.keys;
-        const requestResult = requestKeys.map(key => [key, map[key]]);
-        request.callback && request.callback(null, requestResult);
-        request.resolve && request.resolve(requestResult);
-      }
-    });
-  },
 
   /**
    * This allows you to batch the fetching of items given an array of `key`
