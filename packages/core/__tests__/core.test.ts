@@ -1,4 +1,4 @@
-import Factory from '../src/';
+import Factory from '../src';
 import {simpleLogger, simpleErrorHandler} from '../src/defaults';
 
 describe('AsyncStorageFactory', () => {

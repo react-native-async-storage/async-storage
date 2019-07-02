@@ -3,8 +3,7 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "core",
-      "storages/*",
+      "packages/*",
       "example"
     ],
     "nohoist": [
@@ -24,7 +23,7 @@
     "build": "lerna run build",
     "clean": "lerna run clean",
     "test": "yarn test:lint && yarn test:unit && yarn test:types",
-    "test:lint": "eslint core/src/**",
+    "test:lint": "eslint packages/**/src/*.ts",
     "test:types": "tsc --noEmit --declaration false -emitDeclarationOnly false",
     "test:unit": "jest"
   },

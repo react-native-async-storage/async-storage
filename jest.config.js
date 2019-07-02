@@ -9,8 +9,8 @@ module.exports = {
     {
       ...commonSettings,
       displayName: 'core',
-      roots: ['<rootDir>/core', '<rootDir>/storages/**/'],
-      testMatch: ['<rootDir>/core/__tests__/*{.,-}test.ts'],
+      roots: ['<rootDir>/packages/core'],
+      testMatch: ['<rootDir>/packages/core/__tests__/*{.,-}test.ts'],
     },
   ],
 };
