@@ -18,111 +18,45 @@ describe('AsyncStorage', () => {
     jest.resetAllMocks();
   });
 
+  type testCases = [
+    Partial<keyof AsyncStorage<any>>,
+    Partial<keyof StorageMock>,
+    string
+  ][];
+
   describe('main API', () => {
-    it.each(['get', 'set', 'remove'])(
-      'handles single %s api call',
-      async (methodName: string) => {
-        const as = new AsyncStorage(mockedStorage, {
-          logger: false,
-          errorHandler: false,
-        });
+    const asyncStorage = new AsyncStorage<any>(mockedStorage, {
+      logger: false,
+      errorHandler: false,
+    });
 
-        const key = 'myKey';
-        const value = {
-          name: 'Jerry',
-        };
-
-        switch (methodName) {
-          case 'get': {
-            await as.get(key);
-            expect(mockedStorage.getSingle).toBeCalledWith(key, null);
-            break;
-          }
-
-          case 'set': {
-            await as.set(key, value);
-            expect(mockedStorage.setSingle).toBeCalledWith(key, value, null);
-            break;
-          }
-
-          case 'remove': {
-            await as.remove(key);
-            expect(mockedStorage.removeSingle).toBeCalledWith(key, null);
-            break;
-          }
-        }
-      },
-    );
-
-    it.each(['set', 'read', 'remove'])(
-      'handles basic multi %s api call',
-      async (methodName: string) => {
-        const keys = ['key1', 'key2', 'key3'];
-        const keyValues = [
-          {key1: 'value1'},
-          {key2: 'value2'},
-          {key3: 'value3'},
-        ];
-
-        const as = new AsyncStorage(mockedStorage, {
-          logger: false,
-          errorHandler: false,
-        });
-
-        switch (methodName) {
-          case 'get': {
-            await as.getMultiple(keys);
-            expect(mockedStorage.getMany).toBeCalledWith(keys, null);
-            break;
-          }
-
-          case 'set': {
-            await as.setMultiple(keyValues);
-            expect(mockedStorage.setMany).toBeCalledWith(keyValues, null);
-            break;
-          }
-
-          case 'remove': {
-            await as.removeMultiple(keys);
-            expect(mockedStorage.removeMany).toBeCalledWith(keys, null);
-            break;
-          }
-        }
-      },
-    );
-
-    it.each(['instance', 'getKeys', 'clearStorage'])(
+    it.each([
+      ['get', 'getSingle', 'myKey'],
+      ['set', 'setSingle', 'mySecret', 'myValue'],
+      ['remove', 'removeSingle', 'removeKey'],
+      ['getMultiple', 'getMany', ['key1', 'key2']],
+      ['setMultiple', 'setMany', [{key1: 'value1'}, {key2: 'value2'}]],
+      ['removeMultiple', 'removeMany', ['remove1', 'remove2']],
+      ['clearStorage', 'dropStorage'],
+    ] as testCases)(
       'handles %s api call',
-      async (methodName: string) => {
-        const asyncStorage = new AsyncStorage(mockedStorage, {
-          logger: false,
-          errorHandler: false,
-        });
+      async (method, mock, ...data: Array<string>) => {
+        // @ts-ignore provided enough args
+        await asyncStorage[method](...data, null);
 
-        switch (methodName) {
-          case 'instance': {
-            expect(asyncStorage.instance()).toBe(mockedStorage);
-            break;
-          }
-
-          case 'getKeys': {
-            mockedStorage.getKeys.mockImplementationOnce(() => [
-              'key1',
-              'key2',
-            ]);
-            const keys = await asyncStorage.getKeys();
-            expect(keys).toEqual(['key1', 'key2']);
-            break;
-          }
-
-          case 'dropStorage': {
-            await asyncStorage.clearStorage();
-            expect(mockedStorage.dropStorage).toBeCalledTimes(1);
-            break;
-          }
-        }
+        expect(mockedStorage[mock]).toBeCalledWith(...data, null);
       },
     );
+
+    it('handles getKey api call', async () => {
+      mockedStorage.getKeys.mockImplementationOnce(() => ['key1', 'key2']);
+      const keys = await asyncStorage.getKeys();
+      expect(keys).toEqual(['key1', 'key2']);
+    });
+
+    it('handles instance api call', async () => {
+      expect(asyncStorage.instance()).toBe(mockedStorage);
+    });
   });
   describe('utils', () => {
     it('uses logger when provided', async () => {
