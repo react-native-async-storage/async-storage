@@ -17,11 +17,8 @@
   },
   "include": [
     "@types/jest",
-    "core/src/",
-    "core/types/",
-    "core/__tests__/",
-    "storages/**/src/",
-    "storages/**/types/",
-    "storages/**/__tests__/"
+    "packages/**/src/",
+    "packages/**/types/",
+    "packages/**/__tests__/",
   ]
 }

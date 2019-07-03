@@ -3,12 +3,7 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "core",
-      "storages/*",
-      "example"
-    ],
-    "nohoist": [
-      "example/react-native"
+      "packages/*"
     ]
   },
   "version": "2.0.0",
@@ -24,7 +19,7 @@
     "build": "lerna run build",
     "clean": "lerna run clean",
     "test": "yarn test:lint && yarn test:unit && yarn test:types",
-    "test:lint": "eslint core/src/**",
+    "test:lint": "eslint packages/**/src/*.ts",
     "test:types": "tsc --noEmit --declaration false -emitDeclarationOnly false",
     "test:unit": "jest"
   },
@@ -37,6 +32,7 @@
     "@babel/preset-typescript": "7.3.3",
     "@react-native-community/eslint-config": "0.0.5",
     "@types/jest": "24.0.15",
+    "@types/react-native": "0.57.65",
     "babel-jest": "24.8.0",
     "eslint": "5.16.0",
     "jest": "24.8.0",

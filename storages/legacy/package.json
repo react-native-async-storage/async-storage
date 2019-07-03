@@ -1,7 +1,0 @@
-{
-  "name": "@react-native-community/async-storage-legacy",
-  "version": "2.0.0",
-  "main": "index.js",
-  "author": "Krzysztof Borowy <dev@krizzu.dev>",
-  "license": "MIT"
-}
