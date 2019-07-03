@@ -1,5 +1,6 @@
 import Factory from '../src';
 import {simpleLogger, simpleErrorHandler} from '../src/defaults';
+import {LoggerAction} from '../types';
 
 describe('AsyncStorageFactory', () => {
   it('Throws when tried to instantiate', () => {

@@ -1,11 +1,6 @@
-/**
- *
- * Core Async Storage API
- *
- */
-declare class AsyncStorage<
+export class AsyncStorage<
   STR extends IStorageBackend,
-  VAL = StorageModelType<STR>
+  VAL = StorageModel<STR>
 > {
   get(key: string, opts?: StorageOptions): Promise<VAL | null>;
 
@@ -32,12 +27,14 @@ declare class AsyncStorage<
   instance(): STR;
 }
 
-/**
- *
- * Storage Backend API
- *
- */
-declare interface IStorageBackend<VAL = any> {
+export class AsyncStorageFactory {
+  static create<STR extends IStorageBackend>(
+    storage: STR,
+    opts: FactoryOptions,
+  ): AsyncStorage<STR, StorageModel<STR>>;
+}
+
+export interface IStorageBackend<VAL = any> {
   getSingle(key: string, opts?: StorageOptions): Promise<VAL | null>;
 
   setSingle(key: string, value: VAL, opts?: StorageOptions): Promise<void>;
@@ -61,33 +58,12 @@ declare interface IStorageBackend<VAL = any> {
   dropStorage(opts?: StorageOptions): Promise<void>;
 }
 
-/**
- *
- * Factory types
- *
- */
-declare class AsyncStorageFactory {
-  static create<STR extends IStorageBackend>(
-    storage: STR,
-    opts: FactoryOptions,
-  ): AsyncStorage<STR, StorageModelType<STR>>;
-}
-
-// infers Model type from Storage instance
-type StorageModelType<T> = T extends IStorageBackend<infer V> ? V : any;
-
-// Options provided to the factory
-declare type FactoryOptions = {
+export type FactoryOptions = {
   logger: ((action: LoggerAction) => void) | boolean | void;
   errorHandler: ((error: Error | string) => void) | boolean | void;
 };
 
-/**
- *
- * Global types
- *
- */
-declare type LoggerAction = {
+export type LoggerAction = {
   action:
     | 'read-single'
     | 'save-single'
@@ -102,6 +78,8 @@ declare type LoggerAction = {
   key?: string | Array<string>;
 };
 
-declare type StorageOptions = {
+export type StorageModel<T> = T extends IStorageBackend<infer V> ? V : any;
+
+export type StorageOptions = {
   [key: string]: any;
 } | null;

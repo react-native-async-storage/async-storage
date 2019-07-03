@@ -1,4 +1,5 @@
 import AsyncStorage from '../src/AsyncStorage';
+import {IStorageBackend} from '../types';
 
 class StorageMock implements IStorageBackend<any> {
   getSingle = jest.fn();

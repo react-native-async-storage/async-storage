@@ -1,6 +1,5 @@
-/**
- * By default, logging and error handling are done only in dev
- */
+import {FactoryOptions, LoggerAction} from '../types';
+
 export const factoryOptions: FactoryOptions = {
   logger: __DEV__,
   errorHandler: __DEV__,

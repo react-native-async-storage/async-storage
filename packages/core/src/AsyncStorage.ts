@@ -1,6 +1,13 @@
 import {simpleErrorHandler, simpleLogger, noop} from './defaults';
+import {
+  FactoryOptions,
+  IStorageBackend,
+  LoggerAction,
+  StorageModel,
+  StorageOptions,
+} from '../types';
 
-class AsyncStorage<STR extends IStorageBackend, VAL = StorageModelType<STR>> {
+class AsyncStorage<STR extends IStorageBackend, VAL = StorageModel<STR>> {
   private readonly _backend: STR;
   private readonly _config: FactoryOptions;
   private readonly log: (action: LoggerAction) => void;

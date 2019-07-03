@@ -1,5 +1,6 @@
 import AsyncStorage from './AsyncStorage';
 import {factoryOptions} from './defaults';
+import {IStorageBackend, FactoryOptions, StorageModel} from '../types';
 
 class AsyncStorageFactory {
   constructor() {
@@ -11,7 +12,7 @@ class AsyncStorageFactory {
   static create<STR extends IStorageBackend>(
     storage: STR,
     opts: FactoryOptions = factoryOptions,
-  ): AsyncStorage<STR, StorageModelType<STR>> {
+  ): AsyncStorage<STR, StorageModel<STR>> {
     return new AsyncStorage(storage, opts);
   }
 }
