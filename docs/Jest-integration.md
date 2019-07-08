@@ -71,17 +71,18 @@ You can [check its implementation](../jest/async-storage-mock.js) to get more in
 
 You need to point Jest to transform this package. You can do so, by adding Async Storage path to `transformIgnorePatterns` setting in Jest's configuration.
 
-
 ```json
 "jest": {
   "transformIgnorePatterns": ["node_modules/(?!(@react-native-community/async-storage/lib))"]
 }
 ```
 
-Optionally, you can transform whole scope for `react-native-community` and `react-native`:
+Optionally, you can transform all packages in the `react-native-community` and `react-native` directories by specifying this pattern:
 
 ```json
 "jest": {
-  "transformIgnorePatterns": ["node_modules/(?!(@react-native-community|react-native))"]
+  "transformIgnorePatterns": ["node_modules/(?!(@react-native-community|react-native)/)"]
 }
 ```
+
+Or you can expand it even further to transform all packages whose names begin with `react-native` by omitting the trailing `/` in the above pattern.
