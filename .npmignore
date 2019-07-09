@@ -61,6 +61,7 @@ ios/*.xcodeproj/xcuserdata
 *.xcuserstate
 project.xcworkspace/
 xcuserdata/
+ios/build/
 
 # Misc
 .DS_Store
