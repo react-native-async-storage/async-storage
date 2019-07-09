@@ -6,20 +6,44 @@ An asynchronous, unencrypted, persistent, key-value storage system for React Nat
 ## Getting Started
 
 
-```
-# Install
-$ yarn add @react-native-community/async-storage
+### Install
 
-# Link
+```
+$ yarn add @react-native-community/async-storage
+```
+
+### Link
+
+- **React Native 0.60+**
+
+
+[CLI autolink feature](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md) links the module while building the app. 
+
+
+- **React Native <= 0.59**
+
+
+```bash
 $ react-native link @react-native-community/async-storage
 ```
 
-See docs for [manual linking guide.](docs/Linking.md)
 
-**Note:** For iOS project using `pods`, run:
-	```
-	$ cd ios/ && pod install
-	```
+*Note* For `iOS` using `cocoapods`, run:
+
+```bash
+$ cd ios/ && pod install
+```
+
+See docs for [manual linking guide](docs/Linking.md)
+
+### **Upgrading to React Native *0.60+*** 
+ 
+New React Native comes with `autolinking` feature, which automatically links Native Modules in your project.
+In order to get it to work, make sure you `unlink` `Async Storage` first:
+
+```bash
+$ react-native unlink @react-native-community/async-storage
+```
 
 
 ## Usage

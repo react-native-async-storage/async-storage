@@ -47,24 +47,24 @@ save brew cache: &cache_save_brew
   paths:
     - /usr/local/Homebrew
     - ~/Library/Caches/Homebrew
-  key: v1-brew-cache-{{ arch }}
+  key: legacy-brew-cache-{{ arch }}
 
 restore brew cache: &cache_restore_brew
   name: Restoring Brew cache
   keys:
-    - v1-brew-cache-{{ arch }}
+    - legacy-brew-cache-{{ arch }}
 
 save brew cache for android: &cache_save_brew_android
   name: Saving Brew cache for android
   paths:
   - /usr/local/Homebrew
   - ~/Library/Caches/Homebrew
-  key: v1-brew-cache-{{ arch }}-android
+  key: legacy-brew-cache-{{ arch }}-android
 
 restore brew cache for android: &cache_restore_brew_android
   name: Restoring Brew cache for android
   keys:
-  - v1-brew-cache-{{ arch }}-android
+  - legacy-brew-cache-{{ arch }}-android
 
 # yarn
 save yarn cache: &cache_save_yarn
@@ -72,35 +72,35 @@ save yarn cache: &cache_save_yarn
   paths:
     - ~/.cache/yarn
     - ~/Library/Detox
-  key: v1-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
+  key: legacy-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
 
 restore yarn cache: &cache_restore_yarn
   name: Restoring Yarn cache
   keys:
-    - v1-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
+    - legacy-yarn-cache-{{ checksum "package.json" }}-{{ arch }}
 
 # gradle
 save gradle wrapper cache: &cache_save_gradle_wrapper
   name: Saving Gradle Wrapper cache
   paths:
     - ~/.gradle/wrapper
-  key: gradle-wrapper-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
+  key: gradle-wrapper-legacy-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
 
 save gradle build cache: &cache_save_gradle_build
   name: Saving Gradle app/build cache
   paths:
     - ~/.gradle/caches
-  key: app-build-gradle-v1-{{ checksum "example/android/app/build.gradle" }}
+  key: app-build-gradle-legacy-{{ checksum "example/android/app/build.gradle" }}
 
 restore gradle wrapper cache: &cache_restore_gradle_wrapper
   name: Restoring Gradle Wrapper cache
   keys:
-    - gradle-wrapper-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
+    - gradle-wrapper-legacy-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}
 
 restore gradle build cache: &cache_restore_gradle_build
   name: Restoring Gradle app/build cache
   keys:
-    - app-build-gradle-v1-{{ checksum "example/android/app/build.gradle" }}
+    - app-build-gradle-legacy-{{ checksum "example/android/app/build.gradle" }}
 
 
 # ==============================
@@ -299,8 +299,8 @@ workflows:
           requires:
             - "Test: lint"
             - "Test: flow"
-      - "Test: Android e2e":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-            - "Build: Android release apk"
+#      - "Test: Android e2e":
+#          requires:
+#            - "Test: lint"
+#            - "Test: flow"
+#            - "Build: Android release apk"
