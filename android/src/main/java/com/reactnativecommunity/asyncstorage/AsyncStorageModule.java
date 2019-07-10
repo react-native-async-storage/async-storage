@@ -28,7 +28,13 @@ import com.facebook.react.modules.common.ModuleDataCleaner;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @ReactModule(name = AsyncStorageModule.NAME)
 public final class AsyncStorageModule
@@ -43,6 +49,31 @@ public final class AsyncStorageModule
 
   private ReactDatabaseSupplier mReactDatabaseSupplier;
   private boolean mShuttingDown = false;
+
+
+  private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+  private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
+  private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
+  private static final int KEEP_ALIVE_SECONDS = 30;
+  public static final Executor THREAD_POOL_EXECUTOR;
+  private static final ThreadFactory sThreadFactory = new ThreadFactory() {
+    private final AtomicInteger mCount = new AtomicInteger(1);
+
+    public Thread newThread(Runnable r) {
+      return new Thread(r, "AsyncStorageTask #" + mCount.getAndIncrement());
+    }
+  };
+
+  private static final BlockingQueue<Runnable> sPoolWorkQueue =
+          new LinkedBlockingQueue<Runnable>(128);
+
+  static {
+    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
+            CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
+            sPoolWorkQueue, sThreadFactory);
+    threadPoolExecutor.allowCoreThreadTimeOut(true);
+    THREAD_POOL_EXECUTOR = threadPoolExecutor;
+  }
 
   // Adapted from https://android.googlesource.com/platform/frameworks/base.git/+/1488a3a19d4681a41fb45570c15e14d99db1cb66/core/java/android/os/AsyncTask.java#237
   private class SerialExecutor implements Executor {
@@ -78,7 +109,7 @@ public final class AsyncStorageModule
   private final SerialExecutor executor;
 
   public AsyncStorageModule(ReactApplicationContext reactContext) {
-    this(reactContext, AsyncTask.THREAD_POOL_EXECUTOR);
+    this(reactContext, THREAD_POOL_EXECUTOR);
   }
 
   @VisibleForTesting
