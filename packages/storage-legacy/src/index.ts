@@ -12,6 +12,13 @@ import {
   StorageOptions,
 } from '@react-native-community/async-storage';
 
+function convertErrors(errs?: Array<Error> | Error) {
+  if (!errs) {
+    return null;
+  }
+  return Array.isArray(errs) ? errs.filter(e => !!e) : [errs];
+}
+
 export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
   private readonly _asyncStorageNativeModule: any;
 
@@ -28,13 +35,6 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     }
   }
 
-  static convertErrors(errs?: Array<Error> | Error) {
-    if (!errs) {
-      return null;
-    }
-    return Array.isArray(errs) ? errs.filter(e => !!e) : [errs];
-  }
-
   async getSingle(key: string, opts?: StorageOptions): Promise<T | null> {
     if (opts) {
       // noop
@@ -46,7 +46,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
         result: Array<[any, T | null]>,
       ) {
         const value = result && result[0] && result[0][1] ? result[0][1] : null;
-        const errs = LegacyAsyncStorage.convertErrors(errors);
+        const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
         } else {
@@ -65,7 +65,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
       this._asyncStorageNativeModule.multiSet([[key, value]], function(
         errors: Array<Error>,
       ) {
-        const errs = LegacyAsyncStorage.convertErrors(errors);
+        const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
         } else {
@@ -93,7 +93,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
           result.reduce((acc: Array<any[]>, current: Array<any>) => {
             return [...acc, current[1]];
           }, []);
-        const errs = LegacyAsyncStorage.convertErrors(errors);
+        const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
         } else {
@@ -118,7 +118,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
       this._asyncStorageNativeModule.multiSet([valuesArray], function(
         errors: Array<Error>,
       ) {
-        const errs = LegacyAsyncStorage.convertErrors(errors);
+        const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
         } else {
@@ -137,7 +137,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
       this._asyncStorageNativeModule.multiRemove([key], function(
         errors: Array<Error>,
       ) {
-        const errs = LegacyAsyncStorage.convertErrors(errors);
+        const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
         } else {
@@ -156,7 +156,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
       this._asyncStorageNativeModule.multiRemove(keys, function(
         errors: Array<Error>,
       ) {
-        const errs = LegacyAsyncStorage.convertErrors(errors);
+        const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
         } else {
@@ -176,7 +176,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
         errors: Array<Error>,
         keys: Array<string>,
       ) {
-        const err = LegacyAsyncStorage.convertErrors(errors);
+        const err = convertErrors(errors);
 
         if (err && err.length) {
           reject(err[0]);
@@ -194,9 +194,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
 
     return new Promise<void>((resolve, reject) => {
       this._asyncStorageNativeModule.clear(function(error: Array<Error>) {
-        const err = LegacyAsyncStorage.convertErrors(
-          Array.isArray(error) ? error : [error],
-        );
+        const err = convertErrors(Array.isArray(error) ? error : [error]);
 
         if (err) {
           reject(err);

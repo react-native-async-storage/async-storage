@@ -269,7 +269,7 @@ static void RCTStorageDirectoryMigrationCheck()
   if (!(self = [super init])) {
     return nil;
   }
-  RCTStorageDirectoryMigrationCheck();
+  // RCTStorageDirectoryMigrationCheck();
   return self;
 }
 
