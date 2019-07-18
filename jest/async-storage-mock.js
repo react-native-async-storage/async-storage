@@ -40,7 +40,7 @@ const asMock = {
   ),
 
   clear: jest.fn<[CallbackType], Promise<*>>(_clear),
-  getAllKeys: jest.fn<[], void>(),
+  getAllKeys: jest.fn<[], Promise<string[]>>(_getAllKeys),
   flushGetRequests: jest.fn<[], void>(),
 
   multiGet: jest.fn<[KeysType, ResultCallbackType], Promise<*>>(_multiGet),
@@ -87,6 +87,10 @@ async function _clear(callback: CallbackType) {
   callback && callback(null);
 
   return null;
+}
+
+async function _getAllKeys() {
+  return Object.keys(asMock.__INTERNAL_MOCK_STORAGE__);
 }
 
 async function _multiMerge(
