@@ -45,7 +45,6 @@ public final class AsyncStorageModule
   private ReactDatabaseSupplier mReactDatabaseSupplier;
   private boolean mShuttingDown = false;
 
-
   // Adapted from https://android.googlesource.com/platform/frameworks/base.git/+/1488a3a19d4681a41fb45570c15e14d99db1cb66/core/java/android/os/AsyncTask.java#237
   private class SerialExecutor implements Executor {
     private final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
@@ -80,7 +79,12 @@ public final class AsyncStorageModule
   private final SerialExecutor executor;
 
   public AsyncStorageModule(ReactApplicationContext reactContext) {
-    this(reactContext, BuildConfig.AsyncStorage_use_AsyncTaskThreadPoolExecutor?AsyncTask.THREAD_POOL_EXECUTOR:Executors.newSingleThreadExecutor());
+    this(
+      reactContext,
+      BuildConfig.AsyncStorage_useCustomExecutor
+        ? Executors.newSingleThreadExecutor()
+        : AsyncTask.THREAD_POOL_EXECUTOR
+    );
   }
 
   @VisibleForTesting
