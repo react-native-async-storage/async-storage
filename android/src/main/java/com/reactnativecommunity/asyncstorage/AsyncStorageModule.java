@@ -29,6 +29,7 @@ import com.facebook.react.modules.common.ModuleDataCleaner;
 import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 @ReactModule(name = AsyncStorageModule.NAME)
 public final class AsyncStorageModule
@@ -78,7 +79,12 @@ public final class AsyncStorageModule
   private final SerialExecutor executor;
 
   public AsyncStorageModule(ReactApplicationContext reactContext) {
-    this(reactContext, AsyncTask.THREAD_POOL_EXECUTOR);
+    this(
+      reactContext,
+      BuildConfig.AsyncStorage_useCustomExecutor
+        ? Executors.newSingleThreadExecutor()
+        : AsyncTask.THREAD_POOL_EXECUTOR
+    );
   }
 
   @VisibleForTesting
