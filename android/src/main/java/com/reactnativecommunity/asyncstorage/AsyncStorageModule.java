@@ -81,7 +81,7 @@ public final class AsyncStorageModule
   public AsyncStorageModule(ReactApplicationContext reactContext) {
     this(
       reactContext,
-      BuildConfig.AsyncStorage_useCustomExecutor
+      BuildConfig.AsyncStorage_useDedicatedExecutor
         ? Executors.newSingleThreadExecutor()
         : AsyncTask.THREAD_POOL_EXECUTOR
     );

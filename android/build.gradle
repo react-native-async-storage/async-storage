@@ -30,8 +30,8 @@ if( newDbSize != null && newDbSize.isLong()) {
     dbSizeInMB = newDbSize.toLong()
 }
 
-def useCustomExecutor = rootProject.hasProperty('AsyncStorage_useCustomExecutor')
-        ? rootProject.properties['AsyncStorage_useCustomExecutor']
+def useDedicatedExecutor = rootProject.hasProperty('AsyncStorage_dedicatedExecutor')
+        ? rootProject.properties['AsyncStorage_dedicatedExecutor']
         : false
 
 apply plugin: 'com.android.library'
@@ -45,7 +45,7 @@ android {
         targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
 
         buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
-        buildConfigField("boolean", "AsyncStorage_useCustomExecutor", "${useCustomExecutor}")
+        buildConfigField("boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}")
     }
 }
 
