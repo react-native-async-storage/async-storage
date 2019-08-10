@@ -1,9 +1,15 @@
 {
   "name": "@react-native-community/async-storage-legacy",
   "version": "2.0.0",
-  "main": "index.js",
+  "main": "build/LegacyAsyncStorage.js",
+  "types": "types/index.d.ts",
   "author": "Krzysztof Borowy <dev@krizzu.dev>",
   "license": "MIT",
+  "scripts": {
+    "build": "babel src --root-mode upward --out-dir build/ --extensions .ts --ignore build/**/* --ignore types/* --source-maps inline",
+    "clean": "rm build -rf",
+    "generate:types": "tsc src/index.ts --noEmit false --lib es2015 --declarationDir types/ -d true -emitDeclarationOnly true"
+  },
   "peerDependencies": {
     "react": "^16.0",
     "react-native": ">=0.58"

@@ -27,7 +27,7 @@ export class AsyncStorage<
   instance(): STR;
 }
 
-export class AsyncStorageFactory {
+export default class AsyncStorageFactory {
   static create<STR extends IStorageBackend>(
     storage: STR,
     opts: FactoryOptions,
@@ -59,8 +59,8 @@ export interface IStorageBackend<VAL = any> {
 }
 
 export type FactoryOptions = {
-  logger: ((action: LoggerAction) => void) | boolean | void;
-  errorHandler: ((error: Error | string) => void) | boolean | void;
+  logger?: ((action: LoggerAction) => void) | boolean;
+  errorHandler?: ((error: Error | string) => void) | boolean;
 };
 
 export type LoggerAction = {
