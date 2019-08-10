@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlinVersion = '1.3.0'
+        kotlinVersion = '1.3.10'
         buildToolsVersion = "28.0.3"
         minSdkVersion = 19
         compileSdkVersion = 28
@@ -15,7 +15,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
@@ -31,10 +31,4 @@ allprojects {
             }
         maven { url "$rootDir/../../node_modules/detox/Detox-android" }
     }
-}
-
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.7'
-    distributionUrl = distributionUrl.replace("bin", "all")
 }
