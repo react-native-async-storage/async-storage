@@ -1,6 +1,14 @@
+/**
+ * Copyright (c) React Native Community.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
 import AsyncStorage from './AsyncStorage';
 import {factoryOptions} from './defaults';
-import {IStorageBackend, FactoryOptions, StorageModel} from '../types';
+import {IStorageBackend, FactoryOptions, EmptyStorageModel} from '../types';
 
 class AsyncStorageFactory {
   constructor() {
@@ -9,11 +17,11 @@ class AsyncStorageFactory {
     );
   }
 
-  static create<STR extends IStorageBackend>(
-    storage: STR,
+  static create<M = EmptyStorageModel>(
+    storage: IStorageBackend,
     opts: FactoryOptions = factoryOptions,
-  ): AsyncStorage<STR, StorageModel<STR>> {
-    return new AsyncStorage(storage, opts);
+  ) {
+    return new AsyncStorage<M, IStorageBackend<M>>(storage, opts);
   }
 }
 

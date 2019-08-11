@@ -1,63 +1,94 @@
-export class AsyncStorage<
-  STR extends IStorageBackend,
-  VAL = StorageModel<STR>
-> {
-  get(key: string, opts?: StorageOptions): Promise<VAL | null>;
+/**
+ * Copyright (c) React Native Community.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
 
-  set(key: string, value: VAL, opts?: StorageOptions): Promise<void>;
+/**
+ * Crates an Async Storage instance for given storage backend
+ * Enhanced by Factory Options, to, in example, enable logging
+ */
+export default class AsyncStorageFactory {
+  static create<M = EmptyStorageModel>(
+    storage: IStorageBackend,
+    opts: FactoryOptions,
+  ): AsyncStorage<M, IStorageBackend<M>>;
+}
 
-  getMultiple(
-    keys: Array<string>,
-    opts?: StorageOptions,
-  ): Promise<Array<VAL | null>>;
+/**
+ * Do not instantiate. Create through AsyncStorageFactory.
+ * Main API that will be used to call underlying storage backend
+ */
+export class AsyncStorage<M, T extends IStorageBackend<M>> {
+  get<K extends keyof M>(key: K, opts?: StorageOptions): Promise<M[K] | null>;
 
-  setMultiple(
-    keyValues: Array<{[key: string]: VAL}>,
+  set<K extends keyof M>(
+    key: K,
+    value: M[K],
     opts?: StorageOptions,
   ): Promise<void>;
 
-  remove(key: string, opts?: StorageOptions): Promise<void>;
+  getMultiple<K extends keyof M>(
+    keys: Array<K>,
+    opts?: StorageOptions,
+  ): Promise<{[k in K]: M[k] | null}>;
 
-  removeMultiple(keys: Array<string>, opts?: StorageOptions): Promise<void>;
+  setMultiple<K extends keyof M>(
+    keyValues: Array<Partial<{[k in keyof M]: M[k]}>>,
+    opts?: StorageOptions,
+  ): Promise<void>;
 
-  getKeys(opts?: StorageOptions): Promise<Array<string>>;
+  remove(key: keyof M, opts?: StorageOptions): Promise<void>;
+
+  removeMultiple(keys: Array<keyof M>, opts?: StorageOptions): Promise<void>;
+
+  getKeys(opts?: StorageOptions): Promise<Array<keyof M>>;
 
   clearStorage(opts?: StorageOptions): Promise<void>;
 
-  instance(): STR;
+  instance(): T;
 }
 
-export default class AsyncStorageFactory {
-  static create<STR extends IStorageBackend>(
-    storage: STR,
-    opts: FactoryOptions,
-  ): AsyncStorage<STR, StorageModel<STR>>;
-}
-
-export interface IStorageBackend<VAL = any> {
-  getSingle(key: string, opts?: StorageOptions): Promise<VAL | null>;
-
-  setSingle(key: string, value: VAL, opts?: StorageOptions): Promise<void>;
-
-  getMany(
-    keys: Array<string>,
+/**
+ * Interface that must be implemented by any Storage Backend
+ * Provides basic API for reading/writing and deleting of data
+ */
+export interface IStorageBackend<T = EmptyStorageModel> {
+  getSingle<K extends keyof T>(
+    key: K,
     opts?: StorageOptions,
-  ): Promise<Array<VAL | null>>;
+  ): Promise<T[K] | null>;
 
-  setMany(
-    values: Array<{[key: string]: VAL}>,
+  setSingle<K extends keyof T>(
+    key: K,
+    value: T[K],
     opts?: StorageOptions,
   ): Promise<void>;
 
-  removeSingle(key: string, opts?: StorageOptions): Promise<void>;
+  getMany<K extends keyof T>(
+    keys: Array<K>,
+    opts?: StorageOptions,
+  ): Promise<{[k in K]: T[k] | null}>;
 
-  removeMany(keys: Array<string>, opts?: StorageOptions): Promise<void>;
+  setMany<K extends keyof T>(
+    values: Array<{[k in K]: T[k]}>,
+    opts?: StorageOptions,
+  ): Promise<void>;
 
-  getKeys(opts?: StorageOptions): Promise<Array<string>>;
+  removeSingle(key: keyof T, opts?: StorageOptions): Promise<void>;
+
+  removeMany(keys: Array<keyof T>, opts?: StorageOptions): Promise<void>;
+
+  getKeys(opts?: StorageOptions): Promise<Array<keyof T>>;
 
   dropStorage(opts?: StorageOptions): Promise<void>;
 }
 
+/**
+ * Used by Factory to enhance calls
+ */
 export type FactoryOptions = {
   logger?: ((action: LoggerAction) => void) | boolean;
   errorHandler?: ((error: Error | string) => void) | boolean;
@@ -78,7 +109,11 @@ export type LoggerAction = {
   key?: string | Array<string>;
 };
 
+// Helper types
+
 export type StorageModel<T> = T extends IStorageBackend<infer V> ? V : any;
+
+export type EmptyStorageModel = {[key in symbol | number | string]: any};
 
 export type StorageOptions = {
   [key: string]: any;
