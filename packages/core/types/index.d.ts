@@ -110,9 +110,6 @@ export type LoggerAction = {
 };
 
 // Helper types
-
-export type StorageModel<T> = T extends IStorageBackend<infer V> ? V : any;
-
 export type EmptyStorageModel = {[key in symbol | number | string]: any};
 
 export type StorageOptions = {
