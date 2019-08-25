@@ -1,6 +1,7 @@
 # Async Storage Core
 
-Public-facing API of Async Storage. 
+Main, public-facing components of Async Storage. The core module contains a factory to create an `AsyncStorage` instance 
+and `IStorageBackend`, that needs to be implemented by any Backend Storage in order to be compatible.   
 
 ## Install
 
@@ -82,6 +83,35 @@ const storageBackend = new StorageBackend();
 const storage = ASFactory.create<StorageModel>(storageBackend);
 
 ```
+
+
+### `IStorageBackend`
+
+In order to let `AsyncStorage` use a storage backend, it has to implement this interface. 
+Contains basic set method of methods to get, set and remove data, return already used keys or drop the whole storage.
+
+
+```typescript
+
+import {
+  IStorageBackend,
+} from '@react-native-community/async-storage';
+
+type Model = {
+  count: number
+  user: {
+    name: string,
+    rating: number
+  }
+}
+
+class MyStorageSolution implements IStorageBackend<Model> {
+  // implement necessary methods
+}
+
+```
+
+
   
 ## License
 
