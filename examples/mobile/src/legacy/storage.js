@@ -1,4 +1,4 @@
-import LegacyStorage from '@react-native-community/async-storage-legacy';
+import LegacyStorage from '@react-native-community/async-storage-backend-legacy';
 import AsyncStorageFactory from '@react-native-community/async-storage';
 
 
