@@ -5,7 +5,7 @@
       {
         "alias": {
           "@react-native-community/async-storage": "../../packages/core/build",
-          "@react-native-community/async-storage-legacy": "../../packages/storage-legacy/build"
+          "@react-native-community/async-storage-backend-legacy": "../../packages/storage-legacy/build"
         },
         "cwd": "babelrc"
       }

@@ -2,13 +2,13 @@
   "name": "@react-native-community/async-storage",
   "version": "2.0.0",
   "main": "build/index.js",
-  "files": ["build/**/*"],
   "types": "types/index.d.ts",
   "author": "Krzysztof Borowy <dev@krizzu.dev>",
   "license": "MIT",
   "scripts": {
     "build": "babel src --root-mode upward --out-dir build/ --extensions .ts --ignore build/**/* --ignore types/* --source-maps inline",
     "clean": "rm build -rf",
-    "start": "yarn build:lib --watch"
+    "start": "yarn build:lib --watch",
+    "prepublish": "yarn clean && yarn build"
   }
 }

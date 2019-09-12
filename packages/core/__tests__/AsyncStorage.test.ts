@@ -20,13 +20,13 @@ describe('AsyncStorage', () => {
   });
 
   type testCases = [
-    Partial<keyof AsyncStorage<any>>,
+    Partial<keyof AsyncStorage<any, any>>,
     Partial<keyof StorageMock>,
     string
   ][];
 
   describe('main API', () => {
-    const asyncStorage = new AsyncStorage<any>(mockedStorage, {
+    const asyncStorage = new AsyncStorage<any, any>(mockedStorage, {
       logger: false,
       errorHandler: false,
     });
@@ -63,7 +63,7 @@ describe('AsyncStorage', () => {
     it('uses logger when provided', async () => {
       const loggerFunc = jest.fn();
 
-      const as = new AsyncStorage(mockedStorage, {
+      const as = new AsyncStorage<any, any>(mockedStorage, {
         logger: loggerFunc,
         errorHandler: false,
       });
@@ -81,7 +81,7 @@ describe('AsyncStorage', () => {
         throw error;
       });
 
-      const as = new AsyncStorage(mockedStorage, {
+      const as = new AsyncStorage<any, any>(mockedStorage, {
         errorHandler,
         logger: false,
       });

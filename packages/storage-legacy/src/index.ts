@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) React Native Community.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -8,9 +8,11 @@
 
 import {NativeModules} from 'react-native';
 import {
+  EmptyStorageModel,
   IStorageBackend,
   StorageOptions,
 } from '@react-native-community/async-storage';
+import {ILegacyNativeModule} from '../types/nativeModule';
 
 function convertErrors(errs?: Array<Error> | Error) {
   if (!errs) {
@@ -19,8 +21,10 @@ function convertErrors(errs?: Array<Error> | Error) {
   return Array.isArray(errs) ? errs.filter(e => !!e) : [errs];
 }
 
-export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
-  private readonly _asyncStorageNativeModule: any;
+export default class LegacyAsyncStorage<
+  T extends EmptyStorageModel = EmptyStorageModel
+> implements IStorageBackend<T> {
+  private readonly _asyncStorageNativeModule: ILegacyNativeModule;
 
   constructor() {
     this._asyncStorageNativeModule =
@@ -35,17 +39,20 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     }
   }
 
-  async getSingle(key: string, opts?: StorageOptions): Promise<T | null> {
+  async getSingle<K extends keyof T>(
+    key: K,
+    opts?: StorageOptions,
+  ): Promise<T[K] | null> {
     if (opts) {
       // noop
     }
 
-    return new Promise<T | null>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.multiGet([key], function(
         errors: Array<Error>,
-        result: Array<[any, T | null]>,
+        result: Array<[any, T[K] | null]>,
       ) {
-        const value = result && result[0] && result[0][1] ? result[0][1] : null;
+        const value = (result && result[0] && result[0][1]) || null;
         const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
@@ -56,12 +63,16 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     });
   }
 
-  async setSingle(key: string, value: T, opts?: StorageOptions): Promise<void> {
+  async setSingle<K extends keyof T>(
+    key: K,
+    value: T[K],
+    opts?: StorageOptions,
+  ): Promise<void> {
     if (opts) {
       // noop
     }
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.multiSet([[key, value]], function(
         errors: Array<Error>,
       ) {
@@ -75,24 +86,30 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     });
   }
 
-  async getMany(
-    keys: Array<string>,
+  async getMany<K extends keyof T>(
+    keys: Array<K>,
     opts?: StorageOptions,
-  ): Promise<Array<T | null>> {
+  ): Promise<{[k in K]: T[k] | null}> {
     if (opts) {
       // noop
     }
 
-    return new Promise<Array<T | null>>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.multiGet(keys, function(
         errors: Array<Error>,
-        result: any,
+        result: Array<[K, T[K]]>,
       ) {
-        const value =
-          result &&
-          result.reduce((acc: Array<any[]>, current: Array<any>) => {
-            return [...acc, current[1]];
-          }, []);
+        const value: {[k in K]: T[k]} = result.reduce<any>(
+          (acc, current: [K, T[K]]) => {
+            const key = current[0];
+            const val = current[1] || null;
+            return {
+              ...acc,
+              [key]: val,
+            };
+          },
+          {},
+        );
         const errs = convertErrors(errors);
         if (errs && errs.length) {
           reject(errs[0]);
@@ -103,17 +120,17 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     });
   }
 
-  async setMany(
-    values: Array<{[key: string]: T}>,
+  async setMany<K extends keyof T>(
+    values: Array<Partial<{[k in K]: T[k]}>>,
     opts?: StorageOptions,
   ): Promise<void> {
     if (opts) {
       // noop
     }
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const valuesArray = values.map(entry => {
-        return [Object.keys(entry)[0], entry];
+        return [Object.keys(entry)[0] as K, entry];
       });
       this._asyncStorageNativeModule.multiSet([valuesArray], function(
         errors: Array<Error>,
@@ -128,7 +145,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     });
   }
 
-  async removeSingle(key: string, opts?: StorageOptions): Promise<void> {
+  async removeSingle(key: keyof T, opts?: StorageOptions): Promise<void> {
     if (opts) {
       // noop
     }
@@ -147,7 +164,7 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     });
   }
 
-  async removeMany(keys: Array<string>, opts?: StorageOptions): Promise<void> {
+  async removeMany(keys: Array<keyof T>, opts?: StorageOptions): Promise<void> {
     if (opts) {
       // noop
     }
@@ -166,15 +183,15 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     });
   }
 
-  async getKeys(opts?: StorageOptions): Promise<Array<string>> {
+  async getKeys(opts?: StorageOptions): Promise<Array<keyof T>> {
     if (opts) {
       // noop
     }
 
-    return new Promise<Array<string>>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.getAllKeys(function(
         errors: Array<Error>,
-        keys: Array<string>,
+        keys: Array<keyof T>,
       ) {
         const err = convertErrors(errors);
 
@@ -205,3 +222,37 @@ export default class LegacyAsyncStorage<T = any> implements IStorageBackend<T> {
     });
   }
 }
+
+// type MyModel = {
+//   user: {
+//     name: string;
+//   };
+//   preferences: {
+//     hour: boolean | null;
+//     hair: string;
+//   };
+//   isEnabled: boolean;
+// };
+
+// async function xxx() {
+//   const a = new LegacyAsyncStorage<MyModel>();
+//
+//   const x = await a.getSingle('preferences');
+//
+//   x.hour;
+//
+//   const all = await a.getMany(['user', 'isEnabled']);
+//
+//   all.user;
+//
+//   await a.setMany([
+//     {user: {name: 'Jerry'}},
+//     {isEnabled: false},
+//     {
+//       preferences: {
+//         hour: true,
+//         hair: 'streight',
+//       },
+//     },
+//   ]);
+// }

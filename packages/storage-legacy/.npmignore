@@ -1,0 +1,30 @@
+# Legacy storage backend
+node_modules
+yarn.lock
+# see https://github.com/yarnpkg/yarn/issues/7540
+./src/
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+android/build/
+ios/*.xcodeproj/xcuserdata
+
+########## Trash ##########
+.DS_Store
+.DS_Store?
+*.DS_Store
+coverage.android.json
+coverage.ios.json
+coverage
+npm-debug.log
+.github
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.dbandroid/gradle
+.idea
+bin/test.js
+codorials
+.vscode
+.nyc_output
+yarn-error.log
