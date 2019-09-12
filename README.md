@@ -16,7 +16,7 @@ todo
 
 ## Documentation
 
-todo
+- [Creating a custom Storage backend](./packages/core/docs/Writing_Storage_Backend.md)
 
 ## Available storage backends
 
