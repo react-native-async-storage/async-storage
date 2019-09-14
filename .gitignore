@@ -30,14 +30,13 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+
 # Android/IntelliJ
 #
 build/
 .idea
 .gradle
-.gradle
 local.properties
-.idea
 *.iml
 
 # BUCK
@@ -46,6 +45,5 @@ buck-out/
 *.keystore
 
 # Editor config
-# Ignore Gradle build output directory
 .vscode 
 
