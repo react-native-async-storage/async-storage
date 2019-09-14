@@ -1,9 +1,5 @@
-def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['RNAsyncStorage_' + name]
-}
-
-def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['RNAsyncStorage_' + name]).toInteger()
+def getExtOrDefault(name, defaultValue) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : defaultValue
 }
 
 // AsyncStorage has default size of 6MB.
@@ -25,12 +21,11 @@ def useDedicatedExecutor = rootProject.hasProperty('AsyncStorage_dedicatedExecut
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
-    buildToolsVersion getExtOrDefault('buildToolsVersion')
+    compileSdkVersion getExtOrDefault('compileSdkVersion', 28)
 
     defaultConfig {
-        minSdkVersion getExtOrIntegerDefault('minSdkVersion')
-        targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
+        minSdkVersion getExtOrDefault('minSdkVersion', 16)
+        targetSdkVersion getExtOrDefault('targetSdkVersion', 28)
 
         buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
         buildConfigField("boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}")
@@ -38,6 +33,7 @@ android {
 }
 
 repositories {
+    google()
     mavenCentral()
 }
 
