@@ -5,9 +5,8 @@ An `AsyncStorage` storage backend, fully compatible with former version.
 ## Installation
 
 
-// todo: check naming before relase
 ```bash
-$ yarn add @react-native-community/async-storage-legacy
+$ yarn add @react-native-community/async-storage-backend-legacy
 ```
 
 
@@ -16,7 +15,7 @@ $ yarn add @react-native-community/async-storage-legacy
 
 ```typescript
 
-import LegacyStorage from '@react-native-community/async-storage-legacy';
+import LegacyStorage from '@react-native-community/async-storage-backend-legacy';
 import AsyncStorageFactory from '@react-native-community/async-storage';
 
 type MyModel = {
