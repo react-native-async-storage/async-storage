@@ -21,6 +21,7 @@ todo
 ## Available storage backends
 
 - [Legacy](./packages/storage-legacy/README.md)
+- [Web](./packages/storage-web/README.md)
 
 
 ## License
