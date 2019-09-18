@@ -1,21 +1,20 @@
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
 
 buildscript {
-    repositories {
-        google()
-        jcenter()
+    // The Android Gradle plugin is only required when opening the android folder stand-alone.
+    // This avoids unnecessary downloads and potential conflicts when the library is included as a
+    // module dependency in an application project.
+    if (project == rootProject) {
+        repositories {
+            google()
+            jcenter()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:3.5.0'
+        }
     }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
-    }
-}
-
-def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['RNAsyncStorage_' + name]
-}
-
-def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['RNAsyncStorage_' + name]).toInteger()
 }
 
 // AsyncStorage has default size of 6MB.
@@ -37,22 +36,30 @@ def useDedicatedExecutor = rootProject.hasProperty('AsyncStorage_dedicatedExecut
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
-    buildToolsVersion getExtOrDefault('buildToolsVersion')
-
+    compileSdkVersion safeExtGet('compileSdkVersion', 28)
+    buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
     defaultConfig {
-        minSdkVersion getExtOrIntegerDefault('minSdkVersion')
-        targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
-
+        minSdkVersion safeExtGet('minSdkVersion', 19)
+        targetSdkVersion safeExtGet('targetSdkVersion', 28)
         buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
         buildConfigField("boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}")
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
 repositories {
-    mavenCentral()
+    mavenLocal()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url "$rootDir/../node_modules/react-native/android"
+    }
+    google()
+    jcenter()
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
+    //noinspection GradleDynamicVersion
+    implementation 'com.facebook.react:react-native:+'  // From node_modules
 }
