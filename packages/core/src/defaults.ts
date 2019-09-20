@@ -9,8 +9,8 @@
 import {FactoryOptions, LoggerAction} from '../types';
 
 export const factoryOptions: FactoryOptions = {
-  logger: __DEV__,
-  errorHandler: __DEV__,
+  logger: false,
+  errorHandler: false,
 };
 
 export function simpleErrorHandler(e: Error | string) {
