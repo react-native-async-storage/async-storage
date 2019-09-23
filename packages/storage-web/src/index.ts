@@ -13,7 +13,10 @@ import {
 
 class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
   implements IStorageBackend<T> {
-  storage = window.localStorage;
+  storage: Function;
+  constructor(sessionStorage: boolean | undefined) {
+    this.storage = sessionStorage ? window.sessionStorage : window.localStorage;
+  }
 
   async getSingle<K extends keyof T>(
     key: K,

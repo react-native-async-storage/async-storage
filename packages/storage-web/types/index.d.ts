@@ -14,7 +14,7 @@ import {
 export default class WebStorage<T = EmptyStorageModel>
   implements IStorageBackend<T> {
   private readonly _asyncStorageNativeModule;
-
+  storage: Function;
   getSingle<K extends keyof T>(
     key: K,
     opts?: StorageOptions,
