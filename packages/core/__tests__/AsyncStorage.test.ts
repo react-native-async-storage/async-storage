@@ -16,7 +16,7 @@ describe('AsyncStorage', () => {
   const mockedStorage = new StorageMock();
 
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   type testCases = [
@@ -53,10 +53,6 @@ describe('AsyncStorage', () => {
       mockedStorage.getKeys.mockImplementationOnce(() => ['key1', 'key2']);
       const keys = await asyncStorage.getKeys();
       expect(keys).toEqual(['key1', 'key2']);
-    });
-
-    it('handles instance api call', async () => {
-      expect(asyncStorage.instance()).toBe(mockedStorage);
     });
   });
   describe('utils', () => {

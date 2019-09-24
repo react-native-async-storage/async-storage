@@ -222,37 +222,3 @@ export default class LegacyAsyncStorage<
     });
   }
 }
-
-// type MyModel = {
-//   user: {
-//     name: string;
-//   };
-//   preferences: {
-//     hour: boolean | null;
-//     hair: string;
-//   };
-//   isEnabled: boolean;
-// };
-
-// async function xxx() {
-//   const a = new LegacyAsyncStorage<MyModel>();
-//
-//   const x = await a.getSingle('preferences');
-//
-//   x.hour;
-//
-//   const all = await a.getMany(['user', 'isEnabled']);
-//
-//   all.user;
-//
-//   await a.setMany([
-//     {user: {name: 'Jerry'}},
-//     {isEnabled: false},
-//     {
-//       preferences: {
-//         hour: true,
-//         hair: 'streight',
-//       },
-//     },
-//   ]);
-// }

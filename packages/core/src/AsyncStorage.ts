@@ -7,7 +7,9 @@
  */
 
 import {simpleErrorHandler, simpleLogger, noop} from './defaults';
+import {createExtension} from './extension';
 import {
+  ExtensionType,
   FactoryOptions,
   IStorageBackend,
   LoggerAction,
@@ -15,6 +17,8 @@ import {
 } from '../types';
 
 class AsyncStorage<M, T extends IStorageBackend<M>> {
+  readonly ext: ExtensionType<T>;
+
   private readonly _backend: T;
   private readonly _config: FactoryOptions;
   private readonly log: (action: LoggerAction) => void;
@@ -27,6 +31,8 @@ class AsyncStorage<M, T extends IStorageBackend<M>> {
     // off by default
     this.log = noop;
     this.error = noop;
+
+    this.ext = createExtension<T>(this._backend);
 
     if (this._config.logger) {
       this.log =
@@ -162,12 +168,6 @@ class AsyncStorage<M, T extends IStorageBackend<M>> {
     } catch (e) {
       this.error(e);
     }
-  }
-
-  // todo: think how we could provide additional functions through AS, without returning the instance
-  // some kind of extension-like functionality
-  instance(): T {
-    return this._backend;
   }
 }
 
