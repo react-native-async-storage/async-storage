@@ -19,7 +19,13 @@
     "react-native": ">=0.58"
   },
   "devDependencies": {
+    "jest-localstorage-mock": "^2.4.0",
     "react": "^16.0",
     "react-native": ">=0.58"
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
   }
 }

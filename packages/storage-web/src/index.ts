@@ -13,8 +13,8 @@ import {
 
 class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
   implements IStorageBackend<T> {
-  storage: any;
-  constructor(sessionStorage: boolean | undefined) {
+  storage: Storage;
+  constructor(sessionStorage: boolean = false) {
     this.storage = sessionStorage ? window.sessionStorage : window.localStorage;
   }
 
