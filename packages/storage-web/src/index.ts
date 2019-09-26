@@ -13,7 +13,7 @@ import {
 
 class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
   implements IStorageBackend<T> {
-  storage: Storage;
+  storage: any;
   constructor(sessionStorage: boolean = false) {
     this.storage = sessionStorage ? window.sessionStorage : window.localStorage;
   }
@@ -80,9 +80,7 @@ class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
     if (opts) {
       // noop
     }
-    for (let key in keys) {
-      this.storage.removeItem(key);
-    }
+    return Promise.all(keys.map(k => this.storage.removeItem(k)));
   }
 
   async getKeys(opts?: StorageOptions): Promise<Array<keyof T>> {
