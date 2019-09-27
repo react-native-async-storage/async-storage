@@ -3,7 +3,7 @@
     "target": "ES2017",
     "module": "commonjs",
     "lib": ["es2017", "dom"],
-
+    "skipLibCheck": true,
     // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
     "noEmit": true,
     "strict": true,
@@ -19,6 +19,6 @@
     "@types/jest",
     "packages/**/src/",
     "packages/**/types/",
-    "packages/**/__tests__/",
+    "packages/**/__tests__/"
   ]
 }

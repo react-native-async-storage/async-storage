@@ -1,9 +1,9 @@
 import WebStorage from '../src';
 import 'jest-localstorage-mock';
 
-describe.each(['sessionStorage', false], ['localStorage', true])(
+describe.each([['sessionStorage', false], ['localStorage', true]])(
   'WebStorage',
-  (storageName: string, storageBool: boolean) => {
+  (storageName, storageBool) => {
     const webStorage = new WebStorage(storageBool);
     const storage: any = storageBool ? sessionStorage : localStorage;
 
@@ -64,37 +64,7 @@ describe.each(['sessionStorage', false], ['localStorage', true])(
       });
     });
     // describe('utils', () => {
-    //   it('uses logger when provided', async () => {
-    //     const loggerFunc = jest.fn();
 
-    //     const as = new WebStorage<any, any>(mockedStorage, {
-    //       logger: loggerFunc,
-    //       errorHandler: false,
-    //     });
-
-    //     await as.get('key');
-    //     expect(loggerFunc).toBeCalledTimes(1);
-    //     expect(loggerFunc).toBeCalledWith({action: 'read-single', key: 'key'});
-    //   });
-
-    //   it('uses error handler when provided', async () => {
-    //     const errorHandler = jest.fn();
-
-    //     const error = new Error('Fatal!');
-    //     mockedStorage.getSingle.mockImplementationOnce(async () => {
-    //       throw error;
-    //     });
-
-    //     const as = new WebStorage<any, any>(mockedStorage, {
-    //       errorHandler,
-    //       logger: false,
-    //     });
-
-    //     await as.get('key');
-
-    //     expect(errorHandler).toBeCalledTimes(1);
-    //     expect(errorHandler).toBeCalledWith(error);
-    //   });
     // });
   },
 );
