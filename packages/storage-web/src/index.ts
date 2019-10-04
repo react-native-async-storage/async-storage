@@ -33,12 +33,8 @@ class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
     value: T[K],
     opts?: StorageOptions,
   ): Promise<void> {
-    if (opts && !opts.replaceCurrent) {
-      const current = this.storage.getItem(key);
-      if (!current) {
-        this.storage.setItem(key, value);
-      }
-      return;
+    if (opts) {
+      // noop
     }
     return this.storage.setItem(key, value);
   }
@@ -50,11 +46,11 @@ class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
     if (opts) {
       // noop
     }
-    return Promise.all(keys.map(k => this.storage.getItem(k)));
+    return Promise.all(keys.map(k => k: this.storage.getItem(k)));
   }
 
   async setMany<K extends keyof T>(
-    values: Array<{[k in K]: T[k]}>,
+    values: Array<Partial<{[k in K]: T[k]}>>,
     opts?: StorageOptions,
   ): Promise<void> {
     if (opts) {

@@ -63,8 +63,5 @@ describe.each([['sessionStorage', false], ['localStorage', true]])(
         expect(storage.__STORE__).toEqual({});
       });
     });
-    // describe('utils', () => {
-
-    // });
   },
 );
