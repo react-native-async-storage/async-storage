@@ -46,7 +46,7 @@ class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
     if (opts) {
       // noop
     }
-    return Promise.all(keys.map(k => k: this.storage.getItem(k)));
+    return Promise.all(keys.map(k => this.storage.getItem(k)));
   }
 
   async setMany<K extends keyof T>(
