@@ -1,0 +1,15 @@
+{
+  "extends": "../../base.tsconfig",
+  "compilerOptions": {
+    "lib": ["es2017", "dom"],
+    "types": ["@types/jest"]
+  },
+  "include": [
+    "./src",
+    "./__tests__",
+    "./types"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

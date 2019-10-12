@@ -8,7 +8,9 @@
   "scripts": {
     "build": "babel src --root-mode upward --out-dir build/ --extensions .ts --ignore build/**/* --ignore types/* --source-maps inline",
     "clean": "rm build -rf",
-    "start": "yarn build:lib --watch",
-    "prepublish": "yarn clean && yarn build"
+    "start": "yarn build --watch",
+    "prepublish": "yarn clean && yarn build",
+    "test:types": "tsc",
+    "test:lint": "eslint ./**/*.ts"
   }
 }

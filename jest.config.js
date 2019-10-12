@@ -1,20 +1,20 @@
-const commonSettings = {
-  globals: {
-    __DEV__: true,
-  },
-};
+function createPackageConfig(packageName) {
+  return {
+    transform: {
+      '^.+\\.tsx?$': 'ts-jest',
+    },
+    globals: {
+      __DEV__: true,
+      'ts-jest': {
+        tsConfig: `<rootDir>/packages/${packageName}/tsconfig.json`,
+      },
+    },
+    displayName: packageName,
+    roots: [`<rootDir>/packages/${packageName}`],
+    testMatch: [`<rootDir>/packages/${packageName}/__tests__/*{.,-}test.ts`],
+  };
+}
 
 module.exports = {
-  setupFiles: ['jest-localstorage-mock'],
-  projects: [
-    {
-      ...commonSettings,
-      displayName: 'core',
-      roots: ['<rootDir>/packages/core', '<rootDir>/packages/storage-web'],
-      testMatch: [
-        '<rootDir>/packages/core/__tests__/*{.,-}test.ts',
-        '<rootDir>/packages/storage-web/__tests__/*{.,-}test.ts',
-      ],
-    },
-  ],
+  projects: [createPackageConfig('core'), createPackageConfig('storage-web')],
 };

@@ -1,4 +1,4 @@
-# Legacy storage backend
+# Web storage backend
 node_modules
 yarn.lock
 # see https://github.com/yarnpkg/yarn/issues/7540

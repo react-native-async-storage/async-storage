@@ -2,10 +2,12 @@ import WebStorage from '../src';
 import 'jest-localstorage-mock';
 
 describe.each([['sessionStorage', false], ['localStorage', true]])(
-  'WebStorage',
+  'WebStorage using %s',
   (storageName, storageBool) => {
     const webStorage = new WebStorage(storageBool);
-    const storage: any = storageBool ? sessionStorage : localStorage;
+    const storage: any = storageBool
+      ? window.sessionStorage
+      : window.localStorage;
 
     beforeEach(() => {
       storage.clear();
