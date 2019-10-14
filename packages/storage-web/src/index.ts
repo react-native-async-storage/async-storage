@@ -46,7 +46,9 @@ class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
     if (opts) {
       // noop
     }
-    return Promise.all(keys.map(k => this.storage.getItem(k)));
+    return Promise.all(keys.map(k => ({[k]: this.storage.getItem(k)}))).then(
+      values => values.reduce((storageObj, pair) => ({...storageObj, ...pair})),
+    );
   }
 
   async setMany<K extends keyof T>(
@@ -57,7 +59,7 @@ class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
       // noop
     }
     for (let keyValue of values) {
-      const key = Object.getOwnPropertyNames(keyValue)[0];
+      const key = Object.getOwnPropertyNames(keyValue)[0] as K;
       if (!key) {
         continue;
       }

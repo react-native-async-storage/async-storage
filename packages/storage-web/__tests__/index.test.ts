@@ -26,10 +26,10 @@ describe.each([['sessionStorage', false], ['localStorage', true]])(
       it(`gets multiple items from ${storageName}`, async () => {
         storage.setItem('key1', 'value1');
         storage.setItem('key2', 'value2');
-        expect(await webStorage.getMany(['key1', 'key2'])).toEqual([
-          'value1',
-          'value2',
-        ]);
+        expect(await webStorage.getMany(['key1', 'key2'])).toEqual({
+          key1: 'value1',
+          key2: 'value2',
+        });
       });
 
       it(`saves multiple items to ${storageName}`, async () => {
