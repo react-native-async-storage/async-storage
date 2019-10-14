@@ -46,8 +46,14 @@ class WebStorage<T extends EmptyStorageModel = EmptyStorageModel>
     if (opts) {
       // noop
     }
-    return Promise.all(keys.map(k => ({[k]: this.storage.getItem(k)}))).then(
-      values => values.reduce((storageObj, pair) => ({...storageObj, ...pair})),
+    return keys.reduce(
+      (storageValues, key) => {
+        return {
+          ...storageValues,
+          [key]: this.storage.getItem(key),
+        };
+      },
+      {} as {[k in K]: T[k] | null},
     );
   }
 
