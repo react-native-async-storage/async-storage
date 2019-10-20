@@ -1,0 +1,11 @@
+{
+  "extends": "../../base.tsconfig",
+  "include": [
+    "./src",
+    "__tests__",
+    "./types"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

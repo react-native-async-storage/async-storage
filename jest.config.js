@@ -1,16 +1,20 @@
-const commonSettings = {
-  globals: {
-    __DEV__: true,
-  },
-};
+function createPackageConfig(packageName) {
+  return {
+    transform: {
+      '^.+\\.tsx?$': 'ts-jest',
+    },
+    globals: {
+      __DEV__: true,
+      'ts-jest': {
+        tsConfig: `<rootDir>/packages/${packageName}/tsconfig.json`,
+      },
+    },
+    displayName: packageName,
+    roots: [`<rootDir>/packages/${packageName}`],
+    testMatch: [`<rootDir>/packages/${packageName}/__tests__/*{.,-}test.ts`],
+  };
+}
 
 module.exports = {
-  projects: [
-    {
-      ...commonSettings,
-      displayName: 'core',
-      roots: ['<rootDir>/packages/core'],
-      testMatch: ['<rootDir>/packages/core/__tests__/*{.,-}test.ts'],
-    },
-  ],
+  projects: [createPackageConfig('core'), createPackageConfig('storage-web')],
 };

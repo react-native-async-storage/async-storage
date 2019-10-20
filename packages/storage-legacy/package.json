@@ -8,11 +8,12 @@
   "scripts": {
     "build": "babel src --root-mode upward --out-dir build/ --extensions .ts --ignore build/**/* --ignore types/**/* --source-maps inline",
     "clean": "rm build -rf",
-    "generate:types": "tsc src/index.ts --noEmit false --lib es2015 --declarationDir types/ -d true -emitDeclarationOnly true",
-    "prepublish": "yarn clean && yarn build"
+    "prepublish": "yarn clean && yarn build",
+    "test:types": "tsc",
+    "test:lint": "eslint ./**/*.ts"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^2.0"
+    "@react-native-community/async-storage": "^2.0.0"
   },
   "peerDependencies": {
     "react": "^16.0",
