@@ -48,7 +48,7 @@ export class AsyncStorage<M, T extends IStorageBackend<M>> {
 
   clearStorage(opts?: StorageOptions): Promise<void>;
 
-  instance(): T;
+  ext: ExtensionType<T>;
 }
 
 /**
@@ -115,3 +115,5 @@ export type EmptyStorageModel = {[key in symbol | number | string]: any};
 export type StorageOptions = {
   [key: string]: any;
 } | null;
+
+export type ExtensionType<T> = Omit<T, keyof IStorageBackend>;
