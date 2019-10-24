@@ -3,7 +3,7 @@
   "version": "1.6.2",
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
   "types": "./types/index.d.ts",
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "author": "Krzysztof Borowy <krizzu.dev@gmail.com>",
   "contributors": [],
   "homepage": "https://github.com/react-native-community/react-native-async-storage#readme",
@@ -22,7 +22,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:android": "react-native run-android --root example/",
-    "start:ios": "react-native run-ios --project-path example/ios",
+    "start:ios": "react-native run-ios --project-path example/ios --scheme AsyncStorageExample",
     "build:e2e:ios": "detox build -c ios",
     "build:e2e:android": "detox build -c android",
     "test": "yarn test:lint && yarn test:flow",
@@ -32,23 +32,23 @@
     "test:e2e:android": "detox test -c android"
   },
   "peerDependencies": {
-    "react": "^16.0",
-    "react-native": ">=0.57"
+    "react": "^16.8",
+    "react-native": ">=0.59"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0",
+    "@babel/core": "7.4.5",
+    "@babel/runtime": "7.4.5",
     "@react-native-community/eslint-config": "0.0.2",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "24.1.0",
+    "babel-jest": "24.8.0",
     "babel-plugin-module-resolver": "3.1.3",
     "detox": "12.6.1",
     "eslint": "5.1.0",
-    "flow-bin": "0.86.0",
-    "jest": "24.1.0",
-    "metro-react-native-babel-preset": "0.51.1",
+    "flow-bin": "0.92.0",
+    "jest": "24.8.0",
+    "metro-react-native-babel-preset": "0.54.1",
     "react": "16.6.3",
-    "react-native": "0.58.4",
-    "react-test-renderer": "16.6.3"
+    "react-native": "0.59.10",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native",

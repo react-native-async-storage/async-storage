@@ -5,6 +5,7 @@
     "expect": true,
     "element": true,
     "describe": true,
+    "xdescribe": true,
     "by": true,
     "device": true,
     "beforeAll": true,
