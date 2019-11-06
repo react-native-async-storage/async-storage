@@ -7,6 +7,7 @@
 
 #import "AppDelegate.h"
 
+#import <React/RCTBridge.h>
 #import "AppDelegate+RNCAsyncStorageDelegate.h"
 #import "RNCTestAsyncStorageDelegate.h"
 
@@ -22,19 +23,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(didLoadJavaScript:)
-                                               name:RCTJavaScriptDidLoadNotification
-                                             object:nil];
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:@"AsyncStorageExample"
+                                            initialProperties:nil];
 
-  NSURL *jsCodeLocation;
-
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"example/index" fallbackResource:nil];
-
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"AsyncStorageExample"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
   rootView.backgroundColor = [UIColor blackColor];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -94,6 +87,15 @@
   }
 
   return YES;
+}
+
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+  #if DEBUG
+    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"example/index" fallbackResource:nil];
+  #else
+    return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  #endif
 }
 
 @end
