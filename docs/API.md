@@ -45,7 +45,7 @@ getMyValue = async () => {
     // read error
   }
 
-  console.log('Done'.)
+  console.log('Done.')
 
 }
 ```
