@@ -88,7 +88,7 @@ const storage = ASFactory.create<StorageModel>(storageBackend);
 ### `IStorageBackend`
 
 In order to let `AsyncStorage` use a storage backend, it has to implement this interface. 
-Contains basic set method of methods to get, set and remove data, return already used keys or drop the whole storage.
+Contains methods to get, set and remove data, return used keys or drop the whole storage.
 
 
 ```typescript
