@@ -86,3 +86,29 @@ declare module '@react-native-community/async-storage' {
 
   export default AsyncStorage;
 }
+
+declare module '@react-native-community/async-storage/jest/async-storage-mock' {
+  type KeysType = Array<string>;
+  type KeyValueType = Array<Array<string>>;
+  type CallbackType = ((error?: Error) => void) | void;
+  type ItemGetCallbackType = ((error?: Error, def?: string) => void) | void;
+  type ResultCallbackType = ((error?: Error, keyValueType?: KeyValueType) => void) | void;
+
+  export interface AsyncStorageMockStatic {
+    setItem(key: string, value: string, callback: CallbackType): Promise<null>;
+    getItem(key: string, callback: ItemGetCallbackType): Promise<string>;
+    removeItem(key: string, callback: CallbackType): Promise<null>;
+    mergeItem(key: string, value: string, callback: CallbackType): Promise<null>;
+    clear(callback: CallbackType): Promise<null>;
+    getAllKeys(): Promise<Array<string>>;
+    flushGetRequests(): void;
+    multiGet(keys: KeysType, callback: ResultCallbackType): Promise<Array<string>>;
+    multiSet(keyValuePairs: KeyValueType, callback: CallbackType): Promise<null>;
+    multiRemove(keys: KeysType, callback: CallbackType): Promise<null>;
+    multiMerge(keyValuePairs: KeyValueType, callback: CallbackType): Promise<null>;
+  }
+
+  const AsyncStorageMock: AsyncStorageMockStatic;
+
+  export default AsyncStorageMock;
+}
