@@ -1,6 +1,6 @@
 {
   "name": "@react-native-community/async-storage-backend-legacy",
-  "version": "2.0.0",
+  "version": "2.0.0-rc0",
   "main": "build/index.js",
   "types": "types/index.d.ts",
   "author": "Krzysztof Borowy <dev@krizzu.dev>",
@@ -13,7 +13,7 @@
     "test:lint": "eslint ./**/*.ts"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^2.0.0"
+    "@react-native-community/async-storage": "^2.0.0-rc0"
   },
   "peerDependencies": {
     "react": "^16.0",

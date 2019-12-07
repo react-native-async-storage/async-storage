@@ -18,7 +18,7 @@ If you're looking for published and operational Async Storage version, please ch
 
 ## Getting started
 
-[Checkout getting started docs to see examples.](./packages/core/docs/Usage.md)
+Quick introduction to AsyncStorage can [be found here.](./packages/core/docs/Usage.md)
 
 
 ## Available storages
