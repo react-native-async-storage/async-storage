@@ -21,6 +21,28 @@ function convertErrors(errs?: Array<Error> | Error) {
   return Array.isArray(errs) ? errs.filter(e => !!e) : [errs];
 }
 
+function checkValidInput(usedKey: any, value?: any) {
+  const isValuePassed = arguments.length > 1;
+
+  if (typeof usedKey !== 'string') {
+    console.warn(
+      `[AsyncStorageLegacy] Using "${typeof usedKey}" type for key is not supported. This can lead to unexpected behavior/errors. Use string instead.\nKey passed: ${usedKey}\n`,
+    );
+
+    if (isValuePassed && typeof value !== 'string') {
+      if (value == null) {
+        throw new Error(
+          `[AsyncStorageLegacy] Passing "null" or "undefined" as value is not supported. If you need to remove a value, use ".removeSingle" method instead.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
+        );
+      } else {
+        console.warn(
+          `[AsyncStorageLegacy] The value for key "${usedKey}" is not a string. This can lead to unexpected behavior/errors. Consider stringifying it.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
+        );
+      }
+    }
+  }
+}
+
 export default class LegacyAsyncStorage<
   T extends EmptyStorageModel = EmptyStorageModel
 > implements IStorageBackend<T> {
@@ -28,9 +50,7 @@ export default class LegacyAsyncStorage<
 
   constructor() {
     this._asyncStorageNativeModule =
-      NativeModules.RNC_AsyncSQLiteDBStorage ||
-      NativeModules.RNCAsyncStorage ||
-      NativeModules.PlatformLocalStorage;
+      NativeModules.RNC_AsyncSQLiteDBStorage || NativeModules.RNCAsyncStorage;
 
     if (!this._asyncStorageNativeModule) {
       throw new Error(
@@ -46,6 +66,7 @@ export default class LegacyAsyncStorage<
     if (opts) {
       // noop
     }
+    checkValidInput(key);
 
     return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.multiGet([key], function(
@@ -71,6 +92,7 @@ export default class LegacyAsyncStorage<
     if (opts) {
       // noop
     }
+    checkValidInput(key, value);
 
     return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.multiSet([[key, value]], function(
@@ -93,6 +115,7 @@ export default class LegacyAsyncStorage<
     if (opts) {
       // noop
     }
+    keys.forEach(checkValidInput);
 
     return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.multiGet(keys, function(
@@ -127,6 +150,11 @@ export default class LegacyAsyncStorage<
     if (opts) {
       // noop
     }
+    values.forEach(keyValue => {
+      (Object.keys(keyValue) as Array<K>).forEach(key => {
+        checkValidInput(key, keyValue[key]);
+      });
+    });
 
     return new Promise((resolve, reject) => {
       const valuesArray = values.map(entry => {
@@ -149,6 +177,7 @@ export default class LegacyAsyncStorage<
     if (opts) {
       // noop
     }
+    checkValidInput(key);
 
     return new Promise<void>((resolve, reject) => {
       this._asyncStorageNativeModule.multiRemove([key], function(
@@ -168,6 +197,7 @@ export default class LegacyAsyncStorage<
     if (opts) {
       // noop
     }
+    keys.forEach(checkValidInput);
 
     return new Promise<void>((resolve, reject) => {
       this._asyncStorageNativeModule.multiRemove(keys, function(
