@@ -16,7 +16,7 @@
     "test:lint": "eslint ./**/*.ts"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^2.0.0-rc0"
+    "@react-native-community/async-storage": ">=2.0.0-rc.0"
   },
   "peerDependencies": {
     "react": "^16.0",
