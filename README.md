@@ -3,6 +3,10 @@
 An asynchronous, unencrypted, persistent, key-value storage system for React Native.
 
 
+### AsyncStorage v2 is out!
+
+Release Candidate for AsyncStorage v2 is out. More info [can be found here.](https://git.io/JeSSQ).
+
 ## Getting Started
 
 
