@@ -1,12 +1,12 @@
 # Async Storage Core
 
-Main, public-facing components of Async Storage. The core module contains a factory to create an `AsyncStorage` instance 
+Main, public-facing components of Async Storage. Contains a factory to create an `AsyncStorage` instance 
 and `IStorageBackend`, that needs to be implemented by any Backend Storage in order to be compatible.   
 
 ## Install
 
 ```bash
-$ yarn install @react-native-community/async-storage
+$ yarn install @react-native-community/async-storage@next
 ```
 
 ## API

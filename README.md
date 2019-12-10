@@ -15,16 +15,28 @@ If you're looking for published and operational Async Storage version, please ch
 - Extensible functionality, to leverage full storage potential
 - Support for Mobile, Web and more
 
-
 ## Getting started
 
-Quick introduction to AsyncStorage can [be found here.](./packages/core/docs/Usage.md)
+### Install
+
+1. Get required core
+
+```bash
+yarn add @react-native-community/async-storage@next
+```
+
+2. Pick desired [storage for your platform.](#available-storages) 
+
+
+### Usage
+
+Example usage [be found here.](./packages/core/docs/Usage.md)
 
 
 ## Available storages
 
-- [Legacy](./packages/storage-legacy/README.md)
-- [Web](./packages/storage-web/README.md)
+- [Legacy](./packages/storage-legacy/README.md) - for React Native 
+- [Web](./packages/storage-web/README.md) - for Web applications
 
 
 ## Documentation

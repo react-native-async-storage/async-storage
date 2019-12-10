@@ -15,10 +15,10 @@ In this example, we'll be using [Legacy storage](https://github.com/react-native
 
 ```bash
 # Install core
-$ yarn add @react-native-community/async-storage
+$ yarn add @react-native-community/async-storage@next
 
 # Install legacy backend storage
-$ yarn add @react-native-community/async-storage-backend-legacy
+$ yarn add @react-native-community/async-storage-backend-legacy@next
 ```
 
 

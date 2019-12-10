@@ -6,7 +6,7 @@ An `AsyncStorage` storage backend, fully compatible with former version.
 
 
 ```bash
-$ yarn add @react-native-community/async-storage-backend-legacy
+$ yarn add @react-native-community/async-storage-backend-legacy@next
 ```
 
 
@@ -32,4 +32,4 @@ export default storage;
 
 ## License
 
-MIT
+MIT.
