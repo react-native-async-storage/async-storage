@@ -9,18 +9,36 @@
 /* Begin PBXBuildFile section */
 		1990B97A223993B0009E5EA1 /* RNCAsyncStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */; };
 		1990B97B223993B0009E5EA1 /* RNCAsyncStorageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
+		3893A2E123C509D1009200E3 /* RNCAsyncStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */; };
+		3893A2E223C509D1009200E3 /* RNCAsyncStorageDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
+		3893A2E523C50AFE009200E3 /* RNCAsyncStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */; };
+		3893A2E623C50AFE009200E3 /* RNCAsyncStorageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
+		3893A2E823C50AFE009200E3 /* RNCAsyncStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */; };
+		3893A2EB23C50AFE009200E3 /* RNCAsyncStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */; };
+		3893A2EC23C50AFE009200E3 /* RNCAsyncStorageDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
 		B3E7B58A1CC2AC0600A0062D /* RNCAsyncStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3893A2EA23C50AFE009200E3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				3893A2EB23C50AFE009200E3 /* RNCAsyncStorage.h in CopyFiles */,
+				3893A2EC23C50AFE009200E3 /* RNCAsyncStorageDelegate.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58B511D91A9E6C8500147676 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				1990B97A223993B0009E5EA1 /* RNCAsyncStorage.h in CopyFiles */,
-				1990B97B223993B0009E5EA1 /* RNCAsyncStorageDelegate.h in CopyFiles */,
+				3893A2E123C509D1009200E3 /* RNCAsyncStorage.h in CopyFiles */,
+				3893A2E223C509D1009200E3 /* RNCAsyncStorageDelegate.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -29,11 +47,19 @@
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNCAsyncStorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCAsyncStorageDelegate.h; sourceTree = "<group>"; };
+		3893A2F023C50AFE009200E3 /* libRNCAsyncStorage-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRNCAsyncStorage-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCAsyncStorage.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCAsyncStorage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3893A2E923C50AFE009200E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58B511D81A9E6C8500147676 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -59,6 +85,7 @@
 				B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */,
 				1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				3893A2F023C50AFE009200E3 /* libRNCAsyncStorage-macOS.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +101,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3893A2E423C50AFE009200E3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3893A2E523C50AFE009200E3 /* RNCAsyncStorage.h in Headers */,
+				3893A2E623C50AFE009200E3 /* RNCAsyncStorageDelegate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		3893A2E323C50AFE009200E3 /* RNCAsyncStorage-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3893A2ED23C50AFE009200E3 /* Build configuration list for PBXNativeTarget "RNCAsyncStorage-macOS" */;
+			buildPhases = (
+				3893A2E423C50AFE009200E3 /* Headers */,
+				3893A2E723C50AFE009200E3 /* Sources */,
+				3893A2E923C50AFE009200E3 /* Frameworks */,
+				3893A2EA23C50AFE009200E3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RNCAsyncStorage-macOS";
+			productName = RCTDataManager;
+			productReference = 3893A2F023C50AFE009200E3 /* libRNCAsyncStorage-macOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		58B511DA1A9E6C8500147676 /* RNCAsyncStorage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNCAsyncStorage" */;
@@ -114,6 +168,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -122,11 +177,20 @@
 			projectRoot = "";
 			targets = (
 				58B511DA1A9E6C8500147676 /* RNCAsyncStorage */,
+				3893A2E323C50AFE009200E3 /* RNCAsyncStorage-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3893A2E723C50AFE009200E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3893A2E823C50AFE009200E3 /* RNCAsyncStorage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		58B511D71A9E6C8500147676 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -138,6 +202,38 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		3893A2EE23C50AFE009200E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3893A2EF23C50AFE009200E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		58B511ED1A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -256,6 +352,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3893A2ED23C50AFE009200E3 /* Build configuration list for PBXNativeTarget "RNCAsyncStorage-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3893A2EE23C50AFE009200E3 /* Debug */,
+				3893A2EF23C50AFE009200E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "RNCAsyncStorage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

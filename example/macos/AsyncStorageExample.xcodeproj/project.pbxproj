@@ -22,6 +22,17 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		196F5D682254C1530035A6D3 /* AppDelegate+RNCAsyncStorageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5D672254C1530035A6D3 /* AppDelegate+RNCAsyncStorageDelegate.m */; };
 		19C469542256303E00CA1332 /* RNCTestAsyncStorageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C469532256303E00CA1332 /* RNCTestAsyncStorageDelegate.m */; };
+		3868EE9F23C5048300B4DA62 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
+		3868EEAB23C5053C00B4DA62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3868EEAA23C5053C00B4DA62 /* Main.storyboard */; };
+		3868EEAD23C505E100B4DA62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3868EEAC23C505E100B4DA62 /* main.m */; };
+		3868EEB123C505FB00B4DA62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3868EEAF23C505FB00B4DA62 /* AppDelegate.m */; };
+		3868EEB623C5062500B4DA62 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3868EEB423C5062500B4DA62 /* ViewController.m */; };
+		38CF7A0A23C520A20090740A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EF823BA86FD007992F2 /* libReact.a */; };
+		38CF7A2923C520AD0090740A /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EDC23BA86FD007992F2 /* libRCTWebSocket.a */; };
+		38CF7A2A23C520BF0090740A /* libRNCAsyncStorage-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38AB73C723C507A200A354AD /* libRNCAsyncStorage-macOS.a */; };
+		38CF7A2B23C5211C0090740A /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134ED323BA86FD007992F2 /* libRCTText.a */; };
+		38CF7A2C23C521A10090740A /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EC923BA86FD007992F2 /* libRCTNetwork.a */; };
+		38CF7A2F23C5251C0090740A /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EB523BA86FD007992F2 /* libRCTAnimation.a */; };
 		3D82E3B72248BD39001F5D1A /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC5398C220F2C940035D3A3 /* libRNCAsyncStorage.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -274,6 +285,20 @@
 			remoteGlobalIDString = 9FD21D94224305AA00E7F88E;
 			remoteInfo = "jsiexecutor-macOS";
 		};
+		3893A33323C50CBF009200E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DC5395A220F2C940035D3A3 /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3893A2E323C50AFE009200E3;
+			remoteInfo = "RNCAsyncStorage-macOS";
+		};
+		38AB73C623C507A200A354AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DC5395A220F2C940035D3A3 /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 38AB73C223C5077E00A354AD;
+			remoteInfo = "RNCAsyncStorage-macOS";
+		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
@@ -444,6 +469,14 @@
 		19C4692D22562FD400CA1332 /* RNCTestAsyncStorageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNCTestAsyncStorageDelegate.h; path = AsyncStorageExample/RNCTestAsyncStorageDelegate.h; sourceTree = "<group>"; };
 		19C469532256303E00CA1332 /* RNCTestAsyncStorageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNCTestAsyncStorageDelegate.m; path = AsyncStorageExample/RNCTestAsyncStorageDelegate.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3868EEA723C5048300B4DA62 /* AsyncStorageExample-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AsyncStorageExample-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3868EEA923C504BE00B4DA62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3868EEAA23C5053C00B4DA62 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3868EEAC23C505E100B4DA62 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3868EEAE23C505FB00B4DA62 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3868EEAF23C505FB00B4DA62 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3868EEB323C5062500B4DA62 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3868EEB423C5062500B4DA62 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3DC5395A220F2C940035D3A3 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = ../../ios/RNCAsyncStorage.xcodeproj; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -471,6 +504,20 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3868EE9223C5048300B4DA62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38CF7A2A23C520BF0090740A /* libRNCAsyncStorage-macOS.a in Frameworks */,
+				38CF7A2F23C5251C0090740A /* libRCTAnimation.a in Frameworks */,
+				38CF7A2C23C521A10090740A /* libRCTNetwork.a in Frameworks */,
+				38CF7A2B23C5211C0090740A /* libRCTText.a in Frameworks */,
+				38CF7A2923C520AD0090740A /* libRCTWebSocket.a in Frameworks */,
+				38CF7A0A23C520A20090740A /* libReact.a in Frameworks */,
+				3868EE9F23C5048300B4DA62 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,10 +643,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3868EE5323C5045100B4DA62 /* AsyncStorageExample-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				3868EEA923C504BE00B4DA62 /* Info.plist */,
+				3868EEAA23C5053C00B4DA62 /* Main.storyboard */,
+				3868EEAC23C505E100B4DA62 /* main.m */,
+				3868EEAE23C505FB00B4DA62 /* AppDelegate.h */,
+				3868EEAF23C505FB00B4DA62 /* AppDelegate.m */,
+				3868EEB323C5062500B4DA62 /* ViewController.h */,
+				3868EEB423C5062500B4DA62 /* ViewController.m */,
+			);
+			path = "AsyncStorageExample-macOS";
+			sourceTree = "<group>";
+		};
 		3DC5395B220F2C940035D3A3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				3DC5398C220F2C940035D3A3 /* libRNCAsyncStorage.a */,
+				38AB73C723C507A200A354AD /* libRNCAsyncStorage-macOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -655,6 +717,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3868EE5323C5045100B4DA62 /* AsyncStorageExample-macOS */,
 				3DC5395A220F2C940035D3A3 /* RNCAsyncStorage.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* AsyncStorageExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -670,6 +733,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* AsyncStorageExample.app */,
+				3868EEA723C5048300B4DA62 /* AsyncStorageExample-macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -704,6 +768,25 @@
 			name = AsyncStorageExample;
 			productName = "Hello World";
 			productReference = 13B07F961A680F5B00A75B9A /* AsyncStorageExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3868EE8A23C5048300B4DA62 /* AsyncStorageExample-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3868EEA423C5048300B4DA62 /* Build configuration list for PBXNativeTarget "AsyncStorageExample-macOS" */;
+			buildPhases = (
+				3868EE8D23C5048300B4DA62 /* Sources */,
+				3868EE9223C5048300B4DA62 /* Frameworks */,
+				3868EEA023C5048300B4DA62 /* Resources */,
+				3868EEA323C5048300B4DA62 /* Bundle React Native code and images */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3893A33423C50CBF009200E3 /* PBXTargetDependency */,
+			);
+			name = "AsyncStorageExample-macOS";
+			productName = "Hello World";
+			productReference = 3868EEA723C5048300B4DA62 /* AsyncStorageExample-macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -780,6 +863,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* AsyncStorageExample */,
+				3868EE8A23C5048300B4DA62 /* AsyncStorageExample-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1023,6 +1107,13 @@
 			remoteRef = 38134F0523BA86FD007992F2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		38AB73C723C507A200A354AD /* libRNCAsyncStorage-macOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNCAsyncStorage-macOS.a";
+			remoteRef = 38AB73C623C507A200A354AD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1182,10 +1273,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3868EEA023C5048300B4DA62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3868EEAB23C5053C00B4DA62 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		3868EEA323C5048300B4DA62 /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1213,6 +1326,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3868EE8D23C5048300B4DA62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3868EEB623C5062500B4DA62 /* ViewController.m in Sources */,
+				3868EEAD23C505E100B4DA62 /* main.m in Sources */,
+				3868EEB123C505FB00B4DA62 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1220,6 +1343,11 @@
 			isa = PBXTargetDependency;
 			name = RNCAsyncStorage;
 			targetProxy = 1990B95122398FC4009E5EA1 /* PBXContainerItemProxy */;
+		};
+		3893A33423C50CBF009200E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "RNCAsyncStorage-macOS";
+			targetProxy = 3893A33323C50CBF009200E3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1269,6 +1397,47 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = AsyncStorageExample;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		3868EEA523C5048300B4DA62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				INFOPLIST_FILE = "AsyncStorageExample-macOs/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		3868EEA623C5048300B4DA62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = "AsyncStorageExample-macOs/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1380,6 +1549,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3868EEA423C5048300B4DA62 /* Build configuration list for PBXNativeTarget "AsyncStorageExample-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3868EEA523C5048300B4DA62 /* Debug */,
+				3868EEA623C5048300B4DA62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
