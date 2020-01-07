@@ -181,7 +181,7 @@ static NSCache *RCTGetCache()
   dispatch_once(&onceToken, ^{
     cache = [NSCache new];
     cache.totalCostLimit = 2 * 1024 * 1024; // 2MB
-    
+
     // Clear cache in the event of a memory warning
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:nil usingBlock:^(__unused NSNotification *note) {
       [cache removeAllObjects];
@@ -290,15 +290,9 @@ static void RCTStorageDirectoryMigrationCheck(NSString *oldStorageDirectory)
   }
 
   // Both directories from our deprecated path (Documents) must be migrated to our new path (Application Support/[bundleID])
-  static dispatch_once_t onceTokenOldStorage;
-  dispatch_once(&onceTokenOldStorage, ^{
-    RCTStorageDirectoryMigrationCheck(RCTOldStorageDirectory);
-  });
-  static dispatch_once_t onceTokenStorage;
-  dispatch_once(&onceTokenStorage, ^{
-    RCTStorageDirectoryMigrationCheck(RCTStorageDirectory);
-  });
-  
+  RCTStorageDirectoryMigrationCheck(RCTOldStorageDirectory);
+  RCTStorageDirectoryMigrationCheck(RCTStorageDirectory);
+
   return self;
 }
 
