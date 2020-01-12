@@ -30,7 +30,7 @@ yarn add @react-native-community/async-storage@next
 
 ### Usage
 
-Example usage [be found here.](./packages/core/docs/Usage.md)
+Example usage can [be found here.](./packages/core/docs/Usage.md)
 
 
 ## Available storages
