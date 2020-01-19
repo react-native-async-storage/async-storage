@@ -28,17 +28,17 @@ function checkValidInput(usedKey: any, value?: any) {
     console.warn(
       `[AsyncStorageLegacy] Using "${typeof usedKey}" type for key is not supported. This can lead to unexpected behavior/errors. Use string instead.\nKey passed: ${usedKey}\n`,
     );
+  }
 
-    if (isValuePassed && typeof value !== 'string') {
-      if (value == null) {
-        throw new Error(
-          `[AsyncStorageLegacy] Passing "null" or "undefined" as value is not supported. If you need to remove a value, use ".removeSingle" method instead.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
-        );
-      } else {
-        console.warn(
-          `[AsyncStorageLegacy] The value for key "${usedKey}" is not a string. This can lead to unexpected behavior/errors. Consider stringifying it.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
-        );
-      }
+  if (isValuePassed && typeof value !== 'string') {
+    if (value == null) {
+      throw new Error(
+        `[AsyncStorageLegacy] Passing "null" or "undefined" as value is not supported. If you need to remove a value, use ".removeSingle" method instead.\nUsed key: ${usedKey}\n`,
+      );
+    } else {
+      console.warn(
+        `[AsyncStorageLegacy] The value for key "${usedKey}" is not a string. This can lead to unexpected behavior/errors. Consider stringifying it.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
+      );
     }
   }
 }
@@ -61,11 +61,8 @@ export default class LegacyAsyncStorage<
 
   async getSingle<K extends keyof T>(
     key: K,
-    opts?: StorageOptions,
+    _?: StorageOptions,
   ): Promise<T[K] | null> {
-    if (opts) {
-      // noop
-    }
     checkValidInput(key);
 
     return new Promise((resolve, reject) => {
@@ -87,11 +84,8 @@ export default class LegacyAsyncStorage<
   async setSingle<K extends keyof T>(
     key: K,
     value: T[K],
-    opts?: StorageOptions,
+    _?: StorageOptions,
   ): Promise<void> {
-    if (opts) {
-      // noop
-    }
     checkValidInput(key, value);
 
     return new Promise((resolve, reject) => {
@@ -110,12 +104,9 @@ export default class LegacyAsyncStorage<
 
   async getMany<K extends keyof T>(
     keys: Array<K>,
-    opts?: StorageOptions,
+    _?: StorageOptions,
   ): Promise<{[k in K]: T[k] | null}> {
-    if (opts) {
-      // noop
-    }
-    keys.forEach(checkValidInput);
+    keys.forEach(k => checkValidInput(k));
 
     return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.multiGet(keys, function(
@@ -145,11 +136,8 @@ export default class LegacyAsyncStorage<
 
   async setMany<K extends keyof T>(
     values: Array<Partial<{[k in K]: T[k]}>>,
-    opts?: StorageOptions,
+    _?: StorageOptions,
   ): Promise<void> {
-    if (opts) {
-      // noop
-    }
     values.forEach(keyValue => {
       (Object.keys(keyValue) as Array<K>).forEach(key => {
         checkValidInput(key, keyValue[key]);
@@ -173,10 +161,7 @@ export default class LegacyAsyncStorage<
     });
   }
 
-  async removeSingle(key: keyof T, opts?: StorageOptions): Promise<void> {
-    if (opts) {
-      // noop
-    }
+  async removeSingle(key: keyof T, _?: StorageOptions): Promise<void> {
     checkValidInput(key);
 
     return new Promise<void>((resolve, reject) => {
@@ -193,11 +178,8 @@ export default class LegacyAsyncStorage<
     });
   }
 
-  async removeMany(keys: Array<keyof T>, opts?: StorageOptions): Promise<void> {
-    if (opts) {
-      // noop
-    }
-    keys.forEach(checkValidInput);
+  async removeMany(keys: Array<keyof T>, _?: StorageOptions): Promise<void> {
+    keys.forEach(k => checkValidInput(k));
 
     return new Promise<void>((resolve, reject) => {
       this._asyncStorageNativeModule.multiRemove(keys, function(
@@ -213,11 +195,7 @@ export default class LegacyAsyncStorage<
     });
   }
 
-  async getKeys(opts?: StorageOptions): Promise<Array<keyof T>> {
-    if (opts) {
-      // noop
-    }
-
+  async getKeys(_?: StorageOptions): Promise<Array<keyof T>> {
     return new Promise((resolve, reject) => {
       this._asyncStorageNativeModule.getAllKeys(function(
         errors: Array<Error>,
@@ -234,11 +212,7 @@ export default class LegacyAsyncStorage<
     });
   }
 
-  async dropStorage(opts?: StorageOptions): Promise<void> {
-    if (opts) {
-      // noop
-    }
-
+  async dropStorage(_?: StorageOptions): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this._asyncStorageNativeModule.clear(function(error: Array<Error>) {
         const err = convertErrors(Array.isArray(error) ? error : [error]);
