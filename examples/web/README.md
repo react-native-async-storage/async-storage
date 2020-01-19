@@ -1,4 +1,4 @@
-# Async Storage mobile examples
+# Async Storage Web examples
 
 ## Running the example
 
@@ -8,17 +8,7 @@
 $ yarn install
 ```
 
-2. Install the app
-
-```bash
-# Android
-$ yarn start:android
-
-# iOS
-$ yarn start:ios
-```
-
-3. Run packager
+2. Run application
 
 ```bash
 $ yarn start

@@ -8,9 +8,13 @@
 
 import {FactoryOptions, LoggerAction} from '../types';
 
+const isDevelopment =
+  // @ts-ignore
+  (process && process.env && process.env.NODE_ENV === 'development') || __DEV__;
+
 export const factoryOptions: FactoryOptions = {
-  logger: __DEV__,
-  errorHandler: __DEV__,
+  logger: isDevelopment,
+  errorHandler: isDevelopment,
 };
 
 export function simpleErrorHandler(e: Error | string) {

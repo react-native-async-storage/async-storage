@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 24rem;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 50%;
+}
+
+.inputSection p {
+  margin: 0;
+  align-self: center;
+  flex: 0.1;
+}
+
+.inputSection input {
+  height: 20px;
+  flex: 0.3;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.inputField {
+  margin: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.controlSection {
+  margin-top: 2em;
+}
+
+.controlSection button {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 2px;
+  outline: none;
+  font-size: 14px;
+  background: #eee;
+}
+
+.controlSection button:active {
+  background: #dcdcdc;
+  color: #fff;
+}
+
+/* smaller screen */
+@media only screen and (max-width: 1024px) {
+  .container {
+    padding: 1em;
+    justify-content: center;
+  }
+
+  .inputSection {
+    max-width: 100%;
+  }
+
+  .inputSection input {
+    flex: 1;
+  }
+
+  .inputSection p {
+    flex: 0.3;
+  }
+}
+
+
+/* large screen */
+@media only screen and (min-width: 925px) {
+  .container {
+    justify-content: center;
+  }
+
+  .inputSection {
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+
+  .inputSection p {
+    flex: 0.1;
+  }
+
+  .inputSection input {
+    flex: 0.3;
+  }
+}
+
+/* large screen */
+@media only screen and (min-width: 1200px) {
+  .inputSection p {
+    flex: 0.1;
+  }
+
+  .inputSection input {
+    flex: 0.3;
+  }
+}

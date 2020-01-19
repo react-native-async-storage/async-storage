@@ -1,11 +1,11 @@
 {
-  "name": "asyncstorageexample",
+  "name": "AsyncStorageMobileExample",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "react-native start",
-    "start:android": "react-native run-android",
-    "start:ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -17,11 +17,10 @@
   "devDependencies": {
     "@babel/core": "7.5.4",
     "@babel/runtime": "7.5.4",
-    "@react-native-community/eslint-config": "0.0.3",
+    "@react-native-community/eslint-config": "0.0.5",
     "babel-jest": "24.8.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "eslint": "5.16.0",
-    "get-yarn-workspaces": "^1.0.2",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.55.0",
     "react-test-renderer": "16.8.6"
