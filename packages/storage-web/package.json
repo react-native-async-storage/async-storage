@@ -15,7 +15,8 @@
     "test:types": "tsc"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^2.0.0-rc.1"
+    "@react-native-community/async-storage": "^2.0.0-rc.1",
+    "idb-keyval": "^3.2.0"
   },
   "peerDependencies": {
     "react": "^16.0",
