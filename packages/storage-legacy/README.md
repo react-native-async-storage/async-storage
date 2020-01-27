@@ -1,9 +1,16 @@
 # Storage Backend: Legacy
 
-An `AsyncStorage` storage backend, fully compatible with former version.  
+Storage backend for `Async Storage`, targeting Mobile platform (React-Native). Compatible with [former version of `Async Storage`](https://github.com/react-native-community/async-storage/tree/LEGACY/).
 
 ## Installation
 
+1. Get the core
+
+```bash
+$ yarn add @react-native-community/async-storage@next
+```
+
+2. Get the the storage
 
 ```bash
 $ yarn add @react-native-community/async-storage-backend-legacy@next
@@ -11,7 +18,6 @@ $ yarn add @react-native-community/async-storage-backend-legacy@next
 
 
 ## Usage
-
 
 ```typescript
 
@@ -26,7 +32,7 @@ const legacyStorage = new LegacyStorage();
 
 const storage = AsyncStorageFactory.create<MyModel>(legacyStorage);
 
-// ready to use
+
 export default storage;
 ```
 

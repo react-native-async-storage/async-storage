@@ -1,23 +1,27 @@
 # Async Storage usage
 
-Async Storage is a collection of usable storage backends for your App. 
+Async Storage is a collection of persistent storage for different platforms, with unified API.
 
-It comes in two parts: core and storage backend, you want to use.
+It comes in two parts: the core and storage itself.
 
-*Core* is a consumer of the storage, provides you a unified API to save and read data.
+*Core* - a consumer for the storage, provides a unified API to use it.
 
-*Storage backend* implements an interface that *core* API understands and uses. Its functionality depends on storage itself.
+*Storage backend* - platform-dependant implementation of persistent data storage.
 
 
 ## Install necessary dependencies
 
-In this example, we'll be using [Legacy storage](https://github.com/react-native-community/async-storage/tree/master/packages/storage-legacy).
+In this example, [Legacy storage](https://github.com/react-native-community/async-storage/tree/master/packages/storage-legacy) is used.
 
 ```bash
 # Install core
-$ yarn add @react-native-community/async-storage@next
 
+$ yarn add @react-native-community/async-storage@next
+```
+
+```bash
 # Install legacy backend storage
+
 $ yarn add @react-native-community/async-storage-backend-legacy@next
 ```
 
@@ -35,6 +39,7 @@ const legacyStorage = new LegacyStorage();
 export type StorageModel = {
   user: {
     name: string
+    age: number
   }
 }
 
@@ -55,7 +60,8 @@ import storage from './storage.ts';
 
 async function saveItem() {
   const myUser = {
-    name: 'test'
+    name: 'John',
+    age: 22
   };
   
   await storage.set('user', myUser);

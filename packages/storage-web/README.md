@@ -1,14 +1,21 @@
 # Storage Backend: Web
 
-Storage backend for `AsyncStorage`, targeting Web platform.
+Storage backend for `Async Storage`, targeting Web platform.
 
 ## Installation
 
+1. Get the core
+
 ```bash
 $ yarn add @react-native-community/async-storage@next
+```
 
+2. Get the the storage
+
+```bash
 $ yarn add @react-native-community/async-storage-backend-web@next
 ```
+
 
 ## Usage
 

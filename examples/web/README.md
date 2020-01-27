@@ -1,14 +1,16 @@
-# Async Storage Web examples
+# Async Storage - Web example
 
-## Running the example
+Example React app presenting features of [`async-storage-backend-web`](https://github.com/react-native-community/async-storage/tree/master/packages/storage-web).
 
-1. Get dependencies
+## Running the app
+
+1. Install dependencies
 
 ```bash
 $ yarn install
 ```
 
-2. Run application
+2. Run the app
 
 ```bash
 $ yarn start
@@ -16,8 +18,7 @@ $ yarn start
 
 ## Feedback
 
-Let me know about any issue found or feedback you have at [Async-Storage issue page](https://github.com/react-native-community/async-storage/issues).
-Please mark it as `examples` label.
+All feedback is welcome at [Async-Storage issue page](https://github.com/react-native-community/async-storage/issues).
 
 ## License
 
