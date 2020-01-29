@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 4em;
+  max-width: 50vw;
+}
+
+.container h2 {
+  margin-bottom: 1.5em;
+}
+
+.input {
+  padding: 0.7em;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #6e6e6e;
+  font-size: 12px;
+  max-width: 60%;
+  margin: 0.5em 0;
+}
+
+.savedKeysContainer {
+  margin-top: 1em;
+}
+.savedKeysContainer p, h4 {
+  margin: 4px 0;
+}
+.savedKeysContainer p {
+  color: #6d6d6d;
+}
+
+.controlSection {
+  margin-top: 1em;
+}
+
+.controlSection button {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px 10px 0 0;
+  outline: none;
+  font-size: 14px;
+  background: #eee;
+}
+
+.controlSection button:active {
+  background: #dcdcdc;
+  color: #fff;
+}
+
+.modeContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0 10px 0;
+}
+
+.modeContainer h3 {
+  margin: 0;
+  width: 4em;
+}
+
+.modeContainer select {
+  margin-left: 1em;
+}
+
+.multiModeInfo {
+  color: #6d6d6d;
+  margin-top: 0;
+}
+
+
+@media only screen and (min-width: 1px) {
+  .container {
+    max-width: 100vw;
+    padding: 2em;
+  }
+
+  .input {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .container {
+    max-width: 75vw;
+
+  }
+
+  .input {
+    max-width: 70%;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  .container {
+    padding: 4em 10em;
+  }
+
+  .input {
+    max-width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .container {
+    padding: 4em 10em;
+  }
+  .input {
+    max-width: 30%;
+  }
+}
+

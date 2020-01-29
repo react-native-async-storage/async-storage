@@ -13,15 +13,18 @@ import {IStorageBackend, FactoryOptions, EmptyStorageModel} from '../types';
 class AsyncStorageFactory {
   constructor() {
     throw new Error(
-      "[AsyncStorage] AsyncStorageFactory must not be instantiated.\nInstead, use static functions, like 'create' to get AsyncStorage instance.",
+      "[AsyncStorage] AsyncStorageFactory must not be instantiated.\nInstead, use its 'create' method to create AsyncStorage instance.",
     );
   }
 
   static create<M = EmptyStorageModel>(
     storage: IStorageBackend,
-    opts: FactoryOptions = factoryOptions,
+    opts: FactoryOptions | null = null,
   ) {
-    return new AsyncStorage<M, IStorageBackend<M>>(storage, opts);
+    return new AsyncStorage<M, IStorageBackend<M>>(
+      storage,
+      opts || factoryOptions,
+    );
   }
 }
 

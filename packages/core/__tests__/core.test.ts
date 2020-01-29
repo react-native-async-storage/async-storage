@@ -6,7 +6,7 @@ import {IStorageBackend, LoggerAction} from '../types';
 describe('AsyncStorageFactory', () => {
   it('Throws when tried to instantiate', () => {
     expect(() => new Factory()).toThrow(
-      "[AsyncStorage] AsyncStorageFactory must not be instantiated.\nInstead, use static functions, like 'create' to get AsyncStorage instance.",
+      "[AsyncStorage] AsyncStorageFactory must not be instantiated.\nInstead, use its 'create' method to create AsyncStorage instance.",
     );
   });
 });

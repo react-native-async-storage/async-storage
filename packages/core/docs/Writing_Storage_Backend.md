@@ -1,6 +1,6 @@
 # Authoring Storage Backend
 
-Async Storage is a [facade](https://en.wikipedia.org/wiki/Facade_pattern) over the underlying Storage solution. 
+Async Storage is a [facade](https://en.wikipedia.org/wiki/Facade_pattern) over the underlying Storage solution.
 In order for the new storage to be compatible, it has to implement `IStorageBackend` and its methods.
 
 
@@ -22,8 +22,8 @@ that simplifies access to the storage features. Those methods are:
 - `removeSingle`    - removes an entry for provided `key`
 - `getMany`         - returns an array of `values`, for a provided array of `keys`
 - `setMany`         - provided an array of `key-value` pairs, saves them to the storage
-- `removeMany`      - removes a bunch of values, for a provided array of `keys` 
-- `getKeys`         - returns an array of `keys` that were used to store values 
+- `removeMany`      - removes a bunch of values, for a provided array of `keys`
+- `getKeys`         - returns an array of `keys` that were used to store values
 - `dropStorage`     - purges the storage
 
 
@@ -34,7 +34,7 @@ Few points to keep in mind while developing new storage:
 
 
 
-## Going being default API
+## Going beyond the default API
 
 Unified API can be limiting - storages differ from each other and contain features that others do not. Async Storage comes with an extension property, that lets you extend its standard API.
 
@@ -86,13 +86,13 @@ async function removeOldEntries() {
 
 ## Example
 
-Let's create a storage backend for web, using `LocalStorage` API. 
+Let's create a storage backend for web, using `LocalStorage` API.
 
 Start by adding `AsyncStorage` to your dependencies.
 
 ```bash
 $ yarn add @react-native-community/async-storage
-``` 
+```
 
 Then, create a class and implement `IStorageBackend` interface;
 

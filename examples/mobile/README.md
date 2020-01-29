@@ -1,14 +1,16 @@
-# Async Storage mobile examples
+# Async Storage - Mobile example
 
-## Running the example
+Example React Native app presenting features of [`async-storage-backend-legacy`](https://github.com/react-native-community/async-storage/tree/master/packages/storage-legacy).
 
-1. Get dependencies
+## Running the app
+
+1. Install dependencies
 
 ```bash
 $ yarn install
 ```
 
-2. Install the app
+2. Run the app on either platform
 
 ```bash
 # Android
@@ -18,17 +20,10 @@ $ yarn start:android
 $ yarn start:ios
 ```
 
-3. Run packager 
-
-```bash
-$ yarn start
-```
-
 ## Feedback
 
-Let me know about any issue found or feedback you have at [Async-Storage issue page](https://github.com/react-native-community/async-storage/issues). 
-Please mark it as `examples` label. 
+All feedback is welcome at [Async-Storage issue page](https://github.com/react-native-community/async-storage/issues).
 
 ## License
 
-MIT
+MIT.
