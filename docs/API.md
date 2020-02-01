@@ -112,7 +112,7 @@ const USER_1 = {
   name: 'Tom',
   age: 20,
   traits: {
-    hair: 'black'
+    hair: 'black',
     eyes: 'blue'
   }
 }
