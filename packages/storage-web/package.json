@@ -1,6 +1,6 @@
 {
   "name": "@react-native-community/async-storage-backend-web",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "main": "build/index.js",
   "types": "types/index.d.ts",
   "author": "ReactNative Community",
@@ -15,7 +15,7 @@
     "test:types": "tsc"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^2.0.0-rc.1",
+    "@react-native-community/async-storage": "^2.0.0-rc.2",
     "idb-keyval": "^3.2.0"
   },
   "peerDependencies": {

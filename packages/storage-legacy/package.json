@@ -1,6 +1,6 @@
 {
   "name": "@react-native-community/async-storage-backend-legacy",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "main": "build/index.js",
   "types": "types/index.d.ts",
   "author": "ReactNative Community",
@@ -16,7 +16,7 @@
     "test:lint": "eslint ./**/*.ts"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^2.0.0-rc.1"
+    "@react-native-community/async-storage": "^2.0.0-rc.2"
   },
   "peerDependencies": {
     "react": "^16.0",
