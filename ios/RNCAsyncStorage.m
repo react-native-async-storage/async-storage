@@ -227,11 +227,13 @@ static void RCTStorageDirectoryMigrate(NSString *oldDirectoryPath, NSString *new
 
 /**
  * This check is added to make sure that anyone coming from pre-1.2.2 does not lose cached data.
- * Check that:
- *  1) Data is migrated from the Documents "RNCAsyncLocalStorage_V1" directory to the "Application Support" directory.
- *  2) Data is migrated from the Documents "RCTAsyncLocalStorage_V1"  directory to the "Application Support" directory.
+ * Check that data is migrated from the old location to the new location
+ * fromStorageDirectory: the directory where the older data lives
+ * toStorageDirectory: the directory where the new data should live
+ * shouldCleanupOldDirectory: YES if we should delete the old directory's contents after migrating to the new directory
+ * shouldOverwriteNewDirectory: YES if we should overwrite the new directory with the contents of the old directory IF the old directory has more recent content. If NO, perform no such overwrite on the new directory regardless of when data was last modified.
  */
-static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NSString *toStorageDirectory, BOOL shouldCleanupOldDirectory)
+static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NSString *toStorageDirectory, BOOL shouldCleanupOldDirectory, BOOL shouldOverwriteNewDirectory)
 {
   NSError *error;
   BOOL isDir;
@@ -246,7 +248,7 @@ static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NS
         if (shouldCleanupOldDirectory) {
           RCTStorageDirectoryCleanupOld(fromStorageDirectory);
         }
-      } else {
+      } else if (shouldOverwriteNewDirectory) {
         // If old location has been modified more recently, remove new storage and migrate
         if (![fileManager removeItemAtPath:toStorageDirectory error:&error]) {
           RCTStorageDirectoryMigrationLogError(@"Failed to remove new storage directory during migration", error);
@@ -284,10 +286,10 @@ static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NS
   }
 
   // First migrate our deprecated path "Documents/.../RNCAsyncLocalStorage_V1" to "Documents/.../RCTAsyncLocalStorage_V1"
-  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTOldStorageDirectory), RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), YES);
+  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTOldStorageDirectory), RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), YES, YES);
   
   // Then migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to "Application Support/[bundleID]/RCTAsyncLocalStorage_V1"
-  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), RCTCreateStorageDirectoryPath(RCTStorageDirectory), NO);
+  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), RCTCreateStorageDirectoryPath(RCTStorageDirectory), NO, NO);
 
   return self;
 }
