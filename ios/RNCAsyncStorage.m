@@ -230,10 +230,9 @@ static void RCTStorageDirectoryMigrate(NSString *oldDirectoryPath, NSString *new
  * Check that data is migrated from the old location to the new location
  * fromStorageDirectory: the directory where the older data lives
  * toStorageDirectory: the directory where the new data should live
- * shouldCleanupOldDirectory: YES if we should delete the old directory's contents after migrating to the new directory
- * shouldOverwriteNewDirectory: YES if we should overwrite the new directory with the contents of the old directory IF the old directory has more recent content. If NO, perform no such overwrite on the new directory regardless of when data was last modified.
+ * shouldCleanupOldDirectoryAndOverwriteNewDirectory: YES if we should delete the old directory's contents and overwrite the new directory's contents during the migration to the new directory
  */
-static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NSString *toStorageDirectory, BOOL shouldCleanupOldDirectory, BOOL shouldOverwriteNewDirectory)
+static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NSString *toStorageDirectory, BOOL shouldCleanupOldDirectoryAndOverwriteNewDirectory)
 {
   NSError *error;
   BOOL isDir;
@@ -245,20 +244,20 @@ static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NS
       // If new storage location exists, check if the new storage has been modified sooner in which case we may want to cleanup the old location
       if ([RCTManifestModificationDate(RCTCreateManifestFilePath(toStorageDirectory)) compare:RCTManifestModificationDate(RCTCreateManifestFilePath(fromStorageDirectory))] == 1) {
         // If new location has been modified more recently, simply clean out old data
-        if (shouldCleanupOldDirectory) {
+        if (shouldCleanupOldDirectoryAndOverwriteNewDirectory) {
           RCTStorageDirectoryCleanupOld(fromStorageDirectory);
         }
-      } else if (shouldOverwriteNewDirectory) {
+      } else if (shouldCleanupOldDirectoryAndOverwriteNewDirectory) {
         // If old location has been modified more recently, remove new storage and migrate
         if (![fileManager removeItemAtPath:toStorageDirectory error:&error]) {
           RCTStorageDirectoryMigrationLogError(@"Failed to remove new storage directory during migration", error);
         } else {
-          RCTStorageDirectoryMigrate(fromStorageDirectory, toStorageDirectory, shouldCleanupOldDirectory);
+          RCTStorageDirectoryMigrate(fromStorageDirectory, toStorageDirectory, shouldCleanupOldDirectoryAndOverwriteNewDirectory);
         }
       }
     } else {
       // If new storage location doesn't exist, migrate data
-      RCTStorageDirectoryMigrate(fromStorageDirectory, toStorageDirectory, shouldCleanupOldDirectory);
+      RCTStorageDirectoryMigrate(fromStorageDirectory, toStorageDirectory, shouldCleanupOldDirectoryAndOverwriteNewDirectory);
     }
   }
 }
@@ -286,10 +285,10 @@ static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NS
   }
 
   // First migrate our deprecated path "Documents/.../RNCAsyncLocalStorage_V1" to "Documents/.../RCTAsyncLocalStorage_V1"
-  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTOldStorageDirectory), RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), YES, YES);
+  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTOldStorageDirectory), RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), YES);
   
   // Then migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to "Application Support/[bundleID]/RCTAsyncLocalStorage_V1"
-  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), RCTCreateStorageDirectoryPath(RCTStorageDirectory), NO, NO);
+  RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), RCTCreateStorageDirectoryPath(RCTStorageDirectory), NO);
 
   return self;
 }
@@ -367,7 +366,7 @@ RCT_EXPORT_MODULE()
 
   if (!_haveSetup) {
     NSDictionary *errorOut = nil;
-    NSString *serialized = RCTReadFile(RCTCreateStorageDirectoryPath(RCTGetManifestFilePath(), RCTManifestFileName, &errorOut);
+    NSString *serialized = RCTReadFile(RCTCreateStorageDirectoryPath(RCTGetManifestFilePath()), RCTManifestFileName, &errorOut);
     if (!serialized) {
       if (errorOut) {
         // We cannot simply create a new manifest in case the file does exist but we have no access to it.
