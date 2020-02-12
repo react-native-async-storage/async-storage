@@ -3,8 +3,10 @@
  * integration tests during local development or on CI services.
  */
 
+const blacklist = require('metro-config/src/defaults/blacklist');
+
 module.exports = {
   resolver: {
-    platforms: ['win32', 'ios', 'macos', 'android'],
+    blacklistRE: blacklist([/node_modules\/react-native-macos\/.*/])
   },
 };
