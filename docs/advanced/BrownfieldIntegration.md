@@ -3,7 +3,7 @@
 If you're embedding React Native into native application, you can also integrate
 Async Storage module, so that both worlds will use one storage solution.
 
-## iOS
+## iOS and macOS
 
 AsyncStorage can be controlled by the hosting app via the delegate on
 `RNCAsyncStorage`:
