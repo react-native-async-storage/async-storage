@@ -17,7 +17,7 @@
                BlueprintIdentifier = "6B857DA21EC51FC600A9D063"
                BuildableName = "libReact.a"
                BlueprintName = "React-macOS"
-               ReferencedContainer = "container:../../node_modules/react-native/React/React.xcodeproj">
+               ReferencedContainer = "container:../../node_modules/react-native-macos/React/React.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry

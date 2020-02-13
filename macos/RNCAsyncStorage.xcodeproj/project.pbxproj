@@ -46,10 +46,10 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNCAsyncStorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCAsyncStorageDelegate.h; sourceTree = "<group>"; };
+		1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCAsyncStorageDelegate.h; path = ../ios/RNCAsyncStorageDelegate.h; sourceTree = "<group>"; };
 		3893A2F023C50AFE009200E3 /* libRNCAsyncStorage-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRNCAsyncStorage-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCAsyncStorage.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCAsyncStorage.m; sourceTree = "<group>"; };
+		B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNCAsyncStorage.h; path = ../ios/RNCAsyncStorage.h; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNCAsyncStorage.m; path = ../ios/RNCAsyncStorage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
