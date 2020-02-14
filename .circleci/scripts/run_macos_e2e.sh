@@ -8,6 +8,7 @@ BUILD_ACTIONS="$@"
 
 build_project() {
   echo "[XCode e2e] Building macOS project"
+  export RCT_NO_LAUNCH_PACKAGER=true
   eval "xcodebuild \
     -project example/macos/AsyncStorageExample.xcodeproj \
     -scheme AsyncStorageExample-macOS \

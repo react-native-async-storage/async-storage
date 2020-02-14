@@ -27,6 +27,7 @@
 		3868EEAD23C505E100B4DA62 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3868EEAC23C505E100B4DA62 /* main.m */; };
 		3868EEB123C505FB00B4DA62 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3868EEAF23C505FB00B4DA62 /* AppDelegate.m */; };
 		3868EEB623C5062500B4DA62 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3868EEB423C5062500B4DA62 /* ViewController.m */; };
+		38AD5C8A23F7369F0058A0A9 /* AsyncStorageExample_macOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AD5C8923F7369F0058A0A9 /* AsyncStorageExample_macOSUITests.m */; };
 		38CF7A0A23C520A20090740A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EF823BA86FD007992F2 /* libReact.a */; };
 		38CF7A2923C520AD0090740A /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EDC23BA86FD007992F2 /* libRCTWebSocket.a */; };
 		38CF7A2A23C520BF0090740A /* libRNCAsyncStorage-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38AB73C723C507A200A354AD /* libRNCAsyncStorage-macOS.a */; };
@@ -299,6 +300,13 @@
 			remoteGlobalIDString = 38AB73C223C5077E00A354AD;
 			remoteInfo = "RNCAsyncStorage-macOS";
 		};
+		38AD5C8C23F7369F0058A0A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3868EE8A23C5048300B4DA62;
+			remoteInfo = "AsyncStorageExample-macOS";
+		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
@@ -477,6 +485,9 @@
 		3868EEAF23C505FB00B4DA62 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3868EEB323C5062500B4DA62 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		3868EEB423C5062500B4DA62 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		38AD5C8723F7369F0058A0A9 /* AsyncStorageExample-macOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AsyncStorageExample-macOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		38AD5C8923F7369F0058A0A9 /* AsyncStorageExample_macOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncStorageExample_macOSUITests.m; sourceTree = "<group>"; };
+		38AD5C8B23F7369F0058A0A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DC5395A220F2C940035D3A3 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = ../../macos/RNCAsyncStorage.xcodeproj; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../../node_modules/react-native-macos/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../../node_modules/react-native-macos/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -518,6 +529,13 @@
 				38CF7A2923C520AD0090740A /* libRCTWebSocket.a in Frameworks */,
 				38CF7A0A23C520A20090740A /* libReact.a in Frameworks */,
 				3868EE9F23C5048300B4DA62 /* JavaScriptCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38AD5C8423F7369F0058A0A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,6 +675,15 @@
 			path = "AsyncStorageExample-macOS";
 			sourceTree = "<group>";
 		};
+		38AD5C8823F7369F0058A0A9 /* AsyncStorageExample-macOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				38AD5C8923F7369F0058A0A9 /* AsyncStorageExample_macOSUITests.m */,
+				38AD5C8B23F7369F0058A0A9 /* Info.plist */,
+			);
+			path = "AsyncStorageExample-macOSUITests";
+			sourceTree = "<group>";
+		};
 		3DC5395B220F2C940035D3A3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +745,7 @@
 			isa = PBXGroup;
 			children = (
 				3868EE5323C5045100B4DA62 /* AsyncStorageExample-macOS */,
+				38AD5C8823F7369F0058A0A9 /* AsyncStorageExample-macOSUITests */,
 				3DC5395A220F2C940035D3A3 /* RNCAsyncStorage.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* AsyncStorageExample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -734,6 +762,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* AsyncStorageExample.app */,
 				3868EEA723C5048300B4DA62 /* AsyncStorageExample-macOS.app */,
+				38AD5C8723F7369F0058A0A9 /* AsyncStorageExample-macOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -789,14 +818,40 @@
 			productReference = 3868EEA723C5048300B4DA62 /* AsyncStorageExample-macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		38AD5C8623F7369F0058A0A9 /* AsyncStorageExample-macOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 38AD5CC623F7369F0058A0A9 /* Build configuration list for PBXNativeTarget "AsyncStorageExample-macOSUITests" */;
+			buildPhases = (
+				38AD5C8323F7369F0058A0A9 /* Sources */,
+				38AD5C8423F7369F0058A0A9 /* Frameworks */,
+				38AD5C8523F7369F0058A0A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				38AD5C8D23F7369F0058A0A9 /* PBXTargetDependency */,
+			);
+			name = "AsyncStorageExample-macOSUITests";
+			productName = "AsyncStorageExample-macOSUITests";
+			productReference = 38AD5C8723F7369F0058A0A9 /* AsyncStorageExample-macOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				DefaultBuildSystemTypeForWorkspace = Original;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					38AD5C8623F7369F0058A0A9 = {
+						CreatedOnToolsVersion = 11.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3868EE8A23C5048300B4DA62;
+					};
+				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "AsyncStorageExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -864,6 +919,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* AsyncStorageExample */,
 				3868EE8A23C5048300B4DA62 /* AsyncStorageExample-macOS */,
+				38AD5C8623F7369F0058A0A9 /* AsyncStorageExample-macOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1281,6 +1337,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		38AD5C8523F7369F0058A0A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1336,6 +1399,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		38AD5C8323F7369F0058A0A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38AD5C8A23F7369F0058A0A9 /* AsyncStorageExample_macOSUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1348,6 +1419,11 @@
 			isa = PBXTargetDependency;
 			name = "RNCAsyncStorage-macOS";
 			targetProxy = 3893A33323C50CBF009200E3 /* PBXContainerItemProxy */;
+		};
+		38AD5C8D23F7369F0058A0A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3868EE8A23C5048300B4DA62 /* AsyncStorageExample-macOS */;
+			targetProxy = 38AD5C8C23F7369F0058A0A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1439,6 +1515,56 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		38AD5C8E23F7369F0058A0A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "AsyncStorageExample-macOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "RNC.AsyncStorageExample-macOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = "AsyncStorageExample-macOS";
+			};
+			name = Debug;
+		};
+		38AD5C8F23F7369F0058A0A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "AsyncStorageExample-macOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "RNC.AsyncStorageExample-macOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = "AsyncStorageExample-macOS";
 			};
 			name = Release;
 		};
@@ -1558,6 +1684,15 @@
 			buildConfigurations = (
 				3868EEA523C5048300B4DA62 /* Debug */,
 				3868EEA623C5048300B4DA62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		38AD5CC623F7369F0058A0A9 /* Build configuration list for PBXNativeTarget "AsyncStorageExample-macOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38AD5C8E23F7369F0058A0A9 /* Debug */,
+				38AD5C8F23F7369F0058A0A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

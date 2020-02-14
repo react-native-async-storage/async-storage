@@ -42,6 +42,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "38AD5C8623F7369F0058A0A9"
+               BuildableName = "AsyncStorageExample-macOSUITests.xctest"
+               BlueprintName = "AsyncStorageExample-macOSUITests"
+               ReferencedContainer = "container:AsyncStorageExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
