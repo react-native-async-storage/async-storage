@@ -12,36 +12,54 @@
 @end
 
 @implementation AsyncStorageExample_macOSUITests
-
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-
-    // In UI tests it is usually best to stop immediately when a failure occurs.
-    self.continueAfterFailure = NO;
-
-    // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+{
+  XCUIApplication *_app;
+  XCUIElement *_window;
+  XCUIElement *_restartButton;
+  XCUIElement *_getSetClearButton;
+  XCUIElement *_mergeItemButton;
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+- (void)setUp {
+  // In UI tests it is usually best to stop immediately when a failure occurs.
+  self.continueAfterFailure = NO;
+
+  _app = [[XCUIApplication alloc] init];
+  [_app launch];
+  
+  _window = _app.windows[@"RNCAsyncStorageExample macOS"];
+  XCTAssert(_window.exists);
+
+  _restartButton = _window.otherElements[@"restart_button"].staticTexts.firstMatch;
+  XCTAssert(_restartButton.exists);
+
+  _getSetClearButton = _window.buttons[@"testType_getSetClear"].staticTexts.firstMatch;
+  XCTAssert(_getSetClearButton.exists);
+
+  _mergeItemButton = _window.buttons[@"testType_mergeItem"].staticTexts.firstMatch;
+  XCTAssert(_mergeItemButton.exists);
+  
+  [_getSetClearButton click];
 }
 
 - (void)testExample {
-    // UI tests must launch the application that they test.
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-    [app launch];
+  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+  numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+  
+  XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
+  XCTAssert(storedNumber.exists);
+  
+  NSNumber *beforeStoredNumber = [numberFormatter numberFromString:storedNumber.label];
 
-    // Use recording to get started writing UI tests.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-}
+  XCUIElement *increaseBy10Button = _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
+  XCTAssert(increaseBy10Button.exists);
 
-- (void)testLaunchPerformance {
-    if (@available(macOS 10.15, iOS 13.0, tvOS 13.0, *)) {
-        // This measures how long it takes to launch your application.
-        [self measureWithMetrics:@[XCTOSSignpostMetric.applicationLaunchMetric] block:^{
-            [[[XCUIApplication alloc] init] launch];
-        }];
-    }
+  [increaseBy10Button click];
+
+  NSNumber *afterStoredNumber = [numberFormatter numberFromString:storedNumber.label];
+
+  int difference = afterStoredNumber.intValue - beforeStoredNumber.intValue;
+  XCTAssertEqual(difference, 10);
 }
 
 @end
