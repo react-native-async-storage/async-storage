@@ -457,17 +457,17 @@
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../../node_modules/react-native-macos/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../../node_modules/react-native-macos/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* AsyncStorageExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AsyncStorageExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AsyncStorageExample/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = AsyncStorageExample/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../ios/AsyncStorageExample/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../ios/AsyncStorageExample/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AsyncStorageExample/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AsyncStorageExample/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AsyncStorageExample/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../ios/AsyncStorageExample/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../ios/AsyncStorageExample/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../ios/AsyncStorageExample/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../../node_modules/react-native-macos/React/React.xcodeproj"; sourceTree = "<group>"; };
-		196F5D672254C1530035A6D3 /* AppDelegate+RNCAsyncStorageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+RNCAsyncStorageDelegate.m"; path = "AsyncStorageExample/AppDelegate+RNCAsyncStorageDelegate.m"; sourceTree = "<group>"; };
-		196F5D8E2254C2C90035A6D3 /* AppDelegate+RNCAsyncStorageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+RNCAsyncStorageDelegate.h"; path = "AsyncStorageExample/AppDelegate+RNCAsyncStorageDelegate.h"; sourceTree = "<group>"; };
-		19C4692D22562FD400CA1332 /* RNCTestAsyncStorageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNCTestAsyncStorageDelegate.h; path = AsyncStorageExample/RNCTestAsyncStorageDelegate.h; sourceTree = "<group>"; };
-		19C469532256303E00CA1332 /* RNCTestAsyncStorageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNCTestAsyncStorageDelegate.m; path = AsyncStorageExample/RNCTestAsyncStorageDelegate.m; sourceTree = "<group>"; };
+		196F5D672254C1530035A6D3 /* AppDelegate+RNCAsyncStorageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+RNCAsyncStorageDelegate.m"; path = "../ios/AsyncStorageExample/AppDelegate+RNCAsyncStorageDelegate.m"; sourceTree = "<group>"; };
+		196F5D8E2254C2C90035A6D3 /* AppDelegate+RNCAsyncStorageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+RNCAsyncStorageDelegate.h"; path = "../ios/AsyncStorageExample/AppDelegate+RNCAsyncStorageDelegate.h"; sourceTree = "<group>"; };
+		19C4692D22562FD400CA1332 /* RNCTestAsyncStorageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNCTestAsyncStorageDelegate.h; path = ../ios/AsyncStorageExample/RNCTestAsyncStorageDelegate.h; sourceTree = "<group>"; };
+		19C469532256303E00CA1332 /* RNCTestAsyncStorageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNCTestAsyncStorageDelegate.m; path = ../ios/AsyncStorageExample/RNCTestAsyncStorageDelegate.m; sourceTree = "<group>"; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3868EEA723C5048300B4DA62 /* AsyncStorageExample-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AsyncStorageExample-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3868EEA923C504BE00B4DA62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1358,7 +1358,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = AsyncStorageExample;
+			path = ../ios/AsyncStorageExample;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1370,7 +1370,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				INFOPLIST_FILE = AsyncStorageExample/Info.plist;
+				INFOPLIST_FILE = ../ios/AsyncStorageExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1388,7 +1388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = AsyncStorageExample/Info.plist;
+				INFOPLIST_FILE = ../ios/AsyncStorageExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
