@@ -23,7 +23,7 @@
 		3893A2EA23C50AFE009200E3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = include/RNCAsyncStorage;
 			dstSubfolderSpec = 16;
 			files = (
 				3893A2EB23C50AFE009200E3 /* RNCAsyncStorage.h in CopyFiles */,

@@ -12,5 +12,6 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (nonatomic, readonly) RCTBridge *bridge;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *memoryStorage;
 
 @end

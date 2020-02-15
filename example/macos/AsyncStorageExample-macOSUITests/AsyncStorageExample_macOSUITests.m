@@ -38,28 +38,92 @@
 
   _mergeItemButton = _window.buttons[@"testType_mergeItem"].staticTexts.firstMatch;
   XCTAssert(_mergeItemButton.exists);
-  
-  [_getSetClearButton click];
 }
 
-- (void)testExample {
-  NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-  numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-  
+- (void)testShouldStoreValueInAsyncStorage {
+  [_getSetClearButton click];
+
   XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
-  XCTAssert(storedNumber.exists);
-  
-  NSNumber *beforeStoredNumber = [numberFormatter numberFromString:storedNumber.label];
+
+  XCTAssertEqualObjects(storedNumber.label, @"");
 
   XCUIElement *increaseBy10Button = _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
-  XCTAssert(increaseBy10Button.exists);
 
+  int tapTimes = arc4random_uniform(10) + 1;
+  
+  for (int i = 0; i < tapTimes; i++) {
+    [increaseBy10Button click];
+  }
+
+  NSString *expectedText = [NSString stringWithFormat:@"%d", tapTimes * 10];
+  
+  XCTAssertEqualObjects(storedNumber.label, expectedText);
+}
+
+- (void)testShouldClearItem {
+  [_getSetClearButton click];
+
+  XCUIElement *increaseBy10Button = _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
   [increaseBy10Button click];
 
-  NSNumber *afterStoredNumber = [numberFormatter numberFromString:storedNumber.label];
+  XCUIElement *clearButton = _window.buttons[@"clear_button"].staticTexts.firstMatch;
+  [clearButton click];
+  [_restartButton click];
 
-  int difference = afterStoredNumber.intValue - beforeStoredNumber.intValue;
-  XCTAssertEqual(difference, 10);
+  XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
+  XCTAssertEqualObjects(storedNumber.label, @"");
 }
+
+- (NSString *)performInput {
+  NSString *name = arc4random_uniform(2) == 0 ? @"Jerry" : @"Sarah";
+  NSString *age = arc4random_uniform(2) == 0 ? @"21" : @"23";
+  NSString *eyeColor = arc4random_uniform(2) == 0 ? @"blue" : @"green";
+  NSString *shoeSize = arc4random_uniform(2) == 0 ? @"9" : @"10";
+  
+  XCUIElement *nameInput = _window.textFields[@"testInput-name"];
+  [nameInput click];
+  [nameInput typeText:name];
+  
+  XCUIElement *ageInput = _window.textFields[@"testInput-age"];
+  [ageInput click];
+  [ageInput typeText:age];
+
+  XCUIElement *eyesInput = _window.textFields[@"testInput-eyes"];
+  [eyesInput click];
+  [eyesInput typeText:eyeColor];
+
+  XCUIElement *showInput = _window.textFields[@"testInput-shoe"];
+  [showInput click];
+  [showInput typeText:shoeSize];
+  
+  return [NSString stringWithFormat:@"%@ is %@, has %@ eyes and shoe size of %@.", name, age, eyeColor, shoeSize];
+}
+
+- (void)testShouldMergeItemsInAsyncStorage {
+  [_mergeItemButton click];
+
+  XCUIElement *saveItemButton = _window.buttons[@"saveItem_button"].staticTexts.firstMatch;
+  XCUIElement *restoreItemButton = _window.buttons[@"restoreItem_button"].staticTexts.firstMatch;
+  XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
+  XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
+
+  NSString *story = [self performInput];
+  [saveItemButton click];
+  [_restartButton click];
+  [restoreItemButton click];
+  XCTAssertEqualObjects(storyText.label, story);
+  [_restartButton click];
+  
+  // merging here
+  
+  NSString *newStory = [self performInput];
+  [mergeItemButton click];
+  [_restartButton click];
+  [restoreItemButton click];
+  XCTAssertEqualObjects(storyText.label, newStory);
+}
+
+//  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"rnc-asyncstorage://unset-delegate"]];
+//  sleep(1);
 
 @end

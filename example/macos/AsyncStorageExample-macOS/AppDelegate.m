@@ -7,6 +7,10 @@
 
 #import "AppDelegate.h"
 
+#import "AppDelegate+RNCAsyncStorageDelegate.h"
+#import "RNCTestAsyncStorageDelegate.h"
+#import <RNCAsyncStorage/RNCAsyncStorage.h>
+
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 
@@ -14,20 +18,38 @@
 
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate {
+  RNCTestAsyncStorageDelegate *_testDelegate;
+}
 
 - (void)awakeFromNib {
   [super awakeFromNib];
 
   _bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:nil];
+  
+  _memoryStorage = [NSMutableDictionary dictionary];
+
+  RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
+  asyncStorage.delegate = self;
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  // Insert code here to initialize your application
-}
+- (void)application:(NSApplication *)application openURLs:(NSArray<NSURL *> *)urls {
+  NSURL *url = [urls firstObject];
+  
+  if (![url.scheme isEqualToString:@"rnc-asyncstorage"]) {
+    return;
+  }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-  // Insert code here to tear down your application
+  if ([url.host isEqualToString:@"set-delegate"]) {
+    if (_testDelegate == nil) {
+      _testDelegate = [RNCTestAsyncStorageDelegate new];
+    }
+    RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
+    asyncStorage.delegate = _testDelegate;
+  } else if ([url.host isEqualToString:@"unset-delegate"]) {
+    RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
+    asyncStorage.delegate = self;
+  }
 }
 
 #pragma mark - RCTBridgeDelegate Methods

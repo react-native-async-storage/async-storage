@@ -34,6 +34,8 @@
 		38CF7A2B23C5211C0090740A /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134ED323BA86FD007992F2 /* libRCTText.a */; };
 		38CF7A2C23C521A10090740A /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EC923BA86FD007992F2 /* libRCTNetwork.a */; };
 		38CF7A2F23C5251C0090740A /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38134EB523BA86FD007992F2 /* libRCTAnimation.a */; };
+		38D8A2E523F759DA00DA28D7 /* AppDelegate+RNCAsyncStorageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D8A2E423F759DA00DA28D7 /* AppDelegate+RNCAsyncStorageDelegate.m */; };
+		38D8A2E823F759ED00DA28D7 /* RNCTestAsyncStorageDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D8A2E723F759ED00DA28D7 /* RNCTestAsyncStorageDelegate.m */; };
 		3D82E3B72248BD39001F5D1A /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC5398C220F2C940035D3A3 /* libRNCAsyncStorage.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -488,6 +490,10 @@
 		38AD5C8723F7369F0058A0A9 /* AsyncStorageExample-macOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AsyncStorageExample-macOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38AD5C8923F7369F0058A0A9 /* AsyncStorageExample_macOSUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncStorageExample_macOSUITests.m; sourceTree = "<group>"; };
 		38AD5C8B23F7369F0058A0A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38D8A2E323F759DA00DA28D7 /* AppDelegate+RNCAsyncStorageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+RNCAsyncStorageDelegate.h"; sourceTree = "<group>"; };
+		38D8A2E423F759DA00DA28D7 /* AppDelegate+RNCAsyncStorageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+RNCAsyncStorageDelegate.m"; sourceTree = "<group>"; };
+		38D8A2E623F759ED00DA28D7 /* RNCTestAsyncStorageDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNCTestAsyncStorageDelegate.h; sourceTree = "<group>"; };
+		38D8A2E723F759ED00DA28D7 /* RNCTestAsyncStorageDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCTestAsyncStorageDelegate.m; sourceTree = "<group>"; };
 		3DC5395A220F2C940035D3A3 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = ../../macos/RNCAsyncStorage.xcodeproj; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../../node_modules/react-native-macos/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../../node_modules/react-native-macos/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -664,11 +670,15 @@
 		3868EE5323C5045100B4DA62 /* AsyncStorageExample-macOS */ = {
 			isa = PBXGroup;
 			children = (
-				3868EEA923C504BE00B4DA62 /* Info.plist */,
-				3868EEAA23C5053C00B4DA62 /* Main.storyboard */,
-				3868EEAC23C505E100B4DA62 /* main.m */,
 				3868EEAE23C505FB00B4DA62 /* AppDelegate.h */,
 				3868EEAF23C505FB00B4DA62 /* AppDelegate.m */,
+				38D8A2E323F759DA00DA28D7 /* AppDelegate+RNCAsyncStorageDelegate.h */,
+				38D8A2E423F759DA00DA28D7 /* AppDelegate+RNCAsyncStorageDelegate.m */,
+				3868EEA923C504BE00B4DA62 /* Info.plist */,
+				3868EEAC23C505E100B4DA62 /* main.m */,
+				3868EEAA23C5053C00B4DA62 /* Main.storyboard */,
+				38D8A2E623F759ED00DA28D7 /* RNCTestAsyncStorageDelegate.h */,
+				38D8A2E723F759ED00DA28D7 /* RNCTestAsyncStorageDelegate.m */,
 				3868EEB323C5062500B4DA62 /* ViewController.h */,
 				3868EEB423C5062500B4DA62 /* ViewController.m */,
 			);
@@ -1393,6 +1403,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38D8A2E823F759ED00DA28D7 /* RNCTestAsyncStorageDelegate.m in Sources */,
+				38D8A2E523F759DA00DA28D7 /* AppDelegate+RNCAsyncStorageDelegate.m in Sources */,
 				3868EEB623C5062500B4DA62 /* ViewController.m in Sources */,
 				3868EEAD23C505E100B4DA62 /* main.m in Sources */,
 				3868EEB123C505FB00B4DA62 /* AppDelegate.m in Sources */,
