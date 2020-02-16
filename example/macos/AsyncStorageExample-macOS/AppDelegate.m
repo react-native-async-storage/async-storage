@@ -28,9 +28,6 @@
   _bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:nil];
   
   _memoryStorage = [NSMutableDictionary dictionary];
-
-  RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
-  asyncStorage.delegate = self;
 }
 
 - (void)application:(NSApplication *)application openURLs:(NSArray<NSURL *> *)urls {
@@ -48,7 +45,9 @@
     asyncStorage.delegate = _testDelegate;
   } else if ([url.host isEqualToString:@"unset-delegate"]) {
     RNCAsyncStorage *asyncStorage = [_bridge moduleForClass:[RNCAsyncStorage class]];
-    asyncStorage.delegate = self;
+    asyncStorage.delegate = nil;
+  } else if ([url.host isEqualToString:@"clear-all-data"]) {
+    [RNCAsyncStorage clearAllData];
   }
 }
 

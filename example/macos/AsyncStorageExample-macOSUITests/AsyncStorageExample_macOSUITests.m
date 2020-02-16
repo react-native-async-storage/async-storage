@@ -6,6 +6,7 @@
  */
 
 #import <XCTest/XCTest.h>
+#import <RNCAsyncStorage/RNCAsyncStorage.h>
 
 @interface AsyncStorageExample_macOSUITests : XCTestCase
 
@@ -38,9 +39,13 @@
 
   _mergeItemButton = _window.buttons[@"testType_mergeItem"].staticTexts.firstMatch;
   XCTAssert(_mergeItemButton.exists);
+  
+  [self sendTestAppCommand:@"rnc-asyncstorage://clear-all-storage"];
 }
 
 - (void)testShouldStoreValueInAsyncStorage {
+  [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
+
   [_getSetClearButton click];
 
   XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
@@ -61,6 +66,8 @@
 }
 
 - (void)testShouldClearItem {
+  [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
+
   [_getSetClearButton click];
 
   XCUIElement *increaseBy10Button = _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
@@ -74,7 +81,7 @@
   XCTAssertEqualObjects(storedNumber.label, @"");
 }
 
-- (NSString *)performInput {
+- (NSString *)performInputWithFormat:format {
   NSString *name = arc4random_uniform(2) == 0 ? @"Jerry" : @"Sarah";
   NSString *age = arc4random_uniform(2) == 0 ? @"21" : @"23";
   NSString *eyeColor = arc4random_uniform(2) == 0 ? @"blue" : @"green";
@@ -96,10 +103,12 @@
   [showInput click];
   [showInput typeText:shoeSize];
   
-  return [NSString stringWithFormat:@"%@ is %@, has %@ eyes and shoe size of %@.", name, age, eyeColor, shoeSize];
+  return [NSString stringWithFormat:format, name, age, eyeColor, shoeSize];
 }
 
 - (void)testShouldMergeItemsInAsyncStorage {
+  [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
+
   [_mergeItemButton click];
 
   XCUIElement *saveItemButton = _window.buttons[@"saveItem_button"].staticTexts.firstMatch;
@@ -107,7 +116,9 @@
   XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
   XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
 
-  NSString *story = [self performInput];
+  NSString *messageFormat = @"%@ is %@, has %@ eyes and shoe size of %@.";
+
+  NSString *story = [self performInputWithFormat:messageFormat];
   [saveItemButton click];
   [_restartButton click];
   [restoreItemButton click];
@@ -116,14 +127,33 @@
   
   // merging here
   
-  NSString *newStory = [self performInput];
+  NSString *newStory = [self performInputWithFormat:messageFormat];
   [mergeItemButton click];
   [_restartButton click];
   [restoreItemButton click];
   XCTAssertEqualObjects(storyText.label, newStory);
 }
 
-//  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"rnc-asyncstorage://unset-delegate"]];
-//  sleep(1);
+- (void)testMergeItemDelegate {
+  [self sendTestAppCommand:@"rnc-asyncstorage://set-delegate"];
+
+  [_mergeItemButton click];
+
+  XCUIElement *saveItemButton = _window.buttons[@"saveItem_button"].staticTexts.firstMatch;
+  XCUIElement *restoreItemButton = _window.buttons[@"restoreItem_button"].staticTexts.firstMatch;
+  XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
+  XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
+  
+  NSString *story = [self performInputWithFormat:@"%@ from delegate is %@ from delegate, has %@ eyes and shoe size of %@."];
+  [mergeItemButton click];
+  [_restartButton click];
+  [restoreItemButton click];
+  XCTAssertEqualObjects(storyText.label, story);
+}
+
+- (void)sendTestAppCommand:(NSString *)URLString {
+  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
+  sleep(.25);
+}
 
 @end
