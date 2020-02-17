@@ -1,0 +1,24 @@
+name: CI
+
+on: 
+  push:
+    branches:
+      - LEGACY
+  pull_request:
+    branches:
+      - LEGACY
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@master
+    - name: Installing Yarn dependencies
+      run: yarn install
+    - name: Build macOS app
+      run: yarn build:e2e:macos
+    - name: Run e2e tests
+      run: yarn test:e2e:macos
+
