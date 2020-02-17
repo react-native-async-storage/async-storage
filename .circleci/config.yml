@@ -185,9 +185,10 @@ jobs:
           name: Build macOS app
           command: yarn build:e2e:macos
 
-      - run:
-          name: Run e2e tests
-          command: yarn test:e2e:macos
+      # macOS XCUITests not support on CCI: https://ideas.circleci.com/ideas/CCI-I-561
+      # - run:
+      #     name: Run e2e tests
+      #     command: yarn test:e2e:macos
 
   "Build: Android release apk":
     <<: *android_defaults
