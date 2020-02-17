@@ -164,32 +164,6 @@ jobs:
           name: Run e2e tests
           command: yarn test:e2e:ios
 
-  "Test: macOS e2e":
-    <<: *macos_defaults
-    steps:
-      - *addWorkspace
-      - restore-cache: *cache_restore_brew
-      - run:
-          name: Configure OSX Environment
-          command: |
-            HOMEBREW_NO_AUTO_UPDATE=1 brew install node@8 >/dev/null
-            touch .watchmanconfig
-            node -v
-      - save-cache: *cache_save_brew
-      - restore-cache: *cache_restore_yarn
-      - run:
-          name: Installing Yarn dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
-      - save-cache: *cache_save_yarn
-      - run:
-          name: Build macOS app
-          command: yarn build:e2e:macos
-
-      # macOS XCUITests not support on CCI: https://ideas.circleci.com/ideas/CCI-I-561
-      # - run:
-      #     name: Run e2e tests
-      #     command: yarn test:e2e:macos
-
   "Build: Android release apk":
     <<: *android_defaults
     steps:
@@ -318,10 +292,6 @@ workflows:
           requires:
             - "Setup environment"
       - "Test: iOS e2e":
-          requires:
-            - "Test: lint"
-            - "Test: flow"
-      - "Test: macOS e2e":
           requires:
             - "Test: lint"
             - "Test: flow"
