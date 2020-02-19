@@ -213,11 +213,29 @@ static void RCTStorageDirectoryCleanupOld(NSString *oldDirectoryPath)
   }
 }
 
+static void _createStorageDirectory(NSString *storageDirectory, NSError **error)
+{
+  [[NSFileManager defaultManager] createDirectoryAtPath:storageDirectory
+                            withIntermediateDirectories:YES
+                                             attributes:nil
+                                                  error:error];
+}
+
 static void RCTStorageDirectoryMigrate(NSString *oldDirectoryPath, NSString *newDirectoryPath, BOOL shouldCleanupOldDirectory)
 {
   NSError *error;
   // Migrate data by copying old storage directory to new storage directory location
   if (![[NSFileManager defaultManager] copyItemAtPath:oldDirectoryPath toPath:newDirectoryPath error:&error]) {
+    // the new storage directory "Application Support/[bundleID]/RCTAsyncLocalStorage_V1" seems unable to migrate
+    // because folder "Application Support/[bundleID]" doesn't exist.. create this folder so and attempt to migrate again
+    if (error != nil && error.code == 4 && [newDirectoryPath hasSuffix:RCTStorageDirectory]) {
+        NSError *error = nil;
+        _createStorageDirectory(RCTCreateStorageDirectoryPath(@""), &error);
+        if (error == nil) {
+          RCTStorageDirectoryMigrate(oldDirectoryPath, newDirectoryPath, shouldCleanupOldDirectory);
+          return;
+        }
+      }
     RCTStorageDirectoryMigrationLogError(@"Failed to copy old storage directory to new storage directory location during migration", error);
   } else if (shouldCleanupOldDirectory) {
     // If copying succeeds, remove old storage directory
@@ -354,10 +372,7 @@ RCT_EXPORT_MODULE()
 
   NSError *error = nil;
   if (!RCTHasCreatedStorageDirectory) {
-    [[NSFileManager defaultManager] createDirectoryAtPath:RCTGetStorageDirectory()
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:&error];
+    _createStorageDirectory(RCTGetStorageDirectory(), &error);
     if (error) {
       return RCTMakeError(@"Failed to create storage directory.", error, nil);
     }
