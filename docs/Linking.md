@@ -31,7 +31,7 @@
 
 3. Add `RNCAsyncStorage.xcodeproj` (located at `node_modules/@react-native-community/async-storage/macos`) to your project Libraries.
 
-3. Go to `Build Phases -> Link Binary with Libraries` and add:  `libRNCAsyncStorage-macOS.a`.
+4. Go to `Build Phases -> Link Binary with Libraries` and add: `libRNCAsyncStorage-macOS.a`.
 
 
 ## Android
