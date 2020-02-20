@@ -26,13 +26,13 @@
     "start:macos": "node node_modules/react-native-macos/local-cli/cli.js start --use-react-native-macos",
     "build:e2e:ios": "detox build -c ios",
     "build:e2e:android": "detox build -c android",
-    "build:e2e:macos": "scripts/run_macos_e2e.sh \"build\"",
+    "build:e2e:macos": "scripts/run_macos_e2e.sh 'build'",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
     "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'",
     "test:e2e:ios": "detox test -c ios",
     "test:e2e:android": "detox test -c android",
-    "test:e2e:macos": "scripts/run_macos_e2e.sh \"build test\""
+    "test:e2e:macos": "scripts/run_macos_e2e.sh 'build test'"
   },
   "peerDependencies": {
     "react": "^16.8",

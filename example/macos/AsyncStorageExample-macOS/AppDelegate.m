@@ -7,7 +7,6 @@
 
 #import "AppDelegate.h"
 
-#import "AppDelegate+RNCAsyncStorageDelegate.h"
 #import "RNCTestAsyncStorageDelegate.h"
 #import <RNCAsyncStorage/RNCAsyncStorage.h>
 
