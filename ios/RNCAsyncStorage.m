@@ -227,7 +227,7 @@ static void RCTStorageDirectoryMigrate(NSString *oldDirectoryPath, NSString *new
   // Migrate data by copying old storage directory to new storage directory location
   if (![[NSFileManager defaultManager] copyItemAtPath:oldDirectoryPath toPath:newDirectoryPath error:&error]) {
     // the new storage directory "Application Support/[bundleID]/RCTAsyncLocalStorage_V1" seems unable to migrate
-    // because folder "Application Support/[bundleID]" doesn't exist.. create this folder so and attempt to migrate again
+    // because folder "Application Support/[bundleID]" doesn't exist.. create this folder and attempt folder copying again
     if (error != nil && error.code == 4 && [newDirectoryPath hasSuffix:RCTStorageDirectory]) {
         NSError *error = nil;
         _createStorageDirectory(RCTCreateStorageDirectoryPath(@""), &error);
