@@ -32,7 +32,7 @@
     "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'",
     "test:e2e:ios": "detox test -c ios",
     "test:e2e:android": "detox test -c android",
-    "test:e2e:macos": "scripts/run_macos_e2e.sh 'build test'"
+    "test:e2e:macos": "scripts/run_macos_e2e.sh 'test'"
   },
   "peerDependencies": {
     "react": "^16.8",
