@@ -22,6 +22,17 @@
 
 3. Run `pod install`
 
+## macOS
+
+#### Project linking
+1. Open your project `.xcodeproj` on xcode.
+
+2. Right click on the Libraries folder and select `Add files to "yourProjectName"`.
+
+3. Add `RNCAsyncStorage.xcodeproj` (located at `node_modules/@react-native-community/async-storage/macos`) to your project Libraries.
+
+4. Go to `Build Phases -> Link Binary with Libraries` and add: `libRNCAsyncStorage-macOS.a`.
+
 
 ## Android
 1. Add project to `android/settings.gradle`:

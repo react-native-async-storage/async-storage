@@ -174,10 +174,12 @@ static NSCache *RCTGetCache()
     cache = [NSCache new];
     cache.totalCostLimit = 2 * 1024 * 1024; // 2MB
 
+#if !TARGET_OS_OSX
     // Clear cache in the event of a memory warning
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:nil usingBlock:^(__unused NSNotification *note) {
       [cache removeAllObjects];
     }];
+#endif // !TARGET_OS_OSX
   });
   return cache;
 }

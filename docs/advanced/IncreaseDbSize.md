@@ -15,6 +15,6 @@ AsyncStorage_db_size_in_MB=10
 Now you can define the new size in MB. In this example, the new limit is 10 MB.
 
 
-## iOS
+## iOS and macOS
 
 Async Storage size is not limited programmatically on iOS.

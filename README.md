@@ -40,6 +40,8 @@ $ cd ios/ && pod install
 
 See docs for [manual linking guide](docs/Linking.md)
 
+*Note* For `macOS` the [manual linking](docs/Linking.md) is currently the only linking option.
+
 ### **Upgrading to React Native *0.60+*** 
  
 New React Native comes with `autolinking` feature, which automatically links Native Modules in your project.

@@ -10,7 +10,7 @@ We use `flow` for type check, `eslint` with `prettier` for linting/formatting, `
 * `yarn test`: Run all tests, except for e2e (see note below).
 * `yarn test:lint`: Run `eslint` check.
 * `yarn test:flow`: Run `flow` type check.
-* `yarn test:e2e:<ios|android>`: Runs e2e tests. Before you can run it, you should build the app that can be run, by using `yarn build:e2e:<ios|android>`.
+* `yarn test:e2e:<ios|android|macos>`: Runs e2e tests. Before you can run it, you should build the app that can be run, by using `yarn build:e2e:<ios|android|macos>`.
 
 
 ## Sending a pull request
