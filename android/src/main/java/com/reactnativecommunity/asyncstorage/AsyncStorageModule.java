@@ -129,7 +129,7 @@ public final class AsyncStorageModule
       return;
     }
 
-    new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
+    new GuardedAsyncTask<Void, Void>(getReactApplicationContext().getExceptionHandler()) {
       @Override
       protected void doInBackgroundGuarded(Void... params) {
         if (!ensureDatabase()) {
@@ -202,7 +202,7 @@ public final class AsyncStorageModule
       return;
     }
 
-    new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
+    new GuardedAsyncTask<Void, Void>(getReactApplicationContext().getExceptionHandler()) {
       @Override
       protected void doInBackgroundGuarded(Void... params) {
         if (!ensureDatabase()) {
@@ -267,7 +267,7 @@ public final class AsyncStorageModule
       return;
     }
 
-    new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
+    new GuardedAsyncTask<Void, Void>(getReactApplicationContext().getExceptionHandler()) {
       @Override
       protected void doInBackgroundGuarded(Void... params) {
         if (!ensureDatabase()) {
@@ -314,7 +314,7 @@ public final class AsyncStorageModule
    */
   @ReactMethod
   public void multiMerge(final ReadableArray keyValueArray, final Callback callback) {
-    new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
+    new GuardedAsyncTask<Void, Void>(getReactApplicationContext().getExceptionHandler()) {
       @Override
       protected void doInBackgroundGuarded(Void... params) {
         if (!ensureDatabase()) {
@@ -376,7 +376,7 @@ public final class AsyncStorageModule
    */
   @ReactMethod
   public void clear(final Callback callback) {
-    new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
+    new GuardedAsyncTask<Void, Void>(getReactApplicationContext().getExceptionHandler()) {
       @Override
       protected void doInBackgroundGuarded(Void... params) {
         if (!mReactDatabaseSupplier.ensureDatabase()) {
@@ -399,7 +399,7 @@ public final class AsyncStorageModule
    */
   @ReactMethod
   public void getAllKeys(final Callback callback) {
-    new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
+    new GuardedAsyncTask<Void, Void>(getReactApplicationContext().getExceptionHandler()) {
       @Override
       protected void doInBackgroundGuarded(Void... params) {
         if (!ensureDatabase()) {
