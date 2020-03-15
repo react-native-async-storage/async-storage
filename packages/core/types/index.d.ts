@@ -13,7 +13,7 @@
 export default class AsyncStorageFactory {
   static create<M = EmptyStorageModel>(
     storage: IStorageBackend,
-    opts: FactoryOptions,
+    opts?: FactoryOptions,
   ): AsyncStorage<M, IStorageBackend<M>>;
 }
 
