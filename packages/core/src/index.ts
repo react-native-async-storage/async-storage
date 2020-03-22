@@ -19,7 +19,7 @@ class AsyncStorageFactory {
 
   static create<M = EmptyStorageModel>(
     storage: IStorageBackend,
-    opts: FactoryOptions | null = null,
+    opts?: FactoryOptions,
   ) {
     return new AsyncStorage<M, IStorageBackend<M>>(
       storage,
