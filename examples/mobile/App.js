@@ -35,9 +35,8 @@ function AsyncStorageExampleApp() {
       const keys = key.split(',').map(k => k.trim());
       const values = value.split(',').map(v => v.trim());
 
-      const valkeh = keys.map((k, index) => ({[k]: values[index]}));
-      console.log({valkeh});
-      await storage.setMultiple(valkeh);
+      const keyValues = keys.map((k, index) => ({[k]: values[index]}));
+      await storage.setMultiple(keyValues);
     } else {
       await storage.set(key, value);
     }
