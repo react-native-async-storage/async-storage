@@ -217,7 +217,7 @@ export default class LegacyAsyncStorage<
       this._asyncStorageNativeModule.clear(function(error: Array<Error>) {
         const err = convertErrors(Array.isArray(error) ? error : [error]);
 
-        if (err) {
+        if (err && err.length) {
           reject(err);
         } else {
           resolve();
