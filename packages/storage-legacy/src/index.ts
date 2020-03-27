@@ -116,7 +116,7 @@ export default class LegacyAsyncStorage<
         const value: {[k in K]: T[k]} = result.reduce<any>(
           (acc, current: [K, T[K]]) => {
             const key = current[0];
-            const val = current[1] || null;
+            const val = current[1];
             return {
               ...acc,
               [key]: val,
@@ -146,9 +146,12 @@ export default class LegacyAsyncStorage<
 
     return new Promise((resolve, reject) => {
       const valuesArray = values.map(entry => {
-        return [Object.keys(entry)[0] as K, entry];
+        const key = Object.keys(entry)[0] as K;
+        const value = entry[key];
+
+        return [key, value];
       });
-      this._asyncStorageNativeModule.multiSet([valuesArray], function(
+      this._asyncStorageNativeModule.multiSet(valuesArray, function(
         errors: Array<Error>,
       ) {
         const errs = convertErrors(errors);
@@ -214,9 +217,10 @@ export default class LegacyAsyncStorage<
 
   async dropStorage(_?: StorageOptions): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this._asyncStorageNativeModule.clear(function(error: Array<Error>) {
-        const err = convertErrors(Array.isArray(error) ? error : [error]);
-
+      this._asyncStorageNativeModule.clear(function(
+        error: Array<Error> | Error,
+      ) {
+        const err = convertErrors(error);
         if (err) {
           reject(err);
         } else {
