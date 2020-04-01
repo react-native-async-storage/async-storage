@@ -47,3 +47,5 @@ buck-out/
 
 # Editor config
 .vscode
+.expo
+/web-build
