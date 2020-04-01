@@ -29,6 +29,7 @@ scripts/
 
 # Example
 example/
+app.json
 
 # Android
 android/*/build/
