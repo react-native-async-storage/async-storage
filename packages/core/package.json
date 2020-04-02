@@ -1,6 +1,6 @@
 {
   "name": "@react-native-community/async-storage",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0-rc.3",
   "main": "build/index.js",
   "types": "types/index.d.ts",
   "author": "ReactNative Community",
