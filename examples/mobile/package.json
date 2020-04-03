@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-native start",
+    "start:windows": "react-native start --use-react-native-windows",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "jest",
@@ -11,8 +12,8 @@
   },
   "dependencies": {
     "jsc-android": "^241213.1.0",
-    "react": "16.8.6",
-    "react-native": "0.60.3"
+    "react": "16.9.0",
+    "react-native": "0.61.5"
   },
   "devDependencies": {
     "@babel/core": "7.5.4",
@@ -23,7 +24,8 @@
     "eslint": "5.16.0",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.55.0",
-    "react-test-renderer": "16.8.6"
+    "react-test-renderer": "16.9.0",
+    "react-native-windows": "0.61.0"
   },
   "jest": {
     "preset": "react-native"
