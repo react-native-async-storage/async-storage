@@ -69,7 +69,7 @@ namespace ReactNativeAsyncStorage
 
         REACT_METHOD(clear);
         void clear(std::function<void(JSValueArray const&)>&& callback) noexcept {
-            dbStorage.AddTask(DBStorage::DBTask::Type::getAllKeys,
+            dbStorage.AddTask(DBStorage::DBTask::Type::clear,
                 [callback](std::vector<JSValue> const& callbackParams) {
                     if (callbackParams.size() > 0) {
                         auto& errors = callbackParams[0].AsArray();
