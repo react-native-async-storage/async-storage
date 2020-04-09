@@ -4,6 +4,7 @@
 
 #include <unknwn.h>
 #include <functional>
+#include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.Data.Json.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>

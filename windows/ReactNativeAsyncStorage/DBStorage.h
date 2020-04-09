@@ -46,6 +46,7 @@ private:
     winrt::slim_condition_variable m_cv;
     winrt::Windows::Foundation::IAsyncAction m_action{ nullptr };
     std::vector<DBTask> m_tasks;
+    const static winrt::hstring s_dbPathProperty;
 
     std::string ConvertWstrToStr(const std::wstring& wstr);
 };

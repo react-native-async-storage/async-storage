@@ -3,6 +3,7 @@
 
 namespace winrt {
     using namespace Microsoft::ReactNative;
+    using namespace Windows::ApplicationModel::Core;
     using namespace Windows::Foundation;
     using namespace Windows::Storage;
 } // namespace winrt
@@ -194,13 +195,45 @@ namespace {
         return CheckSQLiteResult(db, callback, sqlite3_bind_text(stmt.get(), index, str.c_str(), -1, SQLITE_TRANSIENT));
     }
 
+    struct slim_shared_lock_guard
+    {
+        explicit slim_shared_lock_guard(winrt::slim_mutex& m) noexcept :
+            m_mutex(m)
+        {
+            m_mutex.lock_shared();
+        }
+
+        ~slim_shared_lock_guard() noexcept
+        {
+            m_mutex.unlock_shared();
+        }
+
+    private:
+        winrt::slim_mutex& m_mutex;
+    };
+
 } // namespace
 
+const winrt::hstring DBStorage::s_dbPathProperty = L"React-Native-Community-Async-Storage-Database-Path";
+
 DBStorage::DBStorage() {
-    auto const localAppDataParh = winrt::ApplicationData::Current().LocalFolder().Path();
-    std::wstring wPath(localAppDataParh.data());
-    wPath += L"\\AsyncStorage.db";
-    auto const path = ConvertWstrToStr(wPath);
+    std::string path;
+    if (auto pathInspectable = winrt::CoreApplication::Properties().TryLookup(s_dbPathProperty)) {
+        auto pathHstring = winrt::unbox_value<winrt::hstring>(pathInspectable);
+        path = ConvertWstrToStr(std::wstring(pathHstring.c_str()));
+    }
+    else {
+        try {
+            auto const localAppDataPath = winrt::ApplicationData::Current().LocalFolder().Path();
+            std::wstring wPath(localAppDataPath.data());
+            wPath += L"\\AsyncStorage.db";
+            path = ConvertWstrToStr(wPath);
+        }
+        catch (winrt::hresult_error const&) {
+            throw std::runtime_error("Please specify 'React-Native-Community-Async-Storage-Database-Path' in CoreApplication::Properties");
+        }
+    }
+
     if (sqlite3_open_v2(
         path.c_str(),
         &m_db,
@@ -230,14 +263,14 @@ DBStorage::DBStorage() {
 }
 
 DBStorage::~DBStorage() {
-    decltype(m_action) action;
+    decltype(m_tasks) tasks;
     {
         // If there is an in-progress async task, cancel it and wait on the
         // condition_variable for the async task to acknowledge cancellation by
         // nulling out m_action. Once m_action is null, it is safe to proceed
         // wth closing the DB connection
-        winrt::slim_lock_guard guard{ m_lock };
-        m_tasks.clear();
+        slim_shared_lock_guard guard{ m_lock };
+        swap(tasks, m_tasks);
         if (m_action) {
             m_action.Cancel();
             m_cv.wait(m_lock, [this]() { return m_action == nullptr; });
