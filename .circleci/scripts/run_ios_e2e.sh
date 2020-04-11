@@ -5,11 +5,10 @@ ENTRY_FILE="example/index.js"
 BUNDLE_FILE="$RESOURCE_DIR/main.jsbundle"
 EXTRA_PACKAGER_ARGS="--entry-file=$ENTRY_FILE"
 
-
 build_project() {
   echo "[Detox e2e] Building iOS project"
   eval "xcodebuild \
-    -project example/ios/AsyncStorageExample.xcodeproj \
+    -workspace example/ios/AsyncStorageExample.xcworkspace \
     -scheme AsyncStorageExample \
     -configuration Release \
     -sdk iphonesimulator \
@@ -68,7 +67,6 @@ run_simulator() {
     echo "[Detox e2e] Running simulator in headless mode."
   fi
 }
-
 
 build_project
 
