@@ -11,8 +11,10 @@ MAX_RETRIES=60 # wait max 5 minutes for emu to boot
 build_apk() {
   echo
   echo "[Detox e2e] Building APK"
+  eval "mkdir example/android/app/src/main/assets"
+  eval "npx react-native bundle --platform android --dev false --entry-file example/index.js --bundle-output example/android/app/src/main/assets/index.android.bundle --assets-dest example/android/app/src/main/res/"
   cd "example/android"
-  eval "./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release"
+  eval "./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release -x bundleReleaseJsAndAssets"
   cd ${ROOT_DIR}
 }
 
