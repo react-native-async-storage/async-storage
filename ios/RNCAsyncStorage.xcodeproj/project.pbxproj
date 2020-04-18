@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1990B97A223993B0009E5EA1 /* RNCAsyncStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */; };
 		1990B97B223993B0009E5EA1 /* RNCAsyncStorageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
+		747102F0243FFB7400D4F466 /* RNCAsyncStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */; };
+		747102F1243FFB7400D4F466 /* RNCAsyncStorageDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
 		B3E7B58A1CC2AC0600A0062D /* RNCAsyncStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */; };
 /* End PBXBuildFile section */
 
@@ -19,8 +21,8 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				1990B97A223993B0009E5EA1 /* RNCAsyncStorage.h in CopyFiles */,
-				1990B97B223993B0009E5EA1 /* RNCAsyncStorageDelegate.h in CopyFiles */,
+				747102F0243FFB7400D4F466 /* RNCAsyncStorage.h in CopyFiles */,
+				747102F1243FFB7400D4F466 /* RNCAsyncStorageDelegate.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +116,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
