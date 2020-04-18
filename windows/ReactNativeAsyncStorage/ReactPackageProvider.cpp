@@ -1,10 +1,11 @@
-﻿#include "pch.h"
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+#include "pch.h"
 #include "ReactPackageProvider.h"
 #include "ReactPackageProvider.g.cpp"
 #include "RNCAsyncStorage.h"
 
 using namespace winrt::Microsoft::ReactNative;
-using namespace ReactNativeAsyncStorage;
 
 namespace winrt::ReactNativeAsyncStorage::implementation {
 

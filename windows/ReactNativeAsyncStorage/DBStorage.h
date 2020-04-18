@@ -1,3 +1,5 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 #pragma once
 
 #include <winsqlite/winsqlite3.h>
@@ -46,7 +48,7 @@ private:
     winrt::slim_condition_variable m_cv;
     winrt::Windows::Foundation::IAsyncAction m_action{ nullptr };
     std::vector<DBTask> m_tasks;
-    const static winrt::hstring s_dbPathProperty;
+    static constexpr auto s_dbPathProperty = L"React-Native-Community-Async-Storage-Database-Path";
 
     std::string ConvertWstrToStr(const std::wstring& wstr);
 };

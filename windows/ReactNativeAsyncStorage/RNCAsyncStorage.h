@@ -1,13 +1,12 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 #pragma once
 
 #include "pch.h"
 #include "NativeModules.h"
 #include "DBStorage.h"
 
-using namespace winrt::Microsoft::ReactNative;
-using namespace winrt::Windows::Data::Json;
-
-namespace ReactNativeAsyncStorage
+namespace winrt::ReactNativeAsyncStorage::implementation
 {
     REACT_MODULE(RNCAsyncStorage);
     struct RNCAsyncStorage
@@ -15,7 +14,7 @@ namespace ReactNativeAsyncStorage
         DBStorage dbStorage;
 
         REACT_METHOD(multiGet);
-        void multiGet(std::vector<JSValue>& keys, std::function<void(JSValueArray const& errors, JSValueArray const& results)>&& callback) noexcept {
+        void multiGet(std::vector<JSValue> keys, std::function<void(JSValueArray const& errors, JSValueArray const& results)>&& callback) noexcept {
             dbStorage.AddTask(DBStorage::DBTask::Type::multiGet, std::move(keys),
                 [callback{ std::move(callback) }](std::vector<JSValue> const& callbackParams) {
                     if (callbackParams.size() > 0) {
@@ -31,7 +30,7 @@ namespace ReactNativeAsyncStorage
         }
 
         REACT_METHOD(multiSet);
-        void multiSet(std::vector<JSValue>& pairs, std::function<void(JSValueArray const&)>&& callback) noexcept {
+        void multiSet(std::vector<JSValue> pairs, std::function<void(JSValueArray const&)>&& callback) noexcept {
             dbStorage.AddTask(DBStorage::DBTask::Type::multiSet, std::move(pairs),
                 [callback{ std::move(callback) }](std::vector<JSValue> const& callbackParams) {
                     if (callbackParams.size() > 0) {
@@ -42,7 +41,7 @@ namespace ReactNativeAsyncStorage
         }
 
         REACT_METHOD(multiMerge);
-        void multiMerge(std::vector<JSValue>& pairs, std::function<void(JSValueArray const&)>&& callback) noexcept {
+        void multiMerge(std::vector<JSValue> pairs, std::function<void(JSValueArray const&)>&& callback) noexcept {
             std::vector<JSValue> keys;
             std::vector<std::string> newValues;
             for (const auto& pair : pairs) {
@@ -61,13 +60,13 @@ namespace ReactNativeAsyncStorage
                 for (int i = 0; i < results.size(); i++) {
                     auto& oldPair = results[i].AsArray();
                     auto& key = oldPair[0];
-                    auto& oldValue = oldPair[1].AsString();
+                    auto oldValue = oldPair[1].AsString();
                     auto& newValue = newValues[i];
 
-                    JsonObject oldJson;
-                    JsonObject newJson;
-                    if (JsonObject::TryParse(winrt::to_hstring(oldValue), oldJson)
-                        && JsonObject::TryParse(winrt::to_hstring(newValue), newJson)) {
+                    winrt::Windows::Data::Json::JsonObject oldJson;
+                    winrt::Windows::Data::Json::JsonObject newJson;
+                    if (winrt::Windows::Data::Json::JsonObject::TryParse(winrt::to_hstring(oldValue), oldJson)
+                        && winrt::Windows::Data::Json::JsonObject::TryParse(winrt::to_hstring(newValue), newJson)) {
                         MergeJsonObjects(oldJson, newJson);
 
                         JSValue value;
@@ -95,7 +94,7 @@ namespace ReactNativeAsyncStorage
         }
 
         REACT_METHOD(multiRemove);
-        void multiRemove(std::vector<JSValue>& keys, std::function<void(JSValueArray const&)>&& callback) noexcept {
+        void multiRemove(std::vector<JSValue> keys, std::function<void(JSValueArray const&)>&& callback) noexcept {
             dbStorage.AddTask(DBStorage::DBTask::Type::multiRemove, std::move(keys),
                 [callback{ std::move(callback) }](std::vector<JSValue> const& callbackParams) {
                     if (callbackParams.size() > 0) {
@@ -133,11 +132,11 @@ namespace ReactNativeAsyncStorage
         }
 
         // Merge newJson into oldJson
-        void MergeJsonObjects(JsonObject const& oldJson, JsonObject const& newJson) {
+        void MergeJsonObjects(winrt::Windows::Data::Json::JsonObject const& oldJson, winrt::Windows::Data::Json::JsonObject const& newJson) {
             for (auto pair : newJson) {
                 auto key = pair.Key();
                 auto newValue = pair.Value();
-                if (newValue.ValueType() == JsonValueType::Object
+                if (newValue.ValueType() == winrt::Windows::Data::Json::JsonValueType::Object
                     && oldJson.HasKey(key)) {
                     auto oldValue = oldJson.GetNamedObject(key);
                     MergeJsonObjects(oldValue, newValue.GetObject());

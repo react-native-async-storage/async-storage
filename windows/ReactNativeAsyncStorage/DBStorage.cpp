@@ -1,3 +1,5 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 #include "pch.h"
 #include "DBStorage.h"
 
@@ -213,8 +215,6 @@ namespace {
     };
 
 } // namespace
-
-const winrt::hstring DBStorage::s_dbPathProperty = L"React-Native-Community-Async-Storage-Database-Path";
 
 DBStorage::DBStorage() {
     std::string path;
