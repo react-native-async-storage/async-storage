@@ -5,42 +5,29 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
-import {
-  EmptyStorageModel,
-  IStorageBackend,
-  StorageOptions,
-} from '@react-native-community/async-storage';
-export default class WebStorage<T = EmptyStorageModel>
-  implements IStorageBackend<T> {
-  private readonly _asyncStorageNativeModule;
-  storage: Function;
-  getSingle<K extends keyof T>(
-    key: K,
-    opts?: StorageOptions,
-  ): Promise<T[K] | null>;
-
-  setSingle<K extends keyof T>(
-    key: K,
-    value: T[K],
-    opts?: StorageOptions,
-  ): Promise<void>;
-
-  getMany<K extends keyof T>(
-    keys: Array<K>,
-    opts?: StorageOptions,
-  ): Promise<{[k in K]: T[k] | null}>;
-
-  setMany<K extends keyof T>(
-    values: Array<{[k in K]: T[k]}>,
-    opts?: StorageOptions,
-  ): Promise<void>;
-
-  removeSingle(key: keyof T, opts?: StorageOptions): Promise<void>;
-
-  removeMany(keys: Array<keyof T>, opts?: StorageOptions): Promise<void>;
-
-  getKeys(opts?: StorageOptions): Promise<Array<keyof T>>;
-
-  dropStorage(opts?: StorageOptions): Promise<void>;
+import { IStorageBackend, EmptyStorageModel } from '@react-native-community/async-storage';
+declare type StorageType = 'idb' | 'local' | 'session';
+declare class WebStorage<T extends EmptyStorageModel = EmptyStorageModel> implements IStorageBackend<T> {
+    storage: {
+        name: string;
+        getItem: Function;
+        setItem: Function;
+        deleteItem: Function;
+        keys: Function;
+        clear: Function;
+    };
+    constructor(storageType?: StorageType);
+    getSingle<K extends keyof T>(key: K): Promise<T[K] | null>;
+    setSingle<K extends keyof T>(key: K, value: T[K]): Promise<void>;
+    getMany<K extends keyof T>(keys: Array<K>): Promise<{
+        [k in K]: T[k] | null;
+    }>;
+    setMany<K extends keyof T>(values: Array<Partial<{
+        [k in K]: T[k];
+    }>>): Promise<void>;
+    removeSingle(key: keyof T): Promise<void>;
+    removeMany(keys: Array<keyof T>): Promise<void>;
+    getKeys(): Promise<Array<keyof T>>;
+    dropStorage(): Promise<void>;
 }
+export default WebStorage;
