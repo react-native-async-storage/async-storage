@@ -18,7 +18,7 @@ checkout step for each job: &addWorkspace
 default config for js: &js_defaults
   <<: *defaults
   docker:
-    - image: circleci/node:8
+    - image: circleci/node:10
 
 default config for macOS: &macos_defaults
   <<: *defaults
@@ -158,7 +158,7 @@ jobs:
       - save-cache: *cache_save_yarn
       - restore_cache:
           key: 1-gems-{{ checksum "example/ios/Gemfile.lock" }}
-      - run: 
+      - run:
           name: Install CocoaPods
           command: cd example/ios && bundle check || bundle install --path vendor/bundle
       - save_cache:
