@@ -3,10 +3,6 @@
 An asynchronous, unencrypted, persistent, key-value storage system for React Native.
 
 
-### AsyncStorage v2 is out!
-
-Release Candidate for AsyncStorage v2 is out. More info [can be found here.](https://git.io/JeSSQ).
-
 ## Getting Started
 
 
@@ -35,14 +31,15 @@ $ cd ios && pod install
 $ react-native link @react-native-community/async-storage
 ```
 
-See docs for [manual linking guide](docs/Linking.md)
+*Note:* For `macOS` the [manual linking](docs/Linking.md) is currently the only linking option.
 
-*Note* For `macOS` the [manual linking](docs/Linking.md) is currently the only linking option.
+
+See docs for [manual linking guide.](docs/Linking.md)
 
 ### **Upgrading to React Native *0.60+*** 
  
-New React Native comes with `autolinking` feature, which automatically links Native Modules in your project.
-In order to get it to work, make sure you `unlink` `Async Storage` first:
+React Native 0.60+ comes with `autolinking` feature, which automatically links Native Modules in your project.
+In order to get it to work, make sure you `unlink` `Async Storage` first (if you had linked it before):
 
 ```bash
 $ react-native unlink @react-native-community/async-storage
