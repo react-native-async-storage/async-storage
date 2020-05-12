@@ -113,7 +113,7 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      "commonjs",
+      ["commonjs", {"copyFlow": true}],
       "module"
     ]
   }
