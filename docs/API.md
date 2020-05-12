@@ -22,7 +22,11 @@
 
 ## `getItem`
 
-Fetches a data for a given `key`, invokes (optional) callback once completed.
+Gets a string value for given `key`. This function can either return a string value for existing `key` or return `null` otherwise.
+
+In order to store object value, you need to deserialize it, e.g. using `JSON.parse()`.
+
+*Note (legacy)*: you can use optional callback as an alternative for returned promise.
 
 **Signature**:
 
@@ -32,15 +36,32 @@ static getItem(key: string, [callback]: ?(error: ?Error, result: ?string) => voi
 
 **Returns**:
 
-`Promise` with data, if exists, `null` otherwise.
+`Promise` resolving with a string value, if entry exists for given `key`, or `null` otherwise.
+
+`Promise` can be also rejects in case of underlying storage error.
 
 **Example**:
 
 ```js
 
-getMyValue = async () => {
+getMyStringValue = async () => {
   try {
-    const value = await AsyncStorage.getItem('@MyApp_key')
+    return await AsyncStorage.getItem('@key')
+  } catch(e) {
+    // read error
+  }
+
+  console.log('Done.')
+
+}
+```
+
+```js
+
+getMyObject = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('@key')
+    return jsonValue != null ? JSON.parse(jsonValue) : null
   } catch(e) {
     // read error
   }
@@ -58,7 +79,11 @@ getMyValue = async () => {
 
 ## `setItem`
 
-Stores a `value` for the `key`, invokes (optional) `callback` once completed.
+Sets a string `value` for given `key`. This operation can either modify an existing entry, if it did exist for given `key`, or add new one otherwise. 
+
+In order to store object value, you need to serialize it, e.g. using `JSON.stringify()`.
+
+*Note (legacy)*: you can use optional callback as an alternative for returned promise.
 
 **Signature**:
 
@@ -68,15 +93,31 @@ static setItem(key: string, value: string, [callback]: ?(error: ?Error) => void)
 
 **Returns**:
 
-`Promise` object.
+`Promise` resolving when the set operation is completed.
+
+`Promise` can be also rejects in case of underlying storage error.
 
 **Example**:
 
 ```js
 
-setValue = async () => {
+setStringValue = async (value) => {
   try {
-    await AsyncStorage.setItem('@MyApp_key', 'my secret value')
+    await AsyncStorage.setItem('key', value)
+  } catch(e) {
+    // save error
+  }
+
+  console.log('Done.')
+}
+```
+
+```js
+
+setObjectValue = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem('key', jsonValue)
   } catch(e) {
     // save error
   }
