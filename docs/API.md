@@ -22,9 +22,11 @@
 
 ## `getItem`
 
-Gets a string value for given `key`. In order to store object value, you need to deserialize it, e.g. using `JSON.parse()`.
+Gets a string value for given `key`. This function can either return a string value for existing `key` or return `null` otherwise.
 
-*Legacy Note*: you can use optional callback as an alternative for returned promise.
+In order to store object value, you need to deserialize it, e.g. using `JSON.parse()`.
+
+*Note (legacy)*: you can use optional callback as an alternative for returned promise.
 
 **Signature**:
 
@@ -34,7 +36,9 @@ static getItem(key: string, [callback]: ?(error: ?Error, result: ?string) => voi
 
 **Returns**:
 
-`Promise` with string value, if exists for given `key`, `null` otherwise.
+`Promise` resolving with a string value, if entry exists for given `key`, or `null` otherwise.
+
+`Promise` can be also rejects in case of underlying storage error.
 
 **Example**:
 
@@ -75,9 +79,11 @@ getMyObject = async () => {
 
 ## `setItem`
 
-Stores a string `value` for given `key`. In order to store object value, you need to serialize it, e.g. using `JSON.stringify()`.
+Sets a string `value` for given `key`. This operation can either modify an existing entry, if it did exist for given `key`, or add new one otherwise. 
 
-*Legacy Note*: you can use optional callback as an alternative for returned promise.
+In order to store object value, you need to serialize it, e.g. using `JSON.stringify()`.
+
+*Note (legacy)*: you can use optional callback as an alternative for returned promise.
 
 **Signature**:
 
@@ -87,7 +93,9 @@ static setItem(key: string, value: string, [callback]: ?(error: ?Error) => void)
 
 **Returns**:
 
-`Promise` object resolving when the set operation is completed.
+`Promise` resolving when the set operation is completed.
+
+`Promise` can be also rejects in case of underlying storage error.
 
 **Example**:
 
