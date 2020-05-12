@@ -22,7 +22,9 @@
 
 ## `getItem`
 
-Fetches a data for a given `key`, invokes (optional) callback once completed.
+Gets a string value for given `key`. In order to store object value, you need to deserialize it, e.g. using `JSON.parse()`.
+
+*Legacy Note*: you can use optional callback as an alternative for returned promise.
 
 **Signature**:
 
@@ -32,15 +34,30 @@ static getItem(key: string, [callback]: ?(error: ?Error, result: ?string) => voi
 
 **Returns**:
 
-`Promise` with data, if exists, `null` otherwise.
+`Promise` with string value, if exists for given `key`, `null` otherwise.
 
 **Example**:
 
 ```js
 
-getMyValue = async () => {
+getMyStringValue = async () => {
   try {
-    const value = await AsyncStorage.getItem('@MyApp_key')
+    return await AsyncStorage.getItem('@key')
+  } catch(e) {
+    // read error
+  }
+
+  console.log('Done.')
+
+}
+```
+
+```js
+
+getMyObject = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('@key')
+    return jsonValue != null ? JSON.parse(jsonValue) : null
   } catch(e) {
     // read error
   }
@@ -58,7 +75,9 @@ getMyValue = async () => {
 
 ## `setItem`
 
-Stores a `value` for the `key`, invokes (optional) `callback` once completed.
+Stores a string `value` for given `key`. In order to store object value, you need to serialize it, e.g. using `JSON.stringify()`.
+
+*Legacy Note*: you can use optional callback as an alternative for returned promise.
 
 **Signature**:
 
@@ -68,15 +87,29 @@ static setItem(key: string, value: string, [callback]: ?(error: ?Error) => void)
 
 **Returns**:
 
-`Promise` object.
+`Promise` object resolving when the set operation is completed.
 
 **Example**:
 
 ```js
 
-setValue = async () => {
+setStringValue = async (value) => {
   try {
-    await AsyncStorage.setItem('@MyApp_key', 'my secret value')
+    await AsyncStorage.setItem('key', value)
+  } catch(e) {
+    // save error
+  }
+
+  console.log('Done.')
+}
+```
+
+```js
+
+setObjectValue = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem('key', jsonValue)
   } catch(e) {
     // save error
   }
