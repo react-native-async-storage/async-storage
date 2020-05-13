@@ -2,9 +2,23 @@
   "name": "@react-native-community/async-storage",
   "version": "1.10.0",
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.js",
   "types": "./types/index.d.ts",
-  "main": "./lib/index.js",
-  "author": "Krzysztof Borowy <krizzu.dev@gmail.com>",
+  "files": [
+    "lib/",
+    "src/",
+    "jest/",
+    "types/",
+    "android/src",
+    "android/build.gradle",
+    "ios/",
+    "macos/",
+    "window/",
+    "RNCAsyncStorage.podspec"
+  ],
+  "author": "Krzysztof Borowy <hello@krizzu.dev>",
   "contributors": [
     "Evan Bacon <bacon@expo.io> (https://github.com/evanbacon)"
   ],
@@ -22,6 +36,7 @@
     "url": "https://github.com/react-native-community/react-native-async-storage.git"
   },
   "scripts": {
+    "prepare": "bob build",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:android": "react-native run-android --root example/",
     "start:ios": "react-native run-ios --project-path example/ios --scheme AsyncStorageExample",
@@ -33,7 +48,7 @@
     "build:e2e:macos": "scripts/run_macos_e2e.sh 'build'",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
-    "test:lint": "eslint 'lib/**/*.js' 'example/**/*.js'",
+    "test:lint": "eslint 'src/**/*.js' 'example/**/*.js' 'jest/*.js'",
     "test:e2e:ios": "detox test -c ios",
     "test:e2e:android": "detox test -c android",
     "test:e2e:macos": "scripts/run_macos_e2e.sh 'test'"
@@ -48,6 +63,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
+    "@react-native-community/bob": "^0.14.0",
     "@react-native-community/cli": "^3.1.0",
     "@react-native-community/cli-platform-android": "^3.1.0",
     "@react-native-community/cli-platform-ios": "^3.1.0",
@@ -92,5 +108,13 @@
         "name": "Emu_E2E"
       }
     }
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      ["commonjs", {"copyFlow": true}],
+      "module"
+    ]
   }
 }

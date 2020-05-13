@@ -1,66 +1,52 @@
 /**
  * @format
- * @flow
  */
-
-type KeysType = Array<string>;
-type KeyValueType = Array<Array<*>>;
-type CallbackType = ((?Error) => void) | void;
-type ItemGetCallbackType = ((?Error, ?string) => void) | void;
-type ResultCallbackType = ((?Error, ?KeyValueType) => void) | void;
 
 const asMock = {
   __INTERNAL_MOCK_STORAGE__: {},
 
-  setItem: jest.fn<[string, string, CallbackType], Promise<*>>(
-    async (key: string, value: string, callback: CallbackType) => {
-      const setResult = await asMock.multiSet([[key, value]], undefined);
+  setItem: jest.fn(async (key, value, callback) => {
+    const setResult = await asMock.multiSet([[key, value]], undefined);
 
-      callback && callback(setResult);
-      return setResult;
-    },
-  ),
-  getItem: jest.fn<[string, ItemGetCallbackType], Promise<*>>(
-    async (key: string, callback: ItemGetCallbackType) => {
-      const getResult = await asMock.multiGet([key], undefined);
+    callback && callback(setResult);
+    return setResult;
+  }),
 
-      const result = getResult[0] ? getResult[0][1] : null;
+  getItem: jest.fn(async (key, callback) => {
+    const getResult = await asMock.multiGet([key], undefined);
 
-      callback && callback(null, result);
-      return result;
-    },
-  ),
-  removeItem: jest.fn<[string, CallbackType], Promise<null>>(
-    (key: string, callback: CallbackType) =>
-      asMock.multiRemove([key], callback),
-  ),
-  mergeItem: jest.fn<[string, string, CallbackType], Promise<*>>(
-    (key: string, value: string, callback: CallbackType) =>
-      asMock.multiMerge([[key, value]], callback),
+    const result = getResult[0] ? getResult[0][1] : null;
+
+    callback && callback(null, result);
+    return result;
+  }),
+
+  removeItem: jest.fn((key, callback) => asMock.multiRemove([key], callback)),
+  mergeItem: jest.fn((key, value, callback) =>
+    asMock.multiMerge([[key, value]], callback),
   ),
 
-  clear: jest.fn<[CallbackType], Promise<*>>(_clear),
-  getAllKeys: jest.fn<[], Promise<string[]>>(_getAllKeys),
-  flushGetRequests: jest.fn<[], void>(),
+  clear: jest.fn(_clear),
+  getAllKeys: jest.fn(_getAllKeys),
+  flushGetRequests: jest.fn(),
 
-  multiGet: jest.fn<[KeysType, ResultCallbackType], Promise<*>>(_multiGet),
-  multiSet: jest.fn<[KeyValueType, CallbackType], Promise<*>>(_multiSet),
-  multiRemove: jest.fn<[KeysType, CallbackType], Promise<*>>(_multiRemove),
-  multiMerge: jest.fn<[KeyValueType, CallbackType], Promise<*>>(_multiMerge),
+  multiGet: jest.fn(_multiGet),
+  multiSet: jest.fn(_multiSet),
+  multiRemove: jest.fn(_multiRemove),
+  multiMerge: jest.fn(_multiMerge),
 };
 
-async function _multiSet(keyValuePairs: KeyValueType, callback: CallbackType) {
+async function _multiSet(keyValuePairs, callback) {
   keyValuePairs.forEach(keyValue => {
     const key = keyValue[0];
-    const value = keyValue[1];
 
-    asMock.__INTERNAL_MOCK_STORAGE__[key] = value;
+    asMock.__INTERNAL_MOCK_STORAGE__[key] = keyValue[1];
   });
   callback && callback(null);
   return null;
 }
 
-async function _multiGet(keys: KeysType, callback: ResultCallbackType) {
+async function _multiGet(keys, callback) {
   const values = keys.map(key => [
     key,
     asMock.__INTERNAL_MOCK_STORAGE__[key] || null,
@@ -70,7 +56,7 @@ async function _multiGet(keys: KeysType, callback: ResultCallbackType) {
   return values;
 }
 
-async function _multiRemove(keys: KeysType, callback: CallbackType) {
+async function _multiRemove(keys, callback) {
   keys.forEach(key => {
     if (asMock.__INTERNAL_MOCK_STORAGE__[key]) {
       delete asMock.__INTERNAL_MOCK_STORAGE__[key];
@@ -81,7 +67,7 @@ async function _multiRemove(keys: KeysType, callback: CallbackType) {
   return null;
 }
 
-async function _clear(callback: CallbackType) {
+async function _clear(callback) {
   asMock.__INTERNAL_MOCK_STORAGE__ = {};
 
   callback && callback(null);
@@ -93,19 +79,16 @@ async function _getAllKeys() {
   return Object.keys(asMock.__INTERNAL_MOCK_STORAGE__);
 }
 
-async function _multiMerge(
-  keyValuePairs: KeyValueType,
-  callback: CallbackType,
-) {
+async function _multiMerge(keyValuePairs, callback) {
   keyValuePairs.forEach(keyValue => {
     const key = keyValue[0];
     const value = JSON.parse(keyValue[1]);
 
     const oldValue = JSON.parse(asMock.__INTERNAL_MOCK_STORAGE__[key]);
 
-    const processedValue = JSON.stringify(_deepMergeInto(oldValue, value));
-
-    asMock.__INTERNAL_MOCK_STORAGE__[key] = processedValue;
+    asMock.__INTERNAL_MOCK_STORAGE__[key] = JSON.stringify(
+      _deepMergeInto(oldValue, value),
+    );
   });
 
   callback && callback(null);
@@ -131,4 +114,4 @@ const _deepMergeInto = (oldObject, newObject) => {
   return mergedObject;
 };
 
-export default asMock;
+module.exports = asMock;

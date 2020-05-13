@@ -39,7 +39,7 @@ munge_underscores=true
 server.max_workers=1
 
 # Support the library import in examples
-module.name_mapper='^\@react-native-community/async-storage$' -> '<PROJECT_ROOT>/lib/AsyncStorage.js'
+module.name_mapper='^\@react-native-community/async-storage$' -> '<PROJECT_ROOT>/src/AsyncStorage.js'
 
 module.name_mapper='^react-native$' -> '<PROJECT_ROOT>/node_modules/react-native/Libraries/react-native/react-native-implementation'
 module.name_mapper='^react-native/\(.*\)$' -> '<PROJECT_ROOT>/node_modules/react-native/\1'

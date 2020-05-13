@@ -25,11 +25,11 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-build/
 .idea
 .gradle
 local.properties
 *.iml
+android/build
 android/gradle/
 android/gradlew
 android/gradlew.bat
@@ -49,3 +49,6 @@ buck-out/
 .vscode
 .expo
 /web-build
+
+# builds by bob
+lib/
