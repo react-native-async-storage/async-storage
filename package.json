@@ -1,6 +1,6 @@
 {
   "name": "@react-native-community/async-storage",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -113,7 +113,12 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      ["commonjs", {"copyFlow": true}],
+      [
+        "commonjs",
+        {
+          "copyFlow": true
+        }
+      ],
       "module"
     ]
   }
