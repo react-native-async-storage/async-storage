@@ -27,10 +27,10 @@ $ yarn add @react-native-community/async-storage
 
 [CLI autolink feature](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md) links the module while building the app. 
 
-Run `pod install` in iOS project in order to add RNAsyncStorage cocoapod:
+Use CocoaPods to add the native `RNAsyncStorage` to your project:
 
 ```bash
-$ cd ios && pod install
+$ npx pod-install
 ```
 
 - **React Native <= 0.59**
