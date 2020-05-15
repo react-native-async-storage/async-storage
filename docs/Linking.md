@@ -79,4 +79,4 @@ protected List<ReactPackage> getPackages() {
 1. Right click main application project > Add > Reference...
   Check `ReactNativeAsyncStorage` from Solution Projects.
 2. Add `#include "winrt/ReactNativeAsyncStorage.h"` to `pch.h`.
-3. Add `PackageProviders().Append(winrt::ReactNativeAscynStorage::ReactPackageProvider());` before `InitializeComponent();` in `app.cpp`.
+3. Add `PackageProviders().Append(winrt::ReactNativeAsyncStorage::ReactPackageProvider());` before `InitializeComponent();` in `app.cpp`.
