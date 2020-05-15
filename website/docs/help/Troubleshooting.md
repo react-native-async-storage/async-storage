@@ -1,4 +1,8 @@
-# Troubleshooting
+---
+id: troubleshooting
+title: Troubleshooting
+sidebar_label: Troubleshooting
+---
 
 ## [iOS] CocoaPods issues
 
@@ -58,7 +62,7 @@ info 1 error generated.
 
 ## [@RNC/AsyncStorage]: NativeModule: AsyncStorage is null
 
-### iOS
+#### iOS
 
 This error means that AsyncStorage was unable to find its native module. This
 occurs because AsyncStorage was not linked into the final app bundle.

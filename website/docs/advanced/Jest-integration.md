@@ -1,6 +1,11 @@
-# Jest integration
+---
+id: jest
+title: Jest integration
+sidebar_label: Jest integration
+---
 
-Async Storage module is tighly coupled with its `NativeModule` part - it needs a running React Native application to work properly. In order to use it in tests, you have to provide its separate implementation. Follow those steps to add a mocked `Async Storage` module.
+
+Async Storage module is tightly coupled with its `NativeModule` part - it needs a running React Native application to work properly. In order to use it in tests, you have to provide its separate implementation. Follow those steps to add a mocked `Async Storage` module.
 
 ## Using Async Storage mock
 
@@ -62,27 +67,3 @@ export default AsyncStorageMock;
 ```
 
 You can [check its implementation](../jest/async-storage-mock.js) to get more insight into methods signatures.
-
-## Troubleshooting
-
-### **`SyntaxError: Unexpected token export` in async-storage/lib/index.js**
-
-**Note:** In React Native 0.60+, all `@react-native-community` packages are transformed by default.
-
-You need to point Jest to transform this package. You can do so, by adding Async Storage path to `transformIgnorePatterns` setting in Jest's configuration.
-
-```json
-"jest": {
-  "transformIgnorePatterns": ["node_modules/(?!(@react-native-community/async-storage/lib))"]
-}
-```
-
-Optionally, you can transform all packages in the `react-native-community` and `react-native` directories by specifying this pattern:
-
-```json
-"jest": {
-  "transformIgnorePatterns": ["node_modules/(?!(@react-native-community|react-native)/)"]
-}
-```
-
-Or you can expand it even further to transform all packages whose names begin with `react-native` by omitting the trailing `/` in the above pattern.

@@ -1,4 +1,10 @@
-# Manual Linking
+---
+id: link
+title: Manual linking
+sidebar_label: Manual linking
+---
+
+
 
 ## iOS
 
@@ -69,13 +75,23 @@ protected List<ReactPackage> getPackages() {
     );
 }
 ```
+
+
 ## Windows
-### Add `ReactNativeAsyncStorage` project to your solution.
+
+
+#### Add `ReactNativeAsyncStorage` project to your solution.
+
+
 1. Open your solution in Visual Studio.
+
 2. Right click Solution icon in Solution Explorer > Add > Existing Project.
    Select `node_modules\@react-native-community\async-storage\windows\ReactNativeAsyncStorage\ReactNativeAsyncStorage.vcxproj`
 
-### Add a reference to `ReactNativeAsyncStorage` in your main application project.
+
+#### Add a reference to `ReactNativeAsyncStorage` in your main application project.
+
+
 1. Right click main application project > Add > Reference...
   Check `ReactNativeAsyncStorage` from Solution Projects.
 2. Add `#include "winrt/ReactNativeAsyncStorage.h"` to `pch.h`.
