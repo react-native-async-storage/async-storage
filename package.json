@@ -15,7 +15,7 @@
     "android/build.gradle",
     "ios/",
     "macos/",
-    "window/",
+    "windows/",
     "RNCAsyncStorage.podspec"
   ],
   "author": "Krzysztof Borowy <hello@krizzu.dev>",
