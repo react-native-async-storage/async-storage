@@ -1,6 +1,6 @@
 # Jest integration
 
-Async Storage module is tighly coupled with its `NativeModule` part - it needs a running React Native application to work properly. In order to use it in tests, you have to provide its separate implementation. Follow those steps to add a mocked `Async Storage` module.
+Async Storage module is tightly coupled with its `NativeModule` part - it needs a running React Native application to work properly. In order to use it in tests, you have to provide its separate implementation. Follow those steps to add a mocked `Async Storage` module.
 
 ## Using Async Storage mock
 
