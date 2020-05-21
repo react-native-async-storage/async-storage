@@ -4,7 +4,7 @@
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
-  "react-native": "src/index.js",
+  "react-native": "lib/module/index.js",
   "types": "./types/index.d.ts",
   "files": [
     "lib/",
