@@ -11,12 +11,7 @@
 
 'use strict';
 
-const {NativeModules} = require('react-native');
-
-const RCTAsyncStorage =
-  NativeModules.PlatformLocalStorage || // Support for external modules, like react-native-windows
-  NativeModules.RNC_AsyncSQLiteDBStorage ||
-  NativeModules.RNCAsyncStorage;
+import RCTAsyncStorage from './RCTAsyncStorage';
 
 if (!RCTAsyncStorage) {
   throw new Error(`[@RNC/AsyncStorage]: NativeModule: AsyncStorage is null.
