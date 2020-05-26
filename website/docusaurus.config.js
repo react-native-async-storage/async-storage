@@ -1,11 +1,11 @@
 module.exports = {
   title: 'Async Storage',
-  tagline: 'Data storage for React Native.',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  tagline: 'Data storage system for React Native.',
+  url: 'https://react-native-community.github.io/async-storage/',
+  baseUrl: '/async-storage/',
   favicon: 'img/favicon.ico',
   organizationName: 'react-native-community',
-  projectName: 'Async Storage',
+  projectName: 'async-storage',
   themeConfig: {
     prism: {
       theme: require('prism-react-renderer/themes/vsDark'),
