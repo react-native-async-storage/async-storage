@@ -4,7 +4,7 @@ A storage system for React Native.
 
 ## Getting Started
 
-Head over to our `documentation` to learn more.
+Head over to [documentation](https://react-native-community.github.io/async-storage/) to learn more.
 
 
 ## Contribution
