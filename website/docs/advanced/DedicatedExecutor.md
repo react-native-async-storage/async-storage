@@ -5,7 +5,7 @@ sidebar_label: Dedicated Executor
 ---
 
 **Supported platforms:**
-<PlatformSupport title="Android" platformIcon="/img/logo_android.svg"></PlatformSupport>
+<PlatformSupport title="Android" platformIcon="icon_android.svg"></PlatformSupport>
 
 ---
 
@@ -39,7 +39,7 @@ export const PlatformSupport = ({platformIcon, title}) => (
     }}>
       <img
        style={{width: 34, height: 34}}
-       src={platformIcon} />
+       src={`/async-storage/img/${platformIcon}`} />
       <p style={{margin: '0 0 0 10px', padding: 0}}>{title}</p>
     </div>
   );

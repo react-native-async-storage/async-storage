@@ -5,7 +5,7 @@ sidebar_label: Brownfield integration
 ---
 
 **Supported platforms:**
-<PlatformSupport title="iOS/MacOS" platformIcon="/img/logo_ios.svg"></PlatformSupport>
+<PlatformSupport title="iOS/MacOS" platformIcon="icon_ios.svg"></PlatformSupport>
 
 ---
 
@@ -122,7 +122,7 @@ export const PlatformSupport = ({platformIcon, title}) => (
     }}>
       <img
        style={{width: 34, height: 34}}
-       src={platformIcon} />
+       src={`/async-storage/img/${platformIcon}`} />
       <p style={{margin: '0 0 0 10px', padding: 0}}>{title}</p>
     </div>
   );
