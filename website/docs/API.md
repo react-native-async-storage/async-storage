@@ -1,22 +1,9 @@
-# Async Storage API with examples.
+---
+id: api
+title: API
+sidebar_label: API
+---
 
-
-
-**Table of Contents**
-  - [getItem](#getItem)
-  - [setItem](#setItem)
-  - [mergeItem](#mergeItem)
-  - [removeItem](#removeItem)
-  - [getAllKeys](#getAllKeys)
-  - [multiGet](#multiGet)
-  - [multiSet](#multiSet)
-  - [multiMerge](#multiMerge)
-  - [multiRemove](#multiRemove)
-  - [clear](#clear)
-  - [flushGetRequests](#flushGetRequests)
-  - [useAsyncStorage](#useAsyncStorage)
-
-<br />
 
 <!-- ------------------------ GET ITEM ------------------------ -->
 
@@ -515,29 +502,6 @@ clearAll = async () => {
 }
 
 ```
-
-
-<br />
-<br />
-
-
-<!-- ------------------------ FLUSH GET REQUEST ------------------------ -->
-
-
-## `flushGetRequests`
-
-Flushes any pending requests using a single batch call to get the data.
-
-**Signature**:
-
-```js
-static flushGetRequests(): void
-```
-
-**Returns**:
-
-`undefined`
-
 
 <!-- ------------------------ HOOKS ------------------------ -->
 

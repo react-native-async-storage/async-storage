@@ -1,0 +1,19 @@
+:root {
+  --ifm-color-primary: #ff9800;
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: #ff9800;
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+
+  --hero-img-background: #f2f2f2;
+}
+
+html[data-theme='dark'] {
+  --ifm-background-color: #2b3940;
+  --ifm-navbar-background-color: #212c32;
+}
+
+footer.footer.footer--dark {
+  --ifm-footer-background-color: #292b2f;
+}
