@@ -40,9 +40,11 @@ jobs:
       env:
         USE_SSH: true
         GIT_USER: git
+        NAME: ${{ secrets.GH_PAGES_DEPLOY_NAME }}
+        EMAIL: ${{ secrets.GH_PAGES_DEPLOY_EMAIL }}
       run: |
-        git config --global user.email "actions@gihub.com"
-        git config --global user.name "gh-actions"
+        git config --global user.email "$EMAIL"
+        git config --global user.name "$NAME"
         yarn deploy
 
 

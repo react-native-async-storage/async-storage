@@ -8,7 +8,7 @@ Built using [Docusaurus 2](https://v2.docusaurus.io/).
 ### Installation
 
 ```
-$ yarn
+$ yarn install
 ```
 
 ### Run locally
