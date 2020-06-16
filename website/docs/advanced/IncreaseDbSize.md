@@ -23,7 +23,7 @@ AsyncStorage_db_size_in_MB=10
 Now you can define the new size in MB. In this example, the new limit is 10 MB.
 
 <!-- ------------------------ COMPONENTS ------------------------ -->
-
+```
 export const PlatformSupport = ({platformIcon, title}) => (
     <div style={{
         display: 'flex',
@@ -37,3 +37,4 @@ export const PlatformSupport = ({platformIcon, title}) => (
       <p style={{margin: '0 0 0 10px', padding: 0}}>{title}</p>
     </div>
   );
+```
