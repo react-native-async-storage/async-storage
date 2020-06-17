@@ -26,7 +26,7 @@ To fix this issue try these steps:
 
   • If you are using CocoaPods on iOS, run \`pod install\` in the \`ios\` directory and then rebuild and re-run the app.
 
-  • If this happens while testing with Jest, check out docs how to integrate AsyncStorage with it: https://github.com/react-native-community/async-storage/blob/master/docs/Jest-integration.md
+  • If this happens while testing with Jest, check out docs how to integrate AsyncStorage with it: https://react-native-community.github.io/async-storage/docs/advanced/jest
 
 If none of these fix the issue, please open an issue on the Github repository: https://github.com/react-native-community/react-native-async-storage/issues 
 `);
