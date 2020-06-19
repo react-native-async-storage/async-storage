@@ -8,13 +8,20 @@
  * @flow
  */
 
-import merge from 'deep-assign';
+const merge = (target, source) => {
+  for (const key of Object.keys(source)) {
+    if (source[key] instanceof Object) {
+      Object.assign(source[key], merge(target[key], source[key]));
+    }
+  }
+  return Object.assign({}, target || {}, source);
+};
 
 const mergeLocalStorageItem = (key, value) => {
   const oldValue = window.localStorage.getItem(key);
   const oldObject = JSON.parse(oldValue);
   const newObject = JSON.parse(value);
-  const nextValue = JSON.stringify(merge({}, oldObject, newObject));
+  const nextValue = JSON.stringify(merge(oldObject, newObject));
   window.localStorage.setItem(key, nextValue);
 };
 

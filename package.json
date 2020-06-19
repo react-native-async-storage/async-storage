@@ -57,9 +57,6 @@
     "react": "^16.8",
     "react-native": ">=0.59"
   },
-  "dependencies": {
-    "deep-assign": "^3.0.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
