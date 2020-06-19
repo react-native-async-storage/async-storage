@@ -48,7 +48,7 @@
     "build:e2e:macos": "scripts/run_macos_e2e.sh 'build'",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
-    "test:lint": "eslint 'src/**/*.js' 'example/**/*.js' 'jest/*.js'",
+    "test:lint": "eslint src/**/*.js example/**/*.js jest/*.js",
     "test:e2e:ios": "detox test -c ios",
     "test:e2e:android": "detox test -c android",
     "test:e2e:macos": "scripts/run_macos_e2e.sh 'test'"
