@@ -66,4 +66,4 @@ AsyncStorageMock.multiGet = jest.fn(([keys], callback) => {
 export default AsyncStorageMock;
 ```
 
-You can [check its implementation](../jest/async-storage-mock.js) to get more insight into methods signatures.
+You can [check its implementation](https://github.com/react-native-community/async-storage/blob/master/jest/async-storage-mock.js) to get more insight into methods signatures.
