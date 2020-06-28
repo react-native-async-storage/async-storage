@@ -49,7 +49,7 @@ const storeData = async (value) => {
 #### Reading string value
 ```jsx
 
-getData = async () => {
+const getData = async () => {
   try {
     const value = await AsyncStorage.getItem('@storage_Key')
     if(value !== null) {
@@ -65,7 +65,7 @@ getData = async () => {
 
 ```jsx
 
-getData = async () => {
+const getData = async () => {
   try {
     const jsonValue = await AsyncStorage.getItem('@storage_Key')
     return jsonValue != null ? JSON.parse(jsonValue) : null;
