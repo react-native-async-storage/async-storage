@@ -25,7 +25,7 @@ static getItem(key: string, [callback]: ?(error: ?Error, result: ?string) => voi
 
 `Promise` resolving with a string value, if entry exists for given `key`, or `null` otherwise.
 
-`Promise` can be also rejects in case of underlying storage error.
+`Promise` can also be rejected in case of underlying storage error.
 
 **Example**:
 
@@ -82,7 +82,7 @@ static setItem(key: string, value: string, [callback]: ?(error: ?Error) => void)
 
 `Promise` resolving when the set operation is completed.
 
-`Promise` can be also rejects in case of underlying storage error.
+`Promise` can also be rejected in case of underlying storage error.
 
 **Example**:
 
