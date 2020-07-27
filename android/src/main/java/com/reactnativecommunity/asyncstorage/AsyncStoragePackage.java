@@ -16,11 +16,15 @@ import com.facebook.react.uimanager.ViewManager;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import com.reactnativecommunity.asyncstorage.next.AsyncStorageModuleNext;
 
 public class AsyncStoragePackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-      return Arrays.<NativeModule>asList(new AsyncStorageModule(reactContext));
+      return Arrays.<NativeModule>asList(
+              new AsyncStorageModule(reactContext),
+              new AsyncStorageModuleNext(reactContext)
+      );
     }
 
     // Deprecated in RN 0.47 

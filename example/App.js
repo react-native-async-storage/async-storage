@@ -21,6 +21,7 @@ import {
 
 import GetSetClear from './examples/GetSetClear';
 import MergeItem from './examples/MergeItem';
+import AsyncStorageNext from './examples/Next';
 
 const TESTS = {
   GetSetClear: {
@@ -37,6 +38,14 @@ const TESTS = {
     description: 'Merge object with already stored data',
     render() {
       return <MergeItem />;
+    },
+  },
+  Next: {
+    title: 'Next AsyncStorage',
+    testId: 'as-next',
+    description: 'Use Next version of AsyncStorage',
+    render() {
+      return <AsyncStorageNext />;
     },
   },
 };
@@ -86,6 +95,11 @@ export default class App extends Component<Props, State> {
             testID="testType_mergeItem"
             title="Merge Item"
             onPress={() => this._changeTest('MergeItem')}
+          />
+          <Button
+            testID="testType_next"
+            title="Next"
+            onPress={() => this._changeTest('Next')}
           />
         </View>
 
