@@ -137,6 +137,14 @@ jobs:
           name: Flow check
           command: yarn test:flow
 
+  "Test: units":
+    <<: *js_defaults
+    steps:
+      - *addWorkspace
+      - run:
+          name: Unit tests
+          command: yarn test:unit
+
   "Test: iOS e2e":
     <<: *macos_defaults
     steps:
@@ -306,14 +314,19 @@ workflows:
       - "Test: flow":
           requires:
             - "Setup environment"
+      - "Test: units":
+          requires:
+            - "Setup environment"
       - "Test: iOS e2e":
           requires:
             - "Test: lint"
             - "Test: flow"
+            - "Test: units"
       - "Build: Android release apk":
           requires:
             - "Test: lint"
             - "Test: flow"
+            - "Test: units"
 #      - "Test: Android e2e":
 #          requires:
 #            - "Test: lint"

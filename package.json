@@ -49,6 +49,7 @@
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
     "test:lint": "eslint src/**/*.js example/**/*.js jest/*.js",
+    "test:unit": "jest",
     "test:e2e:ios": "detox test -c ios",
     "test:e2e:android": "detox test -c android",
     "test:e2e:macos": "scripts/run_macos_e2e.sh 'test'"
@@ -86,10 +87,7 @@
     "react-test-renderer": "16.9.0"
   },
   "jest": {
-    "preset": "react-native",
-    "setupFiles": [
-      "./example/jest.setup.js"
-    ]
+    "preset": "react-native"
   },
   "detox": {
     "test-runner": "jest",

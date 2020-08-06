@@ -4,13 +4,14 @@
 /* eslint-disable no-shadow */
 
 import 'react-native';
+import AsyncStorage from '../AsyncStorage.native';
 
-import AsyncStorage from '@react-native-community/async-storage';
+jest.mock('../RCTAsyncStorage');
 
 describe('Async Storage mock functionality', () => {
   describe('Promise based', () => {
     it('can read/write data to/from storage', async () => {
-      const newData = Math.floor(Math.random() * 1000);
+      const newData = String(Math.floor(Math.random() * 1000));
 
       await AsyncStorage.setItem('key', newData);
 
@@ -20,7 +21,7 @@ describe('Async Storage mock functionality', () => {
     });
 
     it('can clear storage', async () => {
-      await AsyncStorage.setItem('temp_key', Math.random() * 1000);
+      await AsyncStorage.setItem('temp_key', String(Math.random() * 1000));
 
       let currentValue = await AsyncStorage.getItem('temp_key');
 
@@ -34,8 +35,8 @@ describe('Async Storage mock functionality', () => {
     });
 
     it('can clear entries in storage', async () => {
-      await AsyncStorage.setItem('random1', Math.random() * 1000);
-      await AsyncStorage.setItem('random2', Math.random() * 1000);
+      await AsyncStorage.setItem('random1', String(Math.random() * 1000));
+      await AsyncStorage.setItem('random2', String(Math.random() * 1000));
 
       let data1 = await AsyncStorage.getItem('random1');
       let data2 = await AsyncStorage.getItem('random2');
@@ -80,7 +81,7 @@ describe('Async Storage mock functionality', () => {
 
   describe('Callback based', () => {
     it('can read/write data to/from storage', done => {
-      const newData = Math.floor(Math.random() * 1000);
+      const newData = String(Math.floor(Math.random() * 1000));
 
       AsyncStorage.setItem('key', newData, function() {
         AsyncStorage.getItem('key', function(_, value) {
@@ -90,7 +91,7 @@ describe('Async Storage mock functionality', () => {
       });
     });
     it('can clear storage', done => {
-      AsyncStorage.setItem('temp_key', Math.random() * 1000, () => {
+      AsyncStorage.setItem('temp_key', String(Math.random() * 1000), () => {
         AsyncStorage.getItem('temp_key', (_, currentValue) => {
           expect(currentValue).not.toBeNull();
           AsyncStorage.clear(() => {
@@ -104,8 +105,8 @@ describe('Async Storage mock functionality', () => {
     });
 
     it('can clear entries in storage', done => {
-      AsyncStorage.setItem('random1', Math.random() * 1000, () => {
-        AsyncStorage.setItem('random2', Math.random() * 1000, () => {
+      AsyncStorage.setItem('random1', String(Math.random() * 1000), () => {
+        AsyncStorage.setItem('random2', String(Math.random() * 1000), () => {
           AsyncStorage.getItem('random1', (_, data1) => {
             AsyncStorage.getItem('random2', (_, data2) => {
               expect(data1).not.toBeNull();
