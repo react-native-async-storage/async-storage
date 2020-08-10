@@ -59,7 +59,7 @@ dependencies {
 }
   ```
 
-3. Then, in `MainApplication.java`:
+3. Then, in `android/app/src/main/java/your/package/MainApplication.java`:
 ```diff
 package com.myapp;
 
