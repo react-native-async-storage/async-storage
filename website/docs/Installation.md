@@ -31,4 +31,4 @@ npx pod-install
 react-native link @react-native-community/async-storage
 ```
 
-*Note:* For `Windows` the [manual linking](link) is currently the only linking option.
+*Note:* For `Windows` the [manual linking](Linking.md) is currently the only linking option.
