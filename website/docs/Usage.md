@@ -79,5 +79,5 @@ const getData = async () => {
 
 ### More
 
-For more examples, [head over to API section.](api)
+For more examples, [head over to API section.](API.md)
 
