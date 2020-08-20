@@ -469,7 +469,7 @@ void DBStorage::DBTask::getAllKeys(sqlite3* db) {
         auto writer = winrt::MakeJSValueTreeWriter();
         result.WriteTo(writer);
         std::vector<winrt::JSValue> callbackParams;
-        callbackParams.push_back(winrt::JSValueArray());
+        callbackParams.push_back(nullptr);
         callbackParams.push_back(winrt::TakeJSValue(writer));
         m_callback(callbackParams);
     }
@@ -478,7 +478,7 @@ void DBStorage::DBTask::getAllKeys(sqlite3* db) {
 void DBStorage::DBTask::clear(sqlite3* db) {
     if (Exec(db, m_callback, u8"DELETE FROM AsyncLocalStorage")) {
         std::vector<winrt::JSValue> callbackParams;
-        callbackParams.push_back(winrt::JSValueArray());
+        callbackParams.push_back(nullptr);
         m_callback(callbackParams);
     }
 }
