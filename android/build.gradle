@@ -33,6 +33,10 @@ def useDedicatedExecutor = rootProject.hasProperty('AsyncStorage_dedicatedExecut
         ? rootProject.properties['AsyncStorage_dedicatedExecutor']
         : false
 
+def disableLocalizedCollators = rootProject.hasProperty('AsyncStorage_noLocalizedCollators')
+        ? rootProject.properties['AsyncStorage_noLocalizedCollators']
+        : false
+
 apply plugin: 'com.android.library'
 
 android {
@@ -43,6 +47,7 @@ android {
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
         buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
         buildConfigField("boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}")
+        buildConfigField("boolean", "AsyncStorage_noLocalizedCollators", "${disableLocalizedCollators}")
     }
     lintOptions {
         abortOnError false

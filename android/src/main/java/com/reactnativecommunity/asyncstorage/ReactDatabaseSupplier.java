@@ -44,6 +44,7 @@ public class ReactDatabaseSupplier extends SQLiteOpenHelper {
   private Context mContext;
   private @Nullable SQLiteDatabase mDb;
   private long mMaximumDatabaseSize =  BuildConfig.AsyncStorage_db_size * 1024L * 1024L;
+  private boolean disableLocalizedCollators = BuildConfig.AsyncStorage_noLocalizedCollators;
 
   private ReactDatabaseSupplier(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -85,7 +86,13 @@ public class ReactDatabaseSupplier extends SQLiteOpenHelper {
         if (tries > 0) {
           deleteDatabase();
         }
-        mDb = getWritableDatabase();
+
+        if(disableLocalizedCollators) {
+          String dbPath = mContext.getDatabasePath(DATABASE_NAME).getPath();
+          mDb = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS | SQLiteDatabase.OPEN_READWRITE);
+        } else {
+          mDb = getWritableDatabase();
+        }
         break;
       } catch (SQLiteException e) {
         lastSQLiteException = e;
@@ -151,7 +158,7 @@ public class ReactDatabaseSupplier extends SQLiteOpenHelper {
     return mContext.deleteDatabase(DATABASE_NAME);
   }
 
-  private synchronized void closeDatabase() {
+  public synchronized void closeDatabase() {
     if (mDb != null && mDb.isOpen()) {
       mDb.close();
       mDb = null;
