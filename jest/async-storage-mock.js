@@ -41,7 +41,7 @@ const asMock = {
       mergeItem: (...args) => asMock.mergeItem(key, ...args),
       removeItem: (...args) => asMock.removeItem(key, ...args),
     };
-  })
+  }),
 };
 
 async function _multiSet(keyValuePairs, callback) {
