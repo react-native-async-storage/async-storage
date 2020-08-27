@@ -9,30 +9,14 @@
  */
 
 import merge from 'deep-assign';
+import localForage from 'localforage';
 
-const mergeLocalStorageItem = (key, value) => {
-  const oldValue = window.localStorage.getItem(key);
-  const oldObject = JSON.parse(oldValue);
-  const newObject = JSON.parse(value);
-  const nextValue = JSON.stringify(merge({}, oldObject, newObject));
-  window.localStorage.setItem(key, nextValue);
-};
-
-const createPromise = (getValue, callback): Promise<*> => {
-  return new Promise((resolve, reject) => {
-    try {
-      const value = getValue();
-      if (callback) {
-        callback(null, value);
-      }
-      resolve(value);
-    } catch (err) {
-      if (callback) {
-        callback(err);
-      }
-      reject(err);
-    }
-  });
+const mergeLocalStorageItem = async (key, value) => {
+  const oldValue = await localForage.getItem(key);
+  const oldObject = typeof oldValue === 'string' ? JSON.parse(oldValue) : oldValue;
+  const newObject = typeof value === 'string' ? JSON.parse(value) : value;
+  const nextValue = merge({}, oldObject, newObject);
+  return localForage.setItem(key, nextValue);
 };
 
 const createPromiseAll = (promises, callback, processResult): Promise<*> => {
@@ -54,61 +38,82 @@ export default class AsyncStorage {
   /**
    * Fetches `key` value.
    */
-  static getItem(key: string, callback?: Function): Promise<*> {
-    return createPromise(() => {
-      return window.localStorage.getItem(key);
-    }, callback);
+  static async getItem(key: string, callback?: Function): Promise<*> {
+    try {
+      const value = await localForage.getItem(key);
+      const returnValue = value ? JSON.stringify(value) : null;
+
+      if (callback) {
+        return callback(null, returnValue);
+      }
+
+      return returnValue;
+    } catch (error) {
+      if (callback) {
+        return callback(error, null);
+      }
+
+      throw error;
+    }
   }
 
   /**
    * Sets `value` for `key`.
    */
   static setItem(key: string, value: string, callback?: Function): Promise<*> {
-    return createPromise(() => {
-      window.localStorage.setItem(key, value);
-    }, callback);
+    if (callback) {
+      return localForage.setItem(key, value, callback);
+    }
+
+    return localForage.setItem(key, value);
   }
 
   /**
    * Removes a `key`
    */
   static removeItem(key: string, callback?: Function): Promise<*> {
-    return createPromise(() => {
-      return window.localStorage.removeItem(key);
-    }, callback);
+    if (callback) {
+      return localForage.removeItem(key, callback);
+    }
+
+    return localForage.removeItem(key);
   }
 
   /**
    * Merges existing value with input value, assuming they are stringified JSON.
    */
-  static mergeItem(key: string, value: string, callback?: Function): Promise<*> {
-    return createPromise(() => {
-      mergeLocalStorageItem(key, value);
-    }, callback);
+  static async mergeItem(key: string, value: string, callback?: Function): Promise<*> {
+    try {
+      await mergeLocalStorageItem(key, value);
+      callback && callback(null);
+    } catch (error){
+      if (callback) {
+        return callback(error);
+      }
+      throw error;
+    }
   }
 
   /**
    * Erases *all* AsyncStorage for the domain.
    */
   static clear(callback?: Function): Promise<*> {
-    return createPromise(() => {
-      window.localStorage.clear();
-    }, callback);
+    if (callback) {
+      return localForage.clear(callback);
+    }
+
+    return localForage.clear();
   }
 
   /**
    * Gets *all* keys known to the app, for all callers, libraries, etc.
    */
   static getAllKeys(callback?: Function): Promise<*> {
-    return createPromise(() => {
-      const numberOfKeys = window.localStorage.length;
-      const keys = [];
-      for (let i = 0; i < numberOfKeys; i += 1) {
-        const key = window.localStorage.key(i);
-        keys.push(key);
-      }
-      return keys;
-    }, callback);
+    if (callback) {
+      return localForage.keys(callback);
+    }
+
+    return localForage.keys();
   }
 
   /**
