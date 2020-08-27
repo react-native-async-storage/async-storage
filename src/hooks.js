@@ -1,5 +1,6 @@
 /**
  * @format
+ * @flow
  */
 
 import AsyncStorage from './AsyncStorage';
