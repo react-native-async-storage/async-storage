@@ -16,7 +16,7 @@ let RCTAsyncStorage;
 // counterparts if TurboModuleRegistry would resolve
 // with undefined.
 if (TurboModuleRegistry) {
-  RCTAsyncStorage = TurboModuleRegistry.get("AsyncSQLiteDBStorage") || TurboModuleRegistry.get("AsyncLocalStorage");
+  RCTAsyncStorage = TurboModuleRegistry.get('AsyncSQLiteDBStorage') || TurboModuleRegistry.get('AsyncLocalStorage');
 } else {
   RCTAsyncStorage = NativeModules.AsyncSQLiteDBStorage || NativeModules.AsyncLocalStorage;
 }
