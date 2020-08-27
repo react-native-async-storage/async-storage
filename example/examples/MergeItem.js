@@ -11,7 +11,7 @@
 import React, {Component} from 'react';
 import {Text, View, Button, TextInput, StyleSheet} from 'react-native';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '../../lib/module';
 
 const KEY = '@@KEY';
 
@@ -117,10 +117,13 @@ export default class Merge extends Component<Props, State> {
 
     try {
       const saved = await AsyncStorage.getItem(KEY);
+      console.log(saved);
       storedItem = JSON.parse(saved || '{"traits": {}}');
     } catch (e) {
       console.warn(e);
     }
+
+    console.log(storedItem);
 
     const {traits} = storedItem || {};
 
@@ -128,8 +131,8 @@ export default class Merge extends Component<Props, State> {
       name: storedItem.name || '',
       age: storedItem.age || '',
       traits: {
-        trait1: traits.trait1 || '',
-        trait2: traits.trait2 || '',
+        trait1: traits?.trait1 || '',
+        trait2: traits?.trait2 || '',
       },
     });
   };

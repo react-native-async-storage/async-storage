@@ -11,7 +11,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '../../lib/module';
 
 type Props = {};
 type State = {
