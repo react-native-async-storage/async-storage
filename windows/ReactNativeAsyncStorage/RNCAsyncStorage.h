@@ -105,28 +105,28 @@ namespace winrt::ReactNativeAsyncStorage::implementation
         }
 
         REACT_METHOD(getAllKeys);
-        void getAllKeys(std::function<void(JSValueArray const& errors, JSValueArray const& keys)>&& callback) noexcept {
+        void getAllKeys(std::function<void(JSValue const& error, JSValueArray const& keys)>&& callback) noexcept {
             dbStorage.AddTask(DBStorage::DBTask::Type::getAllKeys,
                 [callback{ std::move(callback) }](std::vector<JSValue> const& callbackParams) {
                     if (callbackParams.size() > 0) {
-                        auto& errors = callbackParams[0].AsArray();
+                        auto& error = callbackParams[0];
                         if (callbackParams.size() > 1) {
-                            callback(errors, callbackParams[1].AsArray());
+                            callback(error, callbackParams[1].AsArray());
                         }
                         else {
-                            callback(errors, {});
+                            callback(error, {});
                         }
                     }
                 });
         }
 
         REACT_METHOD(clear);
-        void clear(std::function<void(JSValueArray const&)>&& callback) noexcept {
+        void clear(std::function<void(JSValue const&)>&& callback) noexcept {
             dbStorage.AddTask(DBStorage::DBTask::Type::clear,
                 [callback{ std::move(callback) }](std::vector<JSValue> const& callbackParams) {
                     if (callbackParams.size() > 0) {
-                        auto& errors = callbackParams[0].AsArray();
-                        callback(errors);
+                        auto& error = callbackParams[0];
+                        callback(error);
                     }
                 });
         }
