@@ -34,6 +34,14 @@ const asMock = {
   multiSet: jest.fn(_multiSet),
   multiRemove: jest.fn(_multiRemove),
   multiMerge: jest.fn(_multiMerge),
+  useAsyncStorage: jest.fn(key => {
+    return {
+      getItem: (...args) => asMock.getItem(key, ...args),
+      setItem: (...args) => asMock.setItem(key, ...args),
+      mergeItem: (...args) => asMock.mergeItem(key, ...args),
+      removeItem: (...args) => asMock.removeItem(key, ...args),
+    };
+  }),
 };
 
 async function _multiSet(keyValuePairs, callback) {
