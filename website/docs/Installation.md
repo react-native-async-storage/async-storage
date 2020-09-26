@@ -32,3 +32,7 @@ react-native link @react-native-community/async-storage
 ```
 
 *Note:* For `Windows` the [manual linking](Linking.md) is currently the only linking option.
+
+### Notes
+
+You don't need `WRITE_EXTERNAL_STORAGE` and `READ_EXTERNAL_STORAGE` permissions to use `AsyncStorage`.
