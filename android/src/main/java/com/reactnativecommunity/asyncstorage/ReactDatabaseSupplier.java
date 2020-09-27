@@ -7,15 +7,14 @@
 
 package com.reactnativecommunity.asyncstorage;
 
-import javax.annotation.Nullable;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.facebook.common.logging.FLog;
 import com.facebook.react.common.ReactConstants;
+import java.io.File;
+import javax.annotation.Nullable;
 
 /**
  * Database supplier of the database used by react native. This creates, opens and deletes the
@@ -44,7 +43,6 @@ public class ReactDatabaseSupplier extends SQLiteOpenHelper {
   private Context mContext;
   private @Nullable SQLiteDatabase mDb;
   private long mMaximumDatabaseSize =  BuildConfig.AsyncStorage_db_size * 1024L * 1024L;
-  private boolean disableLocalizedCollators = BuildConfig.AsyncStorage_noLocalizedCollators;
 
   private ReactDatabaseSupplier(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -86,13 +84,7 @@ public class ReactDatabaseSupplier extends SQLiteOpenHelper {
         if (tries > 0) {
           deleteDatabase();
         }
-
-        if(disableLocalizedCollators) {
-          String dbPath = mContext.getDatabasePath(DATABASE_NAME).getPath();
-          mDb = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS | SQLiteDatabase.OPEN_READWRITE);
-        } else {
-          mDb = getWritableDatabase();
-        }
+        mDb = getWritableDatabase();
         break;
       } catch (SQLiteException e) {
         lastSQLiteException = e;
