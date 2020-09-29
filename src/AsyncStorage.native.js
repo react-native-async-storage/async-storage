@@ -51,7 +51,7 @@ function checkValidInput(usedKey: string, value: any) {
   const isValuePassed = arguments.length > 1;
 
   if (typeof usedKey !== 'string') {
-    console.warn(
+    throw new Error(
       `[AsyncStorage] Using ${typeof usedKey} type for key is not supported. This can lead to unexpected behavior/errors. Use string instead.\nKey passed: ${usedKey}\n`,
     );
   }
@@ -62,7 +62,7 @@ function checkValidInput(usedKey: string, value: any) {
         `[AsyncStorage] Passing null/undefined as value is not supported. If you want to remove value, Use .remove method instead.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
       );
     } else {
-      console.warn(
+      throw new Error(
         `[AsyncStorage] The value for key "${usedKey}" is not a string. This can lead to unexpected behavior/errors. Consider stringifying it.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
       );
     }
