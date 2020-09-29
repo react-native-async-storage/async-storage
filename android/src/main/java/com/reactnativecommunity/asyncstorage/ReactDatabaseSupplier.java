@@ -13,7 +13,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.facebook.common.logging.FLog;
 import com.facebook.react.common.ReactConstants;
-import java.io.File;
 import javax.annotation.Nullable;
 
 /**
