@@ -7,15 +7,13 @@
 
 package com.reactnativecommunity.asyncstorage;
 
-import javax.annotation.Nullable;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.facebook.common.logging.FLog;
 import com.facebook.react.common.ReactConstants;
+import javax.annotation.Nullable;
 
 /**
  * Database supplier of the database used by react native. This creates, opens and deletes the
@@ -151,7 +149,7 @@ public class ReactDatabaseSupplier extends SQLiteOpenHelper {
     return mContext.deleteDatabase(DATABASE_NAME);
   }
 
-  private synchronized void closeDatabase() {
+  public synchronized void closeDatabase() {
     if (mDb != null && mDb.isOpen()) {
       mDb.close();
       mDb = null;
