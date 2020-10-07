@@ -98,15 +98,15 @@ static NSString *RCTCreateStorageDirectoryPath(NSString *storageDir) {
     
   #if TARGET_OS_TV
     storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-    storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:storageDir];
   #else
     storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject;
     // We should use the "Application Support/[bundleID]" folder for persistent data storage that's hidden from users
-    storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]]; // Per Apple's docs, all app content in Application Support must be within a subdirectory of the app's bundle identifier
-    storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:storageDir];
+    storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
   #endif
     
-  
+  // Per Apple's docs, all app content in Application Support must be within a subdirectory of the app's bundle identifier
+  storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:storageDir];
+
   return storageDirectoryPath;
 }
 
