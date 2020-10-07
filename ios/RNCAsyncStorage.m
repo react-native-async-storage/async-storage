@@ -94,10 +94,19 @@ static NSString *RCTCreateStorageDirectoryPath_deprecated(NSString *storageDir) 
 }
 
 static NSString *RCTCreateStorageDirectoryPath(NSString *storageDir) {
-  // We should use the "Application Support/[bundleID]" folder for persistent data storage that's hidden from users
-  NSString *storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject;
-  storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]]; // Per Apple's docs, all app content in Application Support must be within a subdirectory of the app's bundle identifier
+  NSString *storageDirectoryPath = @"";
+    
+  #if TARGET_OS_TV
+    storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+  #else
+    storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject;
+    // We should use the "Application Support/[bundleID]" folder for persistent data storage that's hidden from users
+    storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
+  #endif
+    
+  // Per Apple's docs, all app content in Application Support must be within a subdirectory of the app's bundle identifier
   storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:storageDir];
+
   return storageDirectoryPath;
 }
 
