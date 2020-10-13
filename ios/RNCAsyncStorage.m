@@ -34,7 +34,7 @@ static NSDictionary *RCTErrorForKey(NSString *key)
   }
 }
 
-static BOOL setBackupEnabled(NSString* path, BOOL isEnabled)
+static BOOL RCTAsyncStorageSetBackupEnabled(NSString* path, BOOL isEnabled)
 {
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     
@@ -42,17 +42,16 @@ static BOOL setBackupEnabled(NSString* path, BOOL isEnabled)
     BOOL exists = [fileManager fileExistsAtPath:path isDirectory:&isDir];
     BOOL success = false;
     
-    if(isDir && exists) {
+    if (isDir && exists) {
         NSURL* pathUrl = [NSURL fileURLWithPath:path];
         NSError *error = nil;
-        success = [pathUrl setResourceValue:[NSNumber numberWithBool:isEnabled] forKey:NSURLIsExcludedFromBackupKey error: &error];
+        success = [pathUrl setResourceValue:@(isEnabled) forKey:NSURLIsExcludedFromBackupKey error:&error];
 
-        if(!success){
+        if (!success) {
             NSLog(@"Could not exclude AsyncStorage dir from backup %@", error);
         }
     }
     return success;
-
 }
 
 static void RCTAppendError(NSDictionary *error, NSMutableArray<NSDictionary *> **errors)
@@ -342,8 +341,8 @@ static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NS
   // Then migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to "Application Support/[bundleID]/RCTAsyncLocalStorage_V1"
   RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), RCTCreateStorageDirectoryPath(RCTStorageDirectory), NO);
     
-  // exclude from backup
-  //setBackupEnabled(RCTCreateStorageDirectoryPath(RCTStorageDirectory), false);
+  // todo: decide how to read the flag
+  //RCTAsyncStorageSetBackupEnabled(RCTCreateStorageDirectoryPath(RCTStorageDirectory), false);
   
   return self;
 }
