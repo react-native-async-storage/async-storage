@@ -1,4 +1,9 @@
 {
   "name": "AsyncStorageExample",
-  "displayName": "AsyncStorageExample"
+  "displayName": "AsyncStorageExample",
+  "components": [
+    {
+      "appKey": "AsyncStorageExample"
+    }
+  ]
 }

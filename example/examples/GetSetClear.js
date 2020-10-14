@@ -8,76 +8,60 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type Props = {};
-type State = {
-  storedNumber: string,
-  needRestart: boolean,
-};
-export default class GetSet extends Component<Props, State> {
-  state = {
-    storedNumber: '',
-    needRestart: false,
-  };
+export default function GetSet() {
+  const [storedNumber, setStoredNumber] = React.useState('');
+  const [needsRestart, setNeedsRestart] = React.useState(false);
 
-  async componentWillMount() {
-    const storedNumber = await AsyncStorage.getItem(STORAGE_KEY);
-    if (storedNumber) {
-      this.setState({
-        storedNumber,
-      });
-    }
-  }
+  React.useEffect(() => {
+    AsyncStorage.getItem(STORAGE_KEY).then((value) => {
+      if (value) {
+        setStoredNumber(value);
+      }
+    });
+  }, []);
 
-  increaseByTen = async () => {
-    const {storedNumber} = this.state;
-
+  const increaseByTen = React.useCallback(async () => {
     const newNumber = +storedNumber > 0 ? +storedNumber + 10 : 10;
 
     await AsyncStorage.setItem(STORAGE_KEY, `${newNumber}`);
 
-    this.setState({storedNumber: `${newNumber}`, needRestart: true});
-  };
+    setStoredNumber(`${newNumber}`);
+    setNeedsRestart(true);
+  }, [setNeedsRestart, setStoredNumber, storedNumber]);
 
-  clearItem = async () => {
+  const clearItem = React.useCallback(async () => {
     await AsyncStorage.removeItem(STORAGE_KEY);
+    setNeedsRestart(true);
+  }, [setNeedsRestart]);
 
-    this.setState({needRestart: true});
-  };
+  return (
+    <View>
+      <Text style={styles.text}>Currently stored: </Text>
+      <Text testID="storedNumber_text" style={styles.text}>
+        {storedNumber}
+      </Text>
 
-  render() {
-    const {storedNumber, needRestart} = this.state;
-    return (
-      <View>
-        <Text style={styles.text}>Currently stored: </Text>
-        <Text testID="storedNumber_text" style={styles.text}>
-          {storedNumber}
-        </Text>
+      <Button
+        testID="increaseByTen_button"
+        title="Increase by 10"
+        onPress={increaseByTen}
+      />
 
-        <Button
-          testID="increaseByTen_button"
-          title="Increase by 10"
-          onPress={this.increaseByTen}
-        />
+      <Button testID="clear_button" title="Clear item" onPress={clearItem} />
 
-        <Button
-          testID="clear_button"
-          title="Clear item"
-          onPress={this.clearItem}
-        />
-
-        {needRestart ? <Text>Hit restart to see effect</Text> : null}
-      </View>
-    );
-  }
+      {needsRestart ? <Text>Hit restart to see effect</Text> : null}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   text: {
+    color: '#000000',
     fontSize: 20,
     textAlign: 'center',
     margin: 10,

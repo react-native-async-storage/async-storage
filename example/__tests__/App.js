@@ -79,17 +79,17 @@ describe('Async Storage mock functionality', () => {
   });
 
   describe('Callback based', () => {
-    it('can read/write data to/from storage', done => {
+    it('can read/write data to/from storage', (done) => {
       const newData = Math.floor(Math.random() * 1000);
 
-      AsyncStorage.setItem('key', newData, function() {
-        AsyncStorage.getItem('key', function(_, value) {
+      AsyncStorage.setItem('key', newData, function () {
+        AsyncStorage.getItem('key', function (_, value) {
           expect(value).toBe(newData);
           done();
-        }).catch(e => done.fail(e));
+        }).catch((e) => done.fail(e));
       });
     });
-    it('can clear storage', done => {
+    it('can clear storage', (done) => {
       AsyncStorage.setItem('temp_key', Math.random() * 1000, () => {
         AsyncStorage.getItem('temp_key', (_, currentValue) => {
           expect(currentValue).not.toBeNull();
@@ -97,13 +97,13 @@ describe('Async Storage mock functionality', () => {
             AsyncStorage.getItem('temp_key', (_, value) => {
               expect(value).toBeNull();
               done();
-            }).catch(e => done.fail(e));
+            }).catch((e) => done.fail(e));
           });
-        }).catch(e => done.fail(e));
+        }).catch((e) => done.fail(e));
       });
     });
 
-    it('can clear entries in storage', done => {
+    it('can clear entries in storage', (done) => {
       AsyncStorage.setItem('random1', Math.random() * 1000, () => {
         AsyncStorage.setItem('random2', Math.random() * 1000, () => {
           AsyncStorage.getItem('random1', (_, data1) => {
@@ -118,17 +118,17 @@ describe('Async Storage mock functionality', () => {
                       expect(value1).toBeNull();
                       expect(value2).toBeNull();
                       done();
-                    }).catch(e => done.fail(e));
+                    }).catch((e) => done.fail(e));
                   });
                 });
               });
-            }).catch(e => done.fail(e));
+            }).catch((e) => done.fail(e));
           });
         });
       });
     });
 
-    it('can use merge with current data in storage', done => {
+    it('can use merge with current data in storage', (done) => {
       let originalPerson = {
         name: 'Jerry',
         age: 21,
@@ -149,7 +149,7 @@ describe('Async Storage mock functionality', () => {
             expect(person.characteristics).toHaveProperty('hair', 'red');
             expect(person.characteristics).toHaveProperty('shoeSize', 40);
             done();
-          }).catch(e => done.fail(e));
+          }).catch((e) => done.fail(e));
         });
       });
     });
