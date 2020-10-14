@@ -14,7 +14,7 @@ An asynchronous, unencrypted, persistent, key-value storage system for React Nat
 
 ## Getting Started
 
-Head over to [documentation](https://react-native-community.github.io/async-storage/) to learn more.
+Head over to [documentation](https://react-native-async-storage.github.io/async-storage/docs/install) to learn more.
 
 
 ## Contribution
