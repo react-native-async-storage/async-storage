@@ -340,7 +340,7 @@ static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NS
   
   // Then migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to "Application Support/[bundleID]/RCTAsyncLocalStorage_V1"
   RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), RCTCreateStorageDirectoryPath(RCTStorageDirectory), NO);
-  
+
   return self;
 }
 
@@ -411,17 +411,16 @@ RCT_EXPORT_MODULE()
     }
     RCTHasCreatedStorageDirectory = YES;
   }
-    
+
   if (!_haveSetup) {
     // iCloud backup exclusion
-    NSNumber* isExcludedFromBackup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AsyncStorage_excludeFromBackup"];
-    if(isExcludedFromBackup == nil) {
+    NSNumber* isExcludedFromBackup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"RCTAsyncStorageExcludeFromBackup"];
+    if (isExcludedFromBackup == nil) {
       // by default, we want to exclude AsyncStorage data from backup
       isExcludedFromBackup = @YES;
     }
     RCTAsyncStorageSetExcludedFromBackup(RCTCreateStorageDirectoryPath(RCTStorageDirectory), isExcludedFromBackup);
 
-      
     NSDictionary *errorOut = nil;
     NSString *serialized = RCTReadFile(RCTCreateStorageDirectoryPath(RCTGetManifestFilePath()), RCTManifestFileName, &errorOut);
     if (!serialized) {
