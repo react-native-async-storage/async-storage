@@ -15,15 +15,10 @@ This can lead to unintentional behavior where data is persisted even after an ap
 
 Async Storage disables that feature by default. 
 
-In order to enable iCloud backup, open your app's `info.plist` and add **boolean** entry called **RCTAsyncStorageExcludeFromBackup** and set its value to **NO** (NO as no for exclusion)
+In order to enable iCloud backup, open your app's `info.plist` in Xcode and add **boolean** entry called **RCTAsyncStorageExcludeFromBackup** and set its value to **NO** (NO as no for exclusion).
 
-
+Alternatively, you can open `info.plist` in editor and add new entry: 
 ```diff
 +	<key>RCTAsyncStorageExcludeFromBackup</key>
 +	<false/>
 ```
-
-
-
-
----
