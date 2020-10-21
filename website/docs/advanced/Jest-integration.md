@@ -13,12 +13,12 @@ You can use one of two ways to provide mocked version of `AsyncStorage`:
 
 ### With __mocks__ directory
 
-1. In your project root directory, create `__mocks__/@react-native-community` directory.
+1. In your project root directory, create `__mocks__/@react-native-async-storage` directory.
 2. Inside that folder, create `async-storage.js` file.
 3. Inside that file, export `Async Storage` mock.
 
 ```javascript
-export default from '@react-native-community/async-storage/jest/async-storage-mock'
+export default from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 ```
 
 ### With Jest setup file
@@ -34,9 +34,9 @@ export default from '@react-native-community/async-storage/jest/async-storage-mo
 2. Inside your setup file, set up Async Storage mocking:
 
 ```javascript
-import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock';
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 
-jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 ```
 ## Testing with mock
 
@@ -56,7 +56,7 @@ You can override mock implementation, by replacing its inner functions:
 
 ```javascript
 // somewhere in your configuration files
-import AsyncStorageMock from '@react-native-community/async-storage/jest/async-storage-mock';
+import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 
 AsyncStorageMock.multiGet = jest.fn(([keys], callback) => {
   // do something here to retrieve data

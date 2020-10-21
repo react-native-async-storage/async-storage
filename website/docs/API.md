@@ -543,7 +543,7 @@ You can replace your `App.js` with the following to see it in action.
 ```jsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { useAsyncStorage } from '@react-native-community/async-storage';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 export default function App() {
   const [value, setValue] = useState('value');
