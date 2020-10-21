@@ -3,6 +3,7 @@ id: brownfield
 title: Brownfield integration
 sidebar_label: Brownfield integration
 ---
+import PlatformSupport from "../../src/components/Platform.js"
 
 **Supported platforms:**
 <PlatformSupport title="iOS/MacOS" platformIcon="icon_ios.svg"></PlatformSupport>
@@ -109,20 +110,3 @@ Called by `getItem` and `multiGet` in JS.
 **Optional:** Returns whether the delegate should be treated as a passthrough.
 This is useful for monitoring storage usage among other things. Returns `NO` by
 default.
-
-
-<!-- ------------------------ COMPONENTS ------------------------ -->
-
-export const PlatformSupport = ({platformIcon, title}) => (
-    <div style={{
-        display: 'flex',
-        margin: '10px 20px',
-        alignItems: 'center',
-        flexDirection: 'row'
-    }}>
-      <img
-       style={{width: 34, height: 34}}
-       src={`/async-storage/img/${platformIcon}`} />
-      <p style={{margin: '0 0 0 10px', padding: 0}}>{title}</p>
-    </div>
-  );

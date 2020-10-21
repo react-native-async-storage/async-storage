@@ -3,7 +3,7 @@ id: db_size
 title: Increasing Storage size
 sidebar_label: Storage space increase
 ---
-
+import PlatformSupport from "../../src/components/Platform.js"
 
 **Supported platforms:**
 <PlatformSupport title="Android" platformIcon="icon_android.svg"></PlatformSupport>
@@ -21,19 +21,3 @@ AsyncStorage_db_size_in_MB=10
 ```
 
 Now you can define the new size in MB. In this example, the new limit is 10 MB.
-
-<!-- ------------------------ COMPONENTS ------------------------ -->
-
-export const PlatformSupport = ({platformIcon, title}) => (
-    <div style={{
-        display: 'flex',
-        margin: '10px 20px',
-        alignItems: 'center',
-        flexDirection: 'row'
-    }}>
-      <img
-       style={{width: 34, height: 34}}
-       src={`/async-storage/img/${platformIcon}`} />
-      <p style={{margin: '0 0 0 10px', padding: 0}}>{title}</p>
-    </div>
-  );

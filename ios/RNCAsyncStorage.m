@@ -34,6 +34,26 @@ static NSDictionary *RCTErrorForKey(NSString *key)
   }
 }
 
+static BOOL RCTAsyncStorageSetExcludedFromBackup(NSString* path, NSNumber* isExcluded)
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    
+    BOOL isDir;
+    BOOL exists = [fileManager fileExistsAtPath:path isDirectory:&isDir];
+    BOOL success = false;
+    
+    if (isDir && exists) {
+        NSURL* pathUrl = [NSURL fileURLWithPath:path];
+        NSError *error = nil;
+        success = [pathUrl setResourceValue:isExcluded forKey:NSURLIsExcludedFromBackupKey error:&error];
+
+        if (!success) {
+            NSLog(@"Could not exclude AsyncStorage dir from backup %@", error);
+        }
+    }
+    return success;
+}
+
 static void RCTAppendError(NSDictionary *error, NSMutableArray<NSDictionary *> **errors)
 {
   if (error && errors) {
@@ -393,6 +413,14 @@ RCT_EXPORT_MODULE()
   }
 
   if (!_haveSetup) {
+    // iCloud backup exclusion
+    NSNumber* isExcludedFromBackup = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"RCTAsyncStorageExcludeFromBackup"];
+    if (isExcludedFromBackup == nil) {
+      // by default, we want to exclude AsyncStorage data from backup
+      isExcludedFromBackup = @YES;
+    }
+    RCTAsyncStorageSetExcludedFromBackup(RCTCreateStorageDirectoryPath(RCTStorageDirectory), isExcludedFromBackup);
+
     NSDictionary *errorOut = nil;
     NSString *serialized = RCTReadFile(RCTCreateStorageDirectoryPath(RCTGetManifestFilePath()), RCTManifestFileName, &errorOut);
     if (!serialized) {

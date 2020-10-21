@@ -3,6 +3,7 @@ id: executor
 title: Dedicator Thread Executor
 sidebar_label: Dedicated Executor
 ---
+import PlatformSupport from "../../src/components/Platform.js"
 
 **Supported platforms:**
 <PlatformSupport title="Android" platformIcon="icon_android.svg"></PlatformSupport>
@@ -27,19 +28,3 @@ Add a `AsyncStorage_dedicatedExecutor` property to your `android/gradle.properti
 ```
 AsyncStorage_dedicatedExecutor=true
 ```
-
-<!-- ------------------------ COMPONENTS ------------------------ -->
-
-export const PlatformSupport = ({platformIcon, title}) => (
-    <div style={{
-        display: 'flex',
-        margin: '10px 20px',
-        alignItems: 'center',
-        flexDirection: 'row'
-    }}>
-      <img
-       style={{width: 34, height: 34}}
-       src={`/async-storage/img/${platformIcon}`} />
-      <p style={{margin: '0 0 0 10px', padding: 0}}>{title}</p>
-    </div>
-  );
