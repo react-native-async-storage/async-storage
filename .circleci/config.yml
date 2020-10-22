@@ -18,13 +18,13 @@ checkout step for each job: &addWorkspace
 default config for js: &js_defaults
   <<: *defaults
   docker:
-    - image: circleci/node:10
+    - image: circleci/node:12
 
 default config for macOS: &macos_defaults
   <<: *defaults
   resource_class: 'medium'
   macos:
-    xcode: '10.1.0'
+    xcode: '11.7.0'
 
 default config for android apk builds: &android_defaults
   <<: *defaults
@@ -47,24 +47,24 @@ save brew cache: &cache_save_brew
   paths:
     - /usr/local/Homebrew
     - ~/Library/Caches/Homebrew
-  key: legacy-brew-cache-{{ arch }}
+  key: legacy-brew-cache-node12-{{ arch }}
 
 restore brew cache: &cache_restore_brew
   name: Restoring Brew cache
   keys:
-    - legacy-brew-cache-{{ arch }}
+    - legacy-brew-cache-node12-{{ arch }}
 
 save brew cache for android: &cache_save_brew_android
   name: Saving Brew cache for android
   paths:
   - /usr/local/Homebrew
   - ~/Library/Caches/Homebrew
-  key: legacy-brew-cache-{{ arch }}-android
+  key: legacy-brew-cache-node12-{{ arch }}-android
 
 restore brew cache for android: &cache_restore_brew_android
   name: Restoring Brew cache for android
   keys:
-  - legacy-brew-cache-{{ arch }}-android
+  - legacy-brew-cache-node12-{{ arch }}-android
 
 # yarn
 save yarn cache: &cache_save_yarn
@@ -143,11 +143,9 @@ jobs:
       - *addWorkspace
       - restore-cache: *cache_restore_brew
       - run:
-          name: Configure OSX Environment
+          name: Configure macOS Environment
           command: |
-            HOMEBREW_NO_AUTO_UPDATE=1 brew install node@8 >/dev/null
-            HOMEBREW_NO_AUTO_UPDATE=1 brew tap wix/brew >/dev/null
-            HOMEBREW_NO_AUTO_UPDATE=1 brew install applesimutils >/dev/null
+            brew bundle --file=.circleci/Brewfile.ios --no-lock
             touch .watchmanconfig
             node -v
       - save-cache: *cache_save_brew
@@ -156,22 +154,13 @@ jobs:
           name: Installing Yarn dependencies
           command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
       - save-cache: *cache_save_yarn
-      - restore_cache:
-          key: 1-gems-{{ checksum "example/ios/Gemfile.lock" }}
-      - run:
-          name: Install CocoaPods
-          command: cd example/ios && bundle check || bundle install --path vendor/bundle
-      - save_cache:
-          key: 1-gems-{{ checksum "example/ios/Gemfile.lock" }}
-          paths:
-            - vendor/bundle
       - run:
           name: Install pod dependencies
-          command: cd example/ios && bundle exec pod install
+          working_directory: example/ios
+          command: pod install
       - run:
           name: Build iOS app
           command: yarn build:e2e:ios
-
       - run:
           name: Run e2e tests
           command: yarn test:e2e:ios
@@ -191,7 +180,8 @@ jobs:
       - restore-cache: *cache_restore_gradle_build
       - run:
           name: Downloading Gradle dependencies
-          command: cd example/android && ./gradlew --max-workers 2 fetchDependencies
+          working_directory: example/android
+          command: ./gradlew --max-workers 2 fetchDependencies
       - save-cache: *cache_save_gradle_wrapper
       - save-cache: *cache_save_gradle_build
 
@@ -201,7 +191,8 @@ jobs:
           command: mkdir example/android/app/src/main/assets && npx react-native bundle --platform android --dev false --entry-file example/index.js --bundle-output example/android/app/src/main/assets/index.android.bundle --assets-dest example/android/app/src/main/res/
       - run:
           name: Build Android apk
-          command: cd example/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2 -x bundleReleaseJsAndAssets
+          working_directory: example/android
+          command: ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2 -x bundleReleaseJsAndAssets
 
       - persist_to_workspace:
           root: ~/async_storage
@@ -227,21 +218,18 @@ jobs:
       - run:
           name: Install Android SDK tools
           command: |
-            HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/cask >/dev/null
-            HOMEBREW_NO_AUTO_UPDATE=1 brew cask install android-sdk >/dev/null
-            HOMEBREW_NO_AUTO_UPDATE=1 brew cask install intel-haxm >/dev/null
-            HOMEBREW_NO_AUTO_UPDATE=1 brew install node@8 >/dev/null >/dev/null
+            brew bundle --file=.circleci/Brewfile.android --no-lock
       - save-cache: *cache_save_brew_android
 
       - run:
           name: Install Android emulator
           shell: /bin/bash -e
           command: |
-            yes | sdkmanager "platform-tools"  "tools" >/dev/null
-            yes | sdkmanager "platforms;android-28" "system-images;android-21;google_apis;x86" >/dev/null
-            yes | sdkmanager "emulator" --channel=3 >/dev/null
-            yes | sdkmanager "build-tools;28.0.3" >/dev/null
-            yes | sdkmanager --licenses >/dev/null
+            yes | sdkmanager "platform-tools" "tools" 1> /dev/null
+            yes | sdkmanager "platforms;android-28" "system-images;android-21;google_apis;x86" 1> /dev/null
+            yes | sdkmanager "emulator" --channel=3 1> /dev/null
+            yes | sdkmanager "build-tools;28.0.3" 1> /dev/null
+            yes | sdkmanager --licenses 1> /dev/null
             yes | sdkmanager --list
 
       - run:

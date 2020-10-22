@@ -1,0 +1,3 @@
+tap 'wix/brew'
+brew 'applesimutils'
+brew 'cocoapods'

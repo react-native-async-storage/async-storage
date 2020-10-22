@@ -68,13 +68,13 @@
     "@react-native-community/cli-platform-android": "^3.1.0",
     "@react-native-community/cli-platform-ios": "^3.1.0",
     "@react-native-community/eslint-config": "^0.0.5",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^26.5.2",
     "babel-plugin-module-resolver": "3.1.3",
-    "detox": "12.6.1",
+    "detox": "16.7.2",
     "eslint": "5.1.0",
     "expo": "36.0.2",
     "flow-bin": "0.105.2",
-    "jest": "^24.9.0",
+    "jest": "^26.5.3",
     "metro": "0.56.4",
     "metro-react-native-babel-preset": "^0.56.0",
     "react": "16.9.0",
@@ -97,9 +97,9 @@
     "configurations": {
       "ios": {
         "binaryPath": "example/ios/build/Build/Products/Release-iphonesimulator/AsyncStorageExample.app",
-        "build": ".circleci/scripts/run_ios_e2e.sh \"iPhone X\"",
+        "build": ".circleci/scripts/run_ios_e2e.sh \"iPhone 11\"",
         "type": "ios.simulator",
-        "name": "iPhone X"
+        "name": "iPhone 11"
       },
       "android": {
         "binaryPath": "example/android/app/build/outputs/apk/release/app-release.apk",
