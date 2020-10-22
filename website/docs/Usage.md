@@ -12,7 +12,7 @@ For data that can be serialized to JSON you can use `JSON.stringify()` when savi
 ### Importing
 
 ```js
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 ```
 
 ### Storing data

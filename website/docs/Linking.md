@@ -13,7 +13,7 @@ sidebar_label: Manual linking
 
 2. Right click on the Libraries folder and select `Add files to "yourProjectName"`.
 
-3. Add `RNCAsyncStorage.xcodeproj` (located at `node_modules/@react-native-community/async-storage/ios`) to your project Libraries.
+3. Add `RNCAsyncStorage.xcodeproj` (located at `node_modules/@react-native-async-storage/async-storage/ios`) to your project Libraries.
 
 3. Go to `Build Phases -> Link Binary with Libraries` and add:  `libRNCAsyncStorage.a`.
 
@@ -23,7 +23,7 @@ sidebar_label: Manual linking
 2. Add this line to your `Podfile` just below the last pod (if you don't have one, you can create it by running `pod init`):
 
 ```diff
-+ pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
++ pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 ```
 
 3. Run `pod install`
@@ -35,7 +35,7 @@ sidebar_label: Manual linking
 
 2. Right click on the Libraries folder and select `Add files to "yourProjectName"`.
 
-3. Add `RNCAsyncStorage.xcodeproj` (located at `node_modules/@react-native-community/async-storage/macos`) to your project Libraries.
+3. Add `RNCAsyncStorage.xcodeproj` (located at `node_modules/@react-native-async-storage/async-storage/macos`) to your project Libraries.
 
 4. Go to `Build Phases -> Link Binary with Libraries` and add: `libRNCAsyncStorage-macOS.a`.
 
@@ -47,15 +47,15 @@ rootProject.name = 'MyApp'
 
 include ':app'
 
-+ include ':@react-native-community_async-storage'
-+ project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
++ include ':@react-native-async-storage'
++ project(':@react-native-async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-async-storage/async-storage/android')
   ```
 
 2. In `android/app/build.gradle` add to dependencies:
 ```diff
 dependencies {
   ...
-+ implementation project(':@react-native-community_async-storage')
++ implementation project(':@react-native-async-storage')
 }
   ```
 
@@ -86,7 +86,7 @@ protected List<ReactPackage> getPackages() {
 1. Open your solution in Visual Studio.
 
 2. Right click Solution icon in Solution Explorer > Add > Existing Project.
-   Select `node_modules\@react-native-community\async-storage\windows\ReactNativeAsyncStorage\ReactNativeAsyncStorage.vcxproj`
+   Select `node_modules\@react-native-async-storage\async-storage\windows\ReactNativeAsyncStorage\ReactNativeAsyncStorage.vcxproj`
 
 
 #### Add a reference to `ReactNativeAsyncStorage` in your main application project.

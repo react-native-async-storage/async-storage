@@ -9,7 +9,7 @@ sidebar_label: Installation
 ### Get library
 
 ```bash
-yarn add @react-native-community/async-storage
+yarn add @react-native-async-storage/async-storage
 ```
 
 ### Link
@@ -28,7 +28,7 @@ npx pod-install
 
 
 ```bash
-react-native link @react-native-community/async-storage
+react-native link @react-native-async-storage/async-storage
 ```
 
 *Note:* For `Windows` the [manual linking](Linking.md) is currently the only linking option.

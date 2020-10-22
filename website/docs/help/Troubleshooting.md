@@ -11,7 +11,7 @@ sidebar_label: Troubleshooting
 3. If you're using CocoaPods:
     1. Make sure your `Podfile` has this entry:
         ```Podfile
-        pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+        pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
         ```
     2. Make sure your `Podfile` does _not_ have an entry for `react-native-async-storage`.
     3. `pod install`
@@ -20,15 +20,15 @@ sidebar_label: Troubleshooting
 5. Press ⇧⌥⌘K to clean your build folder
 6. Build and run your project
 
-> Note that every time `@react-native-community/async-storage` gets updated, you
+> Note that every time `@react-native-async-storage/async-storage` gets updated, you
 > must also run `pod update RNCAsyncStorage` otherwise you'll still be using the
 > previous version.
 
 ## [iOS] fatal error: 'React/RCTBridgeModule.h' file not found
 
 ```
-info In file included from /~/@react-native-community/async-storage/ios/RNCAsyncStorage.m:8:
-/~/@react-native-community/async-storage/ios/RNCAsyncStorage.h:8:9: fatal error: 'React/RCTBridgeModule.h' file not found
+info In file included from /~/@react-native-async-storage/async-storage/ios/RNCAsyncStorage.m:8:
+/~/@react-native-async-storage/async-storage/ios/RNCAsyncStorage.h:8:9: fatal error: 'React/RCTBridgeModule.h' file not found
 
 info #import <React/RCTBridgeModule.h>
              ^~~~~~~~~~~~~~~~~~~~~~~~~
