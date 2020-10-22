@@ -1,10 +1,10 @@
 module.exports = {
   title: 'Async Storage',
   tagline: 'Data storage system for React Native.',
-  url: 'https://react-native-community.github.io/async-storage/',
+  url: 'https://react-native-async-storage.github.io/async-storage/',
   baseUrl: '/async-storage/',
   favicon: 'img/favicon.ico',
-  organizationName: 'react-native-community',
+  organizationName: 'react-native-async-storage',
   projectName: 'async-storage',
   themeConfig: {
     prism: {
@@ -25,7 +25,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/react-native-community/async-storage',
+          href: 'https://github.com/react-native-async-storage/async-storage',
           label: 'GitHub',
           position: 'right',
         },
@@ -61,7 +61,7 @@ module.exports = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/react-native-community/async-storage',
+              href: 'https://github.com/react-native-async-storage/async-storage',
             },
           ],
         },
@@ -76,7 +76,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/react-native-community/async-storage/edit/master/website/',
+            'https://github.com/react-native-async-storage/async-storage/edit/master/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

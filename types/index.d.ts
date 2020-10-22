@@ -1,6 +1,6 @@
 // CREDITS: This types are based on the original work made by all the people who contributed to @types/react-native
 
-declare module '@react-native-community/async-storage' {
+declare module '@react-native-async-storage/async-storage' {
   /**
    * AsyncStorage is a simple, unencrypted, asynchronous, persistent, key-value storage
    * system that is global to the app.  It should be used instead of LocalStorage.
@@ -14,7 +14,7 @@ declare module '@react-native-community/async-storage' {
    * `AsyncStorage` will use either [RocksDB](http://rocksdb.org/) or SQLite
    * based on what is available.
    *
-   * @see https://github.com/react-native-community/react-native-async-storage/blob/master/docs/API.md
+   * @see https://github.com/react-native-async-storage/react-native-async-storage/blob/master/docs/API.md
    */
   export interface AsyncStorageStatic {
     /**

@@ -10,7 +10,7 @@ import PlatformSupport from "../../src/components/Platform.js"
 
 ---
 
-This feature would be mostly used in brownfield apps and [in edge cases with some android devices.](https://github.com/react-native-community/async-storage/issues/159)
+This feature would be mostly used in brownfield apps and [in edge cases with some android devices.](https://github.com/react-native-async-storage/async-storage/issues/159)
 
 ## Motivation
 

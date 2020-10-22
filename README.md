@@ -7,9 +7,9 @@ An asynchronous, unencrypted, persistent, key-value storage system for React Nat
 
 - iOS
 - Android
-- [Web](https://github.com/react-native-community/async-storage/releases/tag/v1.9.0)
-- [MacOS](https://github.com/react-native-community/async-storage/releases/tag/v1.8.1)
-- [Windows](https://github.com/react-native-community/async-storage/releases/tag/v1.10.0)
+- [Web](https://github.com/react-native-async-storage/async-storage/releases/tag/v1.9.0)
+- [MacOS](https://github.com/react-native-async-storage/async-storage/releases/tag/v1.8.1)
+- [Windows](https://github.com/react-native-async-storage/async-storage/releases/tag/v1.10.0)
 
 
 ## Getting Started

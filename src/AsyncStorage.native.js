@@ -18,7 +18,7 @@ if (!RCTAsyncStorage) {
 
 To fix this issue try these steps:
 
-  • Run \`react-native link @react-native-community/async-storage\` in the project root.
+  • Run \`react-native link @react-native-async-storage/async-storage\` in the project root.
 
   • Rebuild and restart the app.
 
@@ -26,9 +26,9 @@ To fix this issue try these steps:
 
   • If you are using CocoaPods on iOS, run \`pod install\` in the \`ios\` directory and then rebuild and re-run the app.
 
-  • If this happens while testing with Jest, check out docs how to integrate AsyncStorage with it: https://react-native-community.github.io/async-storage/docs/advanced/jest
+  • If this happens while testing with Jest, check out docs how to integrate AsyncStorage with it: https://react-native-async-storage.github.io/async-storage/docs/advanced/jest
 
-If none of these fix the issue, please open an issue on the Github repository: https://github.com/react-native-community/react-native-async-storage/issues 
+If none of these fix the issue, please open an issue on the Github repository: https://github.com/react-native-async-storage/react-native-async-storage/issues
 `);
 }
 

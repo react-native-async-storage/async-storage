@@ -18,7 +18,7 @@ label: 'Bug'
 
 ## Environment
 
-- **Async Storage version**: <!-- @react-native-community/async-storage version set in package.json -->
+- **Async Storage version**: <!-- @react-native-async-storage/async-storage version set in package.json -->
 - **React-Native version**: <!-- React Native version set in package.json -->
 - **Platform tested**: <!--  iOS / Android -->
 - **Logs/Error that are relevant**: <!-- link to your CI logs or semantic-release logs -->

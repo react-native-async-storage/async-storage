@@ -22,7 +22,7 @@
   "contributors": [
     "Evan Bacon <bacon@expo.io> (https://github.com/evanbacon)"
   ],
-  "homepage": "https://github.com/react-native-community/react-native-async-storage#readme",
+  "homepage": "https://github.com/react-native-async-storage/async-storage#readme",
   "license": "MIT",
   "keywords": [
     "react-native",
@@ -33,7 +33,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-community/react-native-async-storage.git"
+    "url": "https://github.com/react-native-async-storage/async-storage.git"
   },
   "scripts": {
     "prepare": "bob build",
