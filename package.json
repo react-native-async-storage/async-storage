@@ -83,7 +83,8 @@
     "react-native-macos": "0.60.0-microsoft.50",
     "react-native-web": "~0.12.0",
     "react-native-windows": "0.61.0",
-    "react-test-renderer": "16.9.0"
+    "react-test-renderer": "16.9.0",
+    "semantic-release": "^17.2.1"
   },
   "jest": {
     "preset": "react-native",
