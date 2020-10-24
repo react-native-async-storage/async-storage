@@ -5,5 +5,13 @@
     {
       "appKey": "AsyncStorageExample"
     }
-  ]
+  ],
+  "resources": {
+    "android": [
+      "index.android.jsbundle"
+    ],
+    "ios": [
+      "index.ios.jsbundle"
+    ]
+  }
 }

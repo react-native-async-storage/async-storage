@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESOURCE_DIR="$PWD/example/ios/build/Build/Products/Release-iphonesimulator/AsyncStorageExample.app"
+RESOURCE_DIR="$PWD/example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app"
 ENTRY_FILE="example/index.js"
 BUNDLE_FILE="$RESOURCE_DIR/main.jsbundle"
 EXTRA_PACKAGER_ARGS="--entry-file=$ENTRY_FILE"
@@ -9,11 +9,10 @@ build_project() {
   echo "[Detox e2e] Building iOS project"
   eval "xcodebuild \
     -workspace example/ios/AsyncStorageExample.xcworkspace \
-    -scheme AsyncStorageExample \
+    -scheme ReactTestApp \
     -configuration Release \
     -sdk iphonesimulator \
     -derivedDataPath example/ios/build \
-    -UseModernBuildSystem=NO \
     BUNDLE_FILE=$BUNDLE_FILE \
     EXTRA_PACKAGER_ARGS=$EXTRA_PACKAGER_ARGS"
 }

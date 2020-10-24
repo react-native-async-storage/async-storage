@@ -1,0 +1,32 @@
+BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AllowShortFunctionsOnASingleLine: None
+AlwaysBreakBeforeMultilineStrings: true
+AlwaysBreakTemplateDeclarations: true
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBraces: Linux
+ColumnLimit: 100
+Cpp11BracedListStyle: true
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '"pch\.h"'
+    Priority: -1
+  - Regex: '^<React'
+    Priority: 4
+  - Regex: '^<[.a-z]+>'
+    Priority: 2
+  - Regex: '^<'
+    Priority: 3
+  - Regex: '.\*'
+    Priority: 10
+IndentCaseLabels: true
+IndentWidth: 4
+NamespaceIndentation: All
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+PenaltyReturnTypeOnItsOwnLine: 100
+PointerAlignment: Right
+SpacesBeforeTrailingComments: 2
+SpacesInContainerLiterals: false
+TabWidth: 4

@@ -1,8 +1,4 @@
 rootProject.name = 'AsyncStorageExample'
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-
-include ':app'
-include ':rnAsyncStorage'
-
-project(':rnAsyncStorage').projectDir = new File(rootProject.projectDir, '../../android')
+apply from: file('../../node_modules/react-native-test-app/test-app.gradle')
+applyTestAppSettings(settings)

@@ -19,6 +19,14 @@ const macSwitch = '--use-react-native-macos';
 const windowsSwitch = '--use-react-native-windows';
 
 const dependencies = {
+  '@react-native-async-storage/async-storage': {
+    root: __dirname,
+    // rn-cli incorrectly resolves node_modules path for the following platforms
+    platforms: {
+      ios: null,
+      macos: null,
+    },
+  },
   // Suppress warnings about bob not being a proper native module
   '@react-native-community/bob': {
     platforms: {

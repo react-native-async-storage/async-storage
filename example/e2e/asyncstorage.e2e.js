@@ -30,9 +30,6 @@ describe('Async Storage', () => {
 
   describe('get / set / clear item test', () => {
     beforeAll(async () => {
-      if (device.getPlatform() === 'ios') {
-        await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
-      }
       await test_getSetClear.tap();
     });
 
@@ -73,9 +70,6 @@ describe('Async Storage', () => {
 
   describe('merge item test', () => {
     beforeAll(async () => {
-      if (device.getPlatform() === 'ios') {
-        await device.openURL({url: 'rnc-asyncstorage://unset-delegate'});
-      }
       await test_mergeItem.tap();
     });
 
@@ -100,35 +94,27 @@ describe('Async Storage', () => {
       const shoeInput = await element(by.id('testInput-shoe'));
       const storyText = await element(by.id('storyTextView'));
 
-      const isAndroid = device.getPlatform() === 'android';
-
+      let i = 0;
       async function performInput() {
-        const name = Math.random() > 0.5 ? 'Jerry' : 'Sarah';
-        const age = Math.random() > 0.5 ? '21' : '23';
-        const eyesColor = Math.random() > 0.5 ? 'blue' : 'green';
-        const shoeSize = Math.random() > 0.5 ? '9' : '10';
+        const name = i === 0 ? 'Jerry' : 'Sarah';
+        const age = i === 0 ? '21' : '23';
+        const eyesColor = i === 0 ? 'blue' : 'green';
+        const shoeSize = i === 0 ? '9' : '10';
+        i += 1;
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await nameInput.clearText();
         await nameInput.typeText(name);
         await closeKeyboard.tap();
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await ageInput.clearText();
         await ageInput.typeText(age);
         await closeKeyboard.tap();
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await eyesInput.clearText();
         await eyesInput.typeText(eyesColor);
         await closeKeyboard.tap();
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await shoeInput.clearText();
         await shoeInput.typeText(shoeSize);
         await closeKeyboard.tap();
 
@@ -139,7 +125,7 @@ describe('Async Storage', () => {
       await buttonSaveItem.tap();
       await restartButton.tap();
       await buttonRestoreItem.tap();
-      expect(storyText).toHaveText(story);
+      await expect(storyText).toHaveText(story);
       await restartButton.tap();
 
       // merging here
@@ -149,7 +135,7 @@ describe('Async Storage', () => {
       await buttonMergeItem.tap();
       await restartButton.tap();
       await buttonRestoreItem.tap();
-      expect(storyText).toHaveText(newStory);
+      await expect(storyText).toHaveText(newStory);
     });
   });
 
@@ -211,10 +197,12 @@ describe('Async Storage', () => {
 
   describe('merge item delegate test', () => {
     beforeAll(async () => {
-      if (device.getPlatform() === 'ios') {
-        await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
-      }
       await test_mergeItem.tap();
+      await element(by.id('setDelegate_button')).tap();
+    });
+
+    afterAll(async () => {
+      await element(by.id('unsetDelegate_button')).tap();
     });
 
     it('should merge items with delegate', async () => {
@@ -232,35 +220,27 @@ describe('Async Storage', () => {
       const shoeInput = await element(by.id('testInput-shoe'));
       const storyText = await element(by.id('storyTextView'));
 
-      const isAndroid = device.getPlatform() === 'android';
-
+      let i = 0;
       async function performInput() {
-        const name = Math.random() > 0.5 ? 'Jerry' : 'Sarah';
-        const age = Math.random() > 0.5 ? '21' : '23';
-        const eyesColor = Math.random() > 0.5 ? 'blue' : 'green';
-        const shoeSize = Math.random() > 0.5 ? '9' : '10';
+        const name = i === 0 ? 'Jerry' : 'Sarah';
+        const age = i === 0 ? '21' : '23';
+        const eyesColor = i === 0 ? 'blue' : 'green';
+        const shoeSize = i === 0 ? '9' : '10';
+        i += 1;
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await nameInput.clearText();
         await nameInput.typeText(name);
         await closeKeyboard.tap();
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await ageInput.clearText();
         await ageInput.typeText(age);
         await closeKeyboard.tap();
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await eyesInput.clearText();
         await eyesInput.typeText(eyesColor);
         await closeKeyboard.tap();
 
-        if (!isAndroid) {
-          await eyesInput.tap();
-        }
+        await shoeInput.clearText();
         await shoeInput.typeText(shoeSize);
         await closeKeyboard.tap();
 
@@ -271,7 +251,7 @@ describe('Async Storage', () => {
       await buttonMergeItem.tap();
       await restartButton.tap();
       await buttonRestoreItem.tap();
-      expect(storyText).toHaveText(story);
+      await expect(storyText).toHaveText(story);
     });
   });
 });

@@ -1,35 +1,26 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-buildscript {
-    ext {
-        kotlinVersion = '1.3.10'
-        buildToolsVersion = "28.0.3"
-        minSdkVersion = 19
-        compileSdkVersion = 28
-        targetSdkVersion = 28
-        detoxKotlinVersion = kotlinVersion
-    }
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    }
-}
-
-allprojects {
-    repositories {
-        mavenLocal()
-        google()
-        jcenter()
-        maven {
-            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-            url "$rootDir/../../node_modules/react-native/android"
+// Fetch all dependencies upfront
+task fetchDependencies() {
+    description 'Download all dependencies to the Gradle cache'
+    group 'android'
+    doLast {
+        project.rootProject.allprojects.each { subProject ->
+            subProject.buildscript.configurations.each { config ->
+                if (config.canBeResolved) {
+                    config.files
+                }
             }
-        maven { url "$rootDir/../../node_modules/detox/Detox-android" }
-        maven { url "https://jitpack.io" }
-        maven { url "$rootDir/../../node_modules/jsc-android/dist" }
+            subProject.configurations.each { config ->
+                if (config.canBeResolved) {
+                    // DefaultLenientConfiguration$ArtifactResolveException
+                    try {
+                        config.files
+                    } catch(e) {
+                        println e
+                    }
+                }
+            }
+        }
     }
 }

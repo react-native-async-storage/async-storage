@@ -24,7 +24,7 @@ default config for macOS: &macos_defaults
   <<: *defaults
   resource_class: 'medium'
   macos:
-    xcode: '11.7.0'
+    xcode: '12.1.0'
 
 default config for android apk builds: &android_defaults
   <<: *defaults
@@ -147,13 +147,16 @@ jobs:
           command: |
             brew bundle --file=.circleci/Brewfile.ios --no-lock
             touch .watchmanconfig
-            node -v
+            echo Node $(node --version)
       - save-cache: *cache_save_brew
       - restore-cache: *cache_restore_yarn
       - run:
           name: Installing Yarn dependencies
           command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
       - save-cache: *cache_save_yarn
+      - run:
+          name: Bundle JS
+          command: yarn bundle:ios --dev false
       - run:
           name: Install pod dependencies
           working_directory: example/ios
@@ -187,12 +190,12 @@ jobs:
 
     # Build and test
       - run:
-          name: Bundle
-          command: mkdir example/android/app/src/main/assets && npx react-native bundle --platform android --dev false --entry-file example/index.js --bundle-output example/android/app/src/main/assets/index.android.bundle --assets-dest example/android/app/src/main/res/
+          name: Bundle JS
+          command: yarn bundle:android --dev false
       - run:
-          name: Build Android apk
+          name: Build APK
           working_directory: example/android
-          command: ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2 -x bundleReleaseJsAndAssets
+          command: ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2
 
       - persist_to_workspace:
           root: ~/async_storage
