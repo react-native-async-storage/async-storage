@@ -220,7 +220,6 @@ jobs:
           command: |
             brew bundle --file=.circleci/Brewfile.android --no-lock
       - save-cache: *cache_save_brew_android
-
       - run:
           name: Install Android emulator
           shell: /bin/bash -e
@@ -231,7 +230,6 @@ jobs:
             yes | sdkmanager "build-tools;28.0.3" 1> /dev/null
             yes | sdkmanager --licenses 1> /dev/null
             yes | sdkmanager --list
-
       - run:
           name: ADB start/stop
           command: |
@@ -239,7 +237,6 @@ jobs:
             adb devices
             adb kill-server
             ls -la ~/.android
-
       - run:
           name: Create emulator
           command: |
@@ -249,9 +246,6 @@ jobs:
                    -k "system-images;android-21;google_apis;x86" \
                    -g "google_apis" \
                    -d "Nexus 4"
-
-
-
       - run:
           name: Start emulator in background
           background: true
@@ -266,19 +260,24 @@ jobs:
                 -no-boot-anim \
                 -no-window \
                 -logcat '*:W' | grep -i "ReactNative"
-
       - run:
           name: Wait for emulator to boot
           command: yarn build:e2e:android
-
       - run:
           name: Wake device
           command: |
             adb shell input keyevent 82
-
       - run:
           name: Run e2e tests
           command: yarn test:e2e:android
+
+  Release:
+    <<: *js_defaults
+    steps:
+      - *addWorkspace
+      - run:
+          name: Release new version
+          command: yarn semantic-release
 
 # ==============================
 # WORK FLOWS
@@ -302,6 +301,13 @@ workflows:
           requires:
             - "Test: lint"
             - "Test: flow"
+      - "Release":
+          requires:
+            - "Test: iOS e2e"
+            - "Build: Android release apk"
+          filters:
+            branches:
+              only: master
 #      - "Test: Android e2e":
 #          requires:
 #            - "Test: lint"
