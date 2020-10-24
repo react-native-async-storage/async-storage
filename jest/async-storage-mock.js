@@ -34,7 +34,7 @@ const asMock = {
   multiSet: jest.fn(_multiSet),
   multiRemove: jest.fn(_multiRemove),
   multiMerge: jest.fn(_multiMerge),
-  useAsyncStorage: jest.fn(key => {
+  useAsyncStorage: jest.fn((key) => {
     return {
       getItem: (...args) => asMock.getItem(key, ...args),
       setItem: (...args) => asMock.setItem(key, ...args),
@@ -45,7 +45,7 @@ const asMock = {
 };
 
 async function _multiSet(keyValuePairs, callback) {
-  keyValuePairs.forEach(keyValue => {
+  keyValuePairs.forEach((keyValue) => {
     const key = keyValue[0];
 
     asMock.__INTERNAL_MOCK_STORAGE__[key] = keyValue[1];
@@ -55,7 +55,7 @@ async function _multiSet(keyValuePairs, callback) {
 }
 
 async function _multiGet(keys, callback) {
-  const values = keys.map(key => [
+  const values = keys.map((key) => [
     key,
     asMock.__INTERNAL_MOCK_STORAGE__[key] || null,
   ]);
@@ -65,7 +65,7 @@ async function _multiGet(keys, callback) {
 }
 
 async function _multiRemove(keys, callback) {
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (asMock.__INTERNAL_MOCK_STORAGE__[key]) {
       delete asMock.__INTERNAL_MOCK_STORAGE__[key];
     }
@@ -88,7 +88,7 @@ async function _getAllKeys() {
 }
 
 async function _multiMerge(keyValuePairs, callback) {
-  keyValuePairs.forEach(keyValue => {
+  keyValuePairs.forEach((keyValue) => {
     const key = keyValue[0];
     const value = JSON.parse(keyValue[1]);
 
@@ -103,12 +103,12 @@ async function _multiMerge(keyValuePairs, callback) {
   return null;
 }
 
-const _isObject = obj => typeof obj === 'object' && !Array.isArray(obj);
+const _isObject = (obj) => typeof obj === 'object' && !Array.isArray(obj);
 const _deepMergeInto = (oldObject, newObject) => {
   const newKeys = Object.keys(newObject);
   const mergedObject = oldObject;
 
-  newKeys.forEach(key => {
+  newKeys.forEach((key) => {
     const oldValue = mergedObject[key];
     const newValue = newObject[key];
 

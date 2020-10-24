@@ -147,7 +147,7 @@ export default class Merge extends Component<Props, State> {
             }>{`${name} is ${age}, has ${trait1} eyes and shoe size of ${trait2}.`}</Text>
         </View>
 
-        {INPUTS.map(input => {
+        {INPUTS.map((input) => {
           const isTraitsPart = input.stateFragment.includes('trait');
 
           const value = isTraitsPart
@@ -156,15 +156,22 @@ export default class Merge extends Component<Props, State> {
             : // $FlowFixMe
               this.state[input.stateFragment];
 
-          const onChangeHandler = text => {
+          const onChangeHandler = (text) => {
             isTraitsPart
               ? this.setState(({traits: currentTraits}) => ({
                   traits: {
+                    // $FlowFixMe
                     ...currentTraits,
+                    // $FlowFixMe
                     [input.stateFragment]: text,
                   },
                 }))
-              : this.setState({[input.stateFragment]: text});
+              : this.setState((state) => ({
+                  // $FlowFixMe
+                  ...state,
+                  // $FlowFixMe
+                  [input.stateFragment]: text,
+                }));
           };
 
           return (

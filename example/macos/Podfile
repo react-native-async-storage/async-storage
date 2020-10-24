@@ -1,0 +1,17 @@
+require_relative '../../node_modules/react-native-test-app/macos/test_app.rb'
+
+workspace 'AsyncStorageExample.xcworkspace'
+
+use_test_app! do |target|
+  target.app do
+    pod 'RNCAsyncStorage', :path => "../.."
+
+    # This is usually not needed but autolinking seems to be assuming that
+    # node_modules is in '..'
+    pod 'ReactTestApp-DevSupport', :path => '../../node_modules/react-native-test-app'
+  end
+
+  target.ui_tests do
+    pod 'AsyncStorageExample-UITests', :path => '.'
+  end
+end
