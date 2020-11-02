@@ -1,5 +1,7 @@
 {
-    "setupFilesAfterEnv": ["./init.js"],
-    "testEnvironment": "node",
-    "testMatch": [ "**/?(*.)+(e2e).[jt]s?(x)" ]
+    "testEnvironment": "./environment",
+    "testRunner": "jest-circus/runner",
+    "testTimeout": 120000,
+    "testRegex": ".*\\.e2e\\.[jt]sx?",
+    "reporters": ["detox/runners/jest/streamlineReporter"]
 }

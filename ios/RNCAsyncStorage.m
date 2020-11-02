@@ -37,11 +37,11 @@ static NSDictionary *RCTErrorForKey(NSString *key)
 static BOOL RCTAsyncStorageSetExcludedFromBackup(NSString* path, NSNumber* isExcluded)
 {
     NSFileManager *fileManager = [[NSFileManager alloc] init];
-    
+
     BOOL isDir;
     BOOL exists = [fileManager fileExistsAtPath:path isDirectory:&isDir];
     BOOL success = false;
-    
+
     if (isDir && exists) {
         NSURL* pathUrl = [NSURL fileURLWithPath:path];
         NSError *error = nil;
@@ -115,7 +115,7 @@ static NSString *RCTCreateStorageDirectoryPath_deprecated(NSString *storageDir) 
 
 static NSString *RCTCreateStorageDirectoryPath(NSString *storageDir) {
   NSString *storageDirectoryPath = @"";
-    
+
   #if TARGET_OS_TV
     storageDirectoryPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
   #else
@@ -123,7 +123,7 @@ static NSString *RCTCreateStorageDirectoryPath(NSString *storageDir) {
     // We should use the "Application Support/[bundleID]" folder for persistent data storage that's hidden from users
     storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]];
   #endif
-    
+
   // Per Apple's docs, all app content in Application Support must be within a subdirectory of the app's bundle identifier
   storageDirectoryPath = [storageDirectoryPath stringByAppendingPathComponent:storageDir];
 
@@ -337,7 +337,7 @@ static void RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory, NS
 
   // First migrate our deprecated path "Documents/.../RNCAsyncLocalStorage_V1" to "Documents/.../RCTAsyncLocalStorage_V1"
   RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTOldStorageDirectory), RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), YES);
-  
+
   // Then migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to "Application Support/[bundleID]/RCTAsyncLocalStorage_V1"
   RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), RCTCreateStorageDirectoryPath(RCTStorageDirectory), NO);
 

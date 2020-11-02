@@ -4,7 +4,8 @@ workspace 'AsyncStorageExample.xcworkspace'
 
 use_test_app! do |target|
   target.app do
-    pod 'RNCAsyncStorage', :path => "../.."
+    pod 'RNCAsyncStorage', :path => '../..'
+    pod 'AsyncStorageExample', :path => '..'
 
     # This is usually not needed but autolinking seems to be assuming that
     # node_modules is in '..'

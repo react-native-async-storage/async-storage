@@ -6,6 +6,8 @@
 const blacklist = require('metro-config/src/defaults/blacklist');
 
 module.exports = {
+  projectRoot: `${__dirname}/example`,
+  watchFolders: [__dirname],
   resolver: {
     blacklistRE: blacklist([/node_modules\/react-native-macos\/.*/])
   },

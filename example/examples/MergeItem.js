@@ -9,7 +9,14 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View, Button, TextInput, StyleSheet} from 'react-native';
+import {
+  Button,
+  NativeModules,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -203,6 +210,25 @@ export default class Merge extends Component<Props, State> {
             testID="restoreItem_button"
             title="Restore item"
             onPress={this.restoreItem}
+          />
+        </View>
+
+        <View style={styles.bottomButtons}>
+          <Button
+            testID="setDelegate_button"
+            title="Set native delegate"
+            disabled={!NativeModules.AsyncStorageTestSupport.test_setDelegate}
+            onPress={() =>
+              NativeModules.AsyncStorageTestSupport.test_setDelegate(() => {})
+            }
+          />
+          <Button
+            testID="unsetDelegate_button"
+            title="Unset native delegate"
+            disabled={!NativeModules.AsyncStorageTestSupport.test_unsetDelegate}
+            onPress={() =>
+              NativeModules.AsyncStorageTestSupport.test_unsetDelegate(() => {})
+            }
           />
         </View>
 
