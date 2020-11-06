@@ -14,11 +14,22 @@ label: 'Bug'
 
 ## Repro steps
 
-<!-- Please provide us steps (in points) how we can reproduce the issue. -->
+<!--
+  - Please provide step-by-step instructions on how to reproduce the issue.
+  - Better yet, provide a repo/branch where the issue is easily reproducible.
+-->
 
 ## Environment
 
-- **Async Storage version**: <!-- @react-native-async-storage/async-storage version set in package.json -->
-- **React-Native version**: <!-- React Native version set in package.json -->
-- **Platform tested**: <!--  iOS / Android -->
-- **Logs/Error that are relevant**: <!-- link to your CI logs or semantic-release logs -->
+- **Platforms tested**:
+  - [ ] Android
+  - [ ] iOS
+  - [ ] macOS
+  - [ ] Windows
+- **AsyncStorage version**: <!-- @react-native-async-storage/async-storage version set in package.json -->
+- **Environment**:
+  <!--
+    After running `npm install` or `yarn` in your repo, run `npx react-native info`
+    and paste the output here.
+  -->
+- **Logs/Errors that may be relevant**: <!-- link to your CI logs or semantic-release logs -->
