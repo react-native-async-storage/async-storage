@@ -8,6 +8,7 @@ README.md
 
 # Config files
 babel.config.js
+.clang-format
 .eslintrc
 .flowconfig
 .watchmanconfig

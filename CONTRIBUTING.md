@@ -19,19 +19,24 @@ When you're sending a pull request:
 * Communication is a key. If you want fix/add something, please open new/find existing issue, so we can discuss it.
 * We prefer small pull requests focused on one change, as those are easier to test/check.
 * Please make sure that all tests are passing on your local machine.
+* Please make sure you've run formatters and linters locally.
+  * In VS Code, you can press ⇧+Alt+F or ⇧⌥F to format the current file.
+    * To format C++ and Objective-C files, make sure you have the [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) installed.
+    * To format JavaScript files, please install [Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+  * From the command line, you can run `yarn format:c` and `yarn format:js` to format C-based languages and JavaScript respectively. The first command requires that you've already installed [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html).
 * Follow the template when opening a PR.
 
 
 ## Commits and versioning
 All PRs are squashed into `master` branch and wrapped up in a single commit, following [conventional commit message](https://www.conventionalcommits.org/en/v1.0.0-beta.3). Combined with [semantic versioning](https://semver.org/), this allows us to have a frequent releases of the library.
 
-*Note*: We don't force this convention on Pull Requests from contributors, but it's a clean way to see what type of changes are made, so feel free to follow it. 
+*Note*: We don't force this convention on Pull Requests from contributors, but it's a clean way to see what type of changes are made, so feel free to follow it.
 
 
 Most notably prefixes you'll see:
 
 * **fix**: Bug fixes, triggers *patch* release
-* **feat**: New feature implemented, triggers *minor* 
+* **feat**: New feature implemented, triggers *minor*
 * **chore**: Changes that are not affecting end user (CI config changes, scripts, ["grunt work"](https://stackoverflow.com/a/26944812/3510245))
 * **docs**: Documentation changes.
 * **perf**: A code change that improves performance.

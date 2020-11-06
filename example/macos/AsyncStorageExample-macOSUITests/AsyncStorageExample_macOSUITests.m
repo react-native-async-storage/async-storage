@@ -5,155 +5,165 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <XCTest/XCTest.h>
 #import <RNCAsyncStorage/RNCAsyncStorage.h>
+#import <XCTest/XCTest.h>
 
 @interface AsyncStorageExample_macOSUITests : XCTestCase
 
 @end
 
-@implementation AsyncStorageExample_macOSUITests
+@implementation AsyncStorageExample_macOSUITests {
+    XCUIApplication *_app;
+    XCUIElement *_window;
+    XCUIElement *_restartButton;
+    XCUIElement *_getSetClearButton;
+    XCUIElement *_mergeItemButton;
+}
+
+- (void)setUp
 {
-  XCUIApplication *_app;
-  XCUIElement *_window;
-  XCUIElement *_restartButton;
-  XCUIElement *_getSetClearButton;
-  XCUIElement *_mergeItemButton;
+    // In UI tests it is usually best to stop immediately when a failure occurs.
+    self.continueAfterFailure = NO;
+
+    _app = [[XCUIApplication alloc] init];
+    [_app launch];
+
+    _window = _app.windows[@"RNCAsyncStorageExample macOS"];
+    XCTAssert(_window.exists);
+
+    _restartButton = _window.otherElements[@"restart_button"].staticTexts.firstMatch;
+    XCTAssert(_restartButton.exists);
+
+    _getSetClearButton = _window.buttons[@"testType_getSetClear"].staticTexts.firstMatch;
+    XCTAssert(_getSetClearButton.exists);
+
+    _mergeItemButton = _window.buttons[@"testType_mergeItem"].staticTexts.firstMatch;
+    XCTAssert(_mergeItemButton.exists);
+
+    [self sendTestAppCommand:@"rnc-asyncstorage://clear-all-storage"];
 }
 
-- (void)setUp {
-  // In UI tests it is usually best to stop immediately when a failure occurs.
-  self.continueAfterFailure = NO;
+- (void)testShouldStoreValueInAsyncStorage
+{
+    [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
 
-  _app = [[XCUIApplication alloc] init];
-  [_app launch];
-  
-  _window = _app.windows[@"RNCAsyncStorageExample macOS"];
-  XCTAssert(_window.exists);
+    [_getSetClearButton click];
 
-  _restartButton = _window.otherElements[@"restart_button"].staticTexts.firstMatch;
-  XCTAssert(_restartButton.exists);
+    XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
 
-  _getSetClearButton = _window.buttons[@"testType_getSetClear"].staticTexts.firstMatch;
-  XCTAssert(_getSetClearButton.exists);
+    XCTAssertEqualObjects(storedNumber.label, @"");
 
-  _mergeItemButton = _window.buttons[@"testType_mergeItem"].staticTexts.firstMatch;
-  XCTAssert(_mergeItemButton.exists);
-  
-  [self sendTestAppCommand:@"rnc-asyncstorage://clear-all-storage"];
+    XCUIElement *increaseBy10Button =
+        _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
+
+    int tapTimes = arc4random_uniform(10) + 1;
+
+    for (int i = 0; i < tapTimes; i++) {
+        [increaseBy10Button click];
+    }
+
+    NSString *expectedText = [NSString stringWithFormat:@"%d", tapTimes * 10];
+
+    XCTAssertEqualObjects(storedNumber.label, expectedText);
 }
 
-- (void)testShouldStoreValueInAsyncStorage {
-  [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
+- (void)testShouldClearItem
+{
+    [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
 
-  [_getSetClearButton click];
+    [_getSetClearButton click];
 
-  XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
-
-  XCTAssertEqualObjects(storedNumber.label, @"");
-
-  XCUIElement *increaseBy10Button = _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
-
-  int tapTimes = arc4random_uniform(10) + 1;
-  
-  for (int i = 0; i < tapTimes; i++) {
+    XCUIElement *increaseBy10Button =
+        _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
     [increaseBy10Button click];
-  }
 
-  NSString *expectedText = [NSString stringWithFormat:@"%d", tapTimes * 10];
-  
-  XCTAssertEqualObjects(storedNumber.label, expectedText);
+    XCUIElement *clearButton = _window.buttons[@"clear_button"].staticTexts.firstMatch;
+    [clearButton click];
+    [_restartButton click];
+
+    XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
+    XCTAssertEqualObjects(storedNumber.label, @"");
 }
 
-- (void)testShouldClearItem {
-  [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
+- (NSString *)performInputWithFormat:format
+{
+    NSString *name = arc4random_uniform(2) == 0 ? @"Jerry" : @"Sarah";
+    NSString *age = arc4random_uniform(2) == 0 ? @"21" : @"23";
+    NSString *eyeColor = arc4random_uniform(2) == 0 ? @"blue" : @"green";
+    NSString *shoeSize = arc4random_uniform(2) == 0 ? @"9" : @"10";
 
-  [_getSetClearButton click];
+    XCUIElement *nameInput = _window.textFields[@"testInput-name"];
+    [nameInput click];
+    [nameInput typeText:name];
 
-  XCUIElement *increaseBy10Button = _window.buttons[@"increaseByTen_button"].staticTexts.firstMatch;
-  [increaseBy10Button click];
+    XCUIElement *ageInput = _window.textFields[@"testInput-age"];
+    [ageInput click];
+    [ageInput typeText:age];
 
-  XCUIElement *clearButton = _window.buttons[@"clear_button"].staticTexts.firstMatch;
-  [clearButton click];
-  [_restartButton click];
+    XCUIElement *eyesInput = _window.textFields[@"testInput-eyes"];
+    [eyesInput click];
+    [eyesInput typeText:eyeColor];
 
-  XCUIElement *storedNumber = _window.staticTexts[@"storedNumber_text"];
-  XCTAssertEqualObjects(storedNumber.label, @"");
+    XCUIElement *showInput = _window.textFields[@"testInput-shoe"];
+    [showInput click];
+    [showInput typeText:shoeSize];
+
+    return [NSString stringWithFormat:format, name, age, eyeColor, shoeSize];
 }
 
-- (NSString *)performInputWithFormat:format {
-  NSString *name = arc4random_uniform(2) == 0 ? @"Jerry" : @"Sarah";
-  NSString *age = arc4random_uniform(2) == 0 ? @"21" : @"23";
-  NSString *eyeColor = arc4random_uniform(2) == 0 ? @"blue" : @"green";
-  NSString *shoeSize = arc4random_uniform(2) == 0 ? @"9" : @"10";
-  
-  XCUIElement *nameInput = _window.textFields[@"testInput-name"];
-  [nameInput click];
-  [nameInput typeText:name];
-  
-  XCUIElement *ageInput = _window.textFields[@"testInput-age"];
-  [ageInput click];
-  [ageInput typeText:age];
+- (void)testShouldMergeItemsInAsyncStorage
+{
+    [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
 
-  XCUIElement *eyesInput = _window.textFields[@"testInput-eyes"];
-  [eyesInput click];
-  [eyesInput typeText:eyeColor];
+    [_mergeItemButton click];
 
-  XCUIElement *showInput = _window.textFields[@"testInput-shoe"];
-  [showInput click];
-  [showInput typeText:shoeSize];
-  
-  return [NSString stringWithFormat:format, name, age, eyeColor, shoeSize];
+    XCUIElement *saveItemButton = _window.buttons[@"saveItem_button"].staticTexts.firstMatch;
+    XCUIElement *restoreItemButton = _window.buttons[@"restoreItem_button"].staticTexts.firstMatch;
+    XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
+    XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
+
+    NSString *messageFormat = @"%@ is %@, has %@ eyes and shoe size of %@.";
+
+    NSString *story = [self performInputWithFormat:messageFormat];
+    [saveItemButton click];
+    [_restartButton click];
+    [restoreItemButton click];
+    XCTAssertEqualObjects(storyText.label, story);
+    [_restartButton click];
+
+    // merging here
+
+    NSString *newStory = [self performInputWithFormat:messageFormat];
+    [mergeItemButton click];
+    [_restartButton click];
+    [restoreItemButton click];
+    XCTAssertEqualObjects(storyText.label, newStory);
 }
 
-- (void)testShouldMergeItemsInAsyncStorage {
-  [self sendTestAppCommand:@"rnc-asyncstorage://unset-delegate"];
+- (void)testMergeItemDelegate
+{
+    [self sendTestAppCommand:@"rnc-asyncstorage://set-delegate"];
 
-  [_mergeItemButton click];
+    [_mergeItemButton click];
 
-  XCUIElement *saveItemButton = _window.buttons[@"saveItem_button"].staticTexts.firstMatch;
-  XCUIElement *restoreItemButton = _window.buttons[@"restoreItem_button"].staticTexts.firstMatch;
-  XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
-  XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
+    XCUIElement *saveItemButton = _window.buttons[@"saveItem_button"].staticTexts.firstMatch;
+    XCUIElement *restoreItemButton = _window.buttons[@"restoreItem_button"].staticTexts.firstMatch;
+    XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
+    XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
 
-  NSString *messageFormat = @"%@ is %@, has %@ eyes and shoe size of %@.";
-
-  NSString *story = [self performInputWithFormat:messageFormat];
-  [saveItemButton click];
-  [_restartButton click];
-  [restoreItemButton click];
-  XCTAssertEqualObjects(storyText.label, story);
-  [_restartButton click];
-  
-  // merging here
-  
-  NSString *newStory = [self performInputWithFormat:messageFormat];
-  [mergeItemButton click];
-  [_restartButton click];
-  [restoreItemButton click];
-  XCTAssertEqualObjects(storyText.label, newStory);
+    NSString *story =
+        [self performInputWithFormat:
+                  @"%@ from delegate is %@ from delegate, has %@ eyes and shoe size of %@."];
+    [mergeItemButton click];
+    [_restartButton click];
+    [restoreItemButton click];
+    XCTAssertEqualObjects(storyText.label, story);
 }
 
-- (void)testMergeItemDelegate {
-  [self sendTestAppCommand:@"rnc-asyncstorage://set-delegate"];
-
-  [_mergeItemButton click];
-
-  XCUIElement *saveItemButton = _window.buttons[@"saveItem_button"].staticTexts.firstMatch;
-  XCUIElement *restoreItemButton = _window.buttons[@"restoreItem_button"].staticTexts.firstMatch;
-  XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
-  XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
-  
-  NSString *story = [self performInputWithFormat:@"%@ from delegate is %@ from delegate, has %@ eyes and shoe size of %@."];
-  [mergeItemButton click];
-  [_restartButton click];
-  [restoreItemButton click];
-  XCTAssertEqualObjects(storyText.label, story);
-}
-
-- (void)sendTestAppCommand:(NSString *)URLString {
-  [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
-  sleep(.25);
+- (void)sendTestAppCommand:(NSString *)URLString
+{
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:URLString]];
+    sleep(.25);
 }
 
 @end

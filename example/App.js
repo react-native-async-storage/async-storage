@@ -54,7 +54,7 @@ export default class App extends Component<Props, State> {
     this.setState({restarting: true}, () => this.setState({restarting: false}));
   };
 
-  _changeTest = testName => {
+  _changeTest = (testName) => {
     this.setState({currentTest: TESTS[testName]});
   };
 
