@@ -1,5 +1,7 @@
 #include "pch.h"
+
 #include "App.h"
+
 #include "ReactPackageProvider.h"
 
 using namespace winrt::AsyncStorageExample;
@@ -30,10 +32,11 @@ App::App() noexcept
     InstanceSettings().EnableDeveloperMenu(false);
 #endif
 
-    PackageProviders().Append(make<ReactPackageProvider>()); // Includes all modules in this project
+    // Includes all modules in this project
+    PackageProviders().Append(make<ReactPackageProvider>());
     PackageProviders().Append(winrt::ReactNativeAsyncStorage::ReactPackageProvider());
 
-    REACT_REGISTER_NATIVE_MODULE_PACKAGES(); //code-gen macro from autolink
+    REACT_REGISTER_NATIVE_MODULE_PACKAGES();  // code-gen macro from autolink
 
     InitializeComponent();
 }

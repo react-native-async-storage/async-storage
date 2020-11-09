@@ -5,8 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#import <Foundation/Foundation.h>
+
 #import <React/RCTBridgeModule.h>
 #import <React/RCTInvalidating.h>
+
 #import "RNCAsyncStorageDelegate.h"
 
 /**
@@ -20,7 +23,7 @@
  *
  * Keys and values must always be strings or an error is returned.
  */
-@interface RNCAsyncStorage : NSObject <RCTBridgeModule,RCTInvalidating>
+@interface RNCAsyncStorage : NSObject <RCTBridgeModule, RCTInvalidating>
 
 @property (nonatomic, weak, nullable) id<RNCAsyncStorageDelegate> delegate;
 
@@ -34,10 +37,12 @@
 // For clearing data when the bridge may not exist, e.g. when logging out.
 + (void)clearAllData;
 
-// Grab data from the cache. ResponseBlock result array will have an error at position 0, and an array of arrays at position 1.
+// Grab data from the cache. ResponseBlock result array will have an error at position 0, and an
+// array of arrays at position 1.
 - (void)multiGet:(NSArray<NSString *> *)keys callback:(RCTResponseSenderBlock)callback;
 
 // Add multiple key value pairs to the cache.
-- (void)multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs callback:(RCTResponseSenderBlock)callback;
+- (void)multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
+        callback:(RCTResponseSenderBlock)callback;
 
 @end

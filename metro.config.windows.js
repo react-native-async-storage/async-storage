@@ -31,7 +31,9 @@ module.exports = {
         `${(path.resolve(rnPath) + path.sep).replace(/[/\\]/g, '/')}.*`,
       ),
       new RegExp(
-        `${(path.resolve(__dirname, '../', 'node_modules/react-native') + path.sep).replace(/[/\\]/g, '/')}.*`,
+        `${(
+          path.resolve(__dirname, '../', 'node_modules/react-native') + path.sep
+        ).replace(/[/\\]/g, '/')}.*`,
       ),
 
       // This stops "react-native run-windows" from causing the metro server to crash if its already running

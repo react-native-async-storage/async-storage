@@ -4,10 +4,7 @@
 
 namespace winrt::AsyncStorageExample::implementation
 {
-    struct App : AppT<App>
-    {
+    struct App : AppT<App> {
         App() noexcept;
     };
-} // namespace winrt::AsyncStorageExample::implementation
-
-
+}  // namespace winrt::AsyncStorageExample::implementation

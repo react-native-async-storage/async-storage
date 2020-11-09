@@ -46,7 +46,8 @@ buck-out/
 *.keystore
 
 # Editor config
-.vscode
+.vscode/*
+!.vscode/extensions.json
 .expo
 /web-build
 

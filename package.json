@@ -36,6 +36,8 @@
     "url": "https://github.com/react-native-async-storage/async-storage.git"
   },
   "scripts": {
+    "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm')",
+    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.yml')",
     "prepare": "bob build",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:android": "react-native run-android --root example/",

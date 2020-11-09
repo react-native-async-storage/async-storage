@@ -11,7 +11,7 @@ RNCAsyncStorage *RNCAsyncStorageGetInstance(RCTBridge *bridge)
     return [bridge moduleForClass:[RNCAsyncStorage class]];
 }
 
-@interface AsyncStorageTestSupport : NSObject<RCTBridgeModule>
+@interface AsyncStorageTestSupport : NSObject <RCTBridgeModule>
 @end
 
 @implementation AsyncStorageDevSupport {
@@ -139,14 +139,18 @@ static AsyncStorageDevSupport *_sharedInstance;
 
 RCT_EXPORT_MODULE()
 
+// clang-format off
 RCT_EXPORT_METHOD(test_setDelegate:(RCTResponseSenderBlock)callback)
+// clang-format on
 {
     RNCAsyncStorage *asyncStorage = RNCAsyncStorageGetInstance(_bridge);
     asyncStorage.delegate = _sharedInstance;
     callback(@[]);
 }
 
+// clang-format off
 RCT_EXPORT_METHOD(test_unsetDelegate:(RCTResponseSenderBlock)callback)
+// clang-format on
 {
     RNCAsyncStorage *asyncStorage = RNCAsyncStorageGetInstance(_bridge);
     asyncStorage.delegate = nil;

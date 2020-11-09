@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^RNCAsyncStorageCompletion)(NSError *_Nullable error);
-typedef void (^RNCAsyncStorageResultCallback)(NSArray<id<NSObject>> * valuesOrErrors);
+typedef void (^RNCAsyncStorageResultCallback)(NSArray<id<NSObject>> *valuesOrErrors);
 
 @protocol RNCAsyncStorageDelegate <NSObject>
 
@@ -59,8 +59,7 @@ typedef void (^RNCAsyncStorageResultCallback)(NSArray<id<NSObject>> * valuesOrEr
  * @param keys Keys of values to return.
  * @param block Block to call with result.
  */
-- (void)valuesForKeys:(NSArray<NSString *> *)keys
-           completion:(RNCAsyncStorageResultCallback)block;
+- (void)valuesForKeys:(NSArray<NSString *> *)keys completion:(RNCAsyncStorageResultCallback)block;
 
 @optional
 
