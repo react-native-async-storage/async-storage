@@ -52,7 +52,7 @@ cache keys:
   brew ios: &key_brew_ios cache-brew-ios-v3-{{ arch }}
   brew android: &key_brew_android cache-brew-android-v3-{{ arch }}
   yarn: &key_yarn cache-yarn-{{ checksum "package.json" }}-{{ arch }}
-  gradle: &key_gradle cache-gradle-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "example/android/app/build.gradle" }}-{{ arch }}
+  gradle: &key_gradle cache-gradle-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
   pods: &key_pods cache-pods-v1-{{ checksum "example/ios/Podfile" }}-{{ checksum "package.json" }}-{{ arch }}
 
 cache:
