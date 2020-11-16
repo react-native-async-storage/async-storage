@@ -24,3 +24,24 @@ task fetchDependencies() {
         }
     }
 }
+
+allprojects {
+    afterEvaluate { project ->
+        def configName = 'release'
+        def androidExtension = project.extensions.findByName("android")
+
+        if(androidExtension != null && project.name == "app") {
+            // android extension from test-app pacakge
+            androidExtension.signingConfigs {
+                test {
+                    storeFile file('debug.keystore')
+                    storePassword 'android'
+                    keyAlias 'androiddebugkey'
+                    keyPassword 'android'
+                }
+            }
+
+            androidExtension.buildTypes.release.signingConfig = androidExtension.signingConfigs.test
+        }
+    }
+}
