@@ -217,7 +217,10 @@ export default class Merge extends Component<Props, State> {
           <Button
             testID="setDelegate_button"
             title="Set native delegate"
-            disabled={!NativeModules.AsyncStorageTestSupport.test_setDelegate}
+            disabled={
+              !NativeModules.AsyncStorageTestSupport ||
+              !NativeModules.AsyncStorageTestSupport.test_setDelegate
+            }
             onPress={() =>
               NativeModules.AsyncStorageTestSupport.test_setDelegate(() => {})
             }
@@ -225,7 +228,10 @@ export default class Merge extends Component<Props, State> {
           <Button
             testID="unsetDelegate_button"
             title="Unset native delegate"
-            disabled={!NativeModules.AsyncStorageTestSupport.test_unsetDelegate}
+            disabled={
+              !NativeModules.AsyncStorageTestSupport ||
+              !NativeModules.AsyncStorageTestSupport.test_unsetDelegate
+            }
             onPress={() =>
               NativeModules.AsyncStorageTestSupport.test_unsetDelegate(() => {})
             }

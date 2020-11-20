@@ -26,6 +26,11 @@ task fetchDependencies() {
 }
 
 allprojects {
+    repositories {
+        maven {
+            url("$rootDir/../../node_modules/detox/Detox-android")
+        }
+    }
     afterEvaluate { project ->
         def androidExtension = project.extensions.findByName('android')
 
@@ -48,6 +53,12 @@ allprojects {
 
             androidExtension.buildTypes.release.signingConfig = androidExtension.signingConfigs.test
             androidExtension.testBuildType = 'release'
+
+            androidExtension.sourceSets.androidTest.java.srcDirs += "$rootDir/app/src/androidTest/java"
+
+            project.dependencies {
+                androidTestImplementation('com.wix:detox:+')
+            }
         }
     }
 }
