@@ -198,10 +198,20 @@ describe('Async Storage', () => {
   describe('merge item delegate test', () => {
     beforeAll(async () => {
       await test_mergeItem.tap();
+      if (device.getPlatform() === 'android') {
+        // Not yet supported.
+        return;
+      }
+
       await element(by.id('setDelegate_button')).tap();
     });
 
     afterAll(async () => {
+      if (device.getPlatform() === 'android') {
+        // Not yet supported.
+        return;
+      }
+
       await element(by.id('unsetDelegate_button')).tap();
     });
 
