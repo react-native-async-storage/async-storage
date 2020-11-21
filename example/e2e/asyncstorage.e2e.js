@@ -13,6 +13,13 @@ describe('Async Storage', () => {
   let test_getSetClear;
   let test_mergeItem;
 
+  async function dismissKeyboard() {
+    if (device.getPlatform() === 'android') {
+      return device.pressBack();
+    }
+    return closeKeyboard.tap();
+  }
+
   beforeAll(async () => {
     await device.reloadReactNative();
     restartButton = await element(by.id('restart_button'));
@@ -104,19 +111,19 @@ describe('Async Storage', () => {
 
         await nameInput.clearText();
         await nameInput.typeText(name);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         await ageInput.clearText();
         await ageInput.typeText(age);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         await eyesInput.clearText();
         await eyesInput.typeText(eyesColor);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         await shoeInput.clearText();
         await shoeInput.typeText(shoeSize);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         return `${name} is ${age}, has ${eyesColor} eyes and shoe size of ${shoeSize}.`;
       }
@@ -240,19 +247,19 @@ describe('Async Storage', () => {
 
         await nameInput.clearText();
         await nameInput.typeText(name);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         await ageInput.clearText();
         await ageInput.typeText(age);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         await eyesInput.clearText();
         await eyesInput.typeText(eyesColor);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         await shoeInput.clearText();
         await shoeInput.typeText(shoeSize);
-        await closeKeyboard.tap();
+        await dismissKeyboard();
 
         return `${name} from delegate is ${age} from delegate, has ${eyesColor} eyes and shoe size of ${shoeSize}.`;
       }
