@@ -86,7 +86,7 @@ protected List<ReactPackage> getPackages() {
 1. Open your solution in Visual Studio.
 
 2. Right click Solution icon in Solution Explorer > Add > Existing Project.
-   Select `node_modules\@react-native-async-storage\async-storage\windows\ReactNativeAsyncStorage\ReactNativeAsyncStorage.vcxproj`
+   Select `node_modules\@react-native-async-storage\async-storage\windows\ReactNativeAsyncStorage\ReactNativeAsyncStorage.vcxproj` (on RNW 0.61, select `node_modules\@react-native-async-storage\async-storage\windows\ReactNativeAsyncStorage61\ReactNativeAsyncStorage61.vcxproj`)
 
 
 #### Add a reference to `ReactNativeAsyncStorage` in your main application project.
