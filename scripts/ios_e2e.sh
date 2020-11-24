@@ -46,6 +46,7 @@ run_simulator() {
   # Booting emulator in headless mode
   eval "open $devDir --args -CurrentDeviceUDID $deviceUUID"
   eval "xcrun instruments -w $deviceUUID" >/dev/null 2>&1
+  exit 0
 }
 
 bundle_js() {
