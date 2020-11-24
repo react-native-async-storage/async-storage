@@ -181,6 +181,7 @@ jobs:
       - save-cache: *cache_save_pods
       - run:
           name: Boot simulator
+          background: true
           command: ./scripts/ios_e2e.sh 'run_simulator'
       - run:
           name: Build iOS app
