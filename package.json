@@ -45,17 +45,17 @@
     "start:web": "expo start:web",
     "start:macos": "react-native start --use-react-native-macos",
     "start:windows": "react-native start --use-react-native-windows",
-    "build:e2e:android": "detox build -c android.emu.release",
-    "build:e2e:ios": "detox build -c ios.sim.release",
-    "build:e2e:macos": "scripts/run_macos_e2e.sh 'build'",
-    "bundle:android": "react-native bundle --entry-file index.js --platform android --bundle-output example/index.android.jsbundle",
-    "bundle:ios": "react-native bundle --entry-file index.js --platform ios --bundle-output example/index.ios.jsbundle",
+    "build:e2e:android": "scripts/android_e2e.sh 'build'",
+    "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
+    "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
+    "bundle:android": "scripts/android_e2e.sh 'bundle'",
+    "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
     "test:lint": "eslint src/**/*.js example/**/*.js jest/*.js",
     "test:e2e:android": "detox test -c android.emu.release --maxConcurrency 1",
     "test:e2e:ios": "detox test -c ios.sim.release --maxConcurrency 1",
-    "test:e2e:macos": "scripts/run_macos_e2e.sh 'test'"
+    "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
   },
   "peerDependencies": {
     "react": "^16.8",
@@ -105,7 +105,6 @@
     "configurations": {
       "ios.sim.release": {
         "binaryPath": "example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app",
-        "build": ".circleci/scripts/run_ios_e2e.sh \"iPhone 11\"",
         "type": "ios.simulator",
         "device": {
           "type": "iPhone 11"
@@ -114,7 +113,6 @@
       "android.emu.release": {
         "binaryPath": "example/android/app/build/outputs/apk/release/app-release.apk",
         "testBinaryPath": "example/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk",
-        "build": ".circleci/scripts/run_android_e2e.sh",
         "type": "android.emulator",
         "device": {
           "avdName": "Emu_E2E"

@@ -1,20 +1,19 @@
 #!/bin/bash
 
-# On CI, waits for emu to be booted
-# Locally, builds apk
-
-ROOT_DIR=$PWD
-
 INTERVAL=5 # 5 secs between each check
 MAX_RETRIES=60 # wait max 5 minutes for emu to boot
 
 build_apk() {
   echo
   echo "[Detox e2e] Building APK"
-  yarn bundle:android --dev false
-  cd example/android
-  ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release
-  cd ${ROOT_DIR}
+  (cd example/android; ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2)
+}
+
+bundle_js() {
+  extraArgs="$@"
+  echo
+  echo "[Detox e2e] Bundling JS"
+  react-native bundle --entry-file index.js --platform android --bundle-output example/index.android.jsbundle $extraArgs
 }
 
 wait_for_emulator_to_boot() {
@@ -41,8 +40,19 @@ wait_for_emulator_to_boot() {
   echo "[Detox e2e] Emulator booted."
 }
 
-if [[ -n $CIRCLECI ]]; then
-    wait_for_emulator_to_boot # Run it on CI
-else
-    build_apk # Run locally
-fi
+
+case $1 in
+  wait_for_emulator)
+    wait_for_emulator_to_boot
+    ;;
+  build)
+    build_apk
+    ;;
+  bundle)
+    shift; bundle_js $@
+    ;;
+  *)
+    echo -n "Unknown argument: $1"
+    ;;
+esac
+

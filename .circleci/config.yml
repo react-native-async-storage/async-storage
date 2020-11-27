@@ -180,6 +180,10 @@ jobs:
           command: pod install
       - save-cache: *cache_save_pods
       - run:
+          name: Boot simulator
+          background: true
+          command: ./scripts/ios_e2e.sh 'run_simulator'
+      - run:
           name: Build iOS app
           command: yarn build:e2e:ios
       - run:
@@ -206,9 +210,7 @@ jobs:
           command: yarn bundle:android --dev false
       - run:
           name: Build APK
-          working_directory: example/android
-          command: ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2
-
+          command: yarn build:e2e:android
       - persist_to_workspace:
           root: ~/async_storage
           paths:
@@ -275,7 +277,7 @@ jobs:
                 -logcat '*:W' | grep -i "ReactNative"
       - run:
           name: Wait for emulator to boot
-          command: yarn build:e2e:android
+          command: ./scripts/android_e2e.sh 'wait_for_emulator'
       - run:
           name: Wake device
           command: |
