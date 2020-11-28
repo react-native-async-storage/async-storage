@@ -48,7 +48,7 @@ rootProject.name = 'MyApp'
 include ':app'
 
 + include ':@react-native-async-storage'
-+ project(':@react-native-async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-async-storage/async-storage/android')
++ project(':@react-native-async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
   ```
 
 2. In `android/app/build.gradle` add to dependencies:
