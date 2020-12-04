@@ -12,6 +12,9 @@
     ],
     "ios": [
       "index.ios.jsbundle"
+    ],
+    "macos": [
+      "index.macos.jsbundle"
     ]
   }
 }
