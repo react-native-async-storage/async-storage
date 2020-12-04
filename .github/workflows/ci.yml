@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+jobs:
+  macos:
+    name: "macOS"
+    runs-on: macos-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache /.cache/yarn
+        uses: actions/cache@v2
+        with:
+          path: .cache/yarn
+          key: ${{ hashFiles('yarn.lock') }}
+      - name: Install JS dependencies
+        run: |
+          yarn --pure-lockfile --non-interactive --cache-folder .cache/yarn
+      - name: Bundle JS
+        run: |
+          yarn bundle:macos
+      - name: Install macOS dependencies
+        run: |
+          pod install
+        working-directory: example/macos
+      - name: Build and test
+        run: |
+          yarn test:e2e:macos

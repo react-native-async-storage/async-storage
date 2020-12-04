@@ -50,6 +50,7 @@
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
+    "bundle:macos": "react-native bundle --entry-file index.js --platform macos --bundle-output example/index.macos.jsbundle --use-react-native-macos",
     "test": "yarn test:lint && yarn test:flow",
     "test:flow": "flow check",
     "test:lint": "eslint src/**/*.js example/**/*.js jest/*.js",
