@@ -10,22 +10,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
+    <ClInclude Include="..\code\pch.h" />
+    <ClInclude Include="..\code\ReactPackageProvider.h" />
+    <ClInclude Include="..\code\RNCAsyncStorage.h" />
+    <ClInclude Include="..\code\DBStorage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\code\pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="ReactPackageProvider.cpp" />
+    <ClCompile Include="..\code\ReactPackageProvider.cpp" />
+    <ClCompile Include="..\code\DBStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="ReactPackageProvider.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ReactNativePicker.def" />
+    <None Include="..\code\ReactNativeAsyncStorage.def" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="ReactPackageProvider.idl" />
+    <Midl Include="..\code\ReactPackageProvider.idl" />
   </ItemGroup>
 </Project>
