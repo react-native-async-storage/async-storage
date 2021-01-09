@@ -172,6 +172,7 @@ mergeUsers = async () => {
     // {
     //   name: 'Sarah',
     //   age: 21,
+    //   hobby: 'cars',
     //   traits: {
     //     eyes: 'green',
     //     hair: 'black'
