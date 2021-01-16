@@ -9,13 +9,14 @@ const path = require('path');
 const blacklist = require('metro-config/src/defaults/blacklist');
 
 const rnPath = fs.realpathSync(
-  path.resolve(require.resolve('react-native/package.json'), '..'),
+  path.dirname(require.resolve('react-native/package.json')),
 );
 const rnwPath = fs.realpathSync(
-  path.resolve(require.resolve('react-native-windows/package.json'), '..'),
+  path.dirname(require.resolve('react-native-windows/package.json')),
 );
 
 module.exports = {
+  projectRoot: `${__dirname}/example`,
   resolver: {
     extraNodeModules: {
       // Redirect react-native to react-native-windows
