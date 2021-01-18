@@ -49,8 +49,8 @@ default config for android apk builds: &android_defaults
 # ==============================
 
 cache keys:
-  brew ios: &key_brew_ios cache-brew-ios-v3-{{ arch }}
-  brew android: &key_brew_android cache-brew-android-v3-{{ arch }}
+  brew ios: &key_brew_ios cache-brew-ios-v4-{{ arch }}
+  brew android: &key_brew_android cache-brew-android-v4-{{ arch }}
   yarn: &key_yarn cache-yarn-{{ checksum "package.json" }}-{{ arch }}
   gradle: &key_gradle cache-gradle-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
   pods: &key_pods cache-pods-v1-{{ checksum "example/ios/Podfile" }}-{{ checksum "package.json" }}-{{ arch }}
@@ -60,7 +60,6 @@ cache:
   save brew cache for ios: &cache_save_brew_ios
     name: Saving Brew cache
     paths:
-      - /usr/local/Homebrew
       - ~/Library/Caches/Homebrew
     key: *key_brew_ios
 
@@ -72,8 +71,7 @@ cache:
   save brew cache for android: &cache_save_brew_android
     name: Saving Brew cache for android
     paths:
-    - /usr/local/Homebrew
-    - ~/Library/Caches/Homebrew
+      - ~/Library/Caches/Homebrew
     key: *key_brew_android
 
   restore brew cache for android: &cache_restore_brew_android
