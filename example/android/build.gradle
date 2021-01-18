@@ -25,6 +25,17 @@ task fetchDependencies() {
     }
 }
 
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        // Needs to match `react-native-test-app/android/app/build.gradle`
+        classpath "com.android.tools.build:gradle:4.0.2"
+    }
+}
+
 allprojects {
     repositories {
         maven {
