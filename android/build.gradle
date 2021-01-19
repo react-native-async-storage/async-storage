@@ -21,18 +21,30 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
+def getFlagOrDefault(flagName, defaultValue) {
+    rootProject.hasProperty(flagName) ? rootProject.properties[flagName] == "true" : defaultValue
+}
+
 configurations {
     compileClasspath
 }
 
 buildscript {
-    if (project == rootProject) {
-        repositories {
-            google()
-            jcenter()
-        }
-        dependencies {
+    // kotlin version is dictated by rootProject extension or property in gradle.properties
+    ext.asyncStorageKtVersion = rootProject.ext.has('kotlinVersion')
+            ? rootProject.ext['kotlinVersion']
+            : rootProject.hasProperty('AsyncStorage_kotlinVersion')
+            ? rootProject.properties['AsyncStorage_kotlinVersion']
+            : '1.4.21'
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        if (project == rootProject) {
             classpath 'com.android.tools.build:gradle:3.6.4'
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$asyncStorageKtVersion"
         }
     }
 }
@@ -42,18 +54,23 @@ buildscript {
 // This also protects the database from filling up the disk cache and becoming malformed.
 // If you really need bigger size, please keep in mind the potential consequences.
 long dbSizeInMB = 6L
-
 def newDbSize = rootProject.properties['AsyncStorage_db_size_in_MB']
-
 if( newDbSize != null && newDbSize.isLong()) {
     dbSizeInMB = newDbSize.toLong()
 }
 
-def useDedicatedExecutor = rootProject.hasProperty('AsyncStorage_dedicatedExecutor')
-        ? rootProject.properties['AsyncStorage_dedicatedExecutor']
-        : false
+// Instead of reusing AsyncTask thread pool, AsyncStorage can use its own executor
+def useDedicatedExecutor = getFlagOrDefault('AsyncStorage_dedicatedExecutor', false)
 
 apply plugin: 'com.android.library'
+
+// todo: decide the name
+def useRoomImplementation = getFlagOrDefault("AsyncStorage_useRoomLibrary", false)
+
+if(useRoomImplementation) {
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-kapt'
+}
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 28)
@@ -62,7 +79,8 @@ android {
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
         buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
-        buildConfigField("boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}")
+        buildConfigField "boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}"
+        buildConfigField "boolean", "AsyncStorage_useRoomLibrary", "${useRoomImplementation}"
     }
     lintOptions {
         abortOnError false

@@ -26,6 +26,13 @@ task fetchDependencies() {
 }
 
 buildscript {
+    /**
+     * Todo:
+     *  In order to use this feature, the end user will have to also include
+     *  Kotlin plugin. Add this info to docs.
+     */
+    ext.kotlinVersion = '1.4.21'
+
     repositories {
         google()
         jcenter()
@@ -33,6 +40,7 @@ buildscript {
     dependencies {
         // Needs to match `react-native-test-app/android/app/build.gradle`
         classpath "com.android.tools.build:gradle:4.0.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 

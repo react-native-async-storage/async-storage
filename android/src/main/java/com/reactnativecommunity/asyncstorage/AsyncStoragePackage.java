@@ -12,15 +12,24 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-
-import java.util.Arrays;
+import com.reactnativecommunity.asyncstorage.next.StorageModule;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class AsyncStoragePackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-      return Arrays.<NativeModule>asList(new AsyncStorageModule(reactContext));
+
+        List<NativeModule> moduleList = new ArrayList<>(1);
+
+        if(BuildConfig.AsyncStorage_useRoomLibrary) {
+            moduleList.add(new StorageModule(reactContext));
+        } else {
+            moduleList.add(new AsyncStorageModule(reactContext));
+        }
+
+      return moduleList;
     }
 
     // Deprecated in RN 0.47 
