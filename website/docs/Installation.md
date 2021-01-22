@@ -9,10 +9,10 @@ sidebar_label: Installation
 ### Get library
 
 ```bash
-// with npm
+# with npm
 npm install @react-native-async-storage/async-storage
 
-// with yarn
+# with yarn
 yarn add @react-native-async-storage/async-storage
 ```
 
