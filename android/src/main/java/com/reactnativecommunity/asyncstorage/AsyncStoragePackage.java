@@ -7,12 +7,13 @@
 
 package com.reactnativecommunity.asyncstorage;
 
+import android.util.Log;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.reactnativecommunity.asyncstorage.next.StorageModule;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,23 +24,35 @@ public class AsyncStoragePackage implements ReactPackage {
 
         List<NativeModule> moduleList = new ArrayList<>(1);
 
-        if(BuildConfig.AsyncStorage_useRoomLibrary) {
-            moduleList.add(new StorageModule(reactContext));
+        if (BuildConfig.AsyncStorage_useRoomLibrary) {
+            try {
+                Class storageClass = Class.forName("com.reactnativecommunity.asyncstorage.next.StorageModule");
+                NativeModule inst = (NativeModule) storageClass.getDeclaredConstructor(new Class[]{ReactContext.class}).newInstance(reactContext);
+                moduleList.add(inst);
+            } catch (Exception e) {
+                // todo notify about potential issues
+                String message = "Something went wrong when initializing module:"
+                        + "\n"
+                        + e.getCause().getClass()
+                        + "\n"
+                        + "Cause:" + e.getCause().getLocalizedMessage();
+                Log.e("AsyncStorage_Next", message);
+            }
         } else {
             moduleList.add(new AsyncStorageModule(reactContext));
         }
 
-      return moduleList;
+        return moduleList;
     }
 
     // Deprecated in RN 0.47 
     public List<Class<? extends JavaScriptModule>> createJSModules() {
-      return Collections.emptyList();
+        return Collections.emptyList();
     }
 
     @Override
     @SuppressWarnings("rawtypes")
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-      return Collections.emptyList();
+        return Collections.emptyList();
     }
 }
