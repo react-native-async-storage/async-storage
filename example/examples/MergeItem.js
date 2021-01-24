@@ -166,6 +166,7 @@ export default class Merge extends Component<Props, State> {
           const onChangeHandler = (text) => {
             isTraitsPart
               ? this.setState(({traits: currentTraits}) => ({
+                  // $FlowFixMe
                   traits: {
                     // $FlowFixMe
                     ...currentTraits,
@@ -173,12 +174,15 @@ export default class Merge extends Component<Props, State> {
                     [input.stateFragment]: text,
                   },
                 }))
-              : this.setState((state) => ({
+              : this.setState((state) =>
                   // $FlowFixMe
-                  ...state,
-                  // $FlowFixMe
-                  [input.stateFragment]: text,
-                }));
+                  ({
+                    // $FlowFixMe
+                    ...state,
+                    // $FlowFixMe
+                    [input.stateFragment]: text,
+                  }),
+                );
           };
 
           return (

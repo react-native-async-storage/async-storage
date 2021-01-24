@@ -15,6 +15,8 @@
  */
 'use strict';
 
+const path = require('path');
+
 const macSwitch = '--use-react-native-macos';
 const windowsSwitch = '--use-react-native-windows';
 
@@ -36,28 +38,52 @@ const dependencies = {
       windows: null,
     },
   },
-  // react-native-test-app is currently only set up for macOS and Windows
-  'react-native-test-app': {
-    platforms: {
-      android: null,
-      ios: null,
-    },
-  },
 };
 
 if (process.argv.includes(macSwitch)) {
-  process.argv = process.argv.filter(arg => arg !== macSwitch);
+  process.argv = process.argv.filter((arg) => arg !== macSwitch);
   process.argv.push('--config=metro.config.macos.js');
   module.exports = {
     dependencies,
-    reactNativePath: 'node_modules/react-native-macos',
+    reactNativePath: path.join('node_modules', 'react-native-macos'),
   };
-} else if (process.argv.includes(windowsSwitch)) {
-  process.argv = process.argv.filter(arg => arg !== windowsSwitch);
-  process.argv.push('--config=./metro.config.windows.js');
+} else if (
+  process.argv.includes(windowsSwitch) ||
+  process.argv.includes('autolink-windows') ||
+  process.argv.includes('run-windows')
+) {
+  if (process.argv.includes(windowsSwitch)) {
+    process.argv = process.argv.filter((arg) => arg !== windowsSwitch);
+    process.argv.push('--config=./metro.config.windows.js');
+  }
+  const sourceDir = path.join('example', 'windows');
   module.exports = {
     dependencies,
-    reactNativePath: 'node_modules/react-native-windows',
+    project: {
+      // `@react-native-community/cli` mistakes
+      // `windows/ReactNativeAsyncStorage.sln` and
+      // `windows/ReactNativeAsyncStorage/ReactNativeAsyncStorage.vcxproj` for
+      // being the main project files. We need to help it find the solution file
+      // under `example/windows/` and the generated project files in
+      // `node_modules/.generated/windows`.
+      windows: {
+        sourceDir,
+        solutionFile: 'ReactTestApp.sln',
+        project: {
+          projectFile: path.relative(
+            sourceDir,
+            path.join(
+              'node_modules',
+              '.generated',
+              'windows',
+              'ReactTestApp',
+              'ReactTestApp.vcxproj'
+            )
+          ),
+        },
+      },
+    },
+    reactNativePath: path.join('node_modules', 'react-native-windows'),
   };
 } else {
   module.exports = { dependencies };

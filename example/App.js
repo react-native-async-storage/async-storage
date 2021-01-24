@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
   },
   restartButton: {
     padding: 6,
-    fontSize: 16,
     borderRadius: 5,
     backgroundColor: '#F3F3F3',
     alignItems: 'center',

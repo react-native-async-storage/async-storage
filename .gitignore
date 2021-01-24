@@ -39,6 +39,7 @@ example/windows/.vs
 example/windows/ARM
 example/windows/packages
 example/windows/x64
+msbuild.binlog
 
 # node.js
 #
