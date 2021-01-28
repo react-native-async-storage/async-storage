@@ -21,6 +21,7 @@ import {
 
 import GetSetClear from './examples/GetSetClear';
 import MergeItem from './examples/MergeItem';
+import BasicExample from './examples/Basic';
 
 const TESTS = {
   GetSetClear: {
@@ -37,6 +38,14 @@ const TESTS = {
     description: 'Merge object with already stored data',
     render() {
       return <MergeItem />;
+    },
+  },
+  Basic: {
+    title: 'Basic',
+    testId: 'basic',
+    description: 'Basic functionality test',
+    render() {
+      return <BasicExample />;
     },
   },
 };
@@ -86,6 +95,10 @@ export default class App extends Component<Props, State> {
             testID="testType_mergeItem"
             title="Merge Item"
             onPress={() => this._changeTest('MergeItem')}
+          />
+          <Button
+            title={TESTS.Basic.title}
+            onPress={() => this._changeTest('Basic')}
           />
         </View>
 

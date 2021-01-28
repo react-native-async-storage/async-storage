@@ -16,7 +16,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function GetSet() {
   const [storedNumber, setStoredNumber] = React.useState('');
   const [needsRestart, setNeedsRestart] = React.useState(false);
-  const [keys, setKeys] = React.useState([]);
 
   React.useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY).then((value) => {
@@ -24,7 +23,6 @@ export default function GetSet() {
         setStoredNumber(value);
       }
     });
-    AsyncStorage.getAllKeys().then(setKeys);
   }, []);
 
   const increaseByTen = React.useCallback(async () => {
@@ -55,8 +53,6 @@ export default function GetSet() {
       />
 
       <Button testID="clear_button" title="Clear item" onPress={clearItem} />
-
-      <Text>Keys: {keys.join(', ')}</Text>
 
       {needsRestart ? <Text>Hit restart to see effect</Text> : null}
     </View>

@@ -13,18 +13,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Transaction
 import androidx.room.Update
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 
-private const val DATABASE_NAME = "RKStorage"
-private const val DATABASE_VERSION = 1
-private const val TABLE_NAME = "catalystLocalStorage"
+private const val DATABASE_VERSION = 2
+private const val DATABASE_NAME = "AsyncStorage"
+private const val TABLE_NAME = "Storage"
 private const val COLUMN_KEY = "key"
 private const val COLUMN_VALUE = "value"
 
 
-@Entity(tableName = TABLE_NAME, primaryKeys = ["key"])
+@Entity(tableName = TABLE_NAME)
 data class Entry(
     @PrimaryKey @ColumnInfo(name = COLUMN_KEY) val key: String,
-    @ColumnInfo(name = COLUMN_VALUE) val value: String
+    @ColumnInfo(name = COLUMN_VALUE) val value: String?
 )
 
 @Dao
@@ -60,11 +62,45 @@ private interface StorageDao {
     // insert and update are components of setValues - not to be used separately
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entries: List<Entry>): List<Long>
+
     @Update
     fun update(entries: List<Entry>)
 }
 
-@Database(entities = [Entry::class], version = DATABASE_VERSION, exportSchema = false)
+
+/**
+ * Previous version of AsyncStorage is violating the SQL standard (based on bug in SQLite),
+ * where PrimaryKey ('key' column) should never be null (https://www.sqlite.org/lang_createtable.html#the_primary_key).
+ * Because of that, we cannot reuse the old DB, because ROOM is guarded against that case (won't compile).
+ *
+ * In order to work around this, two steps are necessary:
+ *  - Room DB pre-population from the old database file (https://developer.android.com/training/data-storage/room/prepopulate#from-asset)
+ *  - Version migration, so that we can mark 'key' column as NOT-NULL
+ *
+ * This migration will happens only once, when developer enable this feature (when DB is still not created).
+ */
+@Suppress("ClassName")
+private object MIGRATION_TO_NEXT : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        val oldTableName = "catalystLocalStorage" // from ReactDatabaseSupplier
+
+        database.execSQL("CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`${COLUMN_KEY}` TEXT NOT NULL, `${COLUMN_VALUE}` TEXT, PRIMARY KEY(`${COLUMN_KEY}`));")
+
+        // even if the old AsyncStorage has checks for not nullable keys
+        // make sure we don't copy any, to not fail migration
+        database.execSQL("DELETE FROM $oldTableName WHERE `${COLUMN_KEY}` IS NULL")
+
+        database.execSQL(
+            """
+            INSERT INTO $TABLE_NAME (`${COLUMN_KEY}`, `${COLUMN_VALUE}`)
+            SELECT `${COLUMN_KEY}`, `${COLUMN_VALUE}`
+            FROM $oldTableName;
+        """.trimIndent()
+        )
+    }
+}
+
+@Database(entities = [Entry::class], version = DATABASE_VERSION, exportSchema = true)
 private abstract class StorageDb : RoomDatabase() {
     abstract fun storage(): StorageDao
 
@@ -78,10 +114,17 @@ private abstract class StorageDb : RoomDatabase() {
             }
 
             synchronized(this) {
-                inst = Room.databaseBuilder(
+                val oldDbFile = context.getDatabasePath("RKStorage")
+                val db = Room.databaseBuilder(
                     context, StorageDb::class.java, DATABASE_NAME
-                ).build()
+                )
 
+                if (oldDbFile.exists()) {
+                    // migrate data from old database, if it exists
+                    db.createFromFile(oldDbFile).addMigrations(MIGRATION_TO_NEXT)
+                }
+
+                inst = db.build()
                 instance = inst
                 return instance!!
             }
@@ -90,7 +133,7 @@ private abstract class StorageDb : RoomDatabase() {
 }
 
 interface AsyncStorageAccess {
-    suspend fun getValue(keys: List<String>): List<Entry>
+    suspend fun getValues(keys: List<String>): List<Entry>
     suspend fun setValues(entries: List<Entry>)
     suspend fun removeValues(keys: List<String>)
     suspend fun getKeys(): List<String>
@@ -107,7 +150,7 @@ class StorageSupplier private constructor(db: StorageDb) : AsyncStorageAccess {
 
     private val access = db.storage()
 
-    override suspend fun getValue(keys: List<String>) = access.getValues(keys)
+    override suspend fun getValues(keys: List<String>) = access.getValues(keys)
     override suspend fun setValues(entries: List<Entry>) = access.setValues(entries)
     override suspend fun removeValues(keys: List<String>) = access.removeValues(keys)
     override suspend fun getKeys() = access.getKeys()

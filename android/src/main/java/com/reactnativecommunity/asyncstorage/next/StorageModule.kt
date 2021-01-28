@@ -12,21 +12,62 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule() {
+class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), CoroutineScope {
     override fun getName() = "RNC_AsyncSQLiteDBStorage"
 
-    private val storage: AsyncStorageAccess = StorageSupplier.getInstance(reactContext)
-    private val scope = CoroutineScope(
-        Dispatchers.IO + CoroutineName("AsyncStorageCoroutine") + SupervisorJob()
-    )
+    override val coroutineContext =
+        Dispatchers.IO + CoroutineName("AsyncStorageScope") + SupervisorJob()
+
+    private val storage = StorageSupplier.getInstance(reactContext)
+
+    /**
+     * Todo:
+     *  - MultiMerge
+     */
+
+    @ReactMethod
+    fun multiGet(keys: ReadableArray, cb: Callback) {
+        launch(createExceptionHandler(cb)) {
+            val entries = storage.getValues(keys.toKeyList())
+            cb(null, entries.toKeyValueArgument())
+        }
+    }
+
+    @ReactMethod
+    fun multiSet(keyValueArray: ReadableArray, cb: Callback) {
+        launch(createExceptionHandler(cb)) {
+            val entries = keyValueArray.toEntryList()
+            storage.setValues(entries)
+            cb(null)
+        }
+    }
+
+    @ReactMethod
+    fun multiRemove(keys: ReadableArray, cb: Callback) {
+        launch(createExceptionHandler(cb)) {
+            storage.removeValues(keys.toKeyList())
+            cb(null)
+        }
+    }
+
+    // @ReactMethod
+    // fun multiMerge(val keyValueArray: ReadableArray, cb: Callback) {}
 
     @ReactMethod
     fun getAllKeys(cb: Callback) {
-        scope.launch {
+        launch(createExceptionHandler(cb)) {
             val keys = storage.getKeys()
             val result = Arguments.createArray()
             keys.forEach { result.pushString(it) }
-            cb.invoke(result)
+            cb.invoke(null, result)
+        }
+    }
+
+    @ReactMethod
+    fun clear(cb: Callback) {
+        launch(createExceptionHandler(cb)) {
+            storage.clear()
+            cb(null)
         }
     }
 }
