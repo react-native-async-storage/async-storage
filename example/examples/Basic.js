@@ -44,21 +44,11 @@ function NextExample() {
   }
 
   async function crashKeyNull() {
-    await AsyncStorage.setItem(null, 435345);
+    await AsyncStorage.setItem(null, '435345');
   }
 
-  function unknownCrash() {
-    // very unlikely to happen, unless module used directly
-    return new Promise((res, rej) => {
-      RCTAsyncStorage.multiSet(['key', 'crash'], function(errors) {
-        if (errors) {
-          const message = Array.isArray(errors) ? errors[0].message : errors.message;
-          rej(new Error(message));
-        } else {
-          res();
-        }
-      });
-    });
+  async function crashKeyNotString() {
+    await AsyncStorage.setItem(432, '435345');
   }
 
   async function removeValue() {
@@ -88,8 +78,8 @@ function NextExample() {
       <Text style={{fontSize: 16, fontWeight: '700'}}>Crash scenarios</Text>
       <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
         <Button title="Key null" onPress={runWithCatch(crashKeyNull)}/>
+        <Button title="Key not string" onPress={runWithCatch(crashKeyNotString)}/>
         <Button title="Wrong value type" onPress={runWithCatch(crashValueType)}/>
-        <Button title="Other crash" onPress={runWithCatch(unknownCrash)}/>
       </View>
     </View>
 

@@ -6,14 +6,17 @@ import com.facebook.react.bridge.ReadableArray
 fun ReadableArray.toEntryList(): List<Entry> {
     val list = mutableListOf<Entry>()
     for (keyValue in this.toArrayList()) {
-        if (keyValue !is ArrayList<*>) {
+        if (keyValue !is ArrayList<*> || keyValue.size != 2) {
             throw AsyncStorageError.invalidKeyValueFormat()
         }
         val key = keyValue[0]
         val value = keyValue[1]
 
         if (key == null || key !is String) {
-            throw AsyncStorageError.keyIsNull()
+            when (key) {
+                null -> throw AsyncStorageError.keyIsNull()
+                !is String -> throw AsyncStorageError.keyNotString()
+            }
         }
 
         if (value !is String) {
@@ -26,7 +29,7 @@ fun ReadableArray.toEntryList(): List<Entry> {
 }
 
 fun ReadableArray.toKeyList(): List<String> {
-    val list = this.toArrayList().toList()
+    val list = this.toArrayList()
 
     for (item in list) {
         if (item !is String) {

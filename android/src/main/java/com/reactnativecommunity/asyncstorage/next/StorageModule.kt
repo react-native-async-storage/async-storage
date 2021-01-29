@@ -23,6 +23,7 @@ class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), 
     /**
      * Todo:
      *  - MultiMerge
+     *  - Documenting the migration, access from Brownfield and error handling
      */
 
     @ReactMethod
