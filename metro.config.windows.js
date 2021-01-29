@@ -9,13 +9,15 @@ const path = require('path');
 const blacklist = require('metro-config/src/defaults/blacklist');
 
 const rnPath = fs.realpathSync(
-  path.resolve(require.resolve('react-native/package.json'), '..'),
+  path.dirname(require.resolve('react-native/package.json'))
 );
 const rnwPath = fs.realpathSync(
-  path.resolve(require.resolve('react-native-windows/package.json'), '..'),
+  path.dirname(require.resolve('react-native-windows/package.json'))
 );
 
 module.exports = {
+  projectRoot: `${__dirname}/example`,
+  watchFolders: [__dirname],
   resolver: {
     extraNodeModules: {
       // Redirect react-native to react-native-windows
@@ -28,18 +30,17 @@ module.exports = {
     // This should go in RN 0.61 when haste is removed
     blacklistRE: blacklist([
       new RegExp(
-        `${(path.resolve(rnPath) + path.sep).replace(/[/\\]/g, '/')}.*`,
-      ),
-      new RegExp(
-        `${(
-          path.resolve(__dirname, '../', 'node_modules/react-native') + path.sep
-        ).replace(/[/\\]/g, '/')}.*`,
+        `${(path.resolve(rnPath) + path.sep).replace(/[/\\]/g, '/')}.*`
       ),
 
       // This stops "react-native run-windows" from causing the metro server to crash if its already running
       new RegExp(
-        `${path.resolve(__dirname, 'windows').replace(/[/\\]/g, '/')}.*`,
+        `${path.resolve(__dirname, 'example', 'windows').replace(/[/\\]/g, '/')}.*`
       ),
+
+      // Workaround for `EBUSY: resource busy or locked, open '~\msbuild.ProjectImports.zip'`
+      // when building with `yarn windows --release`
+      /.*\.ProjectImports\.zip/,
     ]),
   },
   transformer: {
