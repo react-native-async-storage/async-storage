@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   exampleContainer: {
-    padding: 16,
+    padding: 4,
     backgroundColor: '#FFF',
     borderColor: '#EEE',
     borderTopWidth: 1,

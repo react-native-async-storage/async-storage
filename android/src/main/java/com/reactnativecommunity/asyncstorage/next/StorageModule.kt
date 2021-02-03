@@ -22,8 +22,8 @@ class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), 
 
     /**
      * Todo:
-     *  - MultiMerge
-     *  - Documenting the migration, access from Brownfield and error handling
+     *  - Documenting the migration,
+     *  - access from Native (Java interop)
      */
 
     @ReactMethod
@@ -51,8 +51,14 @@ class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), 
         }
     }
 
-    // @ReactMethod
-    // fun multiMerge(val keyValueArray: ReadableArray, cb: Callback) {}
+    @ReactMethod
+    fun multiMerge(keyValueArray: ReadableArray, cb: Callback) {
+        launch(createExceptionHandler(cb)) {
+            val entries = keyValueArray.toEntryList()
+            storage.mergeValues(entries)
+            cb(null)
+        }
+    }
 
     @ReactMethod
     fun getAllKeys(cb: Callback) {

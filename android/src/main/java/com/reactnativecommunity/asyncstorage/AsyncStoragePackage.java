@@ -30,7 +30,6 @@ public class AsyncStoragePackage implements ReactPackage {
                 NativeModule inst = (NativeModule) storageClass.getDeclaredConstructor(new Class[]{ReactContext.class}).newInstance(reactContext);
                 moduleList.add(inst);
             } catch (Exception e) {
-                // todo notify about potential issues
                 String message = "Something went wrong when initializing module:"
                         + "\n"
                         + e.getCause().getClass()

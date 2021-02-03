@@ -15,6 +15,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import org.json.JSONObject
 
 private const val DATABASE_VERSION = 2
 private const val DATABASE_NAME = "AsyncStorage"
@@ -32,7 +33,25 @@ data class Entry(
 @Dao
 private interface StorageDao {
 
-    // fun mergeValues() // todo
+    @Transaction
+    fun mergeValues(entries: List<Entry>) {
+        val currentDbEntries = getValues(entries.map { it.key })
+        val newEntries = mutableListOf<Entry>()
+
+        entries.forEach { newEntry ->
+            val oldEntry = currentDbEntries.find { it.key == newEntry.key }
+            if (oldEntry?.value == null) {
+                newEntries.add(newEntry)
+            } else if (!oldEntry.value.isValidJson() || !newEntry.value.isValidJson()) {
+                newEntries.add(newEntry)
+            } else {
+                val newValue =
+                    JSONObject(oldEntry.value).mergeWith(JSONObject(newEntry.value)).toString()
+                newEntries.add(newEntry.copy(value = newValue))
+            }
+        }
+        setValues(newEntries)
+    }
 
     @Transaction
     @Query("SELECT * FROM $TABLE_NAME WHERE `$COLUMN_KEY` IN (:keys)")
@@ -138,7 +157,7 @@ interface AsyncStorageAccess {
     suspend fun removeValues(keys: List<String>)
     suspend fun getKeys(): List<String>
     suspend fun clear()
-    // suspend fun mergeValues() // todo
+    suspend fun mergeValues(entries: List<Entry>)
 }
 
 class StorageSupplier private constructor(db: StorageDb) : AsyncStorageAccess {
@@ -153,6 +172,7 @@ class StorageSupplier private constructor(db: StorageDb) : AsyncStorageAccess {
     override suspend fun getValues(keys: List<String>) = access.getValues(keys)
     override suspend fun setValues(entries: List<Entry>) = access.setValues(entries)
     override suspend fun removeValues(keys: List<String>) = access.removeValues(keys)
+    override suspend fun mergeValues(entries: List<Entry>) = access.mergeValues(entries)
     override suspend fun getKeys() = access.getKeys()
     override suspend fun clear() = access.clear()
 }

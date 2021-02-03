@@ -2,6 +2,8 @@ package com.reactnativecommunity.asyncstorage.next
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
+import org.json.JSONException
+import org.json.JSONObject
 
 fun ReadableArray.toEntryList(): List<Entry> {
     val list = mutableListOf<Entry>()
@@ -50,4 +52,35 @@ fun List<Entry>.toKeyValueArgument(): ReadableArray {
     }
 
     return args
+}
+
+fun String?.isValidJson(): Boolean {
+    if (this == null) return false
+
+    return try {
+        JSONObject(this)
+        true
+    } catch (e: JSONException) {
+        false
+    }
+}
+
+fun JSONObject.mergeWith(newObject: JSONObject): JSONObject {
+
+    val keys = newObject.keys()
+    val mergedObject = JSONObject(this.toString())
+
+    while (keys.hasNext()) {
+        val key = keys.next()
+        val curValue = this.optJSONObject(key)
+        val newValue = newObject.optJSONObject(key)
+
+        if (curValue != null && newValue != null) {
+            val merged = curValue.mergeWith(newValue)
+            mergedObject.put(key, merged)
+        } else {
+            mergedObject.put(key, newObject.get(key))
+        }
+    }
+    return mergedObject
 }

@@ -1,10 +1,20 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, ScrollView, TextInput, NativeModules} from 'react-native';
+import {View, Text, Button, StyleSheet, ScrollView, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const RCTAsyncStorage = NativeModules.RNC_AsyncSQLiteDBStorage ||
-  NativeModules.RNCAsyncStorage;
 
+const mergeInitialValue = {
+  initial: 'keep',
+  override1: 'override',
+  nested: {
+    nestedValue: 'keep',
+    override2: 'override',
+    deeper: {
+      deeperValue: 'keep',
+      override3: 'override',
+    },
+  },
+};
 
 function NextExample() {
   const [keys, setKeys] = React.useState([]);
@@ -12,6 +22,12 @@ function NextExample() {
   const [inputKey, setInputKey] = React.useState();
   const [inputValue, setInputValue] = React.useState();
   const [value, setValue] = React.useState();
+  const [mergedValue, setMergedValue] = React.useState();
+  const [overrideValue, setOverrideValue] = React.useState({
+    override1: '',
+    override2: '',
+    override3: '',
+  });
 
 
   function runWithCatch(block) {
@@ -59,14 +75,58 @@ function NextExample() {
     await AsyncStorage.clear();
   }
 
+  async function resetMergedValue() {
+    await AsyncStorage.setItem('MERGER', JSON.stringify(mergeInitialValue));
+    const saved = await AsyncStorage.getItem('MERGER');
+    setMergedValue(JSON.parse(saved));
+  }
+
+  async function readMergedValue() {
+    const saved = await AsyncStorage.getItem('MERGER');
+    setMergedValue(saved ? JSON.parse(saved) : {});
+  }
+
+  async function mergeValues() {
+    const {override1, override2, override3} = overrideValue;
+
+    // leave out empty inputs
+    const toMerge = {};
+    if (override1) {
+      toMerge.override1 = override1;
+    }
+    if (override2) {
+      toMerge.nested = {
+        override2: override2,
+      };
+    }
+    if (override3) {
+      if (!toMerge.nested) {
+        toMerge.nested = {
+          deeper: {
+            override3: override3,
+          },
+        };
+      } else {
+        toMerge.nested.deeper = {
+          override3: override3,
+        };
+      }
+    }
+
+
+    await AsyncStorage.mergeItem('MERGER', JSON.stringify(toMerge));
+  }
+
+
   return <ScrollView contentContainerStyle={{flexGrow: 1}}>
 
-    {error ? <Text style={{fontSize: 18, color: 'red'}}>{error}</Text> : null}
+    {error ? <Text style={styles.error}>{error}</Text> : null}
 
     <View style={styles.example}>
+      <Text style={styles.title}>Basic operations</Text>
       <TextInput onChangeText={setInputKey} value={inputKey} style={styles.input} placeholder="key"/>
       <TextInput onChangeText={setInputValue} value={inputValue} style={styles.input} placeholder="value"/>
-      <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+      <View style={styles.row}>
         <Button title="Read" onPress={runWithCatch(readValue)}/>
         <Button title="Save" onPress={runWithCatch(saveValue)}/>
         <Button title="Delete" onPress={runWithCatch(removeValue)}/>
@@ -75,8 +135,8 @@ function NextExample() {
     </View>
 
     <View style={styles.example}>
-      <Text style={{fontSize: 16, fontWeight: '700'}}>Crash scenarios</Text>
-      <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+      <Text style={styles.title}>Crash scenarios</Text>
+      <View style={styles.row}>
         <Button title="Key null" onPress={runWithCatch(crashKeyNull)}/>
         <Button title="Key not string" onPress={runWithCatch(crashKeyNotString)}/>
         <Button title="Wrong value type" onPress={runWithCatch(crashValueType)}/>
@@ -84,15 +144,45 @@ function NextExample() {
     </View>
 
     <View style={styles.example}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+      <Text style={styles.title}>Merging</Text>
+      <View style={styles.row}>
+        <Text>{`Value:\n\n${JSON.stringify(mergedValue, null, 2)}`}</Text>
+        <Text>{`Merge with:\n\n${JSON.stringify(overrideValue, null, 2)}`}</Text>
+      </View>
+      <View style={styles.row}>
+        <Button title="Read" onPress={runWithCatch(readMergedValue)}/>
+        <Button title="Reset" onPress={runWithCatch(resetMergedValue)}/>
+        <Button title="Merge" onPress={runWithCatch(mergeValues)}/>
+      </View>
+      <View>
+        <TextInput
+          onChangeText={t => setOverrideValue(c => ({...c, override1: t}))}
+          value={overrideValue.override1}
+          style={styles.input} placeholder="override1"
+        />
+        <TextInput
+          onChangeText={t => setOverrideValue(c => ({...c, override2: t}))}
+          value={overrideValue.override2}
+          style={styles.input} placeholder="override2"
+        />
+        <TextInput
+          onChangeText={t => setOverrideValue(c => ({...c, override3: t}))}
+          value={overrideValue.override3}
+          style={styles.input} placeholder="override3"
+        />
+      </View>
+    </View>
+
+    <View style={styles.example}>
+      <Text style={styles.title}>Display all keys</Text>
+      <View style={styles.row}>
         <Button title="Get all keys" onPress={runWithCatch(getAllKeys)}/>
       </View>
-      <Text style={{fontWeight: '700'}}>Keys:</Text>
       <Text>{keys.join(', ')}</Text>
     </View>
 
     <View style={styles.example}>
-      <Text style={{fontSize: 16}}>Clear database entries</Text>
+      <Text style={styles.title}>Clear database entries</Text>
       <Button title="clear" onPress={runWithCatch(clearDb)}/>
     </View>
   </ScrollView>;
@@ -101,7 +191,8 @@ function NextExample() {
 
 const styles = StyleSheet.create({
   example: {
-    paddingVertical: 24,
+    paddingBottom: 24,
+    paddingTop: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#e3e3e3',
     borderStyle: 'solid',
@@ -111,6 +202,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#eee',
     borderStyle: 'solid',
+  },
+  error: {
+    fontSize: 18,
+    color: 'red',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '700',
+    paddingBottom: 12,
   },
 });
 
