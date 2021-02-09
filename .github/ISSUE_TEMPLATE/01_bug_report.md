@@ -6,7 +6,12 @@ label: 'Bug'
 
 ## Current behavior
 
-<!-- Describe the issue. -->
+<!--
+  Describe the issue.
+
+  If you're using Expo, please check their forums for a similar issue
+  first: https://forums.expo.io/
+-->
 
 ## Expected behavior
 
@@ -27,6 +32,7 @@ label: 'Bug'
   - [ ] macOS
   - [ ] Windows
 - **AsyncStorage version**: <!-- @react-native-async-storage/async-storage version set in package.json -->
+- **Expo version**: <!-- If you use Expo, please specify its version here -->
 - **Environment**:
   <!--
     After running `npm install` or `yarn` in your repo, run `npx react-native info`
