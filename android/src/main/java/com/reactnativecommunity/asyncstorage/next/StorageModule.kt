@@ -1,5 +1,6 @@
 package com.reactnativecommunity.asyncstorage.next
 
+import android.content.Context
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactContext
@@ -20,10 +21,16 @@ class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), 
 
     private val storage = StorageSupplier.getInstance(reactContext)
 
+    companion object {
+        @JvmStatic
+        fun getStorageInstance(ctx: Context): AsyncStorageAccess {
+            return StorageSupplier.getInstance(ctx)
+        }
+    }
+
     /**
      * Todo:
-     *  - Documenting the migration,
-     *  - access from Native (Java interop)
+     *  - DB tests
      */
 
     @ReactMethod

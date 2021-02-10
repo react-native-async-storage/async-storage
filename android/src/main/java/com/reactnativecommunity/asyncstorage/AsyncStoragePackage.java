@@ -24,7 +24,7 @@ public class AsyncStoragePackage implements ReactPackage {
 
         List<NativeModule> moduleList = new ArrayList<>(1);
 
-        if (BuildConfig.AsyncStorage_useNext) {
+        if (BuildConfig.AsyncStorage_useNextStorage) {
             try {
                 Class storageClass = Class.forName("com.reactnativecommunity.asyncstorage.next.StorageModule");
                 NativeModule inst = (NativeModule) storageClass.getDeclaredConstructor(new Class[]{ReactContext.class}).newInstance(reactContext);
