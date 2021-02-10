@@ -5,7 +5,6 @@ sidebar_label: Manual linking
 ---
 
 
-
 ## iOS
 
 #### Project linking
