@@ -35,7 +35,7 @@ fun ReadableArray.toKeyList(): List<String> {
 
     for (item in list) {
         if (item !is String) {
-            throw AsyncStorageError.keyIsNull()
+            throw AsyncStorageError.keyNotString()
         }
     }
     return list as List<String>

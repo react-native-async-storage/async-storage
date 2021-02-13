@@ -31,7 +31,19 @@ data class Entry(
 )
 
 @Dao
-private interface StorageDao {
+internal interface StorageDao {
+
+    @Transaction
+    @Query("SELECT * FROM $TABLE_NAME WHERE `$COLUMN_KEY` IN (:keys)")
+    fun getValues(keys: List<String>): List<Entry>
+
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun setValues(entries: List<Entry>)
+
+    @Transaction
+    @Query("DELETE FROM $TABLE_NAME WHERE `$COLUMN_KEY` in (:keys)")
+    fun removeValues(keys: List<String>)
 
     @Transaction
     fun mergeValues(entries: List<Entry>) {
@@ -54,36 +66,12 @@ private interface StorageDao {
     }
 
     @Transaction
-    @Query("SELECT * FROM $TABLE_NAME WHERE `$COLUMN_KEY` IN (:keys)")
-    fun getValues(keys: List<String>): List<Entry>
-
-    @Transaction
-    fun setValues(entries: List<Entry>) {
-        val insertResult = insert(entries)
-        with(entries.filterIndexed { i, _ -> insertResult[i] == -1L }) {
-            update(this)
-        }
-    }
-
-    @Transaction
-    @Query("DELETE FROM $TABLE_NAME WHERE `$COLUMN_KEY` in (:keys)")
-    fun removeValues(keys: List<String>)
-
-    @Transaction
     @Query("SELECT `$COLUMN_KEY` FROM $TABLE_NAME")
     fun getKeys(): List<String>
 
     @Transaction
     @Query("DELETE FROM $TABLE_NAME")
     fun clear()
-
-
-    // insert and update are components of setValues - not to be used separately
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(entries: List<Entry>): List<Long>
-
-    @Update
-    fun update(entries: List<Entry>)
 }
 
 
@@ -120,7 +108,7 @@ private object MIGRATION_TO_NEXT : Migration(1, 2) {
 }
 
 @Database(entities = [Entry::class], version = DATABASE_VERSION, exportSchema = true)
-private abstract class StorageDb : RoomDatabase() {
+internal abstract class StorageDb : RoomDatabase() {
     abstract fun storage(): StorageDao
 
     companion object {
@@ -160,7 +148,7 @@ interface AsyncStorageAccess {
     suspend fun mergeValues(entries: List<Entry>)
 }
 
-class StorageSupplier private constructor(db: StorageDb) : AsyncStorageAccess {
+class StorageSupplier internal constructor(db: StorageDb) : AsyncStorageAccess {
     companion object {
         fun getInstance(ctx: Context): AsyncStorageAccess {
             return StorageSupplier(StorageDb.getDatabase(ctx))

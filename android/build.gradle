@@ -55,7 +55,7 @@ buildscript {
 // If you really need bigger size, please keep in mind the potential consequences.
 long dbSizeInMB = 6L
 def newDbSize = rootProject.properties['AsyncStorage_db_size_in_MB']
-if( newDbSize != null && newDbSize.isLong()) {
+if (newDbSize != null && newDbSize.isLong()) {
     dbSizeInMB = newDbSize.toLong()
 }
 
@@ -64,9 +64,10 @@ def useDedicatedExecutor = getFlagOrDefault('AsyncStorage_dedicatedExecutor', fa
 def useNextStorage = getFlagOrDefault("AsyncStorage_useNextStorage", false)
 
 apply plugin: 'com.android.library'
-if(useNextStorage) {
+if (useNextStorage) {
     apply plugin: 'kotlin-android'
     apply plugin: 'kotlin-kapt'
+    apply from: './testresults.gradle'
 }
 
 android {
@@ -82,6 +83,12 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    if (useNextStorage) {
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+    }
 }
 
 repositories {
@@ -95,13 +102,26 @@ repositories {
 
 dependencies {
 
-    if(useNextStorage) {
+    if (useNextStorage) {
         def room_version = "2.2.6"
-        def coroutines_version = "1.3.9"
+        def coroutines_version = "1.4.2"
+        def junit_version = "4.12"
+        def robolectric_version = "4.2.1"
+        def truth_version = "1.1.2"
+        def androidxtest_version = "1.1.0"
+        def coroutinesTest_version = "1.4.2"
 
         implementation "androidx.room:room-runtime:$room_version"
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
         kapt "androidx.room:room-compiler:$room_version"
+
+        testImplementation "junit:junit:$junit_version"
+        testImplementation "androidx.test:runner:$androidxtest_version"
+        testImplementation "androidx.test:rules:$androidxtest_version"
+        testImplementation "androidx.test.ext:junit:$androidxtest_version"
+        testImplementation "org.robolectric:robolectric:$robolectric_version"
+        testImplementation "com.google.truth:truth:$truth_version"
+        testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTest_version"
     }
 
     //noinspection GradleDynamicVersion
