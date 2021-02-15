@@ -5,7 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.After
 import org.junit.Before
@@ -24,7 +24,6 @@ class AsyncStorageAccessTest {
         database = Room.inMemoryDatabaseBuilder(
             InstrumentationRegistry.getInstrumentation().context, StorageDb::class.java
         ).allowMainThreadQueries().build()
-
         asyncStorage = StorageSupplier(database)
     }
 
@@ -34,7 +33,7 @@ class AsyncStorageAccessTest {
     }
 
     @Test
-    fun performsBasicGetSetRemoveOperations() = runBlockingTest {
+    fun performsBasicGetSetRemoveOperations() = runBlocking {
         val entriesCount = 10
         val entries = createRandomEntries(entriesCount)
         val keys = entries.map { it.key }
@@ -49,7 +48,7 @@ class AsyncStorageAccessTest {
     }
 
     @Test
-    fun readsAllKeysAndClearsDb() = runBlockingTest {
+    fun readsAllKeysAndClearsDb() = runBlocking {
         val entries = createRandomEntries(8)
         val keys = entries.map { it.key }
         asyncStorage.setValues(entries)
@@ -60,7 +59,7 @@ class AsyncStorageAccessTest {
     }
 
     @Test
-    fun mergesDeeplyTwoValues() = runBlockingTest {
+    fun mergesDeeplyTwoValues() = runBlocking {
         val initialEntry = Entry("key", VALUE_INITIAL)
         val overrideEntry = Entry("key", VALUE_OVERRIDES)
         asyncStorage.setValues(listOf(initialEntry))
@@ -70,7 +69,7 @@ class AsyncStorageAccessTest {
     }
 
     @Test
-    fun updatesExistingValues() = runBlockingTest {
+    fun updatesExistingValues() = runBlocking {
         val key = "test_key"
         val value = "test_value"
         val entries = listOf(Entry(key, value))

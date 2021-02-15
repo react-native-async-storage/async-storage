@@ -12,7 +12,6 @@ import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.Transaction
-import androidx.room.Update
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.json.JSONObject
@@ -35,18 +34,18 @@ internal interface StorageDao {
 
     @Transaction
     @Query("SELECT * FROM $TABLE_NAME WHERE `$COLUMN_KEY` IN (:keys)")
-    fun getValues(keys: List<String>): List<Entry>
+    suspend fun getValues(keys: List<String>): List<Entry>
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun setValues(entries: List<Entry>)
+    suspend fun setValues(entries: List<Entry>)
 
     @Transaction
     @Query("DELETE FROM $TABLE_NAME WHERE `$COLUMN_KEY` in (:keys)")
-    fun removeValues(keys: List<String>)
+    suspend fun removeValues(keys: List<String>)
 
     @Transaction
-    fun mergeValues(entries: List<Entry>) {
+    suspend fun mergeValues(entries: List<Entry>) {
         val currentDbEntries = getValues(entries.map { it.key })
         val newEntries = mutableListOf<Entry>()
 
@@ -67,11 +66,11 @@ internal interface StorageDao {
 
     @Transaction
     @Query("SELECT `$COLUMN_KEY` FROM $TABLE_NAME")
-    fun getKeys(): List<String>
+    suspend fun getKeys(): List<String>
 
     @Transaction
     @Query("DELETE FROM $TABLE_NAME")
-    fun clear()
+    suspend fun clear()
 }
 
 
@@ -148,6 +147,7 @@ class StorageSupplier internal constructor(db: StorageDb) : AsyncStorageAccess {
             return StorageSupplier(StorageDb.getDatabase(ctx))
         }
     }
+
     private val access = db.storage()
 
     override suspend fun getValues(keys: List<String>) = access.getValues(keys)
