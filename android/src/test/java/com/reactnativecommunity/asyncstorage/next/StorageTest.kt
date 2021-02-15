@@ -16,7 +16,6 @@ import kotlin.random.Random
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class AsyncStorageAccessTest {
-
     private lateinit var asyncStorage: AsyncStorageAccess
     private lateinit var database: StorageDb
 
@@ -39,14 +38,11 @@ class AsyncStorageAccessTest {
         val entriesCount = 10
         val entries = createRandomEntries(entriesCount)
         val keys = entries.map { it.key }
-
         assertThat(asyncStorage.getValues(keys)).hasSize(0)
         asyncStorage.setValues(entries)
         assertThat(asyncStorage.getValues(keys)).hasSize(entriesCount)
-
         val indicesToRemove = (1..4).map { Random.nextInt(0, entriesCount) }.distinct()
         val toRemove = entries.filterIndexed { index, _ -> indicesToRemove.contains(index) }
-
         asyncStorage.removeValues(toRemove.map { it.key })
         val currentEntries = asyncStorage.getValues(keys)
         assertThat(currentEntries).hasSize(entriesCount - toRemove.size)
@@ -67,12 +63,9 @@ class AsyncStorageAccessTest {
     fun mergesDeeplyTwoValues() = runBlockingTest {
         val initialEntry = Entry("key", VALUE_INITIAL)
         val overrideEntry = Entry("key", VALUE_OVERRIDES)
-
         asyncStorage.setValues(listOf(initialEntry))
         asyncStorage.mergeValues(listOf(overrideEntry))
-
         val current = asyncStorage.getValues(listOf("key"))[0]
-
         assertThat(current.value).isEqualTo(VALUE_MERGED)
     }
 
@@ -81,13 +74,10 @@ class AsyncStorageAccessTest {
         val key = "test_key"
         val value = "test_value"
         val entries = listOf(Entry(key, value))
-
         assertThat(asyncStorage.getValues(listOf(key))).hasSize(0)
         asyncStorage.setValues(entries)
         assertThat(asyncStorage.getValues(listOf(key))).isEqualTo(entries)
-
         val modifiedEntries = listOf(Entry(key, "updatedValue"))
-
         asyncStorage.setValues(modifiedEntries)
         assertThat(asyncStorage.getValues(listOf(key))).isEqualTo(modifiedEntries)
     }

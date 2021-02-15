@@ -112,8 +112,6 @@ function NextExample() {
         };
       }
     }
-
-
     await AsyncStorage.mergeItem('MERGER', JSON.stringify(toMerge));
   }
 

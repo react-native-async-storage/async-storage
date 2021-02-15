@@ -90,13 +90,10 @@ internal interface StorageDao {
 private object MIGRATION_TO_NEXT : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
         val oldTableName = "catalystLocalStorage" // from ReactDatabaseSupplier
-
         database.execSQL("CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`${COLUMN_KEY}` TEXT NOT NULL, `${COLUMN_VALUE}` TEXT, PRIMARY KEY(`${COLUMN_KEY}`));")
-
         // even if the old AsyncStorage has checks for not nullable keys
         // make sure we don't copy any, to not fail migration
         database.execSQL("DELETE FROM $oldTableName WHERE `${COLUMN_KEY}` IS NULL")
-
         database.execSQL(
             """
             INSERT INTO $TABLE_NAME (`${COLUMN_KEY}`, `${COLUMN_VALUE}`)
@@ -119,18 +116,15 @@ internal abstract class StorageDb : RoomDatabase() {
             if (inst != null) {
                 return inst
             }
-
             synchronized(this) {
                 val oldDbFile = context.getDatabasePath("RKStorage")
                 val db = Room.databaseBuilder(
                     context, StorageDb::class.java, DATABASE_NAME
                 )
-
                 if (oldDbFile.exists()) {
                     // migrate data from old database, if it exists
                     db.createFromFile(oldDbFile).addMigrations(MIGRATION_TO_NEXT)
                 }
-
                 inst = db.build()
                 instance = inst
                 return instance!!
@@ -154,7 +148,6 @@ class StorageSupplier internal constructor(db: StorageDb) : AsyncStorageAccess {
             return StorageSupplier(StorageDb.getDatabase(ctx))
         }
     }
-
     private val access = db.storage()
 
     override suspend fun getValues(keys: List<String>) = access.getValues(keys)

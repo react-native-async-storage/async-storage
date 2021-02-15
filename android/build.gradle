@@ -61,6 +61,8 @@ if (newDbSize != null && newDbSize.isLong()) {
 
 // Instead of reusing AsyncTask thread pool, AsyncStorage can use its own executor
 def useDedicatedExecutor = getFlagOrDefault('AsyncStorage_dedicatedExecutor', false)
+
+// Use next storage implementation
 def useNextStorage = getFlagOrDefault("AsyncStorage_useNextStorage", false)
 
 apply plugin: 'com.android.library'

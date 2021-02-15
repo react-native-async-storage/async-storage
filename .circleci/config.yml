@@ -208,22 +208,10 @@ jobs:
           name: Run e2e tests
           command: yarn test:e2e:ios
 
-
   "Build: Android release apk":
     <<: *android_defaults
     steps:
       - *addWorkspace
-#      - restore-cache: *cache_restore_yarn
-#      - run:
-#          name: Installing Yarn dependencies
-#          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
-#      - save-cache: *cache_save_yarn
-#      - restore-cache: *cache_restore_gradle
-#      - run:
-#          name: Downloading Gradle dependencies
-#          working_directory: example/android
-#          command: ./gradlew --max-workers 2 fetchDependencies
-#      - save-cache: *cache_save_gradle
       - run:
           name: Bundle JS
           command: yarn bundle:android --dev false
@@ -293,7 +281,7 @@ jobs:
                 -no-snapshot \
                 -no-boot-anim \
                 -no-window \
-                -logcat '*:W' | grep -i "ReactNative"
+                -logcat '*:E ReactNative:W ReactNativeJS:*'
       - run:
           name: Wait for emulator to boot
           command: ./scripts/android_e2e.sh 'wait_for_emulator'

@@ -28,11 +28,6 @@ class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), 
         }
     }
 
-    /**
-     * Todo:
-     *  - DB tests
-     */
-
     @ReactMethod
     fun multiGet(keys: ReadableArray, cb: Callback) {
         launch(createExceptionHandler(cb)) {

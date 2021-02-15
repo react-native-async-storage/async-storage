@@ -11,12 +11,11 @@ class ArgumentHelpersTest {
 
     @Test
     fun transformsArgumentsToEntryList() {
-        val keyValue1 = arrayListOf("key1", "value1")
-        val keyValue2 = arrayListOf("key2", "value2")
-        val keyValue3 = arrayListOf("key3", "value3")
-
-        val args = createNativeCallArguments(keyValue1, keyValue2, keyValue3)
-
+        val args = createNativeCallArguments(
+            arrayListOf("key1", "value1"),
+            arrayListOf("key2", "value2"),
+            arrayListOf("key3", "value3")
+        )
         assertThat(args.toEntryList()).isEqualTo(
             listOf(
                 Entry("key1", "value1"),
@@ -29,9 +28,7 @@ class ArgumentHelpersTest {
     @Test
     fun transfersArgumentsToKeyList() {
         val keyList = listOf("key1", "key2", "key3")
-
         val args = createNativeCallArguments("key1", "key2", "key3")
-
         assertThat(args.toKeyList()).isEqualTo(keyList)
     }
 
@@ -39,7 +36,6 @@ class ArgumentHelpersTest {
     fun throwsIfArgumentsNotValidFormat() {
         val invalid = arrayListOf("invalid")
         val args = createNativeCallArguments(invalid)
-
         val error = assertThrows(AsyncStorageError::class.java) {
             args.toEntryList()
         }
@@ -52,16 +48,13 @@ class ArgumentHelpersTest {
     @Test
     fun throwsIfArgumentKeyIsNullOrNotString() {
         val argsInvalidNull = createNativeCallArguments(arrayListOf(null, "invalid"))
-
         val errorArgsInvalidNull = assertThrows(AsyncStorageError::class.java) {
             argsInvalidNull.toEntryList()
         }
         assertThat(errorArgsInvalidNull is AsyncStorageError).isTrue()
         assertThat(errorArgsInvalidNull).hasMessageThat().isEqualTo("Key cannot be null.")
 
-
         val notStringArgs = createNativeCallArguments(arrayListOf(123, "invalid"))
-
         val errorNotString = assertThrows(AsyncStorageError::class.java) {
             notStringArgs.toEntryList()
         }
@@ -73,11 +66,9 @@ class ArgumentHelpersTest {
     @Test
     fun throwsIfArgumentValueNotString() {
         val invalidArgs = createNativeCallArguments(arrayListOf("my_key", 666))
-
         val error = assertThrows(AsyncStorageError::class.java) {
             invalidArgs.toEntryList()
         }
-
         assertThat(error is AsyncStorageError).isTrue()
         assertThat(error).hasMessageThat()
             .isEqualTo("Value for key \"my_key\" is not a string. Only strings are supported as a value.")
