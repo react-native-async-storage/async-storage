@@ -1,20 +1,28 @@
 package com.reactnativecommunity.asyncstorage.next
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableArray
+import com.reactnativecommunity.asyncstorage.SerialExecutor
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.launch
 
 class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), CoroutineScope {
     override fun getName() = "RNC_AsyncSQLiteDBStorage"
+
+    // this executor is here only to please detox, which relies on internal implementation
+    // of current Async Storage
+    @VisibleForTesting
+    private val executor = SerialExecutor(Dispatchers.Main.asExecutor())
 
     override val coroutineContext =
         Dispatchers.IO + CoroutineName("AsyncStorageScope") + SupervisorJob()
