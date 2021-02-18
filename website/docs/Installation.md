@@ -13,7 +13,7 @@ With npm:
 npm install @react-native-async-storage/async-storage
 ```
 
-**with yarn**
+With Yarn:
 ```bash
 yarn add @react-native-async-storage/async-storage
 ```
