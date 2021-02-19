@@ -4,8 +4,6 @@ title: Installation
 sidebar_label: Installation
 ---
 
-
-
 ### Get library
 
 With npm:
@@ -16,6 +14,11 @@ npm install @react-native-async-storage/async-storage
 With Yarn:
 ```bash
 yarn add @react-native-async-storage/async-storage
+```
+
+With Expo CLI:
+```bash
+expo install @react-native-async-storage/async-storage
 ```
 
 ### Link
