@@ -1,6 +1,6 @@
 const {NativeModules} = require('react-native');
 
-export default function shouldFallbackToLegacyNativeModule() {
+module.exports = function shouldFallbackToLegacyNativeModule() {
   const expoConstants =
     NativeModules.NativeUnimoduleProxy?.modulesConstants?.ExponentConstants;
 
@@ -27,4 +27,4 @@ export default function shouldFallbackToLegacyNativeModule() {
   }
 
   return false;
-}
+};
