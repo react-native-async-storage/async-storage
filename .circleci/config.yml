@@ -314,13 +314,14 @@ workflows:
           requires:
             - "Test: lint"
             - "Test: flow"
-      - "Release":
-          requires:
-            - "Test: iOS e2e"
-            - "Build: Android release apk"
-          filters:
-            branches:
-              only: master
       - "Test: Android e2e":
           requires:
             - "Build: Android release apk"
+      - "Release":
+          requires:
+            - "Test: iOS e2e"
+            - "Test: Android e2e"
+          filters:
+            branches:
+              only: master
+
