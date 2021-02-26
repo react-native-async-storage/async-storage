@@ -3,7 +3,12 @@ package com.reactnativecommunity.asyncstorage;
 import java.util.ArrayDeque;
 import java.util.concurrent.Executor;
 
-// Adapted from https://android.googlesource.com/platform/frameworks/base.git/+/1488a3a19d4681a41fb45570c15e14d99db1cb66/core/java/android/os/AsyncTask.java#237
+/**
+ * Detox is using this implementation detail in its environment setup,
+ * so in order for Next storage to work, this class has been made public
+ *
+ * Adapted from https://android.googlesource.com/platform/frameworks/base.git/+/1488a3a19d4681a41fb45570c15e14d99db1cb66/core/java/android/os/AsyncTask.java#237
+ */
 public class SerialExecutor implements Executor {
     private final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
     private Runnable mActive;

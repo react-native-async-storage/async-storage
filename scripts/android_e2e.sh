@@ -6,7 +6,7 @@ MAX_RETRIES=60 # wait max 5 minutes for emu to boot
 build_apk() {
   echo
   echo "[Detox e2e] Building APK"
-  (cd example/android; ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release --max-workers 2)
+  (cd example/android; ./gradlew assembleRelease assembleAndroidTest -PAsyncStorage_useNextStorage=false -DtestBuildType=release --max-workers 2)
 }
 
 bundle_js() {

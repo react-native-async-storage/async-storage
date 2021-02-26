@@ -19,8 +19,8 @@ import kotlinx.coroutines.launch
 class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), CoroutineScope {
     override fun getName() = "RNC_AsyncSQLiteDBStorage"
 
-    // this executor is here only to please detox, which relies on internal implementation
-    // of current Async Storage
+    // this executor is not used by the module, but it must exists here due to
+    // Detox relying on this implementation detail to run
     @VisibleForTesting
     private val executor = SerialExecutor(Dispatchers.Main.asExecutor())
 

@@ -52,7 +52,7 @@ cache keys:
   brew ios: &key_brew_ios cache-brew-ios-v4-{{ arch }}
   brew android: &key_brew_android cache-brew-android-v4-{{ arch }}
   yarn: &key_yarn cache-yarn-{{ checksum "package.json" }}-{{ arch }}
-  gradle: &key_gradle cache-gradle-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
+  gradle: &key_gradle cache-gradle-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
   pods: &key_pods cache-pods-v1-{{ checksum "example/ios/Podfile" }}-{{ checksum "package.json" }}-{{ arch }}
 
 cache:
@@ -216,8 +216,12 @@ jobs:
           name: Bundle JS
           command: yarn bundle:android --dev false
       - run:
-          name: Build APK
+          name: Build APKs
           command: yarn build:e2e:android
+      - run:
+          name: Build APK with Next storage
+          working_directory: example/android
+          command: ./gradlew assembleNext --max-workers 2
       - persist_to_workspace:
           root: ~/async_storage
           paths:
@@ -292,6 +296,9 @@ jobs:
       - run:
           name: Run e2e tests
           command: yarn test:e2e:android
+      - run:
+          name: Run e2e tests for Next storage
+          command: yarn detox test -c android.emu.release.next --maxConcurrency 1
 
   Release:
     <<: *js_defaults

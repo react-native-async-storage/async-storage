@@ -14,10 +14,10 @@ fun ReadableArray.toEntryList(): List<Entry> {
         val key = keyValue[0]
         val value = keyValue[1]
 
-        if (key == null || key !is String) {
+        if (key !is String) {
             when (key) {
                 null -> throw AsyncStorageError.keyIsNull()
-                !is String -> throw AsyncStorageError.keyNotString()
+                else -> throw AsyncStorageError.keyNotString()
             }
         }
 
