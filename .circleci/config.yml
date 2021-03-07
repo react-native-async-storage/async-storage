@@ -297,6 +297,9 @@ jobs:
           name: Run e2e tests
           command: yarn test:e2e:android
       - run:
+          name: Clear previous app from device
+          command: adb uninstall com.microsoft.reacttestapp
+      - run:
           name: Run e2e tests for Next storage
           command: yarn detox test -c android.emu.release.next --maxConcurrency 1
 
