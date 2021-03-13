@@ -52,18 +52,6 @@ public class AsyncStorageMigration {
             return;
         }
 
-        try {
-            for (File file : expoDatabases) {
-                if (file.delete()) {
-                    Log.v(LOG_TAG, "Deleted scoped database " + file.getName());
-                } else {
-                    Log.v(LOG_TAG, "Failed to delete scoped database " + file.getName());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         Log.v(LOG_TAG, "Completed the scoped AsyncStorage migration");
     }
 
