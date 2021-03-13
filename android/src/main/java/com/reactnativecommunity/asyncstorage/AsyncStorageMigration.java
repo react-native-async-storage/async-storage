@@ -45,8 +45,9 @@ public class AsyncStorageMigration {
             // Create the storage file
             ReactDatabaseSupplier.getInstance(mContext).get();
             copyFile(new FileInputStream(expoDatabase), new FileOutputStream(mContext.getDatabasePath(ReactDatabaseSupplier.DATABASE_NAME)));
+            Log.v(LOG_TAG, "Migrated most recently modified database " + expoDatabase.getName() + " to RKStorage");
         } catch (Exception e) {
-            Log.v(LOG_TAG, "Failed to move scoped database");
+            Log.v(LOG_TAG, "Failed to migrate scoped database " + expoDatabase.getName());
             e.printStackTrace();
             return;
         }
