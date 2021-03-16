@@ -16,6 +16,7 @@
 
 static NSString *const RCTStorageDirectory = @"RCTAsyncLocalStorage_V1";
 static NSString *const RCTOldStorageDirectory = @"RNCAsyncLocalStorage_V1";
+static NSString *const RCTExpoStorageDirectory = @"RCTAsyncLocalStorage";
 static NSString *const RCTManifestFileName = @"manifest.json";
 static const NSUInteger RCTInlineValueThreshold = 1024;
 
@@ -389,6 +390,13 @@ RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory,
     // "Documents/.../RCTAsyncLocalStorage_V1"
     RCTStorageDirectoryMigrationCheck(
         RCTCreateStorageDirectoryPath_deprecated(RCTOldStorageDirectory),
+        RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory),
+        YES);
+
+    // Alternatively, migrate Expo's managed app path "Documents/.../RNCAsyncLocalStorage" to
+    // "Documents/.../RCTAsyncLocalStorage_V1"
+    RCTStorageDirectoryMigrationCheck(
+        RCTCreateStorageDirectoryPath_deprecated(RCTExpoStorageDirectory),
         RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory),
         YES);
 
