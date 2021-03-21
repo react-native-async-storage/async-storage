@@ -92,7 +92,7 @@ public final class AsyncStorageModule
   AsyncStorageModule(ReactApplicationContext reactContext, Executor executor) {
     super(reactContext);
     // The migration MUST run before the AsyncStorage database is created for the first time.
-    AsyncStorageMigration.migrate(reactContext);
+    AsyncStorageExpoMigration.migrate(reactContext);
 
     this.executor = new SerialExecutor(executor);
     reactContext.addLifecycleEventListener(this);
