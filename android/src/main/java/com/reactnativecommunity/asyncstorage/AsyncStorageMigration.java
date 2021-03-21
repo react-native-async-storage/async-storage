@@ -128,8 +128,7 @@ public class AsyncStorageMigration {
     @RequiresApi(Build.VERSION_CODES.O)
     private static long getLastModifiedTimeFromBasicFileAttrs(File file) {
         try {
-            BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-            return attr.creationTime().toMillis();
+            return Files.readAttributes(file.toPath(), BasicFileAttributes.class).creationTime().toMillis();
         } catch (Exception e) {
             return -1;
         }
