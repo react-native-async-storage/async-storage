@@ -6,8 +6,6 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.facebook.react.modules.storage.ReactDatabaseSupplier;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
