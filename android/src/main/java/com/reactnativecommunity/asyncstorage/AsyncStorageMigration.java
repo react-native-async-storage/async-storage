@@ -20,7 +20,7 @@ import java.util.ArrayList;
 // A utility class that migrates a scoped AsyncStorage database to RKStorage.
 // This utility only runs if the RKStorage file has not been created yet.
 public class AsyncStorageMigration {
-    static final String LOG_TAG = "ScopedStorageMigration";
+    static final String LOG_TAG = "AsyncStorageExpoMigration";
 
     public static void migrate(Context context) {
         // Only migrate if the default async storage file does not exist.
