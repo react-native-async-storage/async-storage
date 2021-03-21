@@ -22,17 +22,13 @@ import java.util.ArrayList;
 public class AsyncStorageMigration {
     static final String LOG_TAG = "ScopedStorageMigration";
 
-    private static Context mContext;
-
     public static void migrate(Context context) {
-        mContext = context;
-
         // Only migrate if the default async storage file does not exist.
-        if (isAsyncStorageDatabaseCreated()) {
+        if (isAsyncStorageDatabaseCreated(context)) {
             return;
         }
 
-        ArrayList<File> expoDatabases = getExpoDatabases();
+        ArrayList<File> expoDatabases = getExpoDatabases(context);
 
         File expoDatabase = getLastModifiedFile(expoDatabases);
 
@@ -43,8 +39,8 @@ public class AsyncStorageMigration {
 
         try {
             // Create the storage file
-            ReactDatabaseSupplier.getInstance(mContext).get();
-            copyFile(new FileInputStream(expoDatabase), new FileOutputStream(mContext.getDatabasePath(ReactDatabaseSupplier.DATABASE_NAME)));
+            ReactDatabaseSupplier.getInstance(context).get();
+            copyFile(new FileInputStream(expoDatabase), new FileOutputStream(context.getDatabasePath(ReactDatabaseSupplier.DATABASE_NAME)));
             Log.v(LOG_TAG, "Migrated most recently modified database " + expoDatabase.getName() + " to RKStorage");
         } catch (Exception e) {
             Log.v(LOG_TAG, "Failed to migrate scoped database " + expoDatabase.getName());
@@ -67,15 +63,15 @@ public class AsyncStorageMigration {
         Log.v(LOG_TAG, "Completed the scoped AsyncStorage migration");
     }
 
-    private static boolean isAsyncStorageDatabaseCreated() {
-        return mContext.getDatabasePath(ReactDatabaseSupplier.DATABASE_NAME).exists();
+    private static boolean isAsyncStorageDatabaseCreated(Context context) {
+        return context.getDatabasePath(ReactDatabaseSupplier.DATABASE_NAME).exists();
     }
 
     // Find all database files that the user may have created while using Expo.
-    private static ArrayList<File> getExpoDatabases() {
+    private static ArrayList<File> getExpoDatabases(Context context) {
         ArrayList<File> scopedDatabases = new ArrayList<>();
         try {
-            File databaseDirectory = mContext.getDatabasePath("noop").getParentFile();
+            File databaseDirectory = context.getDatabasePath("noop").getParentFile();
             File[] directoryListing = databaseDirectory.listFiles();
             if (directoryListing != null) {
                 for (File child : directoryListing) {
