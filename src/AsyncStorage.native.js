@@ -69,6 +69,14 @@ function checkValidInput(usedKey: string, value: any) {
   }
 }
 
+function checkValidArgs(args: Array<Array<string>>) {
+  if (Array.isArray(args[1])) {
+    throw new Error(
+      '[AsyncStorage] Did you mean to pass an array of key value pairs instead? The second arguement to multiSet cannot be an array\n',
+    );
+  }
+}
+
 /**
  * `AsyncStorage` is a simple, unencrypted, asynchronous, persistent, key-value
  * storage system that is global to the app.  It should be used instead of
@@ -322,6 +330,7 @@ const AsyncStorage = {
     callback?: ?(errors: ?$ReadOnlyArray<?Error>) => void,
   ): Promise<null> {
     return new Promise((resolve, reject) => {
+      checkValidArgs(arguments);
       keyValuePairs.forEach(([key, value]) => {
         checkValidInput(key, value);
       });
