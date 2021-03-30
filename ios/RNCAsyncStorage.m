@@ -430,19 +430,19 @@ RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory,
     // the oldest are removed and the most recently modified is returned.
     NSString *oldStoragePath = RCTGetStoragePathForMigration();
     if (oldStoragePath != nil) {
-        // First migrate our deprecated path "Documents/.../RNCAsyncLocalStorage_V1" or
+        // Migrate our deprecated path "Documents/.../RNCAsyncLocalStorage_V1" or
         // "Documents/.../RCTsyncLocalStorage" to "Documents/.../RCTAsyncLocalStorage_V1"
         RCTStorageDirectoryMigrationCheck(
             oldStoragePath,
             RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory),
             YES);
-
-        // Then migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to "Application
-        // Support/[bundleID]/RCTAsyncLocalStorage_V1"
-        RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory),
-                                          RCTCreateStorageDirectoryPath(RCTStorageDirectory),
-                                          NO);
     }
+
+    // Migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to
+    // "Application Support/[bundleID]/RCTAsyncLocalStorage_V1"
+    RCTStorageDirectoryMigrationCheck(RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory),
+                                      RCTCreateStorageDirectoryPath(RCTStorageDirectory),
+                                      NO);
 
     return self;
 }
