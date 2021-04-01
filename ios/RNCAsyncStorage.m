@@ -431,7 +431,7 @@ RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory,
     NSString *oldStoragePath = RCTGetStoragePathForMigration();
     if (oldStoragePath != nil) {
         // Migrate our deprecated path "Documents/.../RNCAsyncLocalStorage_V1" or
-        // "Documents/.../RCTsyncLocalStorage" to "Documents/.../RCTAsyncLocalStorage_V1"
+        // "Documents/.../RCTAsyncLocalStorage" to "Documents/.../RCTAsyncLocalStorage_V1"
         RCTStorageDirectoryMigrationCheck(
             oldStoragePath,
             RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory),
