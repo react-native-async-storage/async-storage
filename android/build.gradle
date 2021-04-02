@@ -21,18 +21,30 @@ def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
+def getFlagOrDefault(flagName, defaultValue) {
+    rootProject.hasProperty(flagName) ? rootProject.properties[flagName] == "true" : defaultValue
+}
+
 configurations {
     compileClasspath
 }
 
 buildscript {
-    if (project == rootProject) {
-        repositories {
-            google()
-            jcenter()
-        }
-        dependencies {
+    // kotlin version is dictated by rootProject extension or property in gradle.properties
+    ext.asyncStorageKtVersion = rootProject.ext.has('kotlinVersion')
+            ? rootProject.ext['kotlinVersion']
+            : rootProject.hasProperty('AsyncStorage_kotlinVersion')
+            ? rootProject.properties['AsyncStorage_kotlinVersion']
+            : '1.4.21'
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        if (project == rootProject) {
             classpath 'com.android.tools.build:gradle:3.6.4'
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$asyncStorageKtVersion"
         }
     }
 }
@@ -42,18 +54,23 @@ buildscript {
 // This also protects the database from filling up the disk cache and becoming malformed.
 // If you really need bigger size, please keep in mind the potential consequences.
 long dbSizeInMB = 6L
-
 def newDbSize = rootProject.properties['AsyncStorage_db_size_in_MB']
-
-if( newDbSize != null && newDbSize.isLong()) {
+if (newDbSize != null && newDbSize.isLong()) {
     dbSizeInMB = newDbSize.toLong()
 }
 
-def useDedicatedExecutor = rootProject.hasProperty('AsyncStorage_dedicatedExecutor')
-        ? rootProject.properties['AsyncStorage_dedicatedExecutor']
-        : false
+// Instead of reusing AsyncTask thread pool, AsyncStorage can use its own executor
+def useDedicatedExecutor = getFlagOrDefault('AsyncStorage_dedicatedExecutor', false)
+
+// Use next storage implementation
+def useNextStorage = getFlagOrDefault("AsyncStorage_useNextStorage", false)
 
 apply plugin: 'com.android.library'
+if (useNextStorage) {
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-kapt'
+    apply from: './testresults.gradle'
+}
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 28)
@@ -62,10 +79,17 @@ android {
         minSdkVersion safeExtGet('minSdkVersion', 19)
         targetSdkVersion safeExtGet('targetSdkVersion', 28)
         buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
-        buildConfigField("boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}")
+        buildConfigField "boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}"
+        buildConfigField "boolean", "AsyncStorage_useNextStorage", "${useNextStorage}"
     }
     lintOptions {
         abortOnError false
+    }
+
+    if (useNextStorage) {
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
     }
 }
 
@@ -79,6 +103,30 @@ repositories {
 }
 
 dependencies {
+
+    if (useNextStorage) {
+        def room_version = "2.2.6"
+        def coroutines_version = "1.4.2"
+        def junit_version = "4.12"
+        def robolectric_version = "4.5.1"
+        def truth_version = "1.1.2"
+        def androidxtest_version = "1.1.0"
+        def coroutinesTest_version = "1.4.2"
+
+        implementation "androidx.room:room-runtime:$room_version"
+        implementation "androidx.room:room-ktx:$room_version"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+        kapt "androidx.room:room-compiler:$room_version"
+
+        testImplementation "junit:junit:$junit_version"
+        testImplementation "androidx.test:runner:$androidxtest_version"
+        testImplementation "androidx.test:rules:$androidxtest_version"
+        testImplementation "androidx.test.ext:junit:$androidxtest_version"
+        testImplementation "org.robolectric:robolectric:$robolectric_version"
+        testImplementation "com.google.truth:truth:$truth_version"
+        testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTest_version"
+    }
+
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
 }

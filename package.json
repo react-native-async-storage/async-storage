@@ -128,6 +128,14 @@
         "device": {
           "avdName": "Emu_E2E"
         }
+      },
+      "android.emu.release.next": {
+        "binaryPath": "example/android/app/build/outputs/apk/next/app-next.apk",
+        "testBinaryPath": "example/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk",
+        "type": "android.emulator",
+        "device": {
+          "avdName": "Emu_E2E"
+        }
       }
     }
   },

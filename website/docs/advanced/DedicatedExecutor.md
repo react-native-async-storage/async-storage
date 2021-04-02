@@ -10,10 +10,12 @@ import PlatformSupport from "../../src/components/Platform.js"
 
 ---
 
-This feature would be mostly used in brownfield apps and [in edge cases with some android devices.](https://github.com/react-native-async-storage/async-storage/issues/159)
+**Note**: This feature is obsolete when [Next storage feature is enabled](Next.md).
+
 
 ## Motivation
 
+This feature would be mostly used in brownfield apps and [in edge cases with some android devices.](https://github.com/react-native-async-storage/async-storage/issues/159)
 Dedicated thread pool executor makes `AsyncStorage` use separate thread pool for its tasks execution.
 
 Use this feature if `THREAD_POOL_EXECUTOR` from `AsyncTasks`:

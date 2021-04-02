@@ -26,6 +26,16 @@ task fetchDependencies() {
 }
 
 buildscript {
+    ext.kotlinVersion = '1.4.21'
+
+    // Mainly for Detox testing for using Next Storage
+    // when building next, force using next storage
+    if(gradle.startParameter.getTaskNames().contains("assembleNext")) {
+        rootProject.setProperty("AsyncStorage_useNextStorage", "true")
+    }
+    Boolean nextStorageFlag = rootProject.hasProperty("AsyncStorage_useNextStorage") ? rootProject.properties["AsyncStorage_useNextStorage"] == "true" : false
+    println("[Async Storage] Using Next storage: " + nextStorageFlag)
+
     repositories {
         google()
         jcenter()
@@ -33,6 +43,7 @@ buildscript {
     dependencies {
         // Needs to match `react-native-test-app/android/app/build.gradle`
         classpath "com.android.tools.build:gradle:4.0.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -61,14 +72,25 @@ allprojects {
                     keyPassword 'android'
                 }
             }
-
             androidExtension.buildTypes.release.signingConfig = androidExtension.signingConfigs.test
+            androidExtension.buildTypes {
+                next {
+                    // this build type is used on CI (to have app with and without nextStorage)
+                    initWith release
+                    matchingFallbacks = ["debug", "release"]
+                }
+            }
             androidExtension.testBuildType = 'release'
-
             androidExtension.sourceSets.androidTest.java.srcDirs += "$rootDir/app/src/androidTest/java"
-
+            if(System.getenv("CIRCLECI") == "true") {
+                // explicitly apply NDK version available in CI image
+                androidExtension.ndkVersion = "20.1.5948944"
+            }
             project.dependencies {
                 androidTestImplementation('com.wix:detox:+')
+
+                def hermesDir = file('../../node_modules/hermes-engine/android').absolutePath
+                nextImplementation files("$hermesDir/hermes-release.aar")
             }
         }
     }

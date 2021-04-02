@@ -52,7 +52,7 @@ cache keys:
   brew ios: &key_brew_ios cache-brew-ios-v4-{{ arch }}
   brew android: &key_brew_android cache-brew-android-v4-{{ arch }}
   yarn: &key_yarn cache-yarn-{{ checksum "package.json" }}-{{ arch }}
-  gradle: &key_gradle cache-gradle-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
+  gradle: &key_gradle cache-gradle-v1-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
   pods: &key_pods cache-pods-v1-{{ checksum "example/ios/Podfile" }}-{{ checksum "package.json" }}-{{ arch }}
 
 cache:
@@ -151,6 +151,26 @@ jobs:
           name: Flow check
           command: yarn test:flow
 
+  "Test: Android unit":
+    <<: *android_defaults
+    steps:
+      - *addWorkspace
+      - restore-cache: *cache_restore_yarn
+      - run:
+          name: Installing Yarn dependencies
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save-cache: *cache_save_yarn
+      - restore-cache: *cache_restore_gradle
+      - run:
+          name: Downloading Gradle dependencies
+          working_directory: example/android
+          command: ./gradlew --max-workers 2 fetchDependencies
+      - save-cache: *cache_save_gradle
+      - run:
+          name: Next storage tests
+          working_directory: example/android
+          command: ./gradlew react-native-async-storage_async-storage:test
+
   "Test: iOS e2e":
     <<: *macos_defaults
     steps:
@@ -192,23 +212,16 @@ jobs:
     <<: *android_defaults
     steps:
       - *addWorkspace
-      - restore-cache: *cache_restore_yarn
-      - run:
-          name: Installing Yarn dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
-      - save-cache: *cache_save_yarn
-      - restore-cache: *cache_restore_gradle
-      - run:
-          name: Downloading Gradle dependencies
-          working_directory: example/android
-          command: ./gradlew --max-workers 2 fetchDependencies
-      - save-cache: *cache_save_gradle
       - run:
           name: Bundle JS
           command: yarn bundle:android --dev false
       - run:
-          name: Build APK
+          name: Build APKs
           command: yarn build:e2e:android
+      - run:
+          name: Build APK with Next storage
+          working_directory: example/android
+          command: ./gradlew assembleNext --max-workers 2
       - persist_to_workspace:
           root: ~/async_storage
           paths:
@@ -272,7 +285,7 @@ jobs:
                 -no-snapshot \
                 -no-boot-anim \
                 -no-window \
-                -logcat '*:W' | grep -i "ReactNative"
+                -logcat '*:E ReactNative:W ReactNativeJS:*'
       - run:
           name: Wait for emulator to boot
           command: ./scripts/android_e2e.sh 'wait_for_emulator'
@@ -283,6 +296,12 @@ jobs:
       - run:
           name: Run e2e tests
           command: yarn test:e2e:android
+      - run:
+          name: Clear previous app from device
+          command: adb uninstall com.microsoft.reacttestapp
+      - run:
+          name: Run e2e tests for Next storage
+          command: yarn detox test -c android.emu.release.next --maxConcurrency 1
 
   Release:
     <<: *js_defaults
@@ -306,6 +325,9 @@ workflows:
       - "Test: flow":
           requires:
             - "Setup environment"
+      - "Test: Android unit":
+          requires:
+            - "Setup environment"
       - "Test: iOS e2e":
           requires:
             - "Test: lint"
@@ -314,6 +336,7 @@ workflows:
           requires:
             - "Test: lint"
             - "Test: flow"
+            - "Test: Android unit"
       - "Test: Android e2e":
           requires:
             - "Build: Android release apk"
