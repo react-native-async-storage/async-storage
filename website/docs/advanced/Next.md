@@ -77,6 +77,23 @@ rootProject.ext.kotlinVersion = '1.4.21'
 AsyncStorage_kotlinVersion=1.4.21
 ```
 
+### Disabling requestLegacyExternalStorage
+
+If you have `requestLegacyExternalStorage` enabled, you will need to disable it for this feature to work.
+
+In your project's `android/app/src/main` directory, locate the `AndroidManifest.xml` file and remove the following line:
+
+```diff
+    <application
+      android:name=".MainApplication"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:allowBackup="false"
+-      android:requestLegacyExternalStorage="true"
+      android:theme="@style/AppTheme">
+```
+
 ### Notable changes
 
 Alongside of a warning regarding `key`/`value`, errors are thrown when:
