@@ -69,6 +69,30 @@ function checkValidInput(usedKey: string, value: any) {
   }
 }
 
+function checkValidArgs(keyValuePairs, callback) {
+  if (
+    !Array.isArray(keyValuePairs) ||
+    keyValuePairs.length === 0 ||
+    !Array.isArray(keyValuePairs[0])
+  ) {
+    throw new Error(
+      '[AsyncStorage] Expected array of key-value pairs as first argument to multiSet',
+    );
+  }
+
+  if (callback && typeof callback !== 'function') {
+    if (Array.isArray(callback)) {
+      throw new Error(
+        '[AsyncStorage] Expected function as second argument to multiSet. Did you forget to wrap key-value pairs in an array for the first argument?',
+      );
+    }
+
+    throw new Error(
+      '[AsyncStorage] Expected function as second argument to multiSet',
+    );
+  }
+}
+
 /**
  * `AsyncStorage` is a simple, unencrypted, asynchronous, persistent, key-value
  * storage system that is global to the app.  It should be used instead of
@@ -321,6 +345,7 @@ const AsyncStorage = {
     keyValuePairs: Array<Array<string>>,
     callback?: ?(errors: ?$ReadOnlyArray<?Error>) => void,
   ): Promise<null> {
+    checkValidArgs(keyValuePairs, callback);
     return new Promise((resolve, reject) => {
       keyValuePairs.forEach(([key, value]) => {
         checkValidInput(key, value);
