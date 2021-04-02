@@ -91,8 +91,12 @@ public final class AsyncStorageModule
   @VisibleForTesting
   AsyncStorageModule(ReactApplicationContext reactContext, Executor executor) {
     super(reactContext);
+    // The migration MUST run before the AsyncStorage database is created for the first time.
+    AsyncStorageExpoMigration.migrate(reactContext);
+
     this.executor = new SerialExecutor(executor);
     reactContext.addLifecycleEventListener(this);
+    // Creating the database MUST happen after the migration.
     mReactDatabaseSupplier = ReactDatabaseSupplier.getInstance(reactContext);
   }
 
