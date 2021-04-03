@@ -60,12 +60,11 @@
     "test:e2e:ios": "detox test -c ios.sim.release --maxConcurrency 1",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
   },
-  "peerDependencies": {
-    "react": "~16.8.6 || ~16.9.0 || ~16.11.0 || ~16.13.1 || ~17.0.1",
-    "react-native": "^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || 1000.0.0"
-  },
   "dependencies": {
     "deep-assign": "^3.0.0"
+  },
+  "peerDependencies": {
+    "react-native": "^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || 1000.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
