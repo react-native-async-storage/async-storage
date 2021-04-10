@@ -193,7 +193,7 @@ void readStorageValue(Context ctx, String key) {
                 CoroutineStart.DEFAULT,
                 (scope, continuation) -> {
                     List<String> keys = new ArrayList<>();
-                    keys.add("kkk");
+                    keys.add(key);
 
                     Continuation<? super List<? extends Entry>> cont = new Continuation() {
                         @NotNull
@@ -249,6 +249,5 @@ void saveStorageValue(Context ctx, String key, String value) {
                 });
 }
 ```
-
 
 
