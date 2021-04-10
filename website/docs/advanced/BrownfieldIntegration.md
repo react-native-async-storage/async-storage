@@ -242,12 +242,11 @@ void saveStorageValue(Context ctx, String key, String value) {
                     };
 
                     List<Entry> entries = new ArrayList<>();
-                    Entry entry = new Entry("my_key", "my_value");
+                    Entry entry = new Entry(key, value);
                     entries.add(entry);
                     asyncStorage.setValues(entries, cont);
                     return Unit.INSTANCE;
                 });
 }
 ```
-
 
