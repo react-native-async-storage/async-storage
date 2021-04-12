@@ -189,17 +189,29 @@ void readStorageValue(Context ctx, String key) {
     AsyncStorageAccess asyncStorage = StorageModule.getStorageInstance(ctx);
 
     BuildersKt.launch(GlobalScope.INSTANCE,
-            Dispatchers.getIO(),
-            CoroutineStart.DEFAULT,
-            (scope, continuation) -> {
-                List<String> keys = new ArrayList<>();
-                keys.add(key);
+                Dispatchers.getIO(),
+                CoroutineStart.DEFAULT,
+                (scope, continuation) -> {
+                    List<String> keys = new ArrayList<>();
+                    keys.add(key);
 
-                List<Entry> entries = (List<Entry>) asyncStorage.getValues(keys, (Continuation<? super List<? extends Entry>>) continuation);
-                doSomethingWithValues(entries);
+                    Continuation<? super List<? extends Entry>> cont = new Continuation() {
+                        @NotNull
+                        @Override
+                        public CoroutineContext getContext() {
+                            return scope.getCoroutineContext();
+                        }
 
-                return Unit.INSTANCE;
-            });
+                        @Override
+                        public void resumeWith(@NotNull Object o) {
+                            List<Entry> entries = (List<Entry>) o;
+                            doSomethingWithEntries(entries);
+                        }
+                    };
+
+                    asyncStorage.getValues(keys, cont);
+                    return Unit.INSTANCE;
+                });
 
 }
 ```
@@ -212,20 +224,26 @@ void saveStorageValue(Context ctx, String key, String value) {
   AsyncStorageAccess asyncStorage = StorageModule.getStorageInstance(ctx);
 
   BuildersKt.launch(GlobalScope.INSTANCE,
-          Dispatchers.getIO(),
-          CoroutineStart.DEFAULT,
-          (scope, continuation) -> {
+                Dispatchers.getIO(),
+                CoroutineStart.DEFAULT,
+                (scope, continuation) -> {
+                    Continuation cont = new Continuation() {
+                        @NotNull
+                        @Override
+                        public CoroutineContext getContext() {
+                            return scope.getCoroutineContext();
+                        }
 
-            List<Entry> entries = new ArrayList<>();
-            Entry entry = new Entry(key, value);
-            entries.add(entry);
+                        @Override
+                        public void resumeWith(@NotNull Object o) {}
+                    };
 
-            asyncStorage.setValues(entries, continuation);
-
-            return Unit.INSTANCE;
-          });
+                    List<Entry> entries = new ArrayList<>();
+                    Entry entry = new Entry(key, value);
+                    entries.add(entry);
+                    asyncStorage.setValues(entries, cont);
+                    return Unit.INSTANCE;
+                });
 }
 ```
-
-
 
