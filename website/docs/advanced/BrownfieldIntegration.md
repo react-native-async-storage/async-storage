@@ -227,9 +227,6 @@ void saveStorageValue(Context ctx, String key, String value) {
                 Dispatchers.getIO(),
                 CoroutineStart.DEFAULT,
                 (scope, continuation) -> {
-                    List<String> keys = new ArrayList<>();
-                    keys.add("kkk");
-
                     Continuation cont = new Continuation() {
                         @NotNull
                         @Override
