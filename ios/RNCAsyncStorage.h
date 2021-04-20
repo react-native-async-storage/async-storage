@@ -45,4 +45,7 @@
 - (void)multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
         callback:(RCTResponseSenderBlock)callback;
 
+// Interface for natively fetching all the keys from the storage data.
+- (void)getAllKeys:(RCTResponseSenderBlock)callback;
+
 @end
