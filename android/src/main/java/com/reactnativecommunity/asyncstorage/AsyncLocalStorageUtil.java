@@ -155,15 +155,17 @@ public class AsyncLocalStorageUtil {
    * a "checkpoint" and is done automatically (by default) when the WAL file reaches a threshold
    * size of 1000 pages.
    * More here: https://sqlite.org/wal.html
-   * <p>
+   *
    * This helper will force checkpoint on RKStorage, if Next storage file does not exists yet.
    */
   public static void verifyAndForceSqliteCheckpoint(Context ctx) {
+    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        Log.i("AsyncStorage_Next", "SQLite checkpoint not required on this API version.");
+    }
+
     File nextStorageFile = ctx.getDatabasePath("AsyncStorage");
     File currentStorageFile = ctx.getDatabasePath(ReactDatabaseSupplier.DATABASE_NAME);
-    boolean isCheckpointRequired = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-            && !nextStorageFile.exists()
-            && currentStorageFile.exists();
+    boolean isCheckpointRequired = !nextStorageFile.exists() && currentStorageFile.exists();
     if (!isCheckpointRequired) {
       Log.i("AsyncStorage_Next", "SQLite checkpoint not required.");
       return;
@@ -171,11 +173,11 @@ public class AsyncLocalStorageUtil {
 
     try {
       ReactDatabaseSupplier supplier = ReactDatabaseSupplier.getInstance(ctx);
-      supplier.get().execSQL("PRAGMA wal_checkpoint");
+      supplier.get().rawQuery("PRAGMA wal_checkpoint", null).close();
       supplier.closeDatabase();
       Log.i("AsyncStorage_Next", "Forcing SQLite checkpoint successful.");
     } catch (Exception e) {
-      Log.w("AsyncStorage_Next", "Could not force checkpoint on RKStorage: " + e.getMessage());
+      Log.w("AsyncStorage_Next", "Could not force checkpoint on RKStorage, the Next storage might not migrate the data properly: " + e.getMessage());
     }
   }
 }
