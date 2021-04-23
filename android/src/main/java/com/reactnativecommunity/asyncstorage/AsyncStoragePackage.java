@@ -29,6 +29,7 @@ public class AsyncStoragePackage implements ReactPackage {
                 Class storageClass = Class.forName("com.reactnativecommunity.asyncstorage.next.StorageModule");
                 NativeModule inst = (NativeModule) storageClass.getDeclaredConstructor(new Class[]{ReactContext.class}).newInstance(reactContext);
                 moduleList.add(inst);
+                AsyncLocalStorageUtil.verifyAndForceSqliteCheckpoint(reactContext);
             } catch (Exception e) {
                 String message = "Something went wrong when initializing module:"
                         + "\n"

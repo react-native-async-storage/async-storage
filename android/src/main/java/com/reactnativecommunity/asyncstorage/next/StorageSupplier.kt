@@ -1,6 +1,7 @@
 package com.reactnativecommunity.asyncstorage.next
 
 import android.content.Context
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Database
@@ -100,6 +101,7 @@ private object MIGRATION_TO_NEXT : Migration(1, 2) {
             FROM $oldTableName;
         """.trimIndent()
         )
+        Log.e("AsyncStorage_Next", "Migration to Next storage completed.")
     }
 }
 
