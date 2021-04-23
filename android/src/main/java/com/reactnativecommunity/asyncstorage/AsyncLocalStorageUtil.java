@@ -8,11 +8,9 @@
 package com.reactnativecommunity.asyncstorage;
 
 import javax.annotation.Nullable;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Iterator;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,12 +18,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.facebook.react.bridge.ReadableArray;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.KEY_COLUMN;
 import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.TABLE_CATALYST;
 import static com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier.VALUE_COLUMN;
@@ -159,7 +154,7 @@ public class AsyncLocalStorageUtil {
    * This helper will force checkpoint on RKStorage, if Next storage file does not exists yet.
    */
   public static void verifyAndForceSqliteCheckpoint(Context ctx) {
-    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
         Log.i("AsyncStorage_Next", "SQLite checkpoint not required on this API version.");
     }
 
