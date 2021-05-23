@@ -38,7 +38,7 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         // Needs to match `react-native-test-app/android/app/build.gradle`

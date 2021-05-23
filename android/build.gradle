@@ -39,7 +39,7 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         if (project == rootProject) {
@@ -99,7 +99,7 @@ repositories {
         url "${resolveModulePath("react-native")}/android"
     }
     google()
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
