@@ -26,7 +26,8 @@ task fetchDependencies() {
 }
 
 buildscript {
-    ext.kotlinVersion = '1.4.21'
+    def androidTestAppDir = "../../node_modules/react-native-test-app/android"
+    apply from: "$androidTestAppDir/dependencies.gradle"
 
     // Mainly for Detox testing for using Next Storage
     // when building next, force using next storage
@@ -41,8 +42,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        // Needs to match `react-native-test-app/android/app/build.gradle`
-        classpath "com.android.tools.build:gradle:4.0.2"
+        classpath "com.android.tools.build:gradle:$androidPluginVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }

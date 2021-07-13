@@ -90,7 +90,7 @@
     "react-dom": "16.13.1",
     "react-native": "0.63.4",
     "react-native-macos": "0.63.4",
-    "react-native-test-app": "^0.3.0",
+    "react-native-test-app": "^0.6.12",
     "react-native-web": "~0.12.0",
     "react-native-windows": "0.63.18",
     "react-test-renderer": "16.13.1",
