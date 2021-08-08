@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Async Storage',
   tagline: 'Data storage system for React Native.',
-  url: 'https://react-native-async-storage.github.io/async-storage/',
+  url: 'https://react-native-async-storage.github.io',
   baseUrl: '/async-storage/',
   favicon: 'img/favicon.ico',
   organizationName: 'react-native-async-storage',
@@ -17,7 +17,7 @@ module.exports = {
         alt: 'Async Storage Logo',
         src: 'img/logo.svg',
       },
-      links: [
+      items: [
         {
           label: 'Docs',
           to: 'docs/install',
