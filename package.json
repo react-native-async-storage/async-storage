@@ -85,7 +85,7 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-native": "0.63.4",
+    "react-native": "0.64.1",
     "react-native-builder-bob": "^0.18.0",
     "react-native-macos": "^0.63.4",
     "react-native-test-app": "^0.7.1",
