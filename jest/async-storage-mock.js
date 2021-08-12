@@ -2,6 +2,13 @@
  * @format
  */
 
+import mergeOptions from 'merge-options';
+
+const merge = mergeOptions.bind({
+  concatArrays: true,
+  ignoreUndefined: true,
+});
+
 const asMock = {
   __INTERNAL_MOCK_STORAGE__: {},
 
@@ -95,31 +102,12 @@ async function _multiMerge(keyValuePairs, callback) {
     const oldValue = JSON.parse(asMock.__INTERNAL_MOCK_STORAGE__[key]);
 
     asMock.__INTERNAL_MOCK_STORAGE__[key] = JSON.stringify(
-      _deepMergeInto(oldValue, value),
+      merge(oldValue, value),
     );
   });
 
   callback && callback(null);
   return null;
 }
-
-const _isObject = (obj) => typeof obj === 'object' && !Array.isArray(obj);
-const _deepMergeInto = (oldObject, newObject) => {
-  const newKeys = Object.keys(newObject);
-  const mergedObject = oldObject;
-
-  newKeys.forEach((key) => {
-    const oldValue = mergedObject[key];
-    const newValue = newObject[key];
-
-    if (_isObject(oldValue) && _isObject(newValue)) {
-      mergedObject[key] = _deepMergeInto(oldValue, newValue);
-    } else {
-      mergedObject[key] = newValue;
-    }
-  });
-
-  return mergedObject;
-};
 
 module.exports = asMock;
