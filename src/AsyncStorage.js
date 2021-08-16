@@ -8,13 +8,18 @@
  * @flow
  */
 
-import merge from 'deep-assign';
+import mergeOptions from 'merge-options';
+
+const merge = mergeOptions.bind({
+  concatArrays: true,
+  ignoreUndefined: true,
+});
 
 const mergeLocalStorageItem = (key, value) => {
   const oldValue = window.localStorage.getItem(key);
   const oldObject = JSON.parse(oldValue);
   const newObject = JSON.parse(value);
-  const nextValue = JSON.stringify(merge({}, oldObject, newObject));
+  const nextValue = JSON.stringify(merge(oldObject, newObject));
   window.localStorage.setItem(key, nextValue);
 };
 
