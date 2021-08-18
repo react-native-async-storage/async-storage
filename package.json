@@ -64,7 +64,7 @@
     "merge-options": "^3.0.4"
   },
   "peerDependencies": {
-    "react-native": "^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || 1000.0.0"
+    "react-native": "^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || 1000.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -93,14 +93,6 @@
     "react-native-windows": "^0.63.18",
     "react-test-renderer": "16.13.1",
     "semantic-release": "^17.2.1"
-  },
-  "resolutions": {
-    "//": "We must use a single version of Metro otherwise bundling will break on Windows",
-    "metro": "^0.59.0",
-    "metro-config": "^0.59.0",
-    "metro-core": "^0.59.0",
-    "metro-react-native-babel-transformer": "^0.59.0",
-    "metro-resolver": "^0.59.0"
   },
   "jest": {
     "preset": "react-native",
