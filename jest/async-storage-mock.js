@@ -2,9 +2,7 @@
  * @format
  */
 
-import mergeOptions from 'merge-options';
-
-const merge = mergeOptions.bind({
+const merge = require('merge-options').bind({
   concatArrays: true,
   ignoreUndefined: true,
 });
