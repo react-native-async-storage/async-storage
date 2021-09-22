@@ -51,4 +51,10 @@ react-native link @react-native-async-storage/async-storage
 For earlier versions check [manual linking](Linking.md)
 
 #### macOS
-For `macOS` the [manual linking](Linking.md) is currently the only linking option.
+- **React Native macOS >= 0.63**
+1. Set `platform :macos, '10.14'` in `macos/Podfile`
+2. Install the pods
+3. From now on [CLI autolink feature](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking) will link the module while building the app.
+
+- **React Native Windows <= 0.62**
+For earlier versions check [manual linking](Linking.md)
