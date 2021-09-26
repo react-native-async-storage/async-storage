@@ -35,7 +35,7 @@ buildscript {
             ? rootProject.ext['kotlinVersion']
             : rootProject.hasProperty('AsyncStorage_kotlinVersion')
             ? rootProject.properties['AsyncStorage_kotlinVersion']
-            : '1.4.21'
+            : '1.5.31'
 
     repositories {
         google()
@@ -106,7 +106,7 @@ repositories {
 dependencies {
 
     if (useNextStorage) {
-        def room_version = "2.2.6"
+        def room_version = "2.3.0"
         def coroutines_version = "1.4.2"
         def junit_version = "4.12"
         def robolectric_version = "4.5.1"
