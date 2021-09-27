@@ -11,5 +11,5 @@ For projects that use Flipper, there is a Flipper plugin called [Advanced Async 
 
 ### Non Flipper
 
-For the projects which aren't using Flipper, you can use the [React Native Debugger](https://github.com/jhen0409/react-native-debugger) which comes with a built-in AsyncStorage support. The built in debugger allows to print the Async Storage content to the console, and clear it completely.
+For the projects which aren't using Flipper, you can use the [React Native Debugger](https://github.com/jhen0409/react-native-debugger) which comes with a built-in Async Storage support. The debugger allows to print the Async Storage content to the console, and clear it completely.
 
