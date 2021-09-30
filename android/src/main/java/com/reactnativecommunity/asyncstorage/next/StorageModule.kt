@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
-import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
+import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableArray
 import com.reactnativecommunity.asyncstorage.SerialExecutor
@@ -16,7 +16,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.launch
 
-class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), CoroutineScope {
+class StorageModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), CoroutineScope {
     override fun getName() = "RNC_AsyncSQLiteDBStorage"
 
     // this executor is not used by the module, but it must exists here due to
@@ -25,7 +25,7 @@ class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), 
     private val executor = SerialExecutor(Dispatchers.Main.asExecutor())
 
     override val coroutineContext =
-        Dispatchers.IO + CoroutineName("AsyncStorageScope") + SupervisorJob()
+            Dispatchers.IO + CoroutineName("AsyncStorageScope") + SupervisorJob()
 
     private val storage = StorageSupplier.getInstance(reactContext)
 
