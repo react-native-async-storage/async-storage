@@ -12,7 +12,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.ViewManager;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +26,7 @@ public class AsyncStoragePackage implements ReactPackage {
         if (BuildConfig.AsyncStorage_useNextStorage) {
             try {
                 Class storageClass = Class.forName("com.reactnativecommunity.asyncstorage.next.StorageModule");
-                NativeModule inst = (NativeModule) storageClass.getDeclaredConstructor(new Class[]{ReactContext.class}).newInstance(reactContext);
+                NativeModule inst = (NativeModule) storageClass.getDeclaredConstructor(new Class[]{ReactApplicationContext.class}).newInstance(reactContext);
                 moduleList.add(inst);
                 AsyncLocalStorageUtil.verifyAndForceSqliteCheckpoint(reactContext);
             } catch (Exception e) {
