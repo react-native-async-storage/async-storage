@@ -30,6 +30,12 @@ build/
 local.properties
 *.iml
 
+# Visual Studio
+#
+/windows/AppPackages
+/windows/ExperimentalFeatures.props
+/windows/NuGet.Config
+
 # node.js
 #
 node_modules/
@@ -41,17 +47,6 @@ buck-out/
 \.buckd/
 *.keystore
 !android/debug.keystore
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
-
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
 
 # Bundle artifact
 *.jsbundle

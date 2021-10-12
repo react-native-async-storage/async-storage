@@ -2248,12 +2248,13 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz#e42b1bef12d2415411519fd528e64b593b1363dc"
   integrity sha512-W/J0fNYVO01tioHjvYWQ9m6RgndVtbElzYozBq1ZPrHO/iCzlqoySHl4gO/fpCl9QEFjvJfjPgtPMTMlsoq5DQ==
 
-"@react-native-windows/cli@0.63.12":
-  version "0.63.12"
-  resolved "https://registry.yarnpkg.com/@react-native-windows/cli/-/cli-0.63.12.tgz#fff41cb8e0e039e133a8e3a29a25927fe77d5856"
-  integrity sha512-N8cD2SpDqJl8H4z+IvlYIibMEBlcA+KO/2fT80Qz3c303FibPJjxcz2OAYoXMwYXhSsfzJf5mSrCOrmFXTbw0g==
+"@react-native-windows/cli@0.63.14":
+  version "0.63.14"
+  resolved "https://registry.yarnpkg.com/@react-native-windows/cli/-/cli-0.63.14.tgz#b077f2d090f2d63f2defa71926c4de77b0041ea8"
+  integrity sha512-RqKnAwrsA2aKqP4gYLktOrqorqvIiUMXUhe07GPh/GDzoizVgSjcgRD4x8hoxNXbU66fYFm+whvCBgfn88Ffpg==
   dependencies:
     "@react-native-windows/telemetry" "^0.63.5"
+    "@xmldom/xmldom" "^0.7.5"
     chalk "^3.0.0"
     cli-spinners "^2.2.0"
     envinfo "^7.5.0"
@@ -2268,7 +2269,6 @@
     username "^5.1.0"
     uuid "^3.3.2"
     xml-parser "^1.2.1"
-    xmldom "^0.5.0"
     xpath "^0.0.27"
 
 "@react-native-windows/telemetry@^0.63.5":
@@ -2793,6 +2793,11 @@
     "@webassemblyjs/ast" "1.9.0"
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
+
+"@xmldom/xmldom@^0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.7.5.tgz#09fa51e356d07d0be200642b0e4f91d8e6dd408d"
+  integrity sha512-V3BIhmY36fXZ1OtVcI9W+FxQqxVLsPKcNjWigIaa81dLC9IolJl5Mt4Cvhmr0flUnjSpTdrbMTSbXqYqV5dT6A==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -11830,10 +11835,10 @@ react-native-safe-area-context@~3.0.7:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.0.7.tgz#0f53de7a30d626d82936000f3f6db374ecc4b800"
   integrity sha512-dqhRTlIFe5+P1yxitj0C9XVUxLqOmjomeqzUSSY8sNOWVjtIhEY/fl4ZKYpAVnktd8dt3zl13XmJTmRmy3d0uA==
 
-react-native-test-app@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/react-native-test-app/-/react-native-test-app-0.7.1.tgz#b645500b4d028d284e47ce67f24f374f66681a8e"
-  integrity sha512-8atrCOP3NGPxZdE291PkBe+CXIX+NLFCERPXeGBMDg/9uDtgjwqKZAHElX2zl92c628FlVzQwImiSab3fyOJ0g==
+react-native-test-app@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-test-app/-/react-native-test-app-0.9.0.tgz#fd8669fd34703a02bfdab9ba7a98268002cc2fa4"
+  integrity sha512-HMI15lJqWZEOA1O5VvzxYG7mEzuKhkztxarWqVibUhcgOsK3U8fidq2+b18E1BiFpaDI+4zppkib/+/5LTjReQ==
   dependencies:
     chalk "^4.1.0"
     prompts "^2.4.0"
@@ -11857,13 +11862,13 @@ react-native-web@~0.12.0:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
-react-native-windows@^0.63.18:
-  version "0.63.36"
-  resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.63.36.tgz#ae0ed33c89c9e09dfd982da18bb1ecba35381841"
-  integrity sha512-Av7edpOu+YdKosMlpCWTGe8eXXNk0M4cd9zLKgeSiCOsTia/3qJM/xs/dZcP5gmjH6EWlAMSgtRC8frljPJnNQ==
+react-native-windows@^0.63.41:
+  version "0.63.41"
+  resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.63.41.tgz#96f59bc24749b6c167cb4f35fd74b66f78f4a4bb"
+  integrity sha512-AhLQP0dzX4jhtv9AsR5KF+BIlccKKPzTSmivg3ZUirqQxXwDDMjtIGwgFnp1WyH8cFoUEvpuyNnHsU3f7LxEyg==
   dependencies:
     "@babel/runtime" "^7.8.4"
-    "@react-native-windows/cli" "0.63.12"
+    "@react-native-windows/cli" "0.63.14"
     abort-controller "^3.0.0"
     anser "^1.4.9"
     base64-js "^1.1.2"
@@ -14711,15 +14716,15 @@ xmldoc@^1.1.2:
   dependencies:
     sax "^1.2.1"
 
-xmldom@^0.5.0, xmldom@~0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.5.0.tgz#193cb96b84aa3486127ea6272c4596354cb4962e"
-  integrity sha512-Foaj5FXVzgn7xFzsKeNIde9g6aFBxTPi37iwsno8QvApmtg7KYrr+OPyRHcJF7dud2a5nGRBXK3n0dL62Gf7PA==
-
 xmldom@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.6.0.tgz#43a96ecb8beece991cef382c08397d82d4d0c46f"
   integrity sha512-iAcin401y58LckRZ0TkI4k0VSM1Qg0KGSc3i8rU+xrxe19A/BN1zHyVSJY7uoutVlaTSzYyk/v5AmkewAP7jtg==
+
+xmldom@~0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.5.0.tgz#193cb96b84aa3486127ea6272c4596354cb4962e"
+  integrity sha512-Foaj5FXVzgn7xFzsKeNIde9g6aFBxTPi37iwsno8QvApmtg7KYrr+OPyRHcJF7dud2a5nGRBXK3n0dL62Gf7PA==
 
 xpath@^0.0.27:
   version "0.0.27"
