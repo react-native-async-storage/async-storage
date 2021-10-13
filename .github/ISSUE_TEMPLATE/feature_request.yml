@@ -18,15 +18,11 @@ body:
     attributes:
       label: Alternatives
       description: Provide a clear and concise description of any alternative solutions or features you've considered.
-    validations:
-      required: true
   - type: textarea
     id: implementation
     attributes:
       label: Implementation Details
       description: Provide a clear and concise description of how you think this could be implemented.
-    validations:
-      required: true
   - type: textarea
     id: additional
     attributes:

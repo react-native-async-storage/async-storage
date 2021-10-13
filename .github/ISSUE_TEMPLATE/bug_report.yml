@@ -34,6 +34,7 @@ body:
         - label: iOS
         - label: macOS
         - label: Windows
+        - label: web
   - type: textarea
     id: system-info
     attributes:
