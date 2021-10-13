@@ -1,0 +1,30 @@
+name: "Feature request \U0001F4A1"
+description: Suggest an idea for this project
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Provide a clear and concise description of your motivation for this proposal (e.g. \"I'm always frustrated when…\"), and what you want to happen instead.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: Provide a clear and concise description of any alternative solutions or features you've considered.
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation Details
+      description: Provide a clear and concise description of how you think this could be implemented.
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context or screenshots about the feature request here.

@@ -1,0 +1,53 @@
+name: "Bug report \U0001F41B"
+description: File a bug report
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |-
+        Thanks for taking the time to fill out this bug report!
+
+        If you're using Expo, please check their forums for a similar issue first: https://forums.expo.io/
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect to happen? Can you attach build logs? Can you attach screenshots?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of `@react-native-async-storage/async-storage` are you using?
+      placeholder: "Example: 1.15.9"
+    validations:
+      required: true
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: What platforms are you seeing this issue on?
+      description: "Select all that apply:"
+      options:
+        - label: Android
+        - label: iOS
+        - label: macOS
+        - label: Windows
+        - label: web
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System Information
+      placeholder: Run `npx react-native info` and paste the output here.
+      render: true
+    validations:
+      required: true
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: Steps to Reproduce
+      description: Tell us how to reproduce this issue, or provide a minimal demo where your issue can be easily reproduced.
+      placeholder: Tell us how to reproduce this issue.
+    validations:
+      required: true
