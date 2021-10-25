@@ -35,7 +35,7 @@ buildscript {
         rootProject.setProperty("AsyncStorage_useNextStorage", "true")
     }
     Boolean nextStorageFlag = rootProject.hasProperty("AsyncStorage_useNextStorage") ? rootProject.properties["AsyncStorage_useNextStorage"] == "true" : false
-    println("[Async Storage] Using Next storage: " + nextStorageFlag)
+    println("[AsyncStorage] Using Next storage: " + nextStorageFlag)
 
     repositories {
         google()
