@@ -99,7 +99,6 @@ repositories {
     }
     google()
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
