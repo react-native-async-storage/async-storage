@@ -53,6 +53,7 @@ allprojects {
         maven {
             url("$rootDir/../../node_modules/detox/Detox-android")
         }
+        jcenter()
     }
     afterEvaluate { project ->
         def androidExtension = project.extensions.findByName('android')
