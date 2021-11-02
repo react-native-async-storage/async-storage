@@ -42,6 +42,8 @@ buildscript {
         mavenCentral()
         jcenter()
     }
+    ext.kotlinVersion = '1.5.31'
+
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
