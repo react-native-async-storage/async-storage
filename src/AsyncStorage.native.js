@@ -282,10 +282,27 @@ const AsyncStorage = {
           return value;
         });
       const reqLength = getRequests.length;
+
+      /**
+       * As mentioned few lines above, this method could be called with the array of potential error,
+       * in case of anything goes wrong. The problem is, if any of the batched calls fails
+       * the rest of them would fail too, but the error would be consumed by just one. The rest
+       * would simply return `undefined` as their result, rendering false negatives.
+       *
+       * In order to avoid this situation, in case of any call failing,
+       * the rest of them will be rejected as well (with the same error).
+       */
+      const errorList = convertErrors(errors);
+      const error = errorList && errorList.length ? errorList[0] : null;
+
       for (let i = 0; i < reqLength; i++) {
         const request = getRequests[i];
-        const requestKeys = request.keys;
-        const requestResult = requestKeys.map((key) => [key, map[key]]);
+        if (error) {
+          request.callback && request.callback(error);
+          request.reject && request.reject(error);
+          continue;
+        }
+        const requestResult = request.keys.map((key) => [key, map[key]]);
         request.callback && request.callback(null, requestResult);
         request.resolve && request.resolve(requestResult);
       }

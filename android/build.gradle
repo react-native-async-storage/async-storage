@@ -25,6 +25,10 @@ def getFlagOrDefault(flagName, defaultValue) {
     rootProject.hasProperty(flagName) ? rootProject.properties[flagName] == "true" : defaultValue
 }
 
+def getVersionOrDefault(String flagName, String defaultVersion) {
+    rootProject.hasProperty(flagName) ? rootProject.properties[flagName] : defaultVersion
+}
+
 configurations {
     compileClasspath
 }
@@ -33,9 +37,7 @@ buildscript {
     // kotlin version is dictated by rootProject extension or property in gradle.properties
     ext.asyncStorageKtVersion = rootProject.ext.has('kotlinVersion')
             ? rootProject.ext['kotlinVersion']
-            : rootProject.hasProperty('AsyncStorage_kotlinVersion')
-            ? rootProject.properties['AsyncStorage_kotlinVersion']
-            : '1.4.21'
+            : getVersionOrDefault('AsyncStorage_kotlinVersion', '1.5.31')
 
     repositories {
         google()
@@ -90,6 +92,13 @@ android {
         testOptions {
             unitTests.returnDefaultValues = true
         }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
     }
 }
 
@@ -106,16 +115,22 @@ repositories {
 dependencies {
 
     if (useNextStorage) {
-        def room_version = "2.2.6"
-        def coroutines_version = "1.4.2"
+        def room_version = getVersionOrDefault('AsyncStorage_next_roomVersion', '2.3.0')
+        def coroutines_version = "1.5.2"
+        def coroutinesTest_version = "1.5.2"
+        // if we don't provide explicit dependency on reflection, kotlin plugin
+        // would add one automatically, probably a version that is not compatible with
+        // used kotlin
+        def kotlinReflect_version = project.ext.asyncStorageKtVersion
         def junit_version = "4.12"
         def robolectric_version = "4.5.1"
         def truth_version = "1.1.2"
         def androidxtest_version = "1.1.0"
-        def coroutinesTest_version = "1.4.2"
 
         implementation "androidx.room:room-runtime:$room_version"
         implementation "androidx.room:room-ktx:$room_version"
+        implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinReflect_version"
+
         implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
         kapt "androidx.room:room-compiler:$room_version"
 
