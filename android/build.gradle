@@ -37,7 +37,9 @@ buildscript {
     // kotlin version is dictated by rootProject extension or property in gradle.properties
     ext.asyncStorageKtVersion = rootProject.ext.has('kotlinVersion')
             ? rootProject.ext['kotlinVersion']
-            : getVersionOrDefault('AsyncStorage_kotlinVersion', '1.5.31')
+            : rootProject.hasProperty('AsyncStorage_kotlinVersion')
+            ? rootProject.properties['AsyncStorage_kotlinVersion']
+            : '1.5.31'
 
     repositories {
         google()
