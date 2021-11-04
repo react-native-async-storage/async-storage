@@ -14,7 +14,7 @@ declare module '@react-native-async-storage/async-storage' {
    * `AsyncStorage` will use either [RocksDB](http://rocksdb.org/) or SQLite
    * based on what is available.
    *
-   * @see https://github.com/react-native-async-storage/react-native-async-storage/blob/master/docs/API.md
+   * @see https://react-native-async-storage.github.io/async-storage/docs/api
    */
   export interface AsyncStorageStatic {
     /**
