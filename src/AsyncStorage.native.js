@@ -297,13 +297,12 @@ const AsyncStorage = {
 
       for (let i = 0; i < reqLength; i++) {
         const request = getRequests[i];
-        const requestKeys = request.keys;
         if (error) {
           request.callback && request.callback(error);
           request.reject && request.reject(error);
           continue;
         }
-        const requestResult = requestKeys.map((key) => [key, map[key]]);
+        const requestResult = request.keys.map((key) => [key, map[key]]);
         request.callback && request.callback(null, requestResult);
         request.resolve && request.resolve(requestResult);
       }

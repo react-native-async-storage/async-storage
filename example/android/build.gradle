@@ -42,10 +42,10 @@ buildscript {
         mavenCentral()
         jcenter()
     }
-    ext.kotlinVersion = '1.5.31'
 
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
+        // kotlinVersion is applied from react-native-test-app's dependencies.gradle script
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }

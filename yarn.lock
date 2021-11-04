@@ -11835,15 +11835,16 @@ react-native-safe-area-context@~3.0.7:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.0.7.tgz#0f53de7a30d626d82936000f3f6db374ecc4b800"
   integrity sha512-dqhRTlIFe5+P1yxitj0C9XVUxLqOmjomeqzUSSY8sNOWVjtIhEY/fl4ZKYpAVnktd8dt3zl13XmJTmRmy3d0uA==
 
-react-native-test-app@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/react-native-test-app/-/react-native-test-app-0.9.0.tgz#fd8669fd34703a02bfdab9ba7a98268002cc2fa4"
-  integrity sha512-HMI15lJqWZEOA1O5VvzxYG7mEzuKhkztxarWqVibUhcgOsK3U8fidq2+b18E1BiFpaDI+4zppkib/+/5LTjReQ==
+react-native-test-app@^0.9.5:
+  version "0.9.11"
+  resolved "https://registry.yarnpkg.com/react-native-test-app/-/react-native-test-app-0.9.11.tgz#685c1252a4133531ba9590dbed0fa92c9fa5da35"
+  integrity sha512-XpysqX3UBb182ctcm02keNc0gjrS+Ae8kYfhZzR53zm3JqMY3gAluAmHwEKFzeHrGaL0mWtvvMTutex+VF1Ttw==
   dependencies:
     chalk "^4.1.0"
     prompts "^2.4.0"
     rimraf "^3.0.0"
     semver "^7.3.5"
+    uuid "^8.3.2"
     yargs "^16.0.0"
 
 react-native-web@~0.12.0:
@@ -14122,7 +14123,7 @@ uuid@^7.0.3:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
   integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
 
-uuid@^8.3.0:
+uuid@^8.3.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
