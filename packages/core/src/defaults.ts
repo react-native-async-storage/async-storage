@@ -10,7 +10,7 @@ import {FactoryOptions, LoggerAction} from '../types';
 
 const isDevelopment =
   // @ts-ignore
-  (process && process.env && process.env.NODE_ENV === 'development') || __DEV__;
+  (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development') || (typeof __DEV__ !== 'undefined' && __DEV__);
 
 export const factoryOptions: FactoryOptions = {
   logger: isDevelopment,
