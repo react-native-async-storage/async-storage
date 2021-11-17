@@ -40,7 +40,7 @@ default config for android apk builds: &android_defaults
   resource_class: 'medium'
   working_directory: ~/async_storage
   environment:
-    - _JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xmx2048m'
+    - _JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -Xmx2048m'
     - GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:+HeapDumpOnOutOfMemoryError -Xmx2048m"'
     - BUILD_THREADS: 2
 
