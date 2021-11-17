@@ -74,6 +74,8 @@
     "@react-native-community/cli-platform-android": "^4.10.0",
     "@react-native-community/cli-platform-ios": "^4.10.0",
     "@react-native-community/eslint-config": "^3.0.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "9.0.0",
     "detox": "17.10.6",
     "eslint": "^7.0.0",
     "expo": "^38.0.10",
@@ -92,7 +94,7 @@
     "react-native-web": "~0.12.0",
     "react-native-windows": "^0.63.41",
     "react-test-renderer": "16.13.1",
-    "semantic-release": "^17.2.1"
+    "semantic-release": "^17.4.6"
   },
   "jest": {
     "preset": "react-native",
@@ -133,7 +135,12 @@
     "source": "src",
     "output": "lib",
     "targets": [
-      ["commonjs", { "copyFlow": true }],
+      [
+        "commonjs",
+        {
+          "copyFlow": true
+        }
+      ],
       "module"
     ]
   }
