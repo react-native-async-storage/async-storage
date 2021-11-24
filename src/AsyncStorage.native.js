@@ -59,7 +59,7 @@ function checkValidInput(usedKey: string, value: any) {
   if (isValuePassed && typeof value !== 'string') {
     if (value == null) {
       throw new Error(
-        `[AsyncStorage] Passing null/undefined as value is not supported. If you want to remove value, Use .remove method instead.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
+        `[AsyncStorage] Passing null/undefined as value is not supported. If you want to remove value, Use .removeItem method instead.\nPassed value: ${value}\nPassed key: ${usedKey}\n`,
       );
     } else {
       console.warn(
