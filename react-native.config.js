@@ -17,9 +17,6 @@
 
 const path = require('path');
 
-const macSwitch = '--use-react-native-macos';
-const windowsSwitch = '--use-react-native-windows';
-
 const dependencies = {
   '@react-native-async-storage/async-storage': {
     root: __dirname,
@@ -38,24 +35,22 @@ const dependencies = {
       windows: null,
     },
   },
+  // We don't use Expo in our test apps
+  'expo': {
+    platforms: {
+      android: null,
+      ios: null,
+      macos: null,
+      windows: null,
+    },
+  },
 };
 
-if (process.argv.includes(macSwitch)) {
-  process.argv = process.argv.filter((arg) => arg !== macSwitch);
-  process.argv.push('--config=metro.config.macos.js');
-  module.exports = {
-    dependencies,
-    reactNativePath: path.join('node_modules', 'react-native-macos'),
-  };
-} else if (
-  process.argv.includes(windowsSwitch) ||
+if (
+  process.argv.includes('--use-react-native-windows') ||
   process.argv.includes('autolink-windows') ||
   process.argv.includes('run-windows')
 ) {
-  if (process.argv.includes(windowsSwitch)) {
-    process.argv = process.argv.filter((arg) => arg !== windowsSwitch);
-    process.argv.push('--config=./metro.config.windows.js');
-  }
   const sourceDir = path.join('example', 'windows');
   module.exports = {
     dependencies,
