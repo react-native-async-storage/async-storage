@@ -13,7 +13,7 @@ bundle_js() {
   extraArgs="$@"
   echo
   echo "[Detox e2e] Bundling JS"
-  react-native bundle --entry-file index.js --platform android --bundle-output example/index.android.jsbundle $extraArgs
+  react-native bundle --entry-file index.ts --platform android --bundle-output example/index.android.jsbundle $extraArgs
 }
 
 wait_for_emulator_to_boot() {

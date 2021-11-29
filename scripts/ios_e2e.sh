@@ -1,7 +1,7 @@
 #!/bin/bash
 
 RESOURCE_DIR="$PWD/example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app"
-ENTRY_FILE="example/index.js"
+ENTRY_FILE="example/index.ts"
 BUNDLE_FILE="$RESOURCE_DIR/main.jsbundle"
 EXTRA_PACKAGER_ARGS="--entry-file=$ENTRY_FILE"
 SIMULATOR_NAME="iPhone 11"
@@ -53,7 +53,7 @@ bundle_js() {
   extraArgs="$@"
   echo
   echo "[Detox e2e] Bundling JS"
-  react-native bundle --entry-file index.js --platform ios --bundle-output example/index.ios.jsbundle $extraArgs
+  react-native bundle --entry-file index.ts --platform ios --bundle-output example/index.ios.jsbundle $extraArgs
 }
 
 

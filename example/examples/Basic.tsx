@@ -1,7 +1,13 @@
-import React from 'react';
-import {View, Text, Button, StyleSheet, ScrollView, TextInput} from 'react-native';
+// @ts-ignore
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
+type DataType = {
+  deeper?: DataType;
+  nested?: DataType;
+  [key: string]: string | DataType | undefined;
+};
 
 const mergeInitialValue = {
   initial: 'keep',
@@ -16,11 +22,15 @@ const mergeInitialValue = {
   },
 };
 
+function hasMessage(e: unknown): e is { "message": string; } {
+  return Boolean(typeof e === 'object' && e && 'message' in e);
+}
+
 function NextExample() {
   const [keys, setKeys] = React.useState([]);
-  const [error, setError] = React.useState(null);
-  const [inputKey, setInputKey] = React.useState();
-  const [inputValue, setInputValue] = React.useState();
+  const [error, setError] = React.useState('');
+  const [inputKey, setInputKey] = React.useState('');
+  const [inputValue, setInputValue] = React.useState('');
   const [value, setValue] = React.useState();
   const [mergedValue, setMergedValue] = React.useState();
   const [overrideValue, setOverrideValue] = React.useState({
@@ -30,13 +40,17 @@ function NextExample() {
   });
 
 
-  function runWithCatch(block) {
+  function runWithCatch(block: () => Promise<void>) {
     return async () => {
       try {
-        setError(null);
+        setError('');
         await block();
       } catch (e) {
-        setError('Caught: ' + e.message || e);
+        if (hasMessage(e)) {
+          setError('Caught error: ' + (e.message || e));
+        } else {
+          setError('Unknown error: ' + e);
+        }
       }
     };
   }
@@ -90,9 +104,9 @@ function NextExample() {
     const {override1, override2, override3} = overrideValue;
 
     // leave out empty inputs
-    const toMerge = {};
+    const toMerge: DataType = {};
     if (override1) {
-      toMerge.override1 = override1;
+      toMerge['override1'] = override1;
     }
     if (override2) {
       toMerge.nested = {
@@ -185,7 +199,6 @@ function NextExample() {
     </View>
   </ScrollView>;
 }
-
 
 const styles = StyleSheet.create({
   example: {

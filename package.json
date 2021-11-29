@@ -52,8 +52,8 @@
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
-    "bundle:macos": "react-native bundle --entry-file index.js --platform macos --bundle-output example/index.macos.jsbundle --use-react-native-macos",
-    "test": "yarn test:lint && yarn test:flow",
+    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --bundle-output example/index.macos.jsbundle --use-react-native-macos",
+    "test": "yarn test:lint && yarn test:flow && tsc",
     "test:flow": "flow check",
     "test:lint": "eslint src/**/*.js example/**/*.js jest/*.js",
     "test:e2e:android": "detox test -c android.emu.release --maxConcurrency 1",
@@ -76,6 +76,8 @@
     "@react-native-community/eslint-config": "^3.0.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "9.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-native": "^0.64.0",
     "detox": "17.10.6",
     "eslint": "^7.0.0",
     "expo": "^38.0.10",
@@ -94,7 +96,8 @@
     "react-native-web": "~0.12.0",
     "react-native-windows": "^0.63.41",
     "react-test-renderer": "16.13.1",
-    "semantic-release": "^17.4.6"
+    "semantic-release": "^17.4.6",
+    "typescript": "^4.5.0"
   },
   "jest": {
     "preset": "react-native",
