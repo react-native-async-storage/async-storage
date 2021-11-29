@@ -216,9 +216,8 @@ namespace
             auto sourceValue = keyValue.Value();
             if (destination.HasKey(key)) {
                 auto destinationValue = destination.GetNamedValue(key);
-                if (destinationValue.ValueType() ==
-                        winrt::Windows::Data::Json::JsonValueType::Object &&
-                    sourceValue.ValueType() == winrt::Windows::Data::Json::JsonValueType::Object) {
+                if (destinationValue.ValueType() == winrt::JsonValueType::Object &&
+                    sourceValue.ValueType() == winrt::JsonValueType::Object) {
                     MergeJsonObjects(destinationValue.GetObject(), sourceValue.GetObject());
                     continue;
                 }
