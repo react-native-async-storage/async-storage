@@ -91,7 +91,7 @@ struct DBStorage {
 
     private:
         ErrorHandler m_errorHandler;
-        std::atomic_flag m_isCompleted{false};
+        std::atomic_flag m_isCompleted = ATOMIC_FLAG_INIT;
         TOnResolve m_onResolve;
         TOnReject m_onReject;
     };
