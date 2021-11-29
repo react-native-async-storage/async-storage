@@ -208,8 +208,8 @@ namespace
 
     // Merge source into destination.
     // It only merges objects - all other types are just clobbered (including arrays).
-    void MergeJsonObjects(winrt::Windows::Data::Json::JsonObject const &destination,
-                          winrt::Windows::Data::Json::JsonObject const &source) noexcept
+    void MergeJsonObjects(winrt::JsonObject const &destination,
+                          winrt::JsonObject const &source) noexcept
     {
         for (auto keyValue : source) {
             auto key = keyValue.Key();
