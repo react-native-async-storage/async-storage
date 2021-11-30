@@ -20,9 +20,11 @@ namespace winrt::ReactNativeAsyncStorage::implementation
                 [callback](const std::vector<DBStorage::KeyValue> &result) {
                     callback({}, result);
                 },
-                [callback](const std::vector<DBStorage::Error> &errors) { callback(errors, {}); });
+                [callback](const DBStorage::ErrorManager &errorManager) {
+                    callback(errorManager.GetErrorList(), {});
+                });
             m_dbStorage.AddTask(
-                promise->GetErrorHandler(),
+                promise->GetErrorManager(),
                 [promise, keys = std::move(keys)](DBStorage::DBTask &task, sqlite3 *db) noexcept {
                     promise->ResolveOrReject(task.MultiGet(db, keys));
                 });
@@ -33,10 +35,12 @@ namespace winrt::ReactNativeAsyncStorage::implementation
             std::vector<DBStorage::KeyValue> &&keyValues,
             std::function<void(const std::vector<DBStorage::Error> &errors)> &&callback) noexcept
         {
-            auto promise = DBStorage::CreatePromise(
-                [callback](bool /*value*/) { callback({}); },
-                [callback](const std::vector<DBStorage::Error> &errors) { callback(errors); });
-            m_dbStorage.AddTask(promise->GetErrorHandler(),
+            auto promise =
+                DBStorage::CreatePromise([callback](bool /*value*/) { callback({}); },
+                                         [callback](const DBStorage::ErrorManager &errorManager) {
+                                             callback(errorManager.GetErrorList());
+                                         });
+            m_dbStorage.AddTask(promise->GetErrorManager(),
                                 [promise, keyValues = std::move(keyValues)](DBStorage::DBTask &task,
                                                                             sqlite3 *db) noexcept {
                                     promise->ResolveOrReject(task.MultiSet(db, keyValues));
@@ -48,10 +52,12 @@ namespace winrt::ReactNativeAsyncStorage::implementation
             std::vector<DBStorage::KeyValue> &&keyValues,
             std::function<void(const std::vector<DBStorage::Error> &errors)> &&callback) noexcept
         {
-            auto promise = DBStorage::CreatePromise(
-                [callback](bool /*value*/) { callback({}); },
-                [callback](const std::vector<DBStorage::Error> &errors) { callback(errors); });
-            m_dbStorage.AddTask(promise->GetErrorHandler(),
+            auto promise =
+                DBStorage::CreatePromise([callback](bool /*value*/) { callback({}); },
+                                         [callback](const DBStorage::ErrorManager &errorManager) {
+                                             callback(errorManager.GetErrorList());
+                                         });
+            m_dbStorage.AddTask(promise->GetErrorManager(),
                                 [promise, keyValues = std::move(keyValues)](DBStorage::DBTask &task,
                                                                             sqlite3 *db) noexcept {
                                     promise->ResolveOrReject(task.MultiMerge(db, keyValues));
@@ -63,11 +69,13 @@ namespace winrt::ReactNativeAsyncStorage::implementation
             std::vector<std::string> &&keys,
             std::function<void(const std::vector<DBStorage::Error> &errors)> &&callback) noexcept
         {
-            auto promise = DBStorage::CreatePromise(
-                [callback](bool /*value*/) { callback({}); },
-                [callback](const std::vector<DBStorage::Error> &errors) { callback(errors); });
+            auto promise =
+                DBStorage::CreatePromise([callback](bool /*value*/) { callback({}); },
+                                         [callback](const DBStorage::ErrorManager &errorManager) {
+                                             callback(errorManager.GetErrorList());
+                                         });
             m_dbStorage.AddTask(
-                promise->GetErrorHandler(),
+                promise->GetErrorManager(),
                 [promise, keys = std::move(keys)](DBStorage::DBTask &task, sqlite3 *db) noexcept {
                     promise->ResolveOrReject(task.MultiRemove(db, keys));
                 });
@@ -80,10 +88,10 @@ namespace winrt::ReactNativeAsyncStorage::implementation
         {
             auto promise = DBStorage::CreatePromise(
                 [callback](const std::vector<std::string> &keys) { callback(std::nullopt, keys); },
-                [callback](const std::vector<DBStorage::Error> &errors) {
-                    callback(errors.at(0), {});
+                [callback](const DBStorage::ErrorManager &errorManager) {
+                    callback(errorManager.GetCombinedError(), {});
                 });
-            m_dbStorage.AddTask(promise->GetErrorHandler(),
+            m_dbStorage.AddTask(promise->GetErrorManager(),
                                 [promise](DBStorage::DBTask &task, sqlite3 *db) noexcept {
                                     promise->ResolveOrReject(task.GetAllKeys(db));
                                 });
@@ -95,10 +103,10 @@ namespace winrt::ReactNativeAsyncStorage::implementation
         {
             auto promise =
                 DBStorage::CreatePromise([callback](bool /*value*/) { callback(std::nullopt); },
-                                         [callback](const std::vector<DBStorage::Error> &errors) {
-                                             callback(errors.at(0));
+                                         [callback](const DBStorage::ErrorManager &errorManager) {
+                                             callback(errorManager.GetCombinedError());
                                          });
-            m_dbStorage.AddTask(promise->GetErrorHandler(),
+            m_dbStorage.AddTask(promise->GetErrorManager(),
                                 [promise](DBStorage::DBTask &task, sqlite3 *db) noexcept {
                                     promise->ResolveOrReject(task.RemoveAll(db));
                                 });

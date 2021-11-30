@@ -23,9 +23,11 @@ struct DBStorage {
     };
 
     // An error list shared between Promise and DBTask.
-    struct ErrorHandler {
+    struct ErrorManager {
         std::nullopt_t AddError(std::string &&message) noexcept;
-        const std::vector<Error> &GetErrors() const noexcept;
+        bool HasErrors() const noexcept;
+        const std::vector<Error> &GetErrorList() const noexcept;
+        Error GetCombinedError() const noexcept;
 
     private:
         std::vector<Error> m_errors;
@@ -48,9 +50,9 @@ struct DBStorage {
         Promise(const Promise &other) = delete;
         Promise &operator=(const Promise &other) = delete;
 
-        ErrorHandler &GetErrorHandler() noexcept
+        ErrorManager &GetErrorManager() noexcept
         {
-            return m_errorHandler;
+            return m_errorManager;
         }
 
         template <typename TValue>
@@ -63,10 +65,10 @@ struct DBStorage {
         {
             Complete([&] {
                 // Ensure that we have at least one error on rejection.
-                if (m_errorHandler.GetErrors().empty()) {
-                    m_errorHandler.AddError("Promise is rejected.");
+                if (!m_errorManager.HasErrors()) {
+                    m_errorManager.AddError("Promise is rejected.");
                 }
-                m_onReject(m_errorHandler.GetErrors());
+                m_onReject(m_errorManager);
             });
         }
 
@@ -90,7 +92,7 @@ struct DBStorage {
         }
 
     private:
-        ErrorHandler m_errorHandler;
+        ErrorManager m_errorManager;
         std::atomic_flag m_isCompleted = ATOMIC_FLAG_INIT;
         TOnResolve m_onResolve;
         TOnReject m_onReject;
@@ -98,7 +100,7 @@ struct DBStorage {
 
     // An asynchronous task that run in a background thread.
     struct DBTask {
-        DBTask(ErrorHandler &errorHandler,
+        DBTask(ErrorManager &errorManager,
                std::function<void(DBTask &task, sqlite3 *db)> &&onRun) noexcept;
 
         DBTask() = default;
@@ -119,12 +121,12 @@ struct DBStorage {
 
     private:
         std::function<void(DBTask &task, sqlite3 *db)> m_onRun;
-        ErrorHandler &m_errorHandler;
+        ErrorManager &m_errorManager;
     };
 
     using DatabasePtr = std::unique_ptr<sqlite3, decltype(&sqlite3_close)>;
 
-    std::optional<sqlite3 *> InitializeStorage(DBStorage::ErrorHandler &errorHandler) noexcept;
+    std::optional<sqlite3 *> InitializeStorage(ErrorManager &errorManager) noexcept;
     ~DBStorage();
 
     template <typename TOnResolve, typename TOnReject>
@@ -135,8 +137,8 @@ struct DBStorage {
                                              std::forward<TOnReject>(onReject));
     }
 
-    void AddTask(ErrorHandler &errorHandler,
-                 std::function<void(DBStorage::DBTask &task, sqlite3 *db)> &&onRun) noexcept;
+    void AddTask(ErrorManager &errorManager,
+                 std::function<void(DBTask &task, sqlite3 *db)> &&onRun) noexcept;
 
     winrt::Windows::Foundation::IAsyncAction RunTasks() noexcept;
 
