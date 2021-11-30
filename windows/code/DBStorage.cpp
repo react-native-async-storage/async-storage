@@ -574,6 +574,9 @@ void ReadValue(const winrt::IJSValueReader &reader,
             }
             ++index;
         }
+    } else {
+        // To keep reader in a good state.
+        winrt::SkipValue<winrt::JSValue>(reader);
     }
 }
 
