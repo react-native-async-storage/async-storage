@@ -1,71 +1,162 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 #pragma once
+
+#include <optional>
 
 #include <winsqlite/winsqlite3.h>
 
 #include "NativeModules.h"
 
-class DBStorage
-{
-public:
-    typedef std::function<void(std::vector<winrt::Microsoft::ReactNative::JSValue> const &)>
-        Callback;
+struct DBStorage {
+    // To pass KeyValue pairs in the native module API.
+    // It has custom ReadValue and WriteValue to read/write to/from JSON.
+    struct KeyValue {
+        std::string Key;
+        std::string Value;
+    };
 
-    class DBTask
-    {
-    public:
-        enum class Type { multiGet, multiSet, multiRemove, clear, getAllKeys };
+    // An Error object for the native module API.
+    // It has a custom WriteValue to write to JSON.
+    struct Error {
+        std::string Message;
+    };
 
-        DBTask(Type type,
-               std::vector<winrt::Microsoft::ReactNative::JSValue> &&args,
-               Callback &&callback)
-            : m_type{type}, m_args{std::move(args)}, m_callback{std::move(callback)}
+    // An error list shared between Promise and DBTask.
+    struct ErrorManager {
+        std::nullopt_t AddError(std::string &&message) noexcept;
+        bool HasErrors() const noexcept;
+        const std::vector<Error> &GetErrorList() const noexcept;
+        Error GetCombinedError() const noexcept;
+
+    private:
+        std::vector<Error> m_errors;
+    };
+
+    // Ensure that only one result onResolve or onReject callback is called once.
+    template <typename TOnResolve, typename TOnReject>
+    struct Promise {
+
+        Promise(TOnResolve &&onResolve, TOnReject &&onReject) noexcept
+            : m_onResolve(std::move(onResolve)), m_onReject(std::move(onReject))
         {
         }
 
-        DBTask(const DBTask &) = delete;
-        DBTask(DBTask &&) = default;
-        DBTask &operator=(const DBTask &) = delete;
-        DBTask &operator=(DBTask &&) = default;
-        void Run(sqlite3 *db);
+        ~Promise()
+        {
+            Reject();
+        }
+
+        Promise(const Promise &other) = delete;
+        Promise &operator=(const Promise &other) = delete;
+
+        ErrorManager &GetErrorManager() noexcept
+        {
+            return m_errorManager;
+        }
+
+        template <typename TValue>
+        void Resolve(const TValue &value) noexcept
+        {
+            Complete([&] { m_onResolve(value); });
+        }
+
+        void Reject() noexcept
+        {
+            Complete([&] {
+                // Ensure that we have at least one error on rejection.
+                if (!m_errorManager.HasErrors()) {
+                    m_errorManager.AddError("Promise is rejected.");
+                }
+                m_onReject(m_errorManager);
+            });
+        }
+
+        template <typename TValue>
+        void ResolveOrReject(const std::optional<TValue> &value) noexcept
+        {
+            if (value) {
+                Resolve(*value);
+            } else {
+                Reject();
+            }
+        }
 
     private:
-        Type m_type;
-        std::vector<winrt::Microsoft::ReactNative::JSValue> m_args;
-        Callback m_callback;
+        template <typename Fn>
+        void Complete(Fn &&fn)
+        {
+            if (m_isCompleted.test_and_set() == false) {
+                fn();
+            }
+        }
 
-        void multiGet(sqlite3 *db);
-        void multiSet(sqlite3 *db);
-        void multiRemove(sqlite3 *db);
-        void clear(sqlite3 *db);
-        void getAllKeys(sqlite3 *db);
+    private:
+        ErrorManager m_errorManager;
+        std::atomic_flag m_isCompleted = ATOMIC_FLAG_INIT;
+        TOnResolve m_onResolve;
+        TOnReject m_onReject;
     };
 
-    DBStorage();
+    // An asynchronous task that run in a background thread.
+    struct DBTask {
+        DBTask(ErrorManager &errorManager,
+               std::function<void(DBTask &task, sqlite3 *db)> &&onRun) noexcept;
+
+        DBTask() = default;
+        DBTask(const DBTask &) = delete;
+        DBTask &operator=(const DBTask &) = delete;
+
+        void Run(DBStorage &storage, sqlite3 *db) noexcept;
+        void Cancel() noexcept;
+
+        std::optional<std::vector<KeyValue>>
+        MultiGet(sqlite3 *db, const std::vector<std::string> &keys) noexcept;
+        std::optional<bool> MultiSet(sqlite3 *db, const std::vector<KeyValue> &keyValues) noexcept;
+        std::optional<bool> MultiMerge(sqlite3 *db,
+                                       const std::vector<KeyValue> &keyValues) noexcept;
+        std::optional<bool> MultiRemove(sqlite3 *db, const std::vector<std::string> &keys) noexcept;
+        std::optional<std::vector<std::string>> GetAllKeys(sqlite3 *db) noexcept;
+        std::optional<bool> RemoveAll(sqlite3 *db) noexcept;
+
+    private:
+        std::function<void(DBTask &task, sqlite3 *db)> m_onRun;
+        ErrorManager &m_errorManager;
+    };
+
+    using DatabasePtr = std::unique_ptr<sqlite3, decltype(&sqlite3_close)>;
+
+    std::optional<sqlite3 *> InitializeStorage(ErrorManager &errorManager) noexcept;
     ~DBStorage();
 
-    void AddTask(DBTask::Type type,
-                 std::vector<winrt::Microsoft::ReactNative::JSValue> &&args,
-                 Callback &&jsCallback);
-
-    void AddTask(DBTask::Type type, Callback &&jsCallback)
+    template <typename TOnResolve, typename TOnReject>
+    static auto CreatePromise(TOnResolve &&onResolve, TOnReject &&onReject) noexcept
     {
-        AddTask(type,
-                std::move(std::vector<winrt::Microsoft::ReactNative::JSValue>()),
-                std::move(jsCallback));
+        using PromiseType = Promise<std::decay_t<TOnResolve>, std::decay_t<TOnReject>>;
+        return std::make_shared<PromiseType>(std::forward<TOnResolve>(onResolve),
+                                             std::forward<TOnReject>(onReject));
     }
 
-    winrt::Windows::Foundation::IAsyncAction RunTasks();
+    void AddTask(ErrorManager &errorManager,
+                 std::function<void(DBTask &task, sqlite3 *db)> &&onRun) noexcept;
+
+    winrt::Windows::Foundation::IAsyncAction RunTasks() noexcept;
 
 private:
     static constexpr auto s_dbPathProperty = L"React-Native-Community-Async-Storage-Database-Path";
 
-    sqlite3 *m_db;
+    DatabasePtr m_db{nullptr, &sqlite3_close};
     winrt::slim_mutex m_lock;
     winrt::slim_condition_variable m_cv;
     winrt::Windows::Foundation::IAsyncAction m_action{nullptr};
-    std::vector<DBTask> m_tasks;
-
-    std::string ConvertWstrToStr(const std::wstring &wstr);
+    std::vector<std::unique_ptr<DBTask>> m_tasks;
 };
+
+void ReadValue(const winrt::Microsoft::ReactNative::IJSValueReader &reader,
+               /*out*/ DBStorage::KeyValue &value) noexcept;
+
+void WriteValue(const winrt::Microsoft::ReactNative::IJSValueWriter &writer,
+                const DBStorage::KeyValue &value) noexcept;
+
+void WriteValue(const winrt::Microsoft::ReactNative::IJSValueWriter &writer,
+                const DBStorage::Error &value) noexcept;
