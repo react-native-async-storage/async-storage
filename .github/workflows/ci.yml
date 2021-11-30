@@ -64,5 +64,5 @@ jobs:
         working-directory: example/windows
       - name: Build
         run: |
-          MSBuild -t:Rebuild -p:Configuration=Release -p:Platform=x64 ReactTestApp.sln
+          MSBuild -t:Rebuild -p:Configuration=Release -p:Platform=x64 -p:BundleEntryFile=index.ts ReactTestApp.sln
         working-directory: example/windows
