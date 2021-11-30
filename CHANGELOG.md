@@ -1,3 +1,10 @@
+## [1.15.14](https://github.com/react-native-async-storage/async-storage/compare/v1.15.13...v1.15.14) (2021-11-30)
+
+
+### Bug Fixes
+
+* **windows:** fix crash when running windows module ([#719](https://github.com/react-native-async-storage/async-storage/issues/719)) ([309e252](https://github.com/react-native-async-storage/async-storage/commit/309e2529556a30b2eed992b4970863219a539d50))
+
 ## [1.15.13](https://github.com/react-native-async-storage/async-storage/compare/v1.15.12...v1.15.13) (2021-11-24)
 
 
