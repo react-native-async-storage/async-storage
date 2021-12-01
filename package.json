@@ -38,6 +38,7 @@
   },
   "scripts": {
     "ci": "yarn --pure-lockfile --non-interactive --cache-folder .cache/yarn",
+    "format": "concurrently yarn:format:*",
     "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm')",
     "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.yml')",
     "prepare": "bob build",
@@ -53,9 +54,10 @@
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
     "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --bundle-output example/index.macos.jsbundle --use-react-native-macos",
-    "test": "yarn test:lint && yarn test:flow && tsc",
+    "test": "concurrently -n flow,lint,ts yarn:test:flow yarn:test:lint yarn:test:ts",
     "test:flow": "flow check",
     "test:lint": "eslint src/**/*.js example/**/*.js jest/*.js",
+    "test:ts": "tsc",
     "test:e2e:android": "detox test -c android.emu.release --maxConcurrency 1",
     "test:e2e:ios": "detox test -c ios.sim.release --maxConcurrency 1",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
@@ -78,6 +80,7 @@
     "@semantic-release/git": "9.0.0",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.64.0",
+    "concurrently": "^6.4.0",
     "detox": "17.10.6",
     "eslint": "^7.0.0",
     "expo": "^38.0.10",

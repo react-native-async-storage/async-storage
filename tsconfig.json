@@ -7,23 +7,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
-
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-
     "noEmit": true,
-
     "allowJs": true,
     "checkJs": true,
-
     "allowSyntheticDefaultImports": true,
-
     "forceConsistentCasingInFileNames": true,
-
     "jsx": "react",
-
     "target": "ESNext",
-
     "skipLibCheck": true
   },
   "include": [

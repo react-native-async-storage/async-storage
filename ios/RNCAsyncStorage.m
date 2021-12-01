@@ -316,7 +316,6 @@ static void RCTStorageDirectoryMigrate(NSString *oldDirectoryPath,
     }
 }
 
-
 /**
  * Determine which of RCTOldStorageDirectory or RCTExpoStorageDirectory needs to migrated.
  * If both exist, we remove the least recently modified and return the most recently modified.
@@ -329,17 +328,18 @@ static NSString *RCTGetStoragePathForMigration()
     NSString *oldStoragePath = RCTCreateStorageDirectoryPath_deprecated(RCTOldStorageDirectory);
     NSString *expoStoragePath = RCTCreateStorageDirectoryPath_deprecated(RCTExpoStorageDirectory);
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL oldStorageDirectoryExists = [fileManager fileExistsAtPath:oldStoragePath isDirectory:&isDir] && isDir;
-    BOOL expoStorageDirectoryExists = [fileManager fileExistsAtPath:expoStoragePath isDirectory:&isDir] && isDir;
-
+    BOOL oldStorageDirectoryExists =
+        [fileManager fileExistsAtPath:oldStoragePath isDirectory:&isDir] && isDir;
+    BOOL expoStorageDirectoryExists =
+        [fileManager fileExistsAtPath:expoStoragePath isDirectory:&isDir] && isDir;
 
     // Check if both the old storage directory and Expo storage directory exist
     if (oldStorageDirectoryExists && expoStorageDirectoryExists) {
-        // If the old storage has been modified more recently than Expo storage, then clear Expo storage.
-        // Otherwise, clear the old storage.
+        // If the old storage has been modified more recently than Expo storage, then clear Expo
+        // storage. Otherwise, clear the old storage.
         if ([RCTManifestModificationDate(RCTCreateManifestFilePath(oldStoragePath))
-                compare:RCTManifestModificationDate(
-                            RCTCreateManifestFilePath(expoStoragePath))] == NSOrderedDescending) {
+                compare:RCTManifestModificationDate(RCTCreateManifestFilePath(expoStoragePath))] ==
+            NSOrderedDescending) {
             RCTStorageDirectoryCleanupOld(expoStoragePath);
             return oldStoragePath;
         } else {
@@ -354,7 +354,6 @@ static NSString *RCTGetStoragePathForMigration()
         return nil;
     }
 }
-
 
 /**
  * This check is added to make sure that anyone coming from pre-1.2.2 does not lose cached data.
@@ -433,9 +432,7 @@ RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory,
         // Migrate our deprecated path "Documents/.../RNCAsyncLocalStorage_V1" or
         // "Documents/.../RCTAsyncLocalStorage" to "Documents/.../RCTAsyncLocalStorage_V1"
         RCTStorageDirectoryMigrationCheck(
-            oldStoragePath,
-            RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory),
-            YES);
+            oldStoragePath, RCTCreateStorageDirectoryPath_deprecated(RCTStorageDirectory), YES);
     }
 
     // Migrate what's in "Documents/.../RCTAsyncLocalStorage_V1" to
