@@ -24,7 +24,7 @@ default config for macOS: &macos_defaults
   <<: *defaults
   resource_class: 'medium'
   macos:
-    xcode: '12.1.0'
+    xcode: '12.5.1'
 
 
 config for macOS (android): &macos_defaults_android
@@ -49,7 +49,7 @@ default config for android apk builds: &android_defaults
 # ==============================
 
 cache keys:
-  brew ios: &key_brew_ios cache-brew-ios-v4-{{ arch }}
+  brew ios: &key_brew_ios cache-brew-ios-v5-{{ arch }}
   brew android: &key_brew_android cache-brew-android-v4-{{ arch }}
   yarn: &key_yarn cache-yarn-{{ checksum "package.json" }}-{{ arch }}
   gradle: &key_gradle cache-gradle-v2-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
