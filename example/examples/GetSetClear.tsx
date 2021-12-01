@@ -3,22 +3,19 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @format
- * @flow
  */
 
-import React from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
-
+// @ts-ignore
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function GetSet() {
   const [storedNumber, setStoredNumber] = React.useState('');
   const [needsRestart, setNeedsRestart] = React.useState(false);
 
   React.useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY).then((value) => {
+    AsyncStorage.getItem(STORAGE_KEY).then((value: string) => {
       if (value) {
         setStoredNumber(value);
       }
