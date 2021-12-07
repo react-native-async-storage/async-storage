@@ -10,7 +10,6 @@ README.md
 babel.config.js
 .clang-format
 .eslintrc
-.flowconfig
 .watchmanconfig
 .npmrc
 .circleci

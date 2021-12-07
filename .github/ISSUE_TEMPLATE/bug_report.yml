@@ -21,14 +21,14 @@ body:
     attributes:
       label: Version
       description: What version of `@react-native-async-storage/async-storage` are you using?
-      placeholder: "Example: 1.15.9"
+      placeholder: 'Example: 1.15.9'
     validations:
       required: true
   - type: checkboxes
     id: platforms
     attributes:
       label: What platforms are you seeing this issue on?
-      description: "Select all that apply:"
+      description: 'Select all that apply:'
       options:
         - label: Android
         - label: iOS

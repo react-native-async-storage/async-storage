@@ -4,20 +4,21 @@
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
-  "react-native": "src/index.js",
-  "types": "./types/index.d.ts",
+  "react-native": "src/index.ts",
+  "types": "lib/typescript/index.d.ts",
   "files": [
-    "lib/",
-    "src/",
-    "jest/",
-    "types/",
-    "android/src",
+    "RNCAsyncStorage.podspec",
     "android/build.gradle",
+    "android/src",
     "android/testresults.gradle",
     "ios/",
+    "jest/",
+    "lib/commonjs/**/*.js",
+    "lib/module/**/*.js",
+    "lib/typescript/",
     "macos/",
-    "windows/",
-    "RNCAsyncStorage.podspec"
+    "src/",
+    "windows/"
   ],
   "author": "Krzysztof Borowy <hello@krizzu.dev>",
   "contributors": [
@@ -40,7 +41,7 @@
     "ci": "yarn --pure-lockfile --non-interactive --cache-folder .cache/yarn",
     "format": "concurrently yarn:format:*",
     "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm')",
-    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.yml')",
+    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.md' '*.ts' '*.tsx' '*.yml')",
     "prepare": "bob build",
     "start": "react-native start",
     "start:android": "react-native run-android --root example/",
@@ -54,10 +55,9 @@
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
     "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --bundle-output example/index.macos.jsbundle",
-    "test": "concurrently -n flow,lint,ts yarn:test:flow yarn:test:lint yarn:test:ts",
-    "test:flow": "flow check",
-    "test:lint": "eslint src/**/*.js example/**/*.js jest/*.js",
-    "test:ts": "tsc",
+    "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
+    "test:lint": "eslint src/**/*.ts example/**/*.ts jest/*.js",
+    "test:ts": "tsc --project tsconfig.all.json",
     "test:e2e:android": "detox test -c android.emu.release --maxConcurrency 1",
     "test:e2e:ios": "detox test -c ios.sim.release --maxConcurrency 1",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
@@ -81,7 +81,6 @@
     "detox": "17.10.6",
     "eslint": "^7.0.0",
     "expo": "^43.0.0",
-    "flow-bin": "^0.137.0",
     "jest": "^26.5.3",
     "jest-circus": "^26.6.1",
     "react": "17.0.1",
@@ -131,17 +130,56 @@
       }
     }
   },
+  "eslintConfig": {
+    "extends": [
+      "@react-native-community",
+      "plugin:jest/recommended"
+    ],
+    "rules": {
+      "dot-notation": "off"
+    }
+  },
+  "prettier": {
+    "endOfLine": "auto",
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.md",
+        "options": {
+          "proseWrap": "always"
+        }
+      }
+    ]
+  },
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
     "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/github",
       [
-        "commonjs",
+        "@semantic-release/git",
         {
-          "copyFlow": true
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]"
         }
-      ],
-      "module"
+      ]
     ]
   }
 }

@@ -26,7 +26,6 @@ default config for macOS: &macos_defaults
   macos:
     xcode: '12.5.1'
 
-
 config for macOS (android): &macos_defaults_android
   <<: *defaults
   resource_class: 'medium'
@@ -143,13 +142,13 @@ jobs:
           name: Lint check
           command: yarn test:lint
 
-  "Test: flow":
+  "Test: TypeScript":
     <<: *js_defaults
     steps:
       - *addWorkspace
       - run:
-          name: Flow check
-          command: yarn test:flow
+          name: TypeScript check
+          command: yarn test:ts
 
   "Test: Android unit":
     <<: *android_defaults
@@ -322,7 +321,7 @@ workflows:
       - "Test: lint":
           requires:
             - "Setup environment"
-      - "Test: flow":
+      - "Test: TypeScript":
           requires:
             - "Setup environment"
       - "Test: Android unit":
@@ -331,11 +330,11 @@ workflows:
       - "Test: iOS e2e":
           requires:
             - "Test: lint"
-            - "Test: flow"
+            - "Test: TypeScript"
       - "Build: Android release apk":
           requires:
             - "Test: lint"
-            - "Test: flow"
+            - "Test: TypeScript"
             - "Test: Android unit"
       - "Test: Android e2e":
           requires:

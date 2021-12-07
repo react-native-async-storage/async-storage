@@ -13,7 +13,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import BasicExample from './examples/Basic';
 import GetSetClear from './examples/GetSetClear';
@@ -51,9 +51,15 @@ export default function App(): JSX.Element {
   const [currentTest, setCurrentTest] = useState(TESTS.GetSetClear);
 
   const dismissKeyboard = useCallback(() => Keyboard.dismiss(), []);
-  const simulateRestart = useCallback(() => setIteration(iteration + 1), [iteration]);
+  const simulateRestart = useCallback(
+    () => setIteration(iteration + 1),
+    [iteration]
+  );
   const testBasic = useCallback(() => setCurrentTest(TESTS.Basic), []);
-  const testGetSetClear = useCallback(() => setCurrentTest(TESTS.GetSetClear), []);
+  const testGetSetClear = useCallback(
+    () => setCurrentTest(TESTS.GetSetClear),
+    []
+  );
   const testMergeItem = useCallback(() => setCurrentTest(TESTS.MergeItem), []);
 
   return (
@@ -68,7 +74,8 @@ export default function App(): JSX.Element {
         testID="restart_button"
         onPress={simulateRestart}
         style={styles.restartButton}
-        activeOpacity={0.6}>
+        activeOpacity={0.6}
+      >
         <Text>Simulate Restart</Text>
       </TouchableOpacity>
 
@@ -83,23 +90,17 @@ export default function App(): JSX.Element {
           title="Merge Item"
           onPress={testMergeItem}
         />
-        <Button
-          title={TESTS.Basic.title}
-          onPress={testBasic}
-        />
+        <Button title={TESTS.Basic.title} onPress={testBasic} />
       </View>
 
       <View
         testID={`example-${currentTest.testId}`}
         key={currentTest.title + iteration}
-        style={styles.exampleContainer}>
+        style={styles.exampleContainer}
+      >
         <Text style={styles.exampleTitle}>{currentTest.title}</Text>
-        <Text style={styles.exampleDescription}>
-          {currentTest.description}
-        </Text>
-        <View style={styles.exampleInnerContainer}>
-          {currentTest.render()}
-        </View>
+        <Text style={styles.exampleDescription}>{currentTest.description}</Text>
+        <View style={styles.exampleInnerContainer}>{currentTest.render()}</View>
       </View>
     </SafeAreaView>
   );

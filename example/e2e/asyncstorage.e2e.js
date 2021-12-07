@@ -155,7 +155,7 @@ describe('Async Storage', () => {
         return;
       }
 
-      await device.openURL({url: 'rnc-asyncstorage://set-delegate'});
+      await device.openURL({ url: 'rnc-asyncstorage://set-delegate' });
     });
 
     it('should store value with delegate', async () => {

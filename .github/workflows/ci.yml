@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   macos:
-    name: "macOS"
+    name: 'macOS'
     runs-on: macos-latest
     steps:
       - name: Set up Node.js
@@ -34,7 +34,7 @@ jobs:
         run: |
           yarn test:e2e:macos
   windows:
-    name: "Windows"
+    name: 'Windows'
     runs-on: windows-latest
     steps:
       - name: Set up MSBuild

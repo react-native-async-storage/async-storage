@@ -36,7 +36,7 @@ const dependencies = {
     },
   },
   // We don't use Expo in our test apps
-  'expo': {
+  expo: {
     platforms: {
       android: null,
       ios: null,
