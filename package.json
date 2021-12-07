@@ -66,15 +66,12 @@
     "merge-options": "^3.0.4"
   },
   "peerDependencies": {
-    "react-native": "^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || ^0.66.0 || ^0.67.0 || 1000.0.0"
+    "react-native": "^0.0.0-0 || 0.60 - 0.66 || 1000.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
     "@babel/preset-env": "^7.1.6",
     "@expo/webpack-config": "^0.16.0",
-    "@react-native-community/cli": "^5.0.0",
-    "@react-native-community/cli-platform-android": "^5.0.0",
-    "@react-native-community/cli-platform-ios": "^5.0.0",
     "@react-native-community/eslint-config": "^3.0.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "9.0.0",
@@ -92,7 +89,7 @@
     "react-native": "^0.64.0",
     "react-native-builder-bob": "^0.18.0",
     "react-native-macos": "^0.64.0",
-    "react-native-test-app": "^0.9.16",
+    "react-native-test-app": "^0.9.18",
     "react-native-web": "^0.17.0",
     "react-native-windows": "^0.64.0",
     "react-test-renderer": "17.0.1",
