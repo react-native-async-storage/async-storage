@@ -1,5 +1,7 @@
 package com.reactnativecommunity.asyncstorage.next
 
+import com.facebook.react.bridge.JavaOnlyArray
+import com.facebook.react.bridge.ReadableArray
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
 import org.junit.Test
@@ -11,7 +13,7 @@ class ArgumentHelpersTest {
 
     @Test
     fun transformsArgumentsToEntryList() {
-        val args = createNativeCallArguments(
+        val args = JavaOnlyArray.of(
             arrayListOf("key1", "value1"),
             arrayListOf("key2", "value2"),
             arrayListOf("key3", "value3")
@@ -28,14 +30,14 @@ class ArgumentHelpersTest {
     @Test
     fun transfersArgumentsToKeyList() {
         val keyList = listOf("key1", "key2", "key3")
-        val args = createNativeCallArguments("key1", "key2", "key3")
+        val args = keyList.toReadableArray()
         assertThat(args.toKeyList()).isEqualTo(keyList)
     }
 
     @Test
     fun throwsIfArgumentsNotValidFormat() {
         val invalid = arrayListOf("invalid")
-        val args = createNativeCallArguments(invalid)
+        val args = JavaOnlyArray.of(invalid)
         val error = assertThrows(AsyncStorageError::class.java) {
             args.toEntryList()
         }
@@ -47,14 +49,14 @@ class ArgumentHelpersTest {
 
     @Test
     fun throwsIfArgumentKeyIsNullOrNotString() {
-        val argsInvalidNull = createNativeCallArguments(arrayListOf(null, "invalid"))
+        val argsInvalidNull = JavaOnlyArray.of(arrayListOf(null, "invalid"))
         val errorArgsInvalidNull = assertThrows(AsyncStorageError::class.java) {
             argsInvalidNull.toEntryList()
         }
         assertThat(errorArgsInvalidNull is AsyncStorageError).isTrue()
         assertThat(errorArgsInvalidNull).hasMessageThat().isEqualTo("Key cannot be null.")
 
-        val notStringArgs = createNativeCallArguments(arrayListOf(123, "invalid"))
+        val notStringArgs = JavaOnlyArray.of(arrayListOf(123, "invalid"))
         val errorNotString = assertThrows(AsyncStorageError::class.java) {
             notStringArgs.toEntryList()
         }
@@ -65,7 +67,7 @@ class ArgumentHelpersTest {
 
     @Test
     fun throwsIfArgumentValueNotString() {
-        val invalidArgs = createNativeCallArguments(arrayListOf("my_key", 666))
+        val invalidArgs = JavaOnlyArray.of(arrayListOf("my_key", 666))
         val error = assertThrows(AsyncStorageError::class.java) {
             invalidArgs.toEntryList()
         }
@@ -75,5 +77,17 @@ class ArgumentHelpersTest {
     }
 }
 
-
-
+fun List<Any?>.toReadableArray(): ReadableArray {
+    val arr = JavaOnlyArray()
+    forEach {
+        when (it) {
+            null -> arr.pushNull()
+            is Boolean -> arr.pushBoolean(it)
+            is Double -> arr.pushDouble(it)
+            is Int -> arr.pushInt(it)
+            is String -> arr.pushString(it)
+            else -> throw NotImplementedError()
+        }
+    }
+    return arr
+}
