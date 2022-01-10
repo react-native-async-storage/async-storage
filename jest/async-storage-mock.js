@@ -94,14 +94,12 @@ async function _getAllKeys() {
 
 async function _multiMerge(keyValuePairs, callback) {
   keyValuePairs.forEach((keyValue) => {
-    const key = keyValue[0];
-    const value = JSON.parse(keyValue[1]);
-
-    const oldValue = JSON.parse(asMock.__INTERNAL_MOCK_STORAGE__[key]);
-
-    asMock.__INTERNAL_MOCK_STORAGE__[key] = JSON.stringify(
-      merge(oldValue, value),
-    );
+    const [key, value] = keyValue;
+    const oldValue = asMock.__INTERNAL_MOCK_STORAGE__[key];
+    asMock.__INTERNAL_MOCK_STORAGE__[key] =
+      oldValue != null
+        ? JSON.stringify(merge(JSON.parse(oldValue), JSON.parse(value)))
+        : value;
   });
 
   callback && callback(null);
