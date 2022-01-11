@@ -1,3 +1,10 @@
+## [1.15.15](https://github.com/react-native-async-storage/async-storage/compare/v1.15.14...v1.15.15) (2022-01-11)
+
+
+### Bug Fixes
+
+* align mock of multiMerge with actual behavior ([#733](https://github.com/react-native-async-storage/async-storage/issues/733)) ([2dee293](https://github.com/react-native-async-storage/async-storage/commit/2dee2935ede75d01f632e0f9b56a7105b7fd492f))
+
 ## [1.15.14](https://github.com/react-native-async-storage/async-storage/compare/v1.15.13...v1.15.14) (2021-11-30)
 
 
