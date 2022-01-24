@@ -1,3 +1,10 @@
+## [1.15.17](https://github.com/react-native-async-storage/async-storage/compare/v1.15.16...v1.15.17) (2022-01-24)
+
+
+### Bug Fixes
+
+* **types:** remove 'this' binding expectations on hook fn types ([#736](https://github.com/react-native-async-storage/async-storage/issues/736)) ([cf76a4e](https://github.com/react-native-async-storage/async-storage/commit/cf76a4e820d5123a947face49a2c6757a6b2f681))
+
 ## [1.15.16](https://github.com/react-native-async-storage/async-storage/compare/v1.15.15...v1.15.16) (2022-01-21)
 
 
