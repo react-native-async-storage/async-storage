@@ -60,10 +60,10 @@ interface AsyncStorage {
 }
 
 type AsyncStorageHook = {
-  getItem(callback?: (error?: Error, result?: string) => void): Promise<string | null>;
-  setItem(value: string, callback?: (error?: Error) => void): Promise<void>;
-  mergeItem(value: string, callback?: (error?: Error) => void): Promise<void>;
-  removeItem(callback?: (error?: Error) => void): Promise<void>;
+  getItem: (callback?: (error?: Error, result?: string) => void) => Promise<string | null>;
+  setItem: (value: string, callback?: (error?: Error) => void) => Promise<void>;
+  mergeItem: (value: string, callback?: (error?: Error) => void) => Promise<void>;
+  removeItem: (callback?: (error?: Error) => void) => Promise<void>;
 }
 
 declare module '@react-native-async-storage/async-storage' {
