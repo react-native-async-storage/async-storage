@@ -22,7 +22,8 @@
   ],
   "author": "Krzysztof Borowy <hello@krizzu.dev>",
   "contributors": [
-    "Evan Bacon <bacon@expo.io> (https://github.com/evanbacon)"
+    "Evan Bacon <bacon@expo.io> (https://github.com/evanbacon)",
+    "Tommy Nguyen <4123478+tido64@users.noreply.github.com> (https://github.com/tido64)"
   ],
   "homepage": "https://github.com/react-native-async-storage/async-storage#readme",
   "license": "MIT",

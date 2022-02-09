@@ -39,13 +39,13 @@ export type AsyncStorageHook = {
  * storage system that is global to the app.  It should be used instead of
  * LocalStorage.
  *
- * See http://reactnative.dev/docs/asyncstorage.html
+ * See https://react-native-async-storage.github.io/async-storage/docs/api
  */
 export type AsyncStorageStatic = {
   /**
    * Fetches an item for a `key` and invokes a callback upon completion.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#getitem
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#getitem
    */
   getItem: (
     key: string,
@@ -55,14 +55,14 @@ export type AsyncStorageStatic = {
   /**
    * Sets the value for a `key` and invokes a callback upon completion.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#setitem
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#setitem
    */
   setItem: (key: string, value: string, callback?: Callback) => Promise<void>;
 
   /**
    * Removes an item for a `key` and invokes a callback upon completion.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#removeitem
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#removeitem
    */
   removeItem: (key: string, callback?: Callback) => Promise<void>;
 
@@ -72,7 +72,7 @@ export type AsyncStorageStatic = {
    *
    * **NOTE:** This is not supported by all native implementations.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#mergeitem
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#mergeitem
    */
   mergeItem?: (
     key: string,
@@ -85,14 +85,14 @@ export type AsyncStorageStatic = {
    * don't want to call this; use `removeItem` or `multiRemove` to clear only
    * your app's keys.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#clear
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#clear
    */
   clear: (callback?: Callback) => Promise<void>;
 
   /**
    * Gets *all* keys known to your app; for all callers, libraries, etc.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#getallkeys
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#getallkeys
    */
   getAllKeys: (
     callback?: CallbackWithResult<readonly string[]>
@@ -111,7 +111,7 @@ export type AsyncStorageStatic = {
   /**
    * Flushes any pending requests using a single batch call to get the data.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#flushgetrequests
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#flushgetrequests
    * */
   flushGetRequests: () => void;
 
@@ -120,7 +120,7 @@ export type AsyncStorageStatic = {
    * inputs. Your callback will be invoked with an array of corresponding
    * key-value pairs found.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#multiget
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#multiget
    */
   multiGet: (
     keys: string[],
@@ -131,7 +131,7 @@ export type AsyncStorageStatic = {
    * Use this as a batch operation for storing multiple key-value pairs. When
    * the operation completes you'll get a single callback with any errors.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#multiset
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#multiset
    */
   multiSet: (
     keyValuePairs: [string, string][],
@@ -141,7 +141,7 @@ export type AsyncStorageStatic = {
   /**
    * Call this to batch the deletion of all keys in the `keys` array.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#multiremove
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#multiremove
    */
   multiRemove: (keys: string[], callback?: MultiCallback) => Promise<void>;
 
@@ -151,7 +151,7 @@ export type AsyncStorageStatic = {
    *
    * **NOTE**: This is not supported by all native implementations.
    *
-   * See http://reactnative.dev/docs/asyncstorage.html#multimerge
+   * See https://react-native-async-storage.github.io/async-storage/docs/api#multimerge
    */
   multiMerge?: (
     keyValuePairs: [string, string][],
