@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/react-native-async-storage/async-storage/compare/v1.15.17...v1.16.0) (2022-02-09)
+
+
+### Features
+
+* migrate from Flow to TypeScript ([#727](https://github.com/react-native-async-storage/async-storage/issues/727)) ([e3d36f3](https://github.com/react-native-async-storage/async-storage/commit/e3d36f313852c50884fefb12fcd341d37a16973f))
+
 ## [1.15.17](https://github.com/react-native-async-storage/async-storage/compare/v1.15.16...v1.15.17) (2022-01-24)
 
 
