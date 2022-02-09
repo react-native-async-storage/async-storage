@@ -1,8 +1,8 @@
-const {NativeModules} = require('react-native');
+import { NativeModules } from 'react-native';
 
-module.exports = function shouldFallbackToLegacyNativeModule() {
+export function shouldFallbackToLegacyNativeModule(): boolean {
   const expoConstants =
-    NativeModules.NativeUnimoduleProxy?.modulesConstants?.ExponentConstants;
+    NativeModules['NativeUnimoduleProxy']?.modulesConstants?.ExponentConstants;
 
   if (expoConstants) {
     /**
@@ -10,7 +10,8 @@ module.exports = function shouldFallbackToLegacyNativeModule() {
      * In bare React Native apps using expo-constants, appOwnership is never defined, so
      * isLegacySdkVersion will be false in that context.
      */
-    const isLegacySdkVersion = expoConstants.appOwnership && !expoConstants.executionEnvironment;
+    const isLegacySdkVersion =
+      expoConstants.appOwnership && !expoConstants.executionEnvironment;
 
     /**
      * Expo managed apps don't include the @react-native-async-storage/async-storage
@@ -21,10 +22,13 @@ module.exports = function shouldFallbackToLegacyNativeModule() {
      * will likely not be valid anymore, and the package will need to be included in the Expo SDK
      * to continue to work.
      */
-    if (isLegacySdkVersion || ['storeClient', 'standalone'].includes(expoConstants.executionEnvironment)) {
+    if (
+      isLegacySdkVersion ||
+      ['storeClient', 'standalone'].includes(expoConstants.executionEnvironment)
+    ) {
       return true;
     }
   }
 
   return false;
-};
+}

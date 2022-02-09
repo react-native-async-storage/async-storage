@@ -2,9 +2,9 @@ name: Website Deployment
 on:
   push:
     branches:
-    - master
+      - master
     paths:
-    - 'website/**'
+      - 'website/**'
 
 jobs:
   deploy:
@@ -12,23 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Cache/restore dependencies
-      uses: actions/cache@v1
-      id: cache
-      with:
-        path: ./website/node_modules
-        key: website-${{ hashFiles('website/yarn.lock') }}
-    - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: yarn install --frozen-lockfile --cwd ./website
-    - name: Release
-      working-directory: ./website
-      run: |
-        git config --global user.name ${{ secrets.GH_DEPLOY_NAME }}
-        git config --global user.email ${{ secrets.GH_DEPLOY_EMAIL }}
-        echo "machine github.com login ${{ secrets.GH_DEPLOY_NAME }} password ${{ secrets.GH_DEPLOY_TOKEN }}" > ~/.netrc
-        GIT_USER=${{ secrets.GH_DEPLOY_NAME }} yarn run deploy
-
-
-
+      - uses: actions/checkout@v2
+      - name: Cache/restore dependencies
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ./website/node_modules
+          key: website-${{ hashFiles('website/yarn.lock') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile --cwd ./website
+      - name: Release
+        working-directory: ./website
+        run: |
+          git config --global user.name ${{ secrets.GH_DEPLOY_NAME }}
+          git config --global user.email ${{ secrets.GH_DEPLOY_EMAIL }}
+          echo "machine github.com login ${{ secrets.GH_DEPLOY_NAME }} password ${{ secrets.GH_DEPLOY_TOKEN }}" > ~/.netrc
+          GIT_USER=${{ secrets.GH_DEPLOY_NAME }} yarn run deploy

@@ -3,8 +3,8 @@
  * integration tests during local development or on CI services.
  */
 
-const exclusionList = require("metro-config/src/defaults/exclusionList");
-const path = require("path");
+const exclusionList = require('metro-config/src/defaults/exclusionList');
+const path = require('path');
 
 module.exports = {
   projectRoot: `${__dirname}/example`,
@@ -15,12 +15,12 @@ module.exports = {
       new RegExp(
         `${path
           .resolve(__dirname, 'example', 'windows')
-          .replace(/[/\\]/g, '/')}.*`,
+          .replace(/[/\\]/g, '/')}.*`
       ),
 
       // Workaround for `EBUSY: resource busy or locked, open '~\msbuild.ProjectImports.zip'`
       // when building with `yarn windows --release`
       /.*\.ProjectImports\.zip/,
-    ])
+    ]),
   },
 };

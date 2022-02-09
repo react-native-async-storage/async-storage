@@ -1,7 +1,14 @@
 // @ts-ignore
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 type DataType = {
   deeper?: DataType;
@@ -22,7 +29,7 @@ const mergeInitialValue = {
   },
 };
 
-function hasMessage(e: unknown): e is { "message": string; } {
+function hasMessage(e: unknown): e is { message: string } {
   return Boolean(typeof e === 'object' && e && 'message' in e);
 }
 
@@ -38,7 +45,6 @@ function NextExample() {
     override2: '',
     override3: '',
   });
-
 
   function runWithCatch(block: () => Promise<void>) {
     return async () => {
@@ -101,7 +107,7 @@ function NextExample() {
   }
 
   async function mergeValues() {
-    const {override1, override2, override3} = overrideValue;
+    const { override1, override2, override3 } = overrideValue;
 
     // leave out empty inputs
     const toMerge: DataType = {};
@@ -129,75 +135,106 @@ function NextExample() {
     await AsyncStorage.mergeItem('MERGER', JSON.stringify(toMerge));
   }
 
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      {error ? <Text style={styles.error}>{error}</Text> : null}
 
-  return <ScrollView contentContainerStyle={{flexGrow: 1}}>
-
-    {error ? <Text style={styles.error}>{error}</Text> : null}
-
-    <View style={styles.example}>
-      <Text style={styles.title}>Basic operations</Text>
-      <TextInput onChangeText={setInputKey} value={inputKey} style={styles.input} placeholder="key"/>
-      <TextInput onChangeText={setInputValue} value={inputValue} style={styles.input} placeholder="value"/>
-      <View style={styles.row}>
-        <Button title="Read" onPress={runWithCatch(readValue)}/>
-        <Button title="Save" onPress={runWithCatch(saveValue)}/>
-        <Button title="Delete" onPress={runWithCatch(removeValue)}/>
-      </View>
-      <Text>Value for {inputKey}: {value}</Text>
-    </View>
-
-    <View style={styles.example}>
-      <Text style={styles.title}>Crash scenarios</Text>
-      <View style={styles.row}>
-        <Button title="Key null" onPress={runWithCatch(crashKeyNull)}/>
-        <Button title="Key not string" onPress={runWithCatch(crashKeyNotString)}/>
-        <Button title="Wrong value type" onPress={runWithCatch(crashValueType)}/>
-      </View>
-    </View>
-
-    <View style={styles.example}>
-      <Text style={styles.title}>Merging</Text>
-      <View style={styles.row}>
-        <Text>{`Value:\n\n${JSON.stringify(mergedValue, null, 2)}`}</Text>
-        <Text>{`Merge with:\n\n${JSON.stringify(overrideValue, null, 2)}`}</Text>
-      </View>
-      <View style={styles.row}>
-        <Button title="Read" onPress={runWithCatch(readMergedValue)}/>
-        <Button title="Reset" onPress={runWithCatch(resetMergedValue)}/>
-        <Button title="Merge" onPress={runWithCatch(mergeValues)}/>
-      </View>
-      <View>
+      <View style={styles.example}>
+        <Text style={styles.title}>Basic operations</Text>
         <TextInput
-          onChangeText={t => setOverrideValue(c => ({...c, override1: t}))}
-          value={overrideValue.override1}
-          style={styles.input} placeholder="override1"
+          onChangeText={setInputKey}
+          value={inputKey}
+          style={styles.input}
+          placeholder="key"
         />
         <TextInput
-          onChangeText={t => setOverrideValue(c => ({...c, override2: t}))}
-          value={overrideValue.override2}
-          style={styles.input} placeholder="override2"
+          onChangeText={setInputValue}
+          value={inputValue}
+          style={styles.input}
+          placeholder="value"
         />
-        <TextInput
-          onChangeText={t => setOverrideValue(c => ({...c, override3: t}))}
-          value={overrideValue.override3}
-          style={styles.input} placeholder="override3"
-        />
+        <View style={styles.row}>
+          <Button title="Read" onPress={runWithCatch(readValue)} />
+          <Button title="Save" onPress={runWithCatch(saveValue)} />
+          <Button title="Delete" onPress={runWithCatch(removeValue)} />
+        </View>
+        <Text>
+          Value for {inputKey}: {value}
+        </Text>
       </View>
-    </View>
 
-    <View style={styles.example}>
-      <Text style={styles.title}>Display all keys</Text>
-      <View style={styles.row}>
-        <Button title="Get all keys" onPress={runWithCatch(getAllKeys)}/>
+      <View style={styles.example}>
+        <Text style={styles.title}>Crash scenarios</Text>
+        <View style={styles.row}>
+          <Button title="Key null" onPress={runWithCatch(crashKeyNull)} />
+          <Button
+            title="Key not string"
+            onPress={runWithCatch(crashKeyNotString)}
+          />
+          <Button
+            title="Wrong value type"
+            onPress={runWithCatch(crashValueType)}
+          />
+        </View>
       </View>
-      <Text>{keys.join(', ')}</Text>
-    </View>
 
-    <View style={styles.example}>
-      <Text style={styles.title}>Clear database entries</Text>
-      <Button title="clear" onPress={runWithCatch(clearDb)}/>
-    </View>
-  </ScrollView>;
+      <View style={styles.example}>
+        <Text style={styles.title}>Merging</Text>
+        <View style={styles.row}>
+          <Text>{`Value:\n\n${JSON.stringify(mergedValue, null, 2)}`}</Text>
+          <Text>{`Merge with:\n\n${JSON.stringify(
+            overrideValue,
+            null,
+            2
+          )}`}</Text>
+        </View>
+        <View style={styles.row}>
+          <Button title="Read" onPress={runWithCatch(readMergedValue)} />
+          <Button title="Reset" onPress={runWithCatch(resetMergedValue)} />
+          <Button title="Merge" onPress={runWithCatch(mergeValues)} />
+        </View>
+        <View>
+          <TextInput
+            onChangeText={(t) =>
+              setOverrideValue((c) => ({ ...c, override1: t }))
+            }
+            value={overrideValue.override1}
+            style={styles.input}
+            placeholder="override1"
+          />
+          <TextInput
+            onChangeText={(t) =>
+              setOverrideValue((c) => ({ ...c, override2: t }))
+            }
+            value={overrideValue.override2}
+            style={styles.input}
+            placeholder="override2"
+          />
+          <TextInput
+            onChangeText={(t) =>
+              setOverrideValue((c) => ({ ...c, override3: t }))
+            }
+            value={overrideValue.override3}
+            style={styles.input}
+            placeholder="override3"
+          />
+        </View>
+      </View>
+
+      <View style={styles.example}>
+        <Text style={styles.title}>Display all keys</Text>
+        <View style={styles.row}>
+          <Button title="Get all keys" onPress={runWithCatch(getAllKeys)} />
+        </View>
+        <Text>{keys.join(', ')}</Text>
+      </View>
+
+      <View style={styles.example}>
+        <Text style={styles.title}>Clear database entries</Text>
+        <Button title="clear" onPress={runWithCatch(clearDb)} />
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -228,6 +265,5 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
 });
-
 
 export default NextExample;

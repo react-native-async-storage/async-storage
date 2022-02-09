@@ -7,7 +7,7 @@
 
 // @ts-ignore
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useCallback, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Button,
   NativeModules,
@@ -18,12 +18,12 @@ import {
 } from 'react-native';
 
 type Personalia = {
-  age: string,
-  name: string,
+  age: string;
+  name: string;
   traits: {
-    trait1: string,
-    trait2: string,
-  },
+    trait1: string;
+    trait2: string;
+  };
 };
 
 const KEY = '@@KEY';
@@ -59,10 +59,10 @@ export default function Merge(): JSX.Element {
   const [needRestart, setNeedRestart] = useState(false);
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
-  const [traits, setTraits] = useState({trait1: '', trait2: ''});
+  const [traits, setTraits] = useState({ trait1: '', trait2: '' });
 
   const mergeItem = useCallback(async () => {
-    const obj = {name, age, traits};
+    const obj = { name, age, traits };
     try {
       await AsyncStorage.mergeItem(KEY, JSON.stringify(obj));
     } catch (e) {
@@ -73,7 +73,7 @@ export default function Merge(): JSX.Element {
   }, [name, age, traits]);
 
   const saveItem = useCallback(async () => {
-    const obj = {name, age, traits};
+    const obj = { name, age, traits };
     try {
       await AsyncStorage.setItem(KEY, JSON.stringify(obj));
     } catch (e) {
@@ -93,26 +93,25 @@ export default function Merge(): JSX.Element {
       console.warn(e);
     }
 
-    const {name, age, traits} = storedItem || {};
+    const { name, age, traits } = storedItem || {};
 
     setName(name || '');
     setAge(age || '');
-    setTraits(traits || {trait1: '', trait2: ''});
+    setTraits(traits || { trait1: '', trait2: '' });
   }, []);
 
-  const {trait1, trait2} = traits;
+  const { trait1, trait2 } = traits;
 
   return (
     <View>
       <View>
         <Text
           testID="storyTextView"
-          style={
-            styles.story
-          }>{`${name} is ${age}, has ${trait1} eyes and shoe size of ${trait2}.`}</Text>
+          style={styles.story}
+        >{`${name} is ${age}, has ${trait1} eyes and shoe size of ${trait2}.`}</Text>
       </View>
 
-      {INPUTS.map(({title, stateFragment, inputType, testId}) => {
+      {INPUTS.map(({ title, stateFragment, inputType, testId }) => {
         const value = (() => {
           switch (stateFragment) {
             case 'age':
@@ -192,7 +191,7 @@ export default function Merge(): JSX.Element {
           }
           onPress={() =>
             NativeModules['AsyncStorageTestSupport'].test_unsetDelegate(
-              () => {},
+              () => {}
             )
           }
         />

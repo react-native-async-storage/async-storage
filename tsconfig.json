@@ -9,7 +9,6 @@
     "strict": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "noEmit": true,
     "allowJs": true,
     "checkJs": true,
     "allowSyntheticDefaultImports": true,
@@ -18,9 +17,5 @@
     "target": "ESNext",
     "skipLibCheck": true
   },
-  "include": [
-    "example/*.ts",
-    "example/*.tsx",
-    "example/examples/**/*.tsx"
-  ]
+  "include": ["src"]
 }
