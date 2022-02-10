@@ -13,9 +13,7 @@
     "android/testresults.gradle",
     "ios/",
     "jest/",
-    "lib/commonjs/**/*.js",
-    "lib/module/**/*.js",
-    "lib/typescript/",
+    "lib/",
     "macos/",
     "src/",
     "windows/"
