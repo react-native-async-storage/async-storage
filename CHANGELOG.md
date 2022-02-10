@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/react-native-async-storage/async-storage/compare/v1.16.0...v1.16.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* also publish source map files ([#748](https://github.com/react-native-async-storage/async-storage/issues/748)) ([199a2c2](https://github.com/react-native-async-storage/async-storage/commit/199a2c2e6607b2b9af571aa2f3f9cc3057cf2af4))
+
 # [1.16.0](https://github.com/react-native-async-storage/async-storage/compare/v1.15.17...v1.16.0) (2022-02-09)
 
 
