@@ -72,8 +72,8 @@
     "@babel/preset-env": "^7.1.6",
     "@expo/webpack-config": "^0.16.0",
     "@react-native-community/eslint-config": "^3.0.0",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "9.0.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.64.0",
     "concurrently": "^6.4.0",
@@ -91,8 +91,11 @@
     "react-native-web": "^0.17.0",
     "react-native-windows": "^0.64.0",
     "react-test-renderer": "17.0.1",
-    "semantic-release": "^17.4.6",
+    "semantic-release": "^19.0.0",
     "typescript": "^4.5.0"
+  },
+  "resolutions": {
+    "npm/chalk": "^4.1.2"
   },
   "jest": {
     "preset": "react-native",
