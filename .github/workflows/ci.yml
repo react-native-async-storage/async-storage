@@ -35,7 +35,7 @@ jobs:
           yarn test:e2e:macos
   windows:
     name: 'Windows'
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - name: Set up MSBuild
         uses: microsoft/setup-msbuild@v1.0.3
