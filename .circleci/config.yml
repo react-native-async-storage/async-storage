@@ -24,7 +24,7 @@ default config for macOS: &macos_defaults
   <<: *defaults
   resource_class: 'medium'
   macos:
-    xcode: '12.5.1'
+    xcode: '13.2.1'
 
 config for macOS (android): &macos_defaults_android
   <<: *defaults
@@ -40,7 +40,6 @@ default config for android apk builds: &android_defaults
   working_directory: ~/async_storage
   environment:
     - _JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -Xmx2048m'
-    - GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-XX:+HeapDumpOnOutOfMemoryError -Xmx2048m"'
     - BUILD_THREADS: 2
 
 # ==============================

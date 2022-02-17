@@ -2767,10 +2767,10 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.4, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-ajv@^8.0.1:
-  version "8.6.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.6.2.tgz#2fb45e0e5fcbc0813326c1c3da535d1881bb0571"
-  integrity sha512-9807RlWAgT564wT+DjeyU5OFMPjmzxVobvDFmNAhY+5zD6A2ly3jDp6sgnfyDtlIQ+7H97oc/DGCzzfu9rjw9w==
+ajv@^8.0.0, ajv@^8.0.1:
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.10.0.tgz#e573f719bd3af069017e3b66538ab968d040e54d"
+  integrity sha512-bzqAEZOjkrUMl2afH8dknrq5KEk2SrwdBROR+vH1EKVQTqaUbJVPdc/gEdggTMM0Se+s+Ja4ju4TlNcStKl2Hw==
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -11152,11 +11152,12 @@ react-native-macos@^0.64.0:
     whatwg-fetch "^3.0.0"
     ws "^6.1.4"
 
-react-native-test-app@^0.9.19:
-  version "0.9.19"
-  resolved "https://registry.yarnpkg.com/react-native-test-app/-/react-native-test-app-0.9.19.tgz#cb86b45d7c789483cbb4c3f64a5a402b6e0743ad"
-  integrity sha512-S7div5WeFjbFAhIDaB5DRNQeBT39AHRwMBS5+utsCuUgL71TAtSMMl6elnvpyFaBfe7VOegYLZz1HE1eCS4h9Q==
+react-native-test-app@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-test-app/-/react-native-test-app-1.1.2.tgz#e0a102b7cce05bc79c11d85b72f8222d7ee3a5e8"
+  integrity sha512-yLh6YZTQlMncuwN+C4i0TCNc/KR+t0/fwI9Roivy2/efmTDJW6moEKA0r/UgLvNQ+R3eXy9c5Utc2EdgyTXtMw==
   dependencies:
+    ajv "^8.0.0"
     chalk "^4.1.0"
     prompts "^2.4.0"
     rimraf "^3.0.0"

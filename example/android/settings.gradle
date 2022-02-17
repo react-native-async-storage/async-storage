@@ -1,4 +1,12 @@
-rootProject.name = 'AsyncStorageExample'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenLocal()
+        google()
+    }
+}
 
-apply from: file('../../node_modules/react-native-test-app/test-app.gradle')
+rootProject.name = "AsyncStorageExample"
+
+apply(from: "../../node_modules/react-native-test-app/test-app.gradle")
 applyTestAppSettings(settings)
