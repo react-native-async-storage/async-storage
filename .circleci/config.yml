@@ -201,7 +201,10 @@ jobs:
           command: ./scripts/ios_e2e.sh 'run_simulator'
       - run:
           name: Build iOS app
-          command: yarn build:e2e:ios
+          command: |
+            # Workaround for `nvm is not compatible with the "PREFIX" environment variable`
+            echo > node_modules/react-native/scripts/find-node.sh
+            yarn build:e2e:ios
       - run:
           name: Run e2e tests
           command: yarn test:e2e:ios
