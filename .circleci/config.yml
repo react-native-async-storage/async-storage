@@ -18,7 +18,7 @@ checkout step for each job: &addWorkspace
 default config for js: &js_defaults
   <<: *defaults
   docker:
-    - image: circleci/node:12
+    - image: circleci/node:14
 
 default config for macOS: &macos_defaults
   <<: *defaults
