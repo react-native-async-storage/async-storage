@@ -36,6 +36,7 @@ android/gradlew.bat
 # Visual Studio
 #
 example/windows/.vs
+example/windows/*.sln
 example/windows/ARM
 example/windows/packages
 example/windows/x64

@@ -10,13 +10,13 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Set up Node.js
-        uses: actions/setup-node@v2.4.1
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: 14
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.0
       - name: Cache /.cache/yarn
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.7
         with:
           path: .cache/yarn
           key: ${{ hashFiles('yarn.lock') }}
@@ -38,17 +38,17 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Set up MSBuild
-        uses: microsoft/setup-msbuild@v1.0.3
+        uses: microsoft/setup-msbuild@v1.1
       - name: Setup VSTest.console.exe
         uses: darenm/Setup-VSTest@v1
       - name: Set up Node.js
-        uses: actions/setup-node@v2.4.1
+        uses: actions/setup-node@v2.5.1
         with:
           node-version: 14
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.4.0
       - name: Cache /.cache/yarn
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.7
         with:
           path: .cache/yarn
           key: ${{ hashFiles('yarn.lock') }}
@@ -64,5 +64,5 @@ jobs:
         working-directory: example/windows
       - name: Build
         run: |
-          MSBuild -t:Rebuild -p:Configuration=Release -p:Platform=x64 -p:BundleEntryFile=index.ts ReactTestApp.sln
+          MSBuild -t:Rebuild -p:Configuration=Release -p:Platform=x64 -p:BundleEntryFile=index.ts AsyncStorageExample.sln
         working-directory: example/windows

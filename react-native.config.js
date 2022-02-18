@@ -63,7 +63,7 @@ if (
       // `node_modules/.generated/windows`.
       windows: {
         sourceDir,
-        solutionFile: 'ReactTestApp.sln',
+        solutionFile: 'AsyncStorageExample.sln',
         project: {
           projectFile: path.relative(
             sourceDir,

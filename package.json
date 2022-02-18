@@ -77,7 +77,7 @@
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.64.0",
     "concurrently": "^6.4.0",
-    "detox": "17.10.6",
+    "detox": "^19.4.5",
     "eslint": "^7.0.0",
     "expo": "^43.0.0",
     "jest": "^26.5.3",
@@ -87,7 +87,7 @@
     "react-native": "^0.64.0",
     "react-native-builder-bob": "^0.18.0",
     "react-native-macos": "^0.64.0",
-    "react-native-test-app": "^0.9.19",
+    "react-native-test-app": "^1.1.2",
     "react-native-web": "^0.17.0",
     "react-native-windows": "^0.64.0",
     "react-test-renderer": "17.0.1",
@@ -111,7 +111,7 @@
         "binaryPath": "example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app",
         "type": "ios.simulator",
         "device": {
-          "type": "iPhone 11"
+          "type": "iPhone 13"
         }
       },
       "android.emu.release": {

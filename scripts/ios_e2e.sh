@@ -4,7 +4,12 @@ RESOURCE_DIR="$PWD/example/ios/build/Build/Products/Release-iphonesimulator/Reac
 ENTRY_FILE="example/index.ts"
 BUNDLE_FILE="$RESOURCE_DIR/main.jsbundle"
 EXTRA_PACKAGER_ARGS="--entry-file=$ENTRY_FILE"
-SIMULATOR_NAME="iPhone 11"
+SIMULATOR_NAME="iPhone 13"
+IOS_XCSCHEME="node_modules/.generated/ios/ReactTestApp.xcodeproj/xcshareddata/xcschemes/ReactTestApp.xcscheme"
+
+# Disable Address Sanitizer as it crashes Detox
+sed -i '' 's/enableAddressSanitizer = "YES"/enableAddressSanitizer = "NO"/g' "$IOS_XCSCHEME"
+sed -i '' 's/enableUBSanitizer = "YES"/enableUBSanitizer = "NO"/g' "$IOS_XCSCHEME"
 
 build_project() {
   echo "[Detox e2e] Building iOS project"
@@ -19,7 +24,6 @@ build_project() {
 }
 
 run_simulator() {
-
   # Find simulator
   devDir=`xcode-select -p`
   devDir=$devDir/Applications/Simulator.app
