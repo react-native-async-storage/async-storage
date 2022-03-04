@@ -87,7 +87,7 @@
     "react-native": "^0.64.0",
     "react-native-builder-bob": "^0.18.0",
     "react-native-macos": "^0.64.0",
-    "react-native-test-app": "^1.1.2",
+    "react-native-test-app": "^1.1.4",
     "react-native-web": "^0.17.0",
     "react-native-windows": "^0.64.0",
     "react-test-renderer": "17.0.1",
