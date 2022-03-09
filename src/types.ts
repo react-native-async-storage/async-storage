@@ -125,7 +125,7 @@ export type AsyncStorageStatic = {
   multiGet: (
     keys: string[],
     callback?: MultiGetCallback
-  ) => Promise<readonly KeyValuePair[] | void>;
+  ) => Promise<readonly KeyValuePair[]>;
 
   /**
    * Use this as a batch operation for storing multiple key-value pairs. When
