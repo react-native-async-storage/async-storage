@@ -521,7 +521,7 @@ std::optional<bool> DBStorage::DBTask::MultiRemove(sqlite3 *db,
     auto statement = StatementPtr{nullptr, &sqlite3_finalize};
     CHECK_SQL_OK(PrepareStatement(db, sql, &statement));
     for (int i = 0; i < argCount; i++) {
-        CHECK(BindString(statement, i + 1, keys[i]));
+        CHECK_SQL_OK(BindString(statement, i + 1, keys[i]));
     }
     for (;;) {
         auto stepResult = sqlite3_step(statement.get());
