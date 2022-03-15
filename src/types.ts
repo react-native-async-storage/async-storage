@@ -23,7 +23,7 @@ export type MultiRequest = {
   keys: readonly string[];
   callback?: MultiGetCallback;
   keyIndex: number;
-  resolve?: (result?: readonly KeyValuePair[]) => void;
+  resolve?: (result: readonly KeyValuePair[]) => void;
   reject?: (error?: any) => void;
 };
 
