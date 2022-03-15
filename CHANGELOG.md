@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/react-native-async-storage/async-storage/compare/v1.16.1...v1.16.2) (2022-03-15)
+
+
+### Bug Fixes
+
+* **windows:** fix MultiRemove by using CHECK_SQL_OK macro ([#772](https://github.com/react-native-async-storage/async-storage/issues/772)) ([6f3f3ba](https://github.com/react-native-async-storage/async-storage/commit/6f3f3ba2d3192c8809d7a1f4c0e629f46818c63b))
+
 ## [1.16.1](https://github.com/react-native-async-storage/async-storage/compare/v1.16.0...v1.16.1) (2022-02-10)
 
 
