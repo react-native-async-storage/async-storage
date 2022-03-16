@@ -269,7 +269,7 @@ const AsyncStorage = ((): AsyncStorageStatic => {
         reject: null as any,
       };
 
-      const promiseResult = new Promise<readonly KeyValuePair[] | void>(
+      const promiseResult = new Promise<readonly KeyValuePair[]>(
         (resolve, reject) => {
           getRequest.resolve = resolve;
           getRequest.reject = reject;
