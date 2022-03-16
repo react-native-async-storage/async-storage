@@ -1,3 +1,10 @@
+## [1.16.3](https://github.com/react-native-async-storage/async-storage/compare/v1.16.2...v1.16.3) (2022-03-16)
+
+
+### Bug Fixes
+
+* **types:** wrong void return type of multiGet ([#767](https://github.com/react-native-async-storage/async-storage/issues/767)) ([6ba9d69](https://github.com/react-native-async-storage/async-storage/commit/6ba9d690560fa33d21a75358f7dae379a7f705f8))
+
 ## [1.16.2](https://github.com/react-native-async-storage/async-storage/compare/v1.16.1...v1.16.2) (2022-03-15)
 
 
