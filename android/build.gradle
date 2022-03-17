@@ -39,7 +39,7 @@ buildscript {
             ? rootProject.ext['kotlinVersion']
             : rootProject.hasProperty('AsyncStorage_kotlinVersion')
             ? rootProject.properties['AsyncStorage_kotlinVersion']
-            : '1.5.31'
+            : '1.6.10'
 
     repositories {
         google()
@@ -97,9 +97,6 @@ android {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
         }
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
     }
 }
 
@@ -116,8 +113,8 @@ dependencies {
 
     if (useNextStorage) {
         def room_version = getVersionOrDefault('AsyncStorage_next_roomVersion', '2.4.2')
-        def coroutines_version = "1.5.2"
-        def coroutinesTest_version = "1.5.2"
+        def coroutines_version = "1.6.0"
+        def coroutinesTest_version = "1.6.0"
         // if we don't provide explicit dependency on reflection, kotlin plugin
         // would add one automatically, probably a version that is not compatible with
         // used kotlin

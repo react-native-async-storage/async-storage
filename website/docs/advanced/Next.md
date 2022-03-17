@@ -46,7 +46,7 @@ See [Configuration](#configuration) section below to learn more about setting di
 buildscript {
     ext {
         // other extensions
-+        kotlinVersion = '1.5.31'
++        kotlinVersion = '1.6.10'
     }
     
     dependencies {
@@ -67,19 +67,19 @@ AsyncStorage_useNextStorage=true
 
 **Kotlin version**
 
-Next storage is tested against Kotlin version `1.5.31`. 
+Next storage is tested against Kotlin version `1.6.10`. 
 You can specify different version, in one of two ways:
 
 - add `kotlinVersion` extension to the `rootProject`:
 
 ```groovy
-rootProject.ext.kotlinVersion = '1.5.31'
+rootProject.ext.kotlinVersion = '1.6.10'
 ```
 
 - specify `AsyncStorage_kotlinVersion` in `gradle.properties`:
 
 ```groovy
-AsyncStorage_kotlinVersion=1.5.31
+AsyncStorage_kotlinVersion=1.6.10
 ```
 
 **Room**
