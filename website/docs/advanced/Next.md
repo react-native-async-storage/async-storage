@@ -85,10 +85,10 @@ AsyncStorage_kotlinVersion=1.5.31
 **Room**
 
 Next AsyncStorage uses [Room persistence library](https://developer.android.com/jetpack/androidx/releases/room) to store data.
-Currently, tested version is `2.3.0`. You can specify different version, by adding a flag to `gradle.properties`:
+Currently, tested version is `2.4.2`. You can specify different version, by adding a flag to `gradle.properties`:
 
 ```groovy
-AsyncStorage_next_roomVersion=2.3.0
+AsyncStorage_next_roomVersion=2.4.2
 ```
 
 ### Notable changes
