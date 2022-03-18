@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/react-native-async-storage/async-storage/compare/v1.16.3...v1.17.0) (2022-03-18)
+
+
+### Features
+
+* **android:** bump room to 2.4.2, allowing arm64 jdk compile ([#773](https://github.com/react-native-async-storage/async-storage/issues/773)) ([774fb78](https://github.com/react-native-async-storage/async-storage/commit/774fb7828219823195ee704099bbbd902ffc5d07))
+
 ## [1.16.3](https://github.com/react-native-async-storage/async-storage/compare/v1.16.2...v1.16.3) (2022-03-16)
 
 
