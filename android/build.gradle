@@ -47,7 +47,7 @@ buildscript {
     }
     dependencies {
         if (project == rootProject) {
-            classpath 'com.android.tools.build:gradle:3.6.4'
+            classpath 'com.android.tools.build:gradle:4.2.2'
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$asyncStorageKtVersion"
         }
     }
@@ -80,7 +80,7 @@ android {
     compileSdkVersion safeExtGet('compileSdkVersion', 31)
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
-        targetSdkVersion safeExtGet('targetSdkVersion', 29)
+        targetSdkVersion safeExtGet('targetSdkVersion', 31)
         buildConfigField "Long", "AsyncStorage_db_size", "${dbSizeInMB}L"
         buildConfigField "boolean", "AsyncStorage_useDedicatedExecutor", "${useDedicatedExecutor}"
         buildConfigField "boolean", "AsyncStorage_useNextStorage", "${useNextStorage}"
@@ -91,11 +91,10 @@ android {
 
     if (useNextStorage) {
         testOptions {
-            unitTests.returnDefaultValues = true
-        }
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
+            unitTests {
+                returnDefaultValues = true
+                includeAndroidResources = true
+            }
         }
     }
 }
@@ -119,8 +118,8 @@ dependencies {
         // would add one automatically, probably a version that is not compatible with
         // used kotlin
         def kotlinReflect_version = project.ext.asyncStorageKtVersion
-        def junit_version = "4.12"
-        def robolectric_version = "4.5.1"
+        def junit_version = "4.13.2"
+        def robolectric_version = "4.7.3"
         def truth_version = "1.1.2"
         def androidxtest_version = "1.1.0"
 
