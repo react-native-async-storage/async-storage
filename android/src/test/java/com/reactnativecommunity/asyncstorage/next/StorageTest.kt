@@ -129,11 +129,11 @@ class AsyncStorageAccessTest {
        "key2":"value2",
        "key3":{
           "key4":"value4",
-          "key5":"value5",
           "key6":{
              "key7":"value7",
              "key8":"value8"
-          }
+          },
+          "key5":"value5"
        }
     }
 """.trimMargin()
