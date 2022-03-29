@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/react-native-async-storage/async-storage/compare/v1.17.0...v1.17.1) (2022-03-29)
+
+
+### Bug Fixes
+
+* `multiRemove` should accept `readonly string[]` ([#787](https://github.com/react-native-async-storage/async-storage/issues/787)) ([298bbb0](https://github.com/react-native-async-storage/async-storage/commit/298bbb00420bf789b69fa574a2884463ec950f5c))
+
 # [1.17.0](https://github.com/react-native-async-storage/async-storage/compare/v1.16.3...v1.17.0) (2022-03-18)
 
 
