@@ -143,7 +143,10 @@ export type AsyncStorageStatic = {
    *
    * See https://react-native-async-storage.github.io/async-storage/docs/api#multiremove
    */
-  multiRemove: (keys: string[], callback?: MultiCallback) => Promise<void>;
+  multiRemove: (
+    keys: readonly string[],
+    callback?: MultiCallback
+  ) => Promise<void>;
 
   /**
    * Batch operation to merge in existing and new values for a given set of
