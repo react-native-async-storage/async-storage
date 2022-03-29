@@ -61,3 +61,4 @@ buck-out/
 
 # builds by bob
 lib/
+coverage
