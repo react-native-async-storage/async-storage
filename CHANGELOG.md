@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/react-native-async-storage/async-storage/compare/v1.17.1...v1.17.2) (2022-03-30)
+
+
+### Bug Fixes
+
+* cannot find `react-native-test-app` when Metro starts ([#788](https://github.com/react-native-async-storage/async-storage/issues/788)) ([e222452](https://github.com/react-native-async-storage/async-storage/commit/e2224526c6a934c13ba5d04b7a5779ad0e083d37))
+
 ## [1.17.1](https://github.com/react-native-async-storage/async-storage/compare/v1.17.0...v1.17.1) (2022-03-29)
 
 
