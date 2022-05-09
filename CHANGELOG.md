@@ -1,3 +1,10 @@
+## [1.17.4](https://github.com/react-native-async-storage/async-storage/compare/v1.17.3...v1.17.4) (2022-05-09)
+
+
+### Bug Fixes
+
+* `multiGet` accepts read-only array ([#803](https://github.com/react-native-async-storage/async-storage/issues/803)) ([b044512](https://github.com/react-native-async-storage/async-storage/commit/b0445123bb8b315375ed4af3e97435cf8f870b39))
+
 ## [1.17.3](https://github.com/react-native-async-storage/async-storage/compare/v1.17.2...v1.17.3) (2022-03-31)
 
 
