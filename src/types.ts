@@ -123,7 +123,7 @@ export type AsyncStorageStatic = {
    * See https://react-native-async-storage.github.io/async-storage/docs/api#multiget
    */
   multiGet: (
-    keys: string[],
+    keys: readonly string[],
     callback?: MultiGetCallback
   ) => Promise<readonly KeyValuePair[]>;
 
