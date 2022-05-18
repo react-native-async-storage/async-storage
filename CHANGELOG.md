@@ -1,3 +1,10 @@
+## [1.17.5](https://github.com/react-native-async-storage/async-storage/compare/v1.17.4...v1.17.5) (2022-05-18)
+
+
+### Bug Fixes
+
+* invalid module name in augmentation ([#805](https://github.com/react-native-async-storage/async-storage/issues/805)) ([db28513](https://github.com/react-native-async-storage/async-storage/commit/db285138137b7d213598961b672be6ed8fade754))
+
 ## [1.17.4](https://github.com/react-native-async-storage/async-storage/compare/v1.17.3...v1.17.4) (2022-05-09)
 
 
