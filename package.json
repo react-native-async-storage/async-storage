@@ -75,7 +75,7 @@
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
     "@testing-library/react-hooks": "^7.0.2",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^26.0.24",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.64.0",
     "concurrently": "^6.4.0",

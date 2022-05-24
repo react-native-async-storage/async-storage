@@ -8,15 +8,13 @@ export function useAsyncStorage(key: string) {
   );
 
   const setItem = React.useCallback(
-    //@ts-ignore
-    (...args) => AsyncStorage.setItem(key, ...args),
+    (...args: any[]) => AsyncStorage.setItem(key, args[0], args[1]),
     [key]
   );
 
   const mergeItem = React.useCallback(
     (...args) =>
-      //@ts-ignore
-      AsyncStorage.mergeItem?.(key, ...args) ??
+      AsyncStorage.mergeItem?.(key, args[0], args[1]) ??
       Promise.reject('Not implemented'),
     [key]
   );

@@ -1,7 +1,6 @@
 /**
  * @format
  */
-/* eslint-disable no-shadow */
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import AsyncStorage, { useAsyncStorage } from '../src';
@@ -45,7 +44,7 @@ describe('useAsyncStorage', () => {
     expect(await AsyncStorage.getItem('key')).toBeNull();
   });
 
-  it.skip('should throw when mergeItem is not supported', async () => {
+  it('should throw when mergeItem is not supported', async () => {
     const { result } = renderHook(() => useAsyncStorage('key'));
     const mergeItem = AsyncStorage.mergeItem;
     delete AsyncStorage.mergeItem;
@@ -81,4 +80,5 @@ describe('useAsyncStorage', () => {
     expect(person.characteristics).toHaveProperty('hair', 'red');
     expect(person.characteristics).toHaveProperty('shoeSize', 40);
   });
+});
 });
