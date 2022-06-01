@@ -1,3 +1,10 @@
+## [1.17.6](https://github.com/react-native-async-storage/async-storage/compare/v1.17.5...v1.17.6) (2022-06-01)
+
+
+### Bug Fixes
+
+* **windows:** change `WindowsTargetPlatformVersion` to 10.0 ([#810](https://github.com/react-native-async-storage/async-storage/issues/810)) ([668f384](https://github.com/react-native-async-storage/async-storage/commit/668f384963a7c1ea0be9df693af5806b552d998b))
+
 ## [1.17.5](https://github.com/react-native-async-storage/async-storage/compare/v1.17.4...v1.17.5) (2022-05-18)
 
 
