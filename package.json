@@ -65,7 +65,7 @@
     "merge-options": "^3.0.4"
   },
   "peerDependencies": {
-    "react-native": "^0.0.0-0 || 0.60 - 0.68 || 1000.0.0"
+    "react-native": "^0.0.0-0 || 0.60 - 0.69 || 1000.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
