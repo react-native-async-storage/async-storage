@@ -42,12 +42,13 @@ buildscript {
             : '1.6.10'
 
     repositories {
-        google()
         mavenCentral()
+        google()
     }
     dependencies {
-        if (project == rootProject) {
-            classpath 'com.android.tools.build:gradle:4.2.2'
+        def projectExampleDir = Paths.get(project.projectDir.getParent(), "example", "android").toString()
+        def rootProjectDir = rootProject.projectDir.getPath()
+        if (projectExampleDir == rootProjectDir) {
             classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$asyncStorageKtVersion"
         }
     }
