@@ -58,11 +58,7 @@ jobs:
       - name: Install Windows test app
         run: |
           yarn install-windows-test-app -p example/windows
-      - name: Install NuGet packages
-        run: |
-          nuget restore
-        working-directory: example/windows
       - name: Build
         run: |
-          MSBuild -t:Rebuild -p:Configuration=Release -p:Platform=x64 -p:BundleEntryFile=index.ts AsyncStorageExample.sln
+          yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --no-telemetry
         working-directory: example/windows
