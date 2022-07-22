@@ -60,5 +60,5 @@ jobs:
           yarn install-windows-test-app -p example/windows
       - name: Build
         run: |
-          yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --no-telemetry
+          yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
         working-directory: example/windows
