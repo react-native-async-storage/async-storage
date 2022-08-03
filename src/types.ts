@@ -70,15 +70,9 @@ export type AsyncStorageStatic = {
    * Merges an existing `key` value with an input value, assuming both values
    * are stringified JSON.
    *
-   * **NOTE:** This is not supported by all native implementations.
-   *
    * See https://react-native-async-storage.github.io/async-storage/docs/api#mergeitem
    */
-  mergeItem?: (
-    key: string,
-    value: string,
-    callback?: Callback
-  ) => Promise<void>;
+  mergeItem: (key: string, value: string, callback?: Callback) => Promise<void>;
 
   /**
    * Erases *all* `AsyncStorage` for all clients, libraries, etc. You probably
@@ -152,11 +146,9 @@ export type AsyncStorageStatic = {
    * Batch operation to merge in existing and new values for a given set of
    * keys. This assumes that the values are stringified JSON.
    *
-   * **NOTE**: This is not supported by all native implementations.
-   *
    * See https://react-native-async-storage.github.io/async-storage/docs/api#multimerge
    */
-  multiMerge?: (
+  multiMerge: (
     keyValuePairs: [string, string][],
     callback?: MultiCallback
   ) => Promise<void>;
