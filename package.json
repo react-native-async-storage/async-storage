@@ -120,7 +120,8 @@
         "testBinaryPath": "example/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk",
         "type": "android.emulator",
         "device": {
-          "avdName": "Emu_E2E"
+          "avdName": "E2E_API_30",
+          "utilBinaryPaths": ["/var/tmp/test-butler.apk"]
         }
       },
       "android.emu.release.next": {
@@ -128,7 +129,8 @@
         "testBinaryPath": "example/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk",
         "type": "android.emulator",
         "device": {
-          "avdName": "Emu_E2E"
+          "avdName": "E2E_API_30",
+          "utilBinaryPaths": ["/var/tmp/test-butler.apk"]
         }
       }
     }

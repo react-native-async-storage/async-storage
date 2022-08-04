@@ -18,29 +18,28 @@ checkout step for each job: &addWorkspace
 default config for js: &js_defaults
   <<: *defaults
   docker:
-    - image: circleci/node:14
+    - image: cimg/node:14.18.1
 
 default config for macOS: &macos_defaults
   <<: *defaults
   resource_class: 'medium'
   macos:
-    xcode: '13.2.1'
+    xcode: '13.1.0'
 
-config for macOS (android): &macos_defaults_android
+config for android e2e: &android_e2e
   <<: *defaults
-  resource_class: 'medium'
-  macos:
-    xcode: '11.5.0'
+  resource_class: large
+  machine:
+    image: android:2022.06.2
 
 default config for android apk builds: &android_defaults
   <<: *defaults
   docker:
-    - image: reactnativecommunity/react-native-android
-  resource_class: 'medium'
-  working_directory: ~/async_storage
+    - image: cimg/android:2021.10.2-node # node 14.18.1
+  resource_class: medium
   environment:
-    - _JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -Xmx2048m'
-    - BUILD_THREADS: 2
+    JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -Xmx2048m'
+    BUILD_THREADS: 2
 
 # ==============================
 # CACHE CONFIG
@@ -48,7 +47,6 @@ default config for android apk builds: &android_defaults
 
 cache keys:
   brew ios: &key_brew_ios cache-brew-ios-v5-{{ arch }}
-  brew android: &key_brew_android cache-brew-android-v4-{{ arch }}
   yarn: &key_yarn cache-yarn-{{ checksum "package.json" }}-{{ arch }}
   gradle: &key_gradle cache-gradle-v2-{{ checksum "example/android/gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "package.json" }}-{{ arch }}
   pods: &key_pods cache-pods-v0.64-{{ checksum "example/ios/Podfile" }}-{{ checksum "package.json" }}-{{ arch }}
@@ -65,17 +63,6 @@ cache:
     name: Restoring Brew cache
     keys:
       - *key_brew_ios
-
-  save brew cache for android: &cache_save_brew_android
-    name: Saving Brew cache for android
-    paths:
-      - ~/Library/Caches/Homebrew
-    key: *key_brew_android
-
-  restore brew cache for android: &cache_restore_brew_android
-    name: Restoring Brew cache for android
-    keys:
-      - *key_brew_android
 
   # yarn
   save yarn cache: &cache_save_yarn
@@ -229,71 +216,48 @@ jobs:
             - example/android/app/build/outputs/apk/*
 
   "Test: Android e2e":
-    <<: *macos_defaults_android
+    <<: *android_e2e
     steps:
       - *addWorkspace
       - run:
-          name: Configure env variables
+          name: "Install node v14.18.1 and yarn 1.22.17"
           command: |
-            echo 'export ANDROID_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
-            echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> $BASH_ENV
-            echo 'export PATH="$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$PATH"' >> $BASH_ENV
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+            source ~/.bashrc
+            nvm install v14.18.1
+            node -v
+            npm install --global yarn@1.22.17
+            yarn -v
+      - restore_cache: *cache_restore_yarn
+      - run:
+          name: Install dependencies
+          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+      - save_cache: *cache_save_yarn
+      - run:
+          name: Configure Environment Variables
+          command: |
             echo 'export QEMU_AUDIO_DRV=none' >> $BASH_ENV
-            echo 'export JAVA_HOME=$(/usr/libexec/java_home)' >> $BASH_ENV
+            echo 'export PATH="$PATH:~/async_storage/node_modules/.bin"' >> $BASH_ENV
             source $BASH_ENV
-      - restore-cache: *cache_restore_brew_android
       - run:
-          name: Install Android SDK tools
+          name: Install Android system image
           command: |
-            brew update --preinstall
-            brew bundle --file=.circleci/Brewfile.android --no-lock
-      - save-cache: *cache_save_brew_android
+            sdkmanager "system-images;android-30;default;x86_64"
       - run:
-          name: Install Android emulator
-          shell: /bin/bash -e
+          name: "Create Android emulator"
           command: |
-            yes | sdkmanager "platform-tools" "tools" 1> /dev/null
-            yes | sdkmanager "platforms;android-28" "system-images;android-28;default;x86_64" 1> /dev/null
-            yes | sdkmanager "emulator" --channel=3 1> /dev/null
-            yes | sdkmanager "build-tools;28.0.3" 1> /dev/null
-            yes | sdkmanager --licenses 1> /dev/null
-            yes | sdkmanager --list
+            avdmanager create avd -n E2E_API_30 -d pixel_4 --package "system-images;android-30;default;x86_64"
       - run:
-          name: ADB start/stop
+          name: Launch emulator
           command: |
-            adb start-server
-            adb devices
-            adb kill-server
-            ls -la ~/.android
-      - run:
-          name: Create emulator
-          command: |
-            avdmanager create avd --force \
-                   -n "Emu_E2E" \
-                   -k "system-images;android-28;default;x86_64" \
-                   -g "default" \
-                   -d "pixel"
-      - run:
-          name: Start emulator in background
+            emulator -avd E2E_API_30 -delay-adb -verbose -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
           background: true
-          command: |
-            emulator -avd "Emu_E2E" \
-                -cores 1 \
-                -gpu auto \
-                -accel on \
-                -memory 1024 \
-                -no-audio \
-                -no-snapshot \
-                -no-boot-anim \
-                -no-window \
-                -logcat '*:E ReactNative:W ReactNativeJS:*'
+      - run:
+          name: "Make sure TestButler apk is present"
+          command: ./scripts/android_e2e.sh 'install_test_butler'
       - run:
           name: Wait for emulator to boot
           command: ./scripts/android_e2e.sh 'wait_for_emulator'
-      - run:
-          name: Wake device
-          command: |
-            adb shell input keyevent 82
       - run:
           name: Run e2e tests
           command: yarn test:e2e:android
