@@ -40,6 +40,22 @@ wait_for_emulator_to_boot() {
   echo "[Detox e2e] Emulator booted."
 }
 
+install_test_butler() {
+  apkPath=/var/tmp/test-butler.apk
+
+  if [ -f $apkPath ]; then
+    echo "[Detox e2e] TestButler apk exists, skipping"
+  else
+    curl -o $apkPath "https://repo1.maven.org/maven2/com/linkedin/testbutler/test-butler-app/2.2.1/test-butler-app-2.2.1.apk"
+    echo
+    echo "[Detox e2e] TestButler app saved to $apkPath"
+  fi
+}
+
+
+
+
+
 
 case $1 in
   wait_for_emulator)
@@ -50,6 +66,9 @@ case $1 in
     ;;
   bundle)
     shift; bundle_js $@
+    ;;
+  install_test_butler)
+    install_test_butler
     ;;
   *)
     echo -n "Unknown argument: $1"
