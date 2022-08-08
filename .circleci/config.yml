@@ -26,20 +26,11 @@ default config for macOS: &macos_defaults
   macos:
     xcode: '13.1.0'
 
-config for android e2e: &android_e2e
+default config for android apk tests: &android_defaults
   <<: *defaults
   resource_class: large
   machine:
     image: android:2022.06.2
-
-default config for android apk builds: &android_defaults
-  <<: *defaults
-  docker:
-    - image: cimg/android:2021.10.2-node # node 14.18.1
-  resource_class: medium
-  environment:
-    JAVA_OPTIONS: '-XX:+UnlockExperimentalVMOptions -Xmx2048m'
-    BUILD_THREADS: 2
 
 # ==============================
 # CACHE CONFIG
@@ -196,27 +187,8 @@ jobs:
           name: Run e2e tests
           command: yarn test:e2e:ios
 
-  "Build: Android release apk":
-    <<: *android_defaults
-    steps:
-      - *addWorkspace
-      - run:
-          name: Bundle JS
-          command: yarn bundle:android --dev false
-      - run:
-          name: Build APKs
-          command: yarn build:e2e:android
-      - run:
-          name: Build APK with Next storage
-          working_directory: example/android
-          command: ./gradlew assembleNext --max-workers 2
-      - persist_to_workspace:
-          root: ~/async_storage
-          paths:
-            - example/android/app/build/outputs/apk/*
-
   "Test: Android e2e":
-    <<: *android_e2e
+    <<: *android_defaults
     steps:
       - *addWorkspace
       - run:
@@ -233,6 +205,16 @@ jobs:
           name: Install dependencies
           command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
       - save_cache: *cache_save_yarn
+      - run:
+          name: Bundle JS
+          command: yarn bundle:android --dev false
+      - run:
+          name: Build APKs
+          command: yarn build:e2e:android
+      - run:
+          name: Build APK with Next storage
+          working_directory: example/android
+          command: ./gradlew assembleNext --max-workers 2
       - run:
           name: Configure Environment Variables
           command: |
@@ -297,14 +279,11 @@ workflows:
           requires:
             - "Test: lint"
             - "Test: TypeScript"
-      - "Build: Android release apk":
+      - "Test: Android e2e":
           requires:
             - "Test: lint"
             - "Test: TypeScript"
             - "Test: Android unit"
-      - "Test: Android e2e":
-          requires:
-            - "Build: Android release apk"
       - "Release":
           requires:
             - "Test: iOS e2e"
