@@ -1,3 +1,10 @@
+## [1.17.8](https://github.com/react-native-async-storage/async-storage/compare/v1.17.7...v1.17.8) (2022-08-08)
+
+
+### Bug Fixes
+
+* remove warning about `multiMerge` not being implemented ([#827](https://github.com/react-native-async-storage/async-storage/issues/827)) ([cc69173](https://github.com/react-native-async-storage/async-storage/commit/cc69173824be66d9c1251bdad2d9b48f33aa5594))
+
 ## [1.17.7](https://github.com/react-native-async-storage/async-storage/compare/v1.17.6...v1.17.7) (2022-06-23)
 
 

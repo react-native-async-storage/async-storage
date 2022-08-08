@@ -1,6 +1,6 @@
 {
   "name": "@react-native-async-storage/async-storage",
-  "version": "1.17.7",
+  "version": "1.17.8",
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -121,7 +121,9 @@
         "type": "android.emulator",
         "device": {
           "avdName": "E2E_API_30",
-          "utilBinaryPaths": ["/var/tmp/test-butler.apk"]
+          "utilBinaryPaths": [
+            "/var/tmp/test-butler.apk"
+          ]
         }
       },
       "android.emu.release.next": {
@@ -130,7 +132,9 @@
         "type": "android.emulator",
         "device": {
           "avdName": "E2E_API_30",
-          "utilBinaryPaths": ["/var/tmp/test-butler.apk"]
+          "utilBinaryPaths": [
+            "/var/tmp/test-butler.apk"
+          ]
         }
       }
     }
