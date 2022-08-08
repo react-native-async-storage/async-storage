@@ -163,10 +163,8 @@ const AsyncStorage: AsyncStorageStatic = {
    *   multiMerge([['k1', 'val1'], ['k2', 'val2']])
    */
   multiMerge: (keyValuePairs, callback) => {
-    const promises = keyValuePairs.map(
-      (item) =>
-        AsyncStorage.mergeItem?.(item[0], item[1]) ??
-        Promise.reject('Not implemented')
+    const promises = keyValuePairs.map((item) =>
+      AsyncStorage.mergeItem(item[0], item[1])
     );
     return createPromiseAll(promises, callback);
   },

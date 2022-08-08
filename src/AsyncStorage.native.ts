@@ -118,8 +118,6 @@ const AsyncStorage = ((): AsyncStorageStatic => {
      * Merges an existing `key` value with an input value, assuming both values
      * are stringified JSON.
      *
-     * **NOTE:** This is not supported by all native implementations.
-     *
      * See https://react-native-async-storage.github.io/async-storage/docs/api#mergeitem
      */
     mergeItem: (key, value, callback) => {
@@ -337,8 +335,6 @@ const AsyncStorage = ((): AsyncStorageStatic => {
      * Batch operation to merge in existing and new values for a given set of
      * keys. This assumes that the values are stringified JSON.
      *
-     * **NOTE**: This is not supported by all native implementations.
-     *
      * See https://react-native-async-storage.github.io/async-storage/docs/api#multimerge
      */
     multiMerge: (keyValuePairs, callback) => {
@@ -356,11 +352,5 @@ const AsyncStorage = ((): AsyncStorageStatic => {
     },
   };
 })();
-
-// Not all native implementations support merge.
-if (!RCTAsyncStorage.multiMerge) {
-  delete AsyncStorage.mergeItem;
-  delete AsyncStorage.multiMerge;
-}
 
 export default AsyncStorage;

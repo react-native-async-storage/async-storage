@@ -30,7 +30,6 @@ static getItem(key: string, [callback]: ?(error: ?Error, result: ?string) => voi
 **Example**:
 
 ```js
-
 getMyStringValue = async () => {
   try {
     return await AsyncStorage.getItem('@key')
@@ -39,12 +38,10 @@ getMyStringValue = async () => {
   }
 
   console.log('Done.')
-
 }
 ```
 
 ```js
-
 getMyObject = async () => {
   try {
     const jsonValue = await AsyncStorage.getItem('@key')
@@ -54,7 +51,6 @@ getMyObject = async () => {
   }
 
   console.log('Done.')
-
 }
 ```
 
@@ -66,7 +62,7 @@ getMyObject = async () => {
 
 ## `setItem`
 
-Sets a string `value` for given `key`. This operation can either modify an existing entry, if it did exist for given `key`, or add new one otherwise. 
+Sets a string `value` for given `key`. This operation can either modify an existing entry, if it did exist for given `key`, or add new one otherwise.
 
 In order to store object value, you need to serialize it, e.g. using `JSON.stringify()`.
 
@@ -87,7 +83,6 @@ static setItem(key: string, value: string, [callback]: ?(error: ?Error) => void)
 **Example**:
 
 ```js
-
 setStringValue = async (value) => {
   try {
     await AsyncStorage.setItem('key', value)
@@ -100,7 +95,6 @@ setStringValue = async (value) => {
 ```
 
 ```js
-
 setObjectValue = async (value) => {
   try {
     const jsonValue = JSON.stringify(value)
@@ -121,7 +115,6 @@ setObjectValue = async (value) => {
 ## `mergeItem`
 
 Merges an existing value stored under `key`, with new `value`, assuming both values are **stringified JSON**.
-**NOTE**: This is not supported by all native implementations.
 
 **Signature**:
 
@@ -180,7 +173,6 @@ mergeUsers = async () => {
     // }
   }
 }
-
 ```
 
 <br />
@@ -242,7 +234,6 @@ static getAllKeys([callback]: ?(error: ?Error, keys: ?Array<string>) => void): P
 **Example**:
 
 ```js
-
 getAllKeys = async () => {
   let keys = []
   try {
@@ -255,7 +246,6 @@ getAllKeys = async () => {
   // example console.log result:
   // ['@MyApp_user', '@MyApp_key']
 }
-
 ```
 
 <br />
@@ -281,7 +271,6 @@ static multiGet(keys: Array<string>, [callback]: ?(errors: ?Array<Error>, result
 **Example**:
 
 ```js
-
 getMultiple = async () => {
 
   let values
@@ -295,7 +284,6 @@ getMultiple = async () => {
   // example console.log output:
   // [ ['@MyApp_user', 'myUserValue'], ['@MyApp_key', 'myKeyValue'] ]
 }
-
 ```
 
 <br />
@@ -321,7 +309,6 @@ static multiSet(keyValuePairs: Array<Array<string>>, [callback]: ?(errors: ?Arra
 **Example**:
 
 ```js
-
 multiSet = async () => {
   const firstPair = ["@MyApp_user", "value_1"]
   const secondPair = ["@MyApp_key", "value_2"]
@@ -333,7 +320,6 @@ multiSet = async () => {
 
   console.log("Done.")
 }
-
 ```
 
 <br />
@@ -344,7 +330,6 @@ multiSet = async () => {
 ## `multiMerge`
 
 Multiple merging of existing and new values in a batch. Assumes that values are *stringified JSON*. Once completed, invokes `callback` with errors (if any).
-**NOTE**: This is not supported by all native implementations.
 
 **Signature**:
 
@@ -430,7 +415,6 @@ mergeMultiple = async () => {
   //   ]
   // ]
 }
-
 ```
 
 
@@ -501,7 +485,6 @@ clearAll = async () => {
 
   console.log('Done.')
 }
-
 ```
 
 <!-- ------------------------ HOOKS ------------------------ -->
