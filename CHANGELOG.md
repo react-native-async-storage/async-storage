@@ -1,3 +1,10 @@
+## [1.17.9](https://github.com/react-native-async-storage/async-storage/compare/v1.17.8...v1.17.9) (2022-08-12)
+
+
+### Bug Fixes
+
+* re-export AsyncStorageStatic type ([#829](https://github.com/react-native-async-storage/async-storage/issues/829)) ([a29e4f3](https://github.com/react-native-async-storage/async-storage/commit/a29e4f368212e464fb11e9fa84fa47a183ef6b07))
+
 ## [1.17.8](https://github.com/react-native-async-storage/async-storage/compare/v1.17.7...v1.17.8) (2022-08-08)
 
 
