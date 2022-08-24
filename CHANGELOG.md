@@ -1,3 +1,10 @@
+## [1.17.10](https://github.com/react-native-async-storage/async-storage/compare/v1.17.9...v1.17.10) (2022-08-24)
+
+
+### Bug Fixes
+
+* declare support for react-native 0.70 ([#836](https://github.com/react-native-async-storage/async-storage/issues/836)) ([7c2eb06](https://github.com/react-native-async-storage/async-storage/commit/7c2eb060388b31a210f6b148e71cee9825715f1e))
+
 ## [1.17.9](https://github.com/react-native-async-storage/async-storage/compare/v1.17.8...v1.17.9) (2022-08-12)
 
 
