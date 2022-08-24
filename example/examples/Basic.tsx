@@ -266,4 +266,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NextExample;
+export default {
+  title: 'Basic',
+  testId: 'basic',
+  description: 'Basic functionality test',
+  render() {
+    return <NextExample />;
+  },
+};

@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default function GetSet() {
+function GetSet() {
   const [storedNumber, setStoredNumber] = React.useState('');
   const [needsRestart, setNeedsRestart] = React.useState(false);
 
@@ -66,3 +66,12 @@ const styles = StyleSheet.create({
 });
 
 export const STORAGE_KEY = 'random';
+
+export default {
+  title: 'Simple Get/Set value',
+  testId: 'get-set-clear',
+  description: 'Store and retrieve persisted data',
+  render() {
+    return <GetSet />;
+  },
+};
