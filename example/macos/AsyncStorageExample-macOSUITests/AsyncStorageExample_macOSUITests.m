@@ -36,10 +36,10 @@
     _restartButton = _window.otherElements[@"restart_button"].staticTexts.firstMatch;
     [self waitForExpectation:exists evaluatedWithObject:_restartButton timeout:5];
 
-    _getSetClearButton = _window.buttons[@"testType_getSetClear"].staticTexts.firstMatch;
+    _getSetClearButton = _window.buttons[@"get-set-clear"].staticTexts.firstMatch;
     [self waitForExpectation:exists evaluatedWithObject:_getSetClearButton timeout:5];
 
-    _mergeItemButton = _window.buttons[@"testType_mergeItem"].staticTexts.firstMatch;
+    _mergeItemButton = _window.buttons[@"merge-item"].staticTexts.firstMatch;
     [self waitForExpectation:exists evaluatedWithObject:_mergeItemButton timeout:5];
 
     [self setDelegate];
@@ -123,9 +123,7 @@
     XCUIElement *mergeItemButton = _window.buttons[@"mergeItem_button"].staticTexts.firstMatch;
     XCUIElement *storyText = _window.staticTexts[@"storyTextView"];
 
-    NSString *story =
-        [self performInputWithFormat:
-                  @"%@ from delegate is %@ from delegate, has %@ eyes and shoe size of %@."];
+    NSString *story = [self performInputWithFormat:@"%@ is %@, has %@ eyes and shoe size of %@."];
     [mergeItemButton click];
     [_restartButton click];
     [restoreItemButton click];
