@@ -76,7 +76,7 @@ function Functional(): JSX.Element {
             return (
               <View key={name} style={styles.skipped}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text testID={testID}>Skip</Text>
+                <Text accessibilityLabel="Skip" testID={testID}>Skip</Text>
               </View>
             );
           }
@@ -88,7 +88,7 @@ function Functional(): JSX.Element {
           return result ? (
             <View key={name} style={styles.passed}>
               <Text style={styles.testLabel}>{name}</Text>
-              <Text testID={testID}>Pass</Text>
+              <Text accessibilityLabel="Pass" testID={testID}>Pass</Text>
             </View>
           ) : (
             <View key={name} style={styles.failed}>
