@@ -9,23 +9,86 @@ import {
   Text,
   View,
 } from 'react-native';
-import tests from "./tests";
+import type { TestStep, TestValue } from './tests';
+import tests from './tests';
 
 const SKIP_TEST = '51609ccd-8ca7-4559-a03a-273e237dba4f';
 
+type TestResult =
+  | typeof SKIP_TEST
+  | {
+      step: number;
+      expected: TestValue;
+      actual?: string | null;
+    };
+
+function compare(expected: TestValue, actual: string): boolean {
+  return typeof expected === 'string'
+    ? expected === actual
+    : isEqual(expected, JSON.parse(actual));
+}
+
+function stringify(value: unknown): string {
+  return typeof value === 'string' ? value : JSON.stringify(value);
+}
+
+async function executeStep(step: TestStep): Promise<void> {
+  switch (step.command) {
+    case 'merge': {
+      const { key, value, expected } = step;
+      await AsyncStorage.mergeItem(key, stringify(value));
+      const actual = await AsyncStorage.getItem(key);
+      if (!compare(expected || value, actual)) {
+        throw [expected || value, actual];
+      }
+      break;
+    }
+    case 'remove': {
+      const { key } = step;
+      await AsyncStorage.removeItem(key);
+      const actual = await AsyncStorage.getItem(key);
+      if (actual !== null) {
+        throw [null, actual];
+      }
+      break;
+    }
+    case 'set': {
+      const { key, value, expected } = step;
+      await AsyncStorage.setItem(key, stringify(value));
+      const actual = await AsyncStorage.getItem(key);
+      if (!compare(expected || value, actual)) {
+        throw [expected || value, actual];
+      }
+      break;
+    }
+  }
+}
+
+async function execute(steps: TestStep[]): Promise<void> {
+  const numSteps = steps.length;
+  for (let i = 0; i < numSteps; ++i) {
+    try {
+      await executeStep(steps[i]);
+    } catch ([expected, actual]) {
+      throw { step: i, expected, actual };
+    } finally {
+      await AsyncStorage.clear();
+    }
+  }
+}
+
 function Functional(): JSX.Element {
-  const [results, setResults] = useState<[string, unknown, string?][]>([]);
+  const [results, setResults] = useState<[string, TestResult?][]>([]);
   useEffect(() => {
-    const results: [string, unknown, string?][] = [];
+    const results: [string, TestResult?][] = [];
     Promise.resolve()
       .then(async () => {
         for (const [name, test] of Object.entries(tests)) {
           try {
-            const expected = await test(name);
-            const actual = await AsyncStorage.getItem(name);
-            results.push([name, expected, actual]);
-          } finally {
-            await AsyncStorage.removeItem(name);
+            await execute(test);
+            results.push([name, undefined]);
+          } catch (e: any) {
+            results.push([name, e]);
           }
         }
       })
@@ -47,18 +110,20 @@ function Functional(): JSX.Element {
           if (!isNativeDelegateSet) {
             results.push([
               name,
-              'Native delegate is set',
-              'Failed to set native delegate',
+              {
+                step: 0,
+                expected: 'Native delegate is set',
+                actual: 'Failed to set native delegate',
+              },
             ]);
             continue;
           }
 
           try {
-            const expected = await test(name);
-            const actual = await AsyncStorage.getItem(name);
-            results.push([name, expected, actual]);
-          } finally {
-            await AsyncStorage.removeItem(name);
+            await execute(test);
+            results.push([name, undefined]);
+          } catch (e: any) {
+            results.push([name, e]);
             await new Promise((resolve) => {
               AsyncStorageTestSupport.test_unsetDelegate(resolve);
             });
@@ -70,32 +135,37 @@ function Functional(): JSX.Element {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View>
-        {results.map(([name, expected, actual]) => {
+        {results.map(([name, result]) => {
           const testID = 'test:' + name;
-          if (expected === SKIP_TEST) {
+          if (!result) {
             return (
-              <View key={name} style={styles.skipped}>
+              <View key={name} style={styles.passed}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text accessibilityLabel="Skip" testID={testID}>Skip</Text>
+                <Text accessibilityLabel="Pass" testID={testID}>
+                  Pass
+                </Text>
               </View>
             );
           }
 
-          const result =
-            typeof expected === 'string'
-              ? expected === actual
-              : isEqual(expected, actual ? JSON.parse(actual) : null);
-          return result ? (
-            <View key={name} style={styles.passed}>
-              <Text style={styles.testLabel}>{name}</Text>
-              <Text accessibilityLabel="Pass" testID={testID}>Pass</Text>
-            </View>
-          ) : (
+          if (result === SKIP_TEST) {
+            return (
+              <View key={name} style={styles.skipped}>
+                <Text style={styles.testLabel}>{name}</Text>
+                <Text accessibilityLabel="Skip" testID={testID}>
+                  Skip
+                </Text>
+              </View>
+            );
+          }
+
+          return (
             <View key={name} style={styles.failed}>
               <Text style={styles.testLabel}>{name}</Text>
               <View accessibilityLabel="Fail" testID={testID}>
-                <Text>{`Expected: ${JSON.stringify(expected)}`}</Text>
-                <Text>{`Actual: ${actual}`}</Text>
+                <Text>{`Step: ${result.step + 1}`}</Text>
+                <Text>{`Expected: ${stringify(result.expected)}`}</Text>
+                <Text>{`Actual: ${result.actual}`}</Text>
               </View>
             </View>
           );

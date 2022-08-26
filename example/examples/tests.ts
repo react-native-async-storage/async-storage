@@ -1,46 +1,51 @@
-import isEqual from 'lodash/isEqual';
-import AsyncStorage from '../../src/index';
+export type TestValue = string | Record<string, string>;
 
-export default {
-  'Should store value in AsyncStorage': async (key: string) => {
-    let value = 0;
-    for (let i = 0; i < 42; i += 10) {
-      await AsyncStorage.setItem(key, i.toString());
-      value = i;
+export type TestStep =
+  | {
+      command: 'merge' | 'set';
+      key: string;
+      value: TestValue;
+      expected?: TestValue | null;
     }
-    return value.toString();
-  },
-  'Should clear item': async (key: string) => {
-    const value = '42';
-    await AsyncStorage.setItem(key, value);
-    if ((await AsyncStorage.getItem(key)) !== value) {
-      return false;
-    }
-
-    await AsyncStorage.removeItem(key);
-    const actual = await AsyncStorage.getItem(key);
-    return actual === value ? false : null;
-  },
-  'Should merge items': async (key: string) => {
-    const initial = {
-      name: 'Jerry',
-      age: '21',
-      eyesColor: 'blue',
-      shoeSize: '9',
-    };
-    const edit = {
-      name: 'Sarah',
-      age: '23',
-      eyesColor: 'green',
-      shoeSize: '10',
+  | {
+      command: 'remove';
+      key: string;
     };
 
-    await AsyncStorage.setItem(key, JSON.stringify(initial));
-    if (isEqual(await AsyncStorage.getItem(key), initial)) {
-      return false;
-    }
-
-    await AsyncStorage.mergeItem(key, JSON.stringify(edit));
-    return edit;
-  },
+const tests: Record<string, TestStep[]> = {
+  'Should store value in AsyncStorage': [
+    { command: 'set', key: 'a', value: '0' },
+    { command: 'set', key: 'a', value: '10' },
+    { command: 'set', key: 'a', value: '20' },
+    { command: 'set', key: 'a', value: '30' },
+    { command: 'set', key: 'a', value: '40' },
+  ],
+  'Should clear item': [
+    { command: 'set', key: 'a', value: '42' },
+    { command: 'remove', key: 'a' },
+  ],
+  'Should merge items': [
+    {
+      command: 'set',
+      key: 'a',
+      value: {
+        name: 'Jerry',
+        age: '21',
+        eyesColor: 'blue',
+        shoeSize: '9',
+      },
+    },
+    {
+      command: 'merge',
+      key: 'a',
+      value: {
+        name: 'Sarah',
+        age: '23',
+        eyesColor: 'green',
+        shoeSize: '10',
+      },
+    },
+  ],
 };
+
+export default tests;
