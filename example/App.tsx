@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Button,
   Keyboard,
@@ -15,52 +15,42 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import BasicExample from './examples/Basic';
+import Basic from './examples/Basic';
+import Functional from './examples/Functional';
 import GetSetClear from './examples/GetSetClear';
 import MergeItem from './examples/MergeItem';
 
-const TESTS = {
-  GetSetClear: {
-    title: 'Simple Get/Set value',
-    testId: 'get-set-clear',
-    description: 'Store and retrieve persisted data',
-    render() {
-      return <GetSetClear />;
-    },
-  },
-  MergeItem: {
-    title: 'Merge item',
-    testId: 'merge-item',
-    description: 'Merge object with already stored data',
-    render() {
-      return <MergeItem />;
-    },
-  },
-  Basic: {
-    title: 'Basic',
-    testId: 'basic',
-    description: 'Basic functionality test',
-    render() {
-      return <BasicExample />;
-    },
-  },
+const SCREENS = {
+  Functional,
+  GetSetClear,
+  MergeItem,
+  Basic,
 };
 
 export default function App(): JSX.Element {
   const [iteration, setIteration] = useState(0);
-  const [currentTest, setCurrentTest] = useState(TESTS.GetSetClear);
+  const [currentTest, setCurrentTest] = useState(SCREENS.Functional);
 
-  const dismissKeyboard = useCallback(() => Keyboard.dismiss(), []);
+  const dismissKeyboard = useCallback(Keyboard.dismiss, []);
   const simulateRestart = useCallback(
     () => setIteration(iteration + 1),
     [iteration]
   );
-  const testBasic = useCallback(() => setCurrentTest(TESTS.Basic), []);
-  const testGetSetClear = useCallback(
-    () => setCurrentTest(TESTS.GetSetClear),
+  const navigationBar = useMemo(
+    () =>
+      Object.values(SCREENS).map((t) => {
+        const { testId, title } = t;
+        return (
+          <Button
+            key={testId}
+            testID={testId}
+            title={title}
+            onPress={() => setCurrentTest(t)}
+          />
+        );
+      }),
     []
   );
-  const testMergeItem = useCallback(() => setCurrentTest(TESTS.MergeItem), []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -69,7 +59,6 @@ export default function App(): JSX.Element {
         onPress={dismissKeyboard}
         testID="closeKeyboard"
       />
-
       <TouchableOpacity
         testID="restart_button"
         onPress={simulateRestart}
@@ -79,22 +68,10 @@ export default function App(): JSX.Element {
         <Text>Simulate Restart</Text>
       </TouchableOpacity>
 
-      <View style={styles.testPickerContainer}>
-        <Button
-          testID="testType_getSetClear"
-          title="Get/Set/Clear"
-          onPress={testGetSetClear}
-        />
-        <Button
-          testID="testType_mergeItem"
-          title="Merge Item"
-          onPress={testMergeItem}
-        />
-        <Button title={TESTS.Basic.title} onPress={testBasic} />
-      </View>
+      <View style={styles.testPickerContainer}>{navigationBar}</View>
 
       <View
-        testID={`example-${currentTest.testId}`}
+        testID={`${currentTest.testId}-view`}
         key={currentTest.title + iteration}
         style={styles.exampleContainer}
       >

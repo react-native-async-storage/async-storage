@@ -55,7 +55,7 @@ const INPUTS = [
   },
 ] as const;
 
-export default function Merge(): JSX.Element {
+function Merge(): JSX.Element {
   const [needRestart, setNeedRestart] = useState(false);
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -220,3 +220,12 @@ const styles = StyleSheet.create({
     color: '#222',
   },
 });
+
+export default {
+  title: 'Merge item',
+  testId: 'merge-item',
+  description: 'Merge object with already stored data',
+  render() {
+    return <Merge />;
+  },
+};

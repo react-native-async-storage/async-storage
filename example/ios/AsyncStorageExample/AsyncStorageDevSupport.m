@@ -75,17 +75,7 @@ static AsyncStorageDevSupport *_sharedInstance;
         [NSJSONSerialization JSONObjectWithData:[values[0] dataUsingEncoding:NSUTF8StringEncoding]
                                         options:NSJSONReadingMutableContainers
                                           error:&error];
-    NSMutableDictionary *modified = [NSMutableDictionary dictionaryWithCapacity:dictionary.count];
-    for (NSString *key in dictionary) {
-        NSObject *value = dictionary[key];
-        if ([value isKindOfClass:[NSString class]]) {
-            modified[key] = [(NSString *)value stringByAppendingString:@" from delegate"];
-        } else {
-            modified[key] = value;
-        }
-    }
-
-    NSData *data = [NSJSONSerialization dataWithJSONObject:modified options:0 error:&error];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     _memoryStorage[keys[0]] = str;
     completion(@[str]);
@@ -145,7 +135,7 @@ RCT_EXPORT_METHOD(test_setDelegate:(RCTResponseSenderBlock)callback)
 {
     RNCAsyncStorage *asyncStorage = RNCAsyncStorageGetInstance(_bridge);
     asyncStorage.delegate = _sharedInstance;
-    callback(@[]);
+    callback(@[@YES]);
 }
 
 // clang-format off
@@ -154,7 +144,7 @@ RCT_EXPORT_METHOD(test_unsetDelegate:(RCTResponseSenderBlock)callback)
 {
     RNCAsyncStorage *asyncStorage = RNCAsyncStorageGetInstance(_bridge);
     asyncStorage.delegate = nil;
-    callback(@[]);
+    callback(@[@YES]);
 }
 
 @end
