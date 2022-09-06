@@ -9,17 +9,19 @@ jobs:
     name: 'macOS'
     runs-on: macos-latest
     steps:
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.3.0
-        with:
-          node-version: 16
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Cache /.cache/yarn
+      - name: Cache /.ccache
         uses: actions/cache@v3
         with:
-          path: .cache/yarn
-          key: ${{ hashFiles('yarn.lock') }}
+          path: .ccache
+          key: ${{ runner.os }}-ccache-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-ccache-
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 16
+          cache: 'yarn'
       - name: Install JS dependencies
         run: |
           yarn ci
@@ -41,17 +43,13 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
       - name: Setup VSTest.console.exe
         uses: darenm/Setup-VSTest@v1
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.3.0
-        with:
-          node-version: 16
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Cache /.cache/yarn
-        uses: actions/cache@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.4.1
         with:
-          path: .cache/yarn
-          key: ${{ hashFiles('yarn.lock') }}
+          node-version: 16
+          cache: 'yarn'
       - name: Install JS dependencies
         run: |
           yarn ci
