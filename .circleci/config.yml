@@ -284,6 +284,10 @@ workflows:
             - "Test: lint"
             - "Test: TypeScript"
             - "Test: Android unit"
+          filters:
+            branches:
+              only:
+                - temporarily-disabled--see-issue-840
       - "Release":
           requires:
             - "Test: iOS e2e"

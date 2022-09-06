@@ -38,15 +38,12 @@ buildscript {
     println("[AsyncStorage] Using Next storage: " + nextStorageFlag)
 
     repositories {
-        google()
         mavenCentral()
-        jcenter()
+        google()
     }
 
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        // kotlinVersion is applied from react-native-test-app's dependencies.gradle script
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -55,7 +52,8 @@ allprojects {
         maven {
             url("$rootDir/../../node_modules/detox/Detox-android")
         }
-        jcenter()
+        mavenCentral()
+        google()
     }
     afterEvaluate { project ->
         def androidExtension = project.extensions.findByName('android')
