@@ -14,20 +14,58 @@ import type {
   MultiGetCallback,
 } from './types';
 
+class MemoryStorage implements Storage {
+  private _data: { [key: string]: string } = {}
+
+  get length() {
+    return Object.keys(this._data).length;
+  }
+
+  getItem(key: string): string | null {
+    return this._data.hasOwnProperty(key) ? this._data[key] : null
+  }
+
+  setItem(key: string, value: any): void {
+    this._data[key] = String(value)
+  }
+
+  removeItem(key: string): void {
+    delete this._data[key]
+  }
+
+  clear(): void {
+    this._data = {}
+  }
+
+  key(index: number): string | null {
+    return Object.keys(this._data)[index];
+  }
+}
+
+const storage: Storage = (function () {
+  try {
+    window.localStorage.setItem('TEST_KEY', '1');
+    window.localStorage.removeItem('TEST_KEY');
+    return window.localStorage;
+  } catch (e) {
+    return new MemoryStorage();
+  }
+})();
+
 const merge = mergeOptions.bind({
   concatArrays: true,
   ignoreUndefined: true,
 });
 
 function mergeLocalStorageItem(key: string, value: string) {
-  const oldValue = window.localStorage.getItem(key);
+  const oldValue = storage.getItem(key);
   if (oldValue) {
     const oldObject = JSON.parse(oldValue);
     const newObject = JSON.parse(value);
     const nextValue = JSON.stringify(merge(oldObject, newObject));
-    window.localStorage.setItem(key, nextValue);
+    storage.setItem(key, nextValue);
   } else {
-    window.localStorage.setItem(key, value);
+    storage.setItem(key, value);
   }
 }
 
@@ -70,7 +108,7 @@ const AsyncStorage: AsyncStorageStatic = {
    * Fetches `key` value.
    */
   getItem: (key, callback) => {
-    return createPromise(() => window.localStorage.getItem(key), callback);
+    return createPromise(() => storage.getItem(key), callback);
   },
 
   /**
@@ -78,7 +116,7 @@ const AsyncStorage: AsyncStorageStatic = {
    */
   setItem: (key, value, callback) => {
     return createPromise(
-      () => window.localStorage.setItem(key, value),
+      () => storage.setItem(key, value),
       callback
     );
   },
@@ -87,7 +125,7 @@ const AsyncStorage: AsyncStorageStatic = {
    * Removes a `key`
    */
   removeItem: (key, callback) => {
-    return createPromise(() => window.localStorage.removeItem(key), callback);
+    return createPromise(() => storage.removeItem(key), callback);
   },
 
   /**
@@ -101,7 +139,7 @@ const AsyncStorage: AsyncStorageStatic = {
    * Erases *all* AsyncStorage for the domain.
    */
   clear: (callback) => {
-    return createPromise(() => window.localStorage.clear(), callback);
+    return createPromise(() => storage.clear(), callback);
   },
 
   /**
@@ -109,10 +147,10 @@ const AsyncStorage: AsyncStorageStatic = {
    */
   getAllKeys: (callback) => {
     return createPromise(() => {
-      const numberOfKeys = window.localStorage.length;
+      const numberOfKeys = storage.length;
       const keys: string[] = [];
       for (let i = 0; i < numberOfKeys; i += 1) {
-        const key = window.localStorage.key(i) || '';
+        const key = storage.key(i) || '';
         keys.push(key);
       }
       return keys;
