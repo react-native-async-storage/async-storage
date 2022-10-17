@@ -117,6 +117,7 @@ struct DBStorage {
                                        const std::vector<KeyValue> &keyValues) noexcept;
         std::optional<bool> MultiRemove(sqlite3 *db, const std::vector<std::string> &keys) noexcept;
         std::optional<std::vector<std::string>> GetAllKeys(sqlite3 *db) noexcept;
+        std::optional<std::vector<std::string>> GetKeysThatStartWithPrefix(sqlite3 *db, const std::string &prefix) noexcept;
         std::optional<bool> RemoveAll(sqlite3 *db) noexcept;
 
     private:

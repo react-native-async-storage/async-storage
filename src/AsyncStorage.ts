@@ -120,6 +120,29 @@ const AsyncStorage: AsyncStorageStatic = {
   },
 
   /**
+   * Gets keys that start with the supplied prefix.
+   * This will include any keys known to your app; for all callers, libraries, etc.
+   *
+   */
+  getKeysThatStartWithPrefix: (prefix: string, callback) => {
+    return createPromise(() => {
+      if (!prefix) {
+        return [] as string[];
+      }
+
+      const numberOfKeys = window.localStorage.length;
+      const keys: string[] = [];
+      for (let i = 0; i < numberOfKeys; i += 1) {
+        const key = window.localStorage.key(i) || '';
+        if (key.startsWith(prefix)) {
+          keys.push(key);
+        }
+      }
+      return keys;
+    }, callback);
+  },
+
+  /**
    * (stub) Flushes any pending requests using a single batch call to get the data.
    */
   flushGetRequests: () => undefined,

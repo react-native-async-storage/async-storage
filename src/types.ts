@@ -93,6 +93,16 @@ export type AsyncStorageStatic = {
   ) => Promise<readonly string[]>;
 
   /**
+   * Gets keys that start with the supplied prefix.
+   * This will include any keys known to your app; for all callers, libraries, etc.
+   *
+   */
+  getKeysThatStartWithPrefix: (
+    prefix: string,
+    callback?: CallbackWithResult<readonly string[]>
+  ) => Promise<readonly string[]>;
+
+  /**
    * The following batched functions are useful for executing a lot of
    * operations at once, allowing for native optimizations and provide the
    * convenience of a single callback after all operations are complete.

@@ -176,6 +176,28 @@ const AsyncStorage = ((): AsyncStorageStatic => {
     },
 
     /**
+     * Gets keys that start with the supplied prefix.
+     * This will include any keys known to your app; for all callers, libraries, etc.
+     *
+     */
+    getKeysThatStartWithPrefix: (prefix: string, callback) => {
+      return new Promise((resolve, reject) => {
+        RCTAsyncStorage.getKeysThatStartWithPrefix(
+          prefix,
+          (error?: ErrorLike, keys?: string[]) => {
+            const err = convertError(error);
+            callback?.(err, keys);
+            if (keys) {
+              resolve(keys);
+            } else {
+              reject(err);
+            }
+          }
+        );
+      });
+    },
+
+    /**
      * The following batched functions are useful for executing a lot of
      * operations at once, allowing for native optimizations and provide the
      * convenience of a single callback after all operations are complete.

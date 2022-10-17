@@ -550,6 +550,37 @@ std::optional<std::vector<std::string>> DBStorage::DBTask::GetAllKeys(sqlite3 *d
     return result;
 }
 
+std::optional<std::vector<std::string>>
+DBStorage::DBTask::GetKeysThatStartWithPrefix(sqlite3 *db, const std::string &prefix) noexcept
+{
+    CHECK(!m_errorManager.HasErrors());
+    CHECK(CheckArgs(db, m_errorManager, prefix));
+
+    auto sql = MakeSQLiteParameterizedStatement(
+        "SELECT key FROM AsyncLocalStorage WHERE key LIKE ?");
+    auto statement = StatementPtr{nullptr, &sqlite3_finalize};
+    CHECK_SQL_OK(PrepareStatement(db, sql, &statement));
+    CHECK_SQL_OK(BindString(statement, 1, prefix + "%"));
+
+    std::vector<std::string> result;
+    for (;;) {
+        auto stepResult = sqlite3_step(statement.get());
+        if (stepResult == SQLITE_DONE) {
+            break;
+        }
+        if (stepResult != SQLITE_ROW) {
+            return m_errorManager.AddError(sqlite3_errmsg(db));
+        }
+
+        auto key = reinterpret_cast<const char *>(sqlite3_column_text(statement.get(), 0));
+        if (!key) {
+            return m_errorManager.AddError(sqlite3_errmsg(db));
+        }
+        result.push_back(key);
+    }
+    return result;
+}
+
 std::optional<bool> DBStorage::DBTask::RemoveAll(sqlite3 *db) noexcept
 {
     CHECK(!m_errorManager.HasErrors());
