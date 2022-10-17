@@ -266,6 +266,35 @@ const AsyncStorage = ((): AsyncStorageStatic => {
     },
 
     /**
+     * This allows you to batch the fetching of items where the keys start with
+     * the supplied prefix. Your callback will be invoked with an array of
+     * corresponding key-value pairs found.
+     *
+     */
+    multiGetByKeyPrefix: (prefix, callback) => {
+      return new Promise<readonly KeyValuePair[]>((resolve, reject) => {
+        checkValidInput(prefix);
+        RCTAsyncStorage.multiGetByKeyPrefix(
+          prefix,
+          (errors?: ErrorLike[], result?: string[][]) => {
+            const errorList = convertErrors(errors);
+            const error = errorList?.length ? errorList[0] : null;
+
+            const convertedResult: readonly KeyValuePair[] =
+              (result as KeyValuePair[]) ?? [];
+
+            callback?.(errorList, convertedResult);
+            if (error) {
+              reject(error);
+            } else {
+              resolve(convertedResult);
+            }
+          }
+        );
+      });
+    },
+
+    /**
      * This allows you to batch the fetching of items given an array of `key`
      * inputs. Your callback will be invoked with an array of corresponding
      * key-value pairs found.

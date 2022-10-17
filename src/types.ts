@@ -120,6 +120,17 @@ export type AsyncStorageStatic = {
   flushGetRequests: () => void;
 
   /**
+   * This allows you to batch the fetching of items given a prefix.
+   * Your callback will be invoked with an array of corresponding
+   * key-value pairs found.
+   *
+   */
+  multiGetByKeyPrefix: (
+    prefix: string,
+    callback?: MultiGetCallback
+  ) => Promise<readonly KeyValuePair[]>;
+
+  /**
    * This allows you to batch the fetching of items given an array of `key`
    * inputs. Your callback will be invoked with an array of corresponding
    * key-value pairs found.

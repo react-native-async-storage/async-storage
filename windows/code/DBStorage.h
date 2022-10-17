@@ -111,6 +111,8 @@ struct DBStorage {
         void Cancel() noexcept;
 
         std::optional<std::vector<KeyValue>>
+        MultiGetByKeyPrefix(sqlite3 *db, const std::string &prefix) noexcept;
+        std::optional<std::vector<KeyValue>>
         MultiGet(sqlite3 *db, const std::vector<std::string> &keys) noexcept;
         std::optional<bool> MultiSet(sqlite3 *db, const std::vector<KeyValue> &keyValues) noexcept;
         std::optional<bool> MultiMerge(sqlite3 *db,

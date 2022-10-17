@@ -413,6 +413,42 @@ void DBStorage::DBTask::Cancel() noexcept
 }
 
 std::optional<std::vector<DBStorage::KeyValue>>
+DBStorage::DBTask::MultiGetByKeyPrefix(sqlite3 *db, const std::string &prefix) noexcept
+{
+    CHECK(!m_errorManager.HasErrors());
+    if (prefix.empty()) {
+        return m_errorManager.AddError("The prefix must be a non-empty string.");
+    }
+
+    auto sql = "SELECT key, value FROM AsyncLocalStorage WHERE key LIKE ? ESCAPE '\\'";
+    auto statement = StatementPtr{nullptr, &sqlite3_finalize};
+    CHECK_SQL_OK(PrepareStatement(db, sql, &statement));
+    CHECK_SQL_OK(BindString(statement, 1, EscapeSqlWildcards(prefix) + "%"));
+
+    std::vector<DBStorage::KeyValue> result;
+    for (;;) {
+        auto stepResult = sqlite3_step(statement.get());
+        if (stepResult == SQLITE_DONE) {
+            break;
+        }
+        if (stepResult != SQLITE_ROW) {
+            return m_errorManager.AddError(sqlite3_errmsg(db));
+        }
+
+        auto key = reinterpret_cast<const char *>(sqlite3_column_text(statement.get(), 0));
+        if (!key) {
+            return m_errorManager.AddError(sqlite3_errmsg(db));
+        }
+        auto value = reinterpret_cast<const char *>(sqlite3_column_text(statement.get(), 1));
+        if (!value) {
+            return m_errorManager.AddError(sqlite3_errmsg(db));
+        }
+        result.push_back(KeyValue{key, value});
+    }
+    return result;
+}
+
+std::optional<std::vector<DBStorage::KeyValue>>
 DBStorage::DBTask::MultiGet(sqlite3 *db, const std::vector<std::string> &keys) noexcept
 {
     CHECK(!m_errorManager.HasErrors());
@@ -554,13 +590,14 @@ std::optional<std::vector<std::string>>
 DBStorage::DBTask::GetKeysThatStartWithPrefix(sqlite3 *db, const std::string &prefix) noexcept
 {
     CHECK(!m_errorManager.HasErrors());
-    CHECK(CheckArgs(db, m_errorManager, prefix));
+    if (prefix.empty()) {
+        return m_errorManager.AddError("The prefix must be a non-empty string.");
+    }
 
-    auto sql = MakeSQLiteParameterizedStatement(
-        "SELECT key FROM AsyncLocalStorage WHERE key LIKE ?");
+    auto sql = "SELECT key FROM AsyncLocalStorage WHERE key LIKE ? ESCAPE '\\'";
     auto statement = StatementPtr{nullptr, &sqlite3_finalize};
     CHECK_SQL_OK(PrepareStatement(db, sql, &statement));
-    CHECK_SQL_OK(BindString(statement, 1, prefix + "%"));
+    CHECK_SQL_OK(BindString(statement, 1, EscapeSqlWildcards(prefix) + "%"));
 
     std::vector<std::string> result;
     for (;;) {
@@ -627,4 +664,99 @@ void WriteValue(const winrt::IJSValueWriter &writer, const DBStorage::Error &val
     writer.WriteObjectBegin();
     winrt::WriteProperty(writer, L"message", value.Message);
     writer.WriteObjectEnd();
+}
+
+
+// ----------------------------------------------------------------
+// Utilities
+// ----------------------------------------------------------------
+std::string replace(const std::string &s, const std::string &from, const std::string &to, int n = -1)
+{
+    // if the number of occurrences to replace is 0 then avoid further work and the 'ns' allocation
+    if (n == 0) {
+        return s;
+    }
+
+    // if 's' is empty then avoid further work and the 'ns' allocation
+    if (s.empty()) {
+        return s;
+    }
+
+    // if the search string ('from') is empty then avoid further work and the 'ns' allocation
+    if (from.empty()) {
+        return s;
+    }
+
+    // if 'from' and 'to' are the same then avoid further work and the 'ns' allocation
+    if (from == to) {
+        return s;
+    }
+
+    // make sure we have something to replace in the string
+    const auto fromLen = from.length();
+    std::string::size_type pos = 0;
+    std::vector<std::string::size_type> fromCounter;
+    while ((pos = s.find(from, pos)) != std::string::npos) {
+        fromCounter.push_back(pos);
+        pos += fromLen;
+    }
+
+    // if 'from' isn't in 's' then avoid further work and the 'ns' allocation
+    if (fromCounter.size() == 0) {
+        return s;
+    } else if (n < 0 || fromCounter.size() < static_cast<size_t>(n)) {
+        n = fromCounter.size();
+    }
+
+    // "replace" by building a new string
+    // this is MUCH faster than replacing in place.
+    //
+    // Benchmark is replace all instances of "back" with "foobar" in
+    // The Project Gutenberg EBook of The Adventures of Sherlock Holmes
+    // by Sir Arthur Conan Doyle
+    //
+    // Benchmark                     Time           CPU          Iterations
+    // BM_ReplaceInPlace      90694709 ns   90337000 ns          6
+    // BM_ReplaceByBuilding    3697276 ns    3676935 ns        186
+    //
+    // We are basically trading increased memory usage for speed.
+    //
+    // create the output string 'ns'. Reserve the amount of space we need.
+    std::string ns;
+    ns.reserve(s.length() + n * (to.length() - fromLen));
+
+    // reset pos and create a counter to make sure we only replace 'n'
+    pos = 0;
+    size_t counter = 0;
+    for (auto const &p : fromCounter) {
+        // if we hit the "n" count then stop
+        if (counter == n) {
+            break;
+        }
+
+        // append from last position to where the position of 'from' is
+        ns.append(s, pos, p - pos);
+
+        // append the replacement ('to')
+        ns.append(to);
+
+        // update position
+        pos = p + fromLen;
+
+        // update counter
+        ++counter;
+    }
+
+    // append remaining 's'
+    ns.append(s, pos);
+
+    return ns;
+}
+
+std::string EscapeSqlWildcards(const std::string &search) {
+    // we want to escape any wildcard characters used in the prefix
+    auto escaped = replace(search, "_", "\\_");
+    escaped = replace(escaped, "%", "\\%");
+
+    return escaped;
 }

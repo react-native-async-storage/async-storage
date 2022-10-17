@@ -148,6 +148,28 @@ const AsyncStorage: AsyncStorageStatic = {
   flushGetRequests: () => undefined,
 
   /**
+   * multiGetByKeyPrefix resolves to an array of key-value pair arrays
+   * where the key starts with the supplied prefix.
+   *
+   *   multiGet('k') -> [['k1', 'val1'], ['k2', 'val2']]
+   */
+  multiGetByKeyPrefix: (prefix, callback) => {
+    return new Promise((resolve, reject) => {
+      try {
+        AsyncStorage.getKeysThatStartWithPrefix(prefix).then((keys) => {
+          AsyncStorage.multiGet(keys).then((keyValuePairs) => {
+            callback?.(null, keyValuePairs);
+            resolve(keyValuePairs);
+          });
+        });
+      } catch (err) {
+        callback?.([err] as readonly Error[]);
+        reject(err);
+      }
+    });
+  },
+
+  /**
    * multiGet resolves to an array of key-value pair arrays that matches the
    * input format of multiSet.
    *

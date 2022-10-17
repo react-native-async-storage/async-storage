@@ -9,6 +9,25 @@ namespace winrt::ReactNativeAsyncStorage::implementation
 {
     REACT_MODULE(RNCAsyncStorage)
     struct RNCAsyncStorage {
+        REACT_METHOD(multiGetByKeyPrefix)
+        void multiGetByKeyPrefix(
+            std::string &&prefix,
+            std::function<void(const std::vector<DBStorage::Error> &errors,
+                               const std::vector<DBStorage::KeyValue> &result)> &&callback) noexcept
+        {
+            auto promise = DBStorage::CreatePromise(
+                [callback](const std::vector<DBStorage::KeyValue> &result) {
+                    callback({}, result);
+                },
+                [callback](const DBStorage::ErrorManager &errorManager) {
+                    callback(errorManager.GetErrorList(), {});
+                });
+            m_dbStorage.AddTask(
+                promise->GetErrorManager(),
+                [promise, prefix = std::move(prefix)](DBStorage::DBTask &task, sqlite3 *db) noexcept {
+                    promise->ResolveOrReject(task.MultiGetByKeyPrefix(db, prefix));
+                });
+        }
 
         REACT_METHOD(multiGet)
         void multiGet(
@@ -95,6 +114,24 @@ namespace winrt::ReactNativeAsyncStorage::implementation
                                 [promise](DBStorage::DBTask &task, sqlite3 *db) noexcept {
                                     promise->ResolveOrReject(task.GetAllKeys(db));
                                 });
+        }
+
+        REACT_METHOD(getKeysThatStartWithPrefix)
+        void getKeysThatStartWithPrefix(
+            std::string &&prefix,
+            std::function<void(const std::vector<DBStorage::Error>& errors,
+                const std::vector<std::string> &result)> &&callback) noexcept
+        {
+            auto promise = DBStorage::CreatePromise(
+                [callback](const std::vector<std::string> &result) { callback({}, result); },
+                [callback](const DBStorage::ErrorManager& errorManager) {
+                    callback(errorManager.GetErrorList(), {});
+                });
+            m_dbStorage.AddTask(
+                promise->GetErrorManager(),
+                [promise, prefix = std::move(prefix)](DBStorage::DBTask& task, sqlite3* db) noexcept {
+                promise->ResolveOrReject(task.GetKeysThatStartWithPrefix(db, prefix));
+            });
         }
 
         REACT_METHOD(clear)
