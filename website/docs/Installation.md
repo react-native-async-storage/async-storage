@@ -18,7 +18,7 @@ yarn add @react-native-async-storage/async-storage
 
 With Expo CLI:
 ```bash
-expo install @react-native-async-storage/async-storage
+npx expo install @react-native-async-storage/async-storage
 ```
 
 ### Link
