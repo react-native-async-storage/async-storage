@@ -10,7 +10,7 @@ export type CallbackWithResult<T> = (
   result?: T | null
 ) => void;
 
-export type KeyValuePair = [string, string | null];
+export type KeyValuePair = [path: string, string | null];
 
 export type MultiCallback = (errors?: readonly (Error | null)[] | null) => void;
 
