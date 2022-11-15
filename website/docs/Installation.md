@@ -4,19 +4,22 @@ title: Installation
 sidebar_label: Installation
 ---
 
-### Get library
+### Install
 
 With npm:
+
 ```bash
 npm install @react-native-async-storage/async-storage
 ```
 
 With Yarn:
+
 ```bash
 yarn add @react-native-async-storage/async-storage
 ```
 
 With Expo CLI:
+
 ```bash
 npx expo install @react-native-async-storage/async-storage
 ```
@@ -25,9 +28,10 @@ npx expo install @react-native-async-storage/async-storage
 
 #### Android & iOS
 
-- **React Native 0.60+**
+Requires **React Native 0.60+**
 
-[CLI autolink feature](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md) links the module while building the app.
+[CLI autolink feature](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)
+links the module while building the app.
 
 On iOS, use CocoaPods to add the native `RNAsyncStorage` to your project:
 
@@ -35,26 +39,19 @@ On iOS, use CocoaPods to add the native `RNAsyncStorage` to your project:
 npx pod-install
 ```
 
-- **React Native <= 0.59**
-
-
-```bash
-react-native link @react-native-async-storage/async-storage
-```
-
 #### Windows
 
-- **React Native Windows >= 0.63**
-[CLI autolink feature](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking) links the module while building the app.
+Requires **React Native Windows 0.63+**
 
-- **React Native Windows <= 0.62**
-For earlier versions check [manual linking](Linking.md)
+[CLI autolink feature](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking)
+links the module while building the app.
 
 #### macOS
-- **React Native macOS >= 0.63**
+
+Requires **React Native macOS 0.63+**
+
 1. Set `platform :macos, '10.14'` in `macos/Podfile`
 2. Install the pods
-3. From now on [CLI autolink feature](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking) will link the module while building the app.
-
-- **React Native Windows <= 0.62**
-For earlier versions check [manual linking](Linking.md)
+3. From now on
+   [CLI autolink feature](https://microsoft.github.io/react-native-windows/docs/native-modules-autolinking)
+   will link the module while building the app.
