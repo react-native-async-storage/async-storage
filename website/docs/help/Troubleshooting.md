@@ -4,6 +4,52 @@ title: Troubleshooting
 sidebar_label: Troubleshooting
 ---
 
+## Async await doesn't resolve
+
+If you're having issues with `getItem()` and friends not resolving, check if
+`inlineRequires` is enabled in `metro.config.js`:
+
+```js
+module.exports = {
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
+  },
+};
+```
+
+If disabling it resolves the issue, it's likely that you hit a circular import
+chain. You can try excluding `@react-native-async-storage/async-storage` from
+being inlined:
+
+```diff
+ module.exports = {
+   transformer: {
+     getTransformOptions: async () => ({
+       transform: {
+         experimentalImportSupport: false,
+         inlineRequires: true,
++        nonInlinedRequires: [
++          "@react-native-async-storage/async-storage",
++          'React',
++          'react',
++          'react-native',
++        ],
+       },
+     }),
+   },
+ };
+```
+
+If this doesn't resolve the issue, you need to figure out what is causing the
+cyclic chain. There are tools, such as
+[@rnx-kit/metro-plugin-cyclic-dependencies-detector](https://github.com/microsoft/rnx-kit/tree/main/packages/metro-plugin-cyclic-dependencies-detector#rnx-kitmetro-plugin-cyclic-dependencies-detector),
+that can help you debug this.
+
 ## [iOS] CocoaPods issues
 
 1. Delete the `node_modules` folder(s) from your project
@@ -54,7 +100,7 @@ info 1 error generated.
 
 ## [@RNC/AsyncStorage]: NativeModule: AsyncStorage is null
 
-#### iOS
+### iOS
 
 This error means that AsyncStorage was unable to find its native module. This
 occurs because AsyncStorage was not linked into the final app bundle.
