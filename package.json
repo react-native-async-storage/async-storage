@@ -191,5 +191,13 @@
         }
       ]
     ]
+  },
+  "codegenConfig": {
+    "name": "rnasyncstorage",
+    "type": "modules",
+    "jsSrcsDir": "./src",
+    "android": {
+      "javaPackageName": "com.reactnativecommunity.asyncstorage"
+    }
   }
 }
