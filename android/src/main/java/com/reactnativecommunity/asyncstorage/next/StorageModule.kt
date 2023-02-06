@@ -17,7 +17,7 @@ import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.launch
 
 class StorageModule(reactContext: ReactContext) : ReactContextBaseJavaModule(), CoroutineScope {
-    override fun getName() = "RNC_AsyncSQLiteDBStorage"
+    override fun getName() = "RNCAsyncStorage"
 
     // this executor is not used by the module, but it must exists here due to
     // Detox relying on this implementation detail to run

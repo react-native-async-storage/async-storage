@@ -7,42 +7,100 @@
 
 package com.reactnativecommunity.asyncstorage;
 
-import android.util.Log;
-import com.facebook.react.ReactPackage;
+import com.facebook.react.TurboReactPackage;
+import com.facebook.react.ViewManagerOnDemandReactPackage;
+import com.facebook.react.bridge.ModuleSpec;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.module.annotations.ReactModule;
+import com.facebook.react.module.annotations.ReactModuleList;
+import com.facebook.react.module.model.ReactModuleInfo;
+import com.facebook.react.module.model.ReactModuleInfoProvider;
+import com.facebook.react.turbomodule.core.interfaces.TurboModule;
 import com.facebook.react.uimanager.ViewManager;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class AsyncStoragePackage implements ReactPackage {
-    @Override
-    public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-        List<NativeModule> moduleList = new ArrayList<>(1);
-
-        if (BuildConfig.AsyncStorage_useNextStorage) {
-            try {
-                Class storageClass = Class.forName("com.reactnativecommunity.asyncstorage.next.StorageModule");
-                NativeModule inst = (NativeModule) storageClass.getDeclaredConstructor(new Class[]{ReactContext.class}).newInstance(reactContext);
-                moduleList.add(inst);
-                AsyncLocalStorageUtil.verifyAndForceSqliteCheckpoint(reactContext);
-            } catch (Exception e) {
-                String message = "Something went wrong when initializing module:"
-                        + "\n"
-                        + e.getCause().getClass()
-                        + "\n"
-                        + "Cause:" + e.getCause().getLocalizedMessage();
-                Log.e("AsyncStorage_Next", message);
-            }
-        } else {
-            moduleList.add(new AsyncStorageModule(reactContext));
+@ReactModuleList(
+        nativeModules = {
+                AsyncStorageModule.class,
         }
+)
+public class AsyncStoragePackage extends TurboReactPackage implements ViewManagerOnDemandReactPackage {
 
-        return moduleList;
+    @Override
+    public List<String> getViewManagerNames(ReactApplicationContext reactContext) {
+        return null;
+    }
+
+    @Override
+    protected List<ModuleSpec> getViewManagers(ReactApplicationContext reactContext) {
+        return null;
+    }
+
+    @Override
+    public @Nullable ViewManager createViewManager(
+            ReactApplicationContext reactContext, String viewManagerName) {
+        return null;
+    }
+
+    @Override
+    public NativeModule getModule(String name, @Nonnull ReactApplicationContext reactContext) {
+        switch (name) {
+            case AsyncStorageModule.NAME:
+                return new AsyncStorageModule(reactContext);
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public ReactModuleInfoProvider getReactModuleInfoProvider() {
+        try {
+            Class<?> reactModuleInfoProviderClass =
+                    Class.forName("com.reactnativecommunity.asyncstorage.AsyncStoragePackage$$ReactModuleInfoProvider");
+            return (ReactModuleInfoProvider) reactModuleInfoProviderClass.newInstance();
+        } catch (ClassNotFoundException e) {
+            // ReactModuleSpecProcessor does not run at build-time. Create this ReactModuleInfoProvider by
+            // hand.
+            return new ReactModuleInfoProvider() {
+                @Override
+                public Map<String, ReactModuleInfo> getReactModuleInfos() {
+                    final Map<String, ReactModuleInfo> reactModuleInfoMap = new HashMap<>();
+
+                    Class<? extends NativeModule>[] moduleList =
+                            new Class[] {
+                                    AsyncStorageModule.class,
+                            };
+
+                    for (Class<? extends NativeModule> moduleClass : moduleList) {
+                        ReactModule reactModule = moduleClass.getAnnotation(ReactModule.class);
+
+                        reactModuleInfoMap.put(
+                                reactModule.name(),
+                                new ReactModuleInfo(
+                                        reactModule.name(),
+                                        moduleClass.getName(),
+                                        reactModule.canOverrideExistingModule(),
+                                        reactModule.needsEagerInit(),
+                                        reactModule.hasConstants(),
+                                        reactModule.isCxxModule(),
+                                        TurboModule.class.isAssignableFrom(moduleClass)));
+                    }
+
+                    return reactModuleInfoMap;
+                }
+            };
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(
+                    "No ReactModuleInfoProvider for com.reactnativecommunity.asyncstorage.AsyncStoragePackage$$ReactModuleInfoProvider", e);
+        }
     }
 
     // Deprecated in RN 0.47 
