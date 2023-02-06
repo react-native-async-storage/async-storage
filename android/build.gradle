@@ -29,6 +29,14 @@ def getVersionOrDefault(String flagName, String defaultVersion) {
     rootProject.hasProperty(flagName) ? rootProject.properties[flagName] : defaultVersion
 }
 
+def isNewArchitectureEnabled() {
+    // To opt-in for the New Architecture, you can either:
+    // - Set `newArchEnabled` to true inside the `gradle.properties` file
+    // - Invoke gradle with `-newArchEnabled=true`
+    // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
 configurations {
     compileClasspath
 }
@@ -77,8 +85,22 @@ if (useNextStorage) {
     apply from: './testresults.gradle'
 }
 
+if (isNewArchitectureEnabled()) {
+    apply plugin: "com.facebook.react"
+}
+
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 31)
+
+    // Used to override the NDK path/version by allowing users to customize
+    // the NDK path/version from their root project (e.g. for M1 support)
+    if (rootProject.hasProperty("ndkPath")) {
+        ndkPath rootProject.ext.ndkPath
+    }
+    if (rootProject.hasProperty("ndkVersion")) {
+        ndkVersion rootProject.ext.ndkVersion
+    }
+
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
         targetSdkVersion safeExtGet('targetSdkVersion', 31)
