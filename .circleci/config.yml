@@ -59,7 +59,7 @@ cache:
   save yarn cache: &cache_save_yarn
     name: Saving Yarn cache
     paths:
-      - ~/.yarn/cache
+      - .yarn/cache
       - ~/Library/Detox
     key: *key_yarn
 
