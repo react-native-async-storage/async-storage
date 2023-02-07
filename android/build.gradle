@@ -123,7 +123,9 @@ android {
 
     sourceSets.main {
         java {
-            if (!useNextStorage) {
+            if (useNextStorage) {
+                srcDirs += 'src/kotlinPackage/java'
+            } else {
                 srcDirs += 'src/javaPackage/java'
             }
         }
