@@ -59,7 +59,7 @@ cache:
   save yarn cache: &cache_save_yarn
     name: Saving Yarn cache
     paths:
-      - ~/.cache/yarn
+      - ~/.yarn/cache
       - ~/Library/Detox
     key: *key_yarn
 
@@ -105,7 +105,7 @@ jobs:
       - restore-cache: *cache_restore_yarn
       - run:
           name: Install dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+          command: yarn
       - save-cache: *cache_save_yarn
       - persist_to_workspace:
           root: .
@@ -134,7 +134,7 @@ jobs:
       - restore-cache: *cache_restore_yarn
       - run:
           name: Installing Yarn dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+          command: yarn
       - save-cache: *cache_save_yarn
       - restore-cache: *cache_restore_gradle
       - run:
@@ -162,7 +162,7 @@ jobs:
       - restore-cache: *cache_restore_yarn
       - run:
           name: Installing Yarn dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+          command: yarn
       - save-cache: *cache_save_yarn
       - restore-cache: *cache_restore_pods
       - run:
@@ -203,7 +203,7 @@ jobs:
       - restore_cache: *cache_restore_yarn
       - run:
           name: Install dependencies
-          command: yarn --pure-lockfile --non-interactive --cache-folder ~/.cache/yarn
+          command: yarn
       - save_cache: *cache_save_yarn
       - run:
           name: Bundle JS

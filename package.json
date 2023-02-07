@@ -37,7 +37,6 @@
     "url": "https://github.com/react-native-async-storage/async-storage.git"
   },
   "scripts": {
-    "ci": "yarn --pure-lockfile --non-interactive",
     "format": "concurrently yarn:format:*",
     "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm')",
     "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.md' '*.ts' '*.tsx' '*.yml')",

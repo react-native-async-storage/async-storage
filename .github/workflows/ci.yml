@@ -24,7 +24,7 @@ jobs:
           cache: 'yarn'
       - name: Install JS dependencies
         run: |
-          yarn ci
+          yarn
       - name: Bundle JS
         run: |
           yarn bundle:macos
@@ -52,7 +52,7 @@ jobs:
           cache: 'yarn'
       - name: Install JS dependencies
         run: |
-          yarn ci
+          yarn
       - name: Install Windows test app
         run: |
           yarn install-windows-test-app -p example/windows
