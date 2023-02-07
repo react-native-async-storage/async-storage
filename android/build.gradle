@@ -120,6 +120,14 @@ android {
             }
         }
     }
+
+    sourceSets.main {
+        java {
+            if (!useNextStorage) {
+                srcDirs += 'src/javaPackage/java'
+            }
+        }
+    }
 }
 
 repositories {
