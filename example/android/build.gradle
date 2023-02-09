@@ -28,6 +28,7 @@ task fetchDependencies() {
 buildscript {
     def androidTestAppDir = "../../node_modules/react-native-test-app/android"
     apply from: "$androidTestAppDir/dependencies.gradle"
+    apply from: "${androidTestAppDir}/test-app-util.gradle"
 
     // Mainly for Detox testing for using Next Storage
     // when building next, force using next storage
@@ -43,11 +44,26 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$androidPluginVersion"
+        getReactNativeDependencies().each { dependency ->
+            classpath(dependency)
+        }
+
+        if (isNewArchitectureEnabled(project)) {
+            classpath("com.facebook.react:react-native-gradle-plugin")
+            classpath("de.undercouch:gradle-download-task:5.1.0")
+        }
     }
 }
 
 allprojects {
+    // TODO: remove when https://github.com/facebook/react-native/issues/35495 is fixed
+    project.pluginManager.withPlugin("com.facebook.react") {
+        react {
+            reactNativeDir = rootProject.file("../../node_modules/react-native/")
+            codegenDir = rootProject.file("../../node_modules/react-native-codegen/")
+        }
+    }
+
     repositories {
         maven {
             url("$rootDir/../../node_modules/detox/Detox-android")
