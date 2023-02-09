@@ -168,6 +168,9 @@ android {
 
             if (!isNewArchitectureEnabled()) {
                 srcDirs += 'src/paper/java'
+            } else {
+                // This should be done by the RN gradle plugin, for some reason it sometimes doesn't work
+                srcDirs += 'build/generated/source/codegen/java'
             }
         }
     }
