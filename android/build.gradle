@@ -42,9 +42,9 @@ def resolveReactNativeDirectory() {
         return reactNativeFromProjectNodeModules
     }
 
-    def reactNativeFromNodeModulesWithReanimated = file("${projectDir}/../../react-native")
-    if (reactNativeFromNodeModulesWithReanimated.exists()) {
-        return reactNativeFromNodeModulesWithReanimated
+    def reactNativeFromNodeModulesWithAsyncStorage = file("${projectDir}/../../react-native")
+    if (reactNativeFromNodeModulesWithAsyncStorage.exists()) {
+        return reactNativeFromNodeModulesWithAsyncStorage
     }
 
     throw new Exception(
