@@ -7,6 +7,7 @@ const project = (() => {
       iosProjectPath,
       windowsProjectPath,
     } = require('react-native-test-app');
+    const iosProject = iosProjectPath('ios');
     return {
       android: {
         sourceDir: path.join('example', 'android'),
@@ -15,7 +16,8 @@ const project = (() => {
         ),
       },
       ios: {
-        project: iosProjectPath('example/ios'),
+        sourceDir: 'example/ios',
+        ...(iosProject ? { project: iosProject } : undefined),
       },
       windows: fs.existsSync('example/windows/AsyncStorageExample.sln') && {
         sourceDir: path.join('example', 'windows'),
