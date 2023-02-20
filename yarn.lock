@@ -2869,7 +2869,7 @@ __metadata:
     react-native: ^0.68.0
     react-native-builder-bob: ^0.18.0
     react-native-macos: ^0.68.0
-    react-native-test-app: ^2.3.4
+    react-native-test-app: ^2.3.10
     react-native-web: ^0.17.0
     react-native-windows: ^0.68.0
     react-test-renderer: 17.0.2
@@ -12915,9 +12915,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-test-app@npm:^2.3.4":
-  version: 2.3.4
-  resolution: "react-native-test-app@npm:2.3.4"
+"react-native-test-app@npm:^2.3.10":
+  version: 2.3.10
+  resolution: "react-native-test-app@npm:2.3.10"
   dependencies:
     ajv: ^8.0.0
     chalk: ^4.1.0
@@ -12927,7 +12927,7 @@ __metadata:
     uuid: ^8.3.2
     yargs: ^16.0.0
   peerDependencies:
-    "@expo/config-plugins": ^5.0.0
+    "@expo/config-plugins": ">=5.0"
     "@react-native-community/cli": ">=5.0"
     "@react-native-community/cli-platform-android": ">=5.0"
     "@react-native-community/cli-platform-ios": ">=5.0"
@@ -12956,7 +12956,7 @@ __metadata:
     init: scripts/init.js
     init-test-app: scripts/init.js
     install-windows-test-app: windows/test-app.js
-  checksum: c8057dc4fcc3c12ae060aaf464e81777565c4bd0b1fe3ed66d15c9e9b22bdd1306c92f2289a0a2c844a6e9c560f93a3ee4a38453de2230134b5aa7525ea99717
+  checksum: 01f6cc21ee128cc32dcf8daed7893eca27849026c9164b7de69b1000dbbb0248b91f8c43e803d514b6ad70f5ec6c6c46318a7cd3da0d43cd2a92999ac0c7ce08
   languageName: node
   linkType: hard
 
