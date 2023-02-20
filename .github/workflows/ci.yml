@@ -4,6 +4,8 @@ on:
     branches:
       - master
   pull_request:
+env:
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
 jobs:
   macos:
     name: 'macOS'
@@ -18,7 +20,7 @@ jobs:
           key: ${{ runner.os }}-ccache-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-ccache-
       - name: Set up Node.js
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
           cache: 'yarn'
@@ -40,13 +42,13 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Set up MSBuild
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v1.3
       - name: Setup VSTest.console.exe
         uses: darenm/Setup-VSTest@v1.2
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Node.js
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
           cache: 'yarn'
@@ -55,7 +57,7 @@ jobs:
           yarn
       - name: Install Windows test app
         run: |
-          yarn install-windows-test-app -p example/windows
+          yarn install-windows-test-app -p example/windows --use-nuget
       - name: Build
         run: |
-          yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
+          yarn react-native run-windows --release --arch x86 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
