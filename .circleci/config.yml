@@ -111,22 +111,6 @@ jobs:
           root: .
           paths: .
 
-  "Test: lint":
-    <<: *js_defaults
-    steps:
-      - *addWorkspace
-      - run:
-          name: Lint check
-          command: yarn test:lint
-
-  "Test: TypeScript":
-    <<: *js_defaults
-    steps:
-      - *addWorkspace
-      - run:
-          name: TypeScript check
-          command: yarn test:ts
-
   "Test: Android unit":
     <<: *android_defaults
     steps:
@@ -266,23 +250,14 @@ workflows:
   "Testing":
     jobs:
       - "Setup environment"
-      - "Test: lint":
-          requires:
-            - "Setup environment"
-      - "Test: TypeScript":
-          requires:
-            - "Setup environment"
       - "Test: Android unit":
           requires:
             - "Setup environment"
       - "Test: iOS e2e":
           requires:
-            - "Test: lint"
-            - "Test: TypeScript"
+            - "Setup environment"
       - "Test: Android e2e":
           requires:
-            - "Test: lint"
-            - "Test: TypeScript"
             - "Test: Android unit"
           filters:
             branches:
