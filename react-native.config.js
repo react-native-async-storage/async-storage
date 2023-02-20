@@ -1,28 +1,23 @@
 const project = (() => {
-  const fs = require('fs');
   const path = require('path');
   try {
-    const {
-      androidManifestPath,
-      iosProjectPath,
-      windowsProjectPath,
-    } = require('react-native-test-app');
-    return {
+    const { configureProjects } = require('react-native-test-app');
+    return configureProjects({
       android: {
         sourceDir: path.join('example', 'android'),
-        manifestPath: androidManifestPath(
-          path.join(__dirname, 'example', 'android')
-        ),
       },
       ios: {
-        project: iosProjectPath('example/ios'),
+        sourceDir: 'example/ios',
       },
-      windows: fs.existsSync('example/windows/AsyncStorageExample.sln') && {
+      windows: {
         sourceDir: path.join('example', 'windows'),
-        solutionFile: 'AsyncStorageExample.sln',
-        project: windowsProjectPath(path.join(__dirname, 'example', 'windows')),
+        solutionFile: path.join(
+          'example',
+          'windows',
+          'AsyncStorageExample.sln'
+        ),
       },
-    };
+    });
   } catch (_) {
     return undefined;
   }
@@ -38,8 +33,8 @@ module.exports = {
         macos: null,
       },
     },
-    // Suppress warnings about bob not being a proper native module
-    '@react-native-community/bob': {
+    // We don't use Expo in our test apps
+    expo: {
       platforms: {
         android: null,
         ios: null,
@@ -47,8 +42,8 @@ module.exports = {
         windows: null,
       },
     },
-    // We don't use Expo in our test apps
-    expo: {
+    // Suppress warnings about bob not being a proper native module
+    'react-native-builder-bob': {
       platforms: {
         android: null,
         ios: null,
