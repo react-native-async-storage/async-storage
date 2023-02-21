@@ -119,3 +119,28 @@ jobs:
       - name: Build
         run: |
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
+  release:
+    name: Release
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    needs: [review, android, ios, macos, windows]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 16
+          cache: yarn
+      - name: Install JS dependencies
+        run: |
+          yarn
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn semantic-release
