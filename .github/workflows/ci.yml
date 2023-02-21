@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   review:
-    name: 'Review'
+    name: Review
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
-          cache: 'yarn'
+          cache: yarn
       - name: Install JS dependencies
         run: |
           yarn
@@ -25,8 +25,8 @@ jobs:
       - name: TypeScript
         run: |
           yarn test:ts
-  macos:
-    name: 'macOS'
+  ios:
+    name: iOS
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -35,20 +35,60 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .ccache
-          key: ${{ runner.os }}-ccache-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-ccache-
+          key: ccache-ios-${{ hashFiles('yarn.lock') }}
+          restore-keys: ccache-ios-
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
-          cache: 'yarn'
+          cache: yarn
+      - name: Set up environment
+        run: |
+          brew bundle --file=.github/Brewfile.ios --no-lock
+          touch .watchmanconfig
+      - name: Install JS dependencies
+        run: |
+          yarn
+      - name: Bundle JS
+        run: |
+          yarn bundle:ios --dev false
+      - name: Install Pods
+        run: |
+          pod install
+        working-directory: example/ios
+      - name: Boot simulator
+        run: |
+          ./scripts/ios_e2e.sh 'run_simulator'
+      - name: Build
+        run: |
+          yarn build:e2e:ios
+      - name: Test
+        run: |
+          yarn test:e2e:ios
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cache /.ccache
+        uses: actions/cache@v3
+        with:
+          path: .ccache
+          key: ccache-macos-${{ hashFiles('yarn.lock') }}
+          restore-keys: ccache-macos-
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 16
+          cache: yarn
       - name: Install JS dependencies
         run: |
           yarn
       - name: Bundle JS
         run: |
           yarn bundle:macos
-      - name: Install macOS dependencies
+      - name: Install Pods
         run: |
           pod install
         working-directory: example/macos
@@ -56,7 +96,7 @@ jobs:
         run: |
           yarn test:e2e:macos
   windows:
-    name: 'Windows'
+    name: Windows
     runs-on: windows-2019
     steps:
       - name: Set up MSBuild
@@ -69,7 +109,7 @@ jobs:
         uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
-          cache: 'yarn'
+          cache: yarn
       - name: Install JS dependencies
         run: |
           yarn

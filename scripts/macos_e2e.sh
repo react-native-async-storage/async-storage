@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eo pipefail
 
 BUILD_ACTIONS="$@"
 
