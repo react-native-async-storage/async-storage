@@ -25,6 +25,26 @@ jobs:
       - name: TypeScript
         run: |
           yarn test:ts
+  android:
+    name: Android
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 16
+          cache: yarn
+      - name: Install JS dependencies
+        run: |
+          yarn
+      - name: Test Next Storage
+        uses: gradle/gradle-build-action@v2.3.3
+        with:
+          gradle-version: wrapper
+          arguments: react-native-async-storage_async-storage:test
+          build-root-directory: example/android
   ios:
     name: iOS
     runs-on: macos-latest
