@@ -5,6 +5,26 @@ on:
       - master
   pull_request:
 jobs:
+  review:
+    name: 'Review'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - name: Install JS dependencies
+        run: |
+          yarn
+      - name: Lint
+        run: |
+          yarn test:lint
+      - name: TypeScript
+        run: |
+          yarn test:ts
   macos:
     name: 'macOS'
     runs-on: macos-latest
@@ -18,7 +38,7 @@ jobs:
           key: ${{ runner.os }}-ccache-${{ hashFiles('yarn.lock') }}
           restore-keys: ${{ runner.os }}-ccache-
       - name: Set up Node.js
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
           cache: 'yarn'
@@ -40,13 +60,13 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: Set up MSBuild
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v1.3
       - name: Setup VSTest.console.exe
         uses: darenm/Setup-VSTest@v1.2
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Node.js
-        uses: actions/setup-node@v3.5.1
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: 16
           cache: 'yarn'
