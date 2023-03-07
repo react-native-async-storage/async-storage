@@ -2,7 +2,7 @@
   "extends": ["@react-native-community", "plugin:jest/recommended"],
   "rules": {
     "dot-notation": "off",
-    "react-hooks/exhaustive-deps": "off",
+    "no-dupe-class-members": "off",
     "react-native/no-inline-styles": "off"
   }
 }

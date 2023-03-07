@@ -1,5 +1,7 @@
-import AsyncStorage from './legacy/AsyncStorage';
-
+export { AsyncStorage } from './AsyncStorage.native';
+export { AsyncStorageFactory } from './AsyncStorageFactory';
 export type { AsyncStorageStatic } from './legacy/types';
+export type { StorageBackend } from './types';
 
-export default AsyncStorage;
+import LegacyAsyncStorage from './legacy/AsyncStorage';
+export default LegacyAsyncStorage;
