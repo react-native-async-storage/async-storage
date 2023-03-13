@@ -12,20 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Cache/restore dependencies
         uses: actions/cache@v3
-        id: cache
         with:
-          path: ./website/node_modules
+          path: ./website/.yarn
           key: website-${{ hashFiles('website/yarn.lock') }}
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile --cwd ./website
-      - name: Release
+        run: yarn
         working-directory: ./website
+      - name: Deploy
         run: |
           git config --global user.name ${{ secrets.GH_BOT_NAME }}
           git config --global user.email ${{ secrets.GH_BOT_EMAIL }}
           echo "machine github.com login ${{ secrets.GH_BOT_NAME }} password ${{ secrets.GH_RELEASE_TOKEN }}" > ~/.netrc
           GIT_USER=${{ secrets.GH_BOT_NAME }} yarn run deploy
+        working-directory: ./website
