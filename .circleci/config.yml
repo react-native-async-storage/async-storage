@@ -263,11 +263,3 @@ workflows:
             branches:
               only:
                 - temporarily-disabled--see-issue-840
-      - "Release":
-          requires:
-            - "Test: iOS e2e"
-            - "Test: Android e2e"
-          filters:
-            branches:
-              only: master
-
