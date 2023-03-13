@@ -141,6 +141,8 @@ jobs:
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
   release:
     name: Release
+    # Disable auto releases, until v2 is ready
+    if: ${{ false }}
     needs: [review, android, ios, macos, windows]
     runs-on: ubuntu-22.04
     steps:
