@@ -12,15 +12,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Cache/restore dependencies
         uses: actions/cache@v3
-        id: cache
         with:
-          path: ./website/node_modules
+          path: ./website/.yarn
           key: website-${{ hashFiles('website/yarn.lock') }}
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
         working-directory: ./website
       - name: Deploy
