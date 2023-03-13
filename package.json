@@ -54,7 +54,7 @@
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
     "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --bundle-output example/index.macos.jsbundle",
     "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
-    "test:lint": "eslint src/**/*.ts example/**/*.ts jest/*.js",
+    "test:lint": "eslint src/**/*.ts example/**/*.ts example/**/*.tsx jest/*.js",
     "test:ts": "tsc --project tsconfig.all.json",
     "test:e2e:android": "detox test -c android.emu.release --maxConcurrency 1",
     "test:e2e:ios": "detox test -c ios.sim.release --maxConcurrency 1",
@@ -69,15 +69,13 @@
   "devDependencies": {
     "@babel/core": "^7.12.0",
     "@babel/preset-env": "^7.1.6",
-    "@react-native-community/eslint-config": "^3.0.0",
-    "@semantic-release/changelog": "^6.0.0",
-    "@semantic-release/git": "^10.0.0",
+    "@react-native-community/eslint-config": "3.2.0",
     "@types/lodash": "^4.14.184",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.68.0",
     "concurrently": "^6.4.0",
     "detox": "^19.4.5",
-    "eslint": "^8.0.0",
+    "eslint": "8.35.0",
     "expo": "^45.0.0",
     "jest": "^26.6.3",
     "jest-circus": "^26.6.1",
@@ -86,14 +84,13 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-native": "^0.68.0",
-    "react-native-builder-bob": "^0.18.0",
+    "react-native-builder-bob": "0.20.4",
     "react-native-macos": "^0.68.0",
     "react-native-test-app": "^2.3.10",
     "react-native-web": "^0.17.0",
     "react-native-windows": "^0.68.0",
     "react-test-renderer": "17.0.2",
-    "semantic-release": "^19.0.0",
-    "typescript": "^4.5.0"
+    "typescript": "4.9.5"
   },
   "packageManager": "yarn@3.4.1",
   "resolutions": {
@@ -140,15 +137,6 @@
       }
     }
   },
-  "eslintConfig": {
-    "extends": [
-      "@react-native-community",
-      "plugin:jest/recommended"
-    ],
-    "rules": {
-      "dot-notation": "off"
-    }
-  },
   "prettier": {
     "endOfLine": "auto",
     "singleQuote": true,
@@ -168,28 +156,6 @@
       "commonjs",
       "module",
       "typescript"
-    ]
-  },
-  "release": {
-    "branches": [
-      "master"
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/github",
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "CHANGELOG.md",
-            "package.json"
-          ],
-          "message": "chore(release): ${nextRelease.version} [skip ci]"
-        }
-      ]
     ]
   }
 }

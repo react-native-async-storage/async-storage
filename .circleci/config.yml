@@ -234,14 +234,6 @@ jobs:
           name: Run e2e tests for Next storage
           command: yarn detox test -c android.emu.release.next --maxConcurrency 1
 
-  Release:
-    <<: *js_defaults
-    steps:
-      - *addWorkspace
-      - run:
-          name: Release new version
-          command: yarn semantic-release
-
 # ==============================
 # WORK FLOWS
 # ==============================
