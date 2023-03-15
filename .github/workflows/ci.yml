@@ -165,4 +165,6 @@ jobs:
           GIT_COMMITTER_NAME: ${{ secrets.GH_BOT_NAME }}
           NPM_TOKEN: ${{ secrets.NPM_RELEASE_TOKEN }}
         run: |
+          git config user.email ${{ secrets.GH_BOT_EMAIL }}
+          git config user.name ${{ secrets.GH_BOT_NAME }}
           yarn semantic-release
