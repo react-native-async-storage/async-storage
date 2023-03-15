@@ -147,11 +147,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GH_RELEASE_TOKEN }}
-      - name: Setup git
-        run: |
-          git config user.email ${{ secrets.GH_BOT_EMAIL }}
-          git config user.name ${{ secrets.GH_BOT_NAME }}
+          persist-credentials: false
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
