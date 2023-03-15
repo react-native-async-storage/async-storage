@@ -1,3 +1,11 @@
+## [1.17.12](https://github.com/react-native-async-storage/async-storage/compare/v1.17.11...v1.17.12) (2023-03-15)
+
+
+### Bug Fixes
+
+* **deploy:** auth bot as git user ([#938](https://github.com/react-native-async-storage/async-storage/issues/938)) ([4de4baa](https://github.com/react-native-async-storage/async-storage/commit/4de4baa858ca707ff9d7584a1c1c0d45396a60ec))
+* **deploy:** GH token naming ([#939](https://github.com/react-native-async-storage/async-storage/issues/939)) ([06ef84c](https://github.com/react-native-async-storage/async-storage/commit/06ef84c3d03560af9654527c11dbc28392ca7562))
+
 ## [1.17.11](https://github.com/react-native-async-storage/async-storage/compare/v1.17.10...v1.17.11) (2022-11-11)
 
 
