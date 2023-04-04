@@ -9791,15 +9791,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:^0.5.1":
-  version: 0.5.1
-  resolution: "json5@npm:0.5.1"
-  bin:
-    json5: lib/cli.js
-  checksum: 9b85bf06955b23eaa4b7328aa8892e3887e81ca731dd27af04a5f5f1458fbc5e1de57a24442e3272f8a888dd1abe1cb68eb693324035f6b3aeba4fcab7667d62
-  languageName: node
-  linkType: hard
-
 "json5@npm:^1.0.1":
   version: 1.0.2
   resolution: "json5@npm:1.0.2"
@@ -9811,7 +9802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:^2.2.1":
+"json5@npm:^2.1.1, json5@npm:^2.2.1":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
