@@ -1,18 +1,23 @@
 {
+  "private": true,
   "name": "async-storage-website",
   "version": "1.0.0",
-  "private": true,
   "scripts": {
-    "start": "docusaurus start",
     "build": "docusaurus build",
-    "deploy": "docusaurus deploy"
+    "deploy": "docusaurus deploy",
+    "serve": "docusaurus serve",
+    "start": "docusaurus start"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-0",
-    "@docusaurus/preset-classic": "^2.0.0-0",
+    "@docusaurus/core": "^2.4.0",
+    "@docusaurus/preset-classic": "^2.4.0",
     "classnames": "^2.2.6",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
+  },
+  "resolutions": {
+    "recursive-readdir/minimatch": "^3.0.5",
+    "serve-handler/minimatch": "^3.0.5"
   },
   "browserslist": {
     "production": [
