@@ -10,6 +10,7 @@ module.exports = {
     prism: {
       theme: require('prism-react-renderer/themes/vsDark'),
       darkTheme: require('prism-react-renderer/themes/vsDark'),
+      lightTheme: require('prism-react-renderer/themes/vsLight'),
     },
     navbar: {
       title: 'Async Storage',
