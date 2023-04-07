@@ -19,23 +19,6 @@ import type {
   MultiRequest,
 } from './types';
 
-if (!RCTAsyncStorage) {
-  throw new Error(`[@RNC/AsyncStorage]: NativeModule: AsyncStorage is null.
-
-To fix this issue try these steps:
-
-  • Rebuild and restart the app.
-
-  • Run the packager with \`--reset-cache\` flag.
-
-  • If you are using CocoaPods on iOS, run \`pod install\` in the \`ios\` directory and then rebuild and re-run the app.
-
-  • If this happens while testing with Jest, check out docs how to integrate AsyncStorage with it: https://react-native-async-storage.github.io/async-storage/docs/advanced/jest
-
-If none of these fix the issue, please open an issue on the Github repository: https://github.com/react-native-async-storage/async-storage/issues
-`);
-}
-
 /**
  * `AsyncStorage` is a simple, unencrypted, asynchronous, persistent, key-value
  * storage system that is global to the app. It should be used instead of
@@ -59,7 +42,7 @@ const AsyncStorage = ((): AsyncStorageStatic => {
         checkValidInput(key);
         RCTAsyncStorage.multiGet(
           [key],
-          (errors?: ErrorLike[], result?: string[][]) => {
+          (errors?: ErrorLike[], result?: KeyValuePair[]) => {
             // Unpack result to get value from [[key,value]]
             const value = result?.[0]?.[1] ? result[0][1] : null;
             const errs = convertErrors(errors);
@@ -199,14 +182,14 @@ const AsyncStorage = ((): AsyncStorageStatic => {
 
       RCTAsyncStorage.multiGet(
         getKeys,
-        (errors?: ErrorLike[], result?: string[][]) => {
+        (errors?: ErrorLike[], result?: KeyValuePair[]) => {
           // Even though the runtime complexity of this is theoretically worse vs if we used a map,
           // it's much, much faster in practice for the data sets we deal with (we avoid
           // allocating result pair arrays). This was heavily benchmarked.
           //
           // Is there a way to avoid using the map but fix the bug in this breaking test?
           // https://github.com/facebook/react-native/commit/8dd8ad76579d7feef34c014d387bf02065692264
-          const map: Record<string, string> = {};
+          const map: Record<string, string | null> = {};
           result?.forEach(([key, value]) => {
             map[key] = value;
             return value;
