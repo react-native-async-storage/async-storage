@@ -31,7 +31,7 @@ buildscript {
 
     // Mainly for Detox testing for using Next Storage
     // when building next, force using next storage
-    if(gradle.startParameter.getTaskNames().contains("assembleNext")) {
+    if (gradle.startParameter.getTaskNames().contains("assembleNext")) {
         rootProject.setProperty("AsyncStorage_useNextStorage", "true")
     }
     Boolean nextStorageFlag = rootProject.hasProperty("AsyncStorage_useNextStorage") ? rootProject.properties["AsyncStorage_useNextStorage"] == "true" : false
@@ -50,13 +50,6 @@ buildscript {
 }
 
 allprojects {
-    repositories {
-        maven {
-            url("$rootDir/../../node_modules/detox/Detox-android")
-        }
-        mavenCentral()
-        google()
-    }
     afterEvaluate { project ->
         def androidExtension = project.extensions.findByName('android')
 
@@ -86,13 +79,8 @@ allprojects {
             }
             androidExtension.testBuildType = 'release'
             androidExtension.sourceSets.androidTest.java.srcDirs += "$rootDir/app/src/androidTest/java"
-            if(System.getenv("CIRCLECI") == "true") {
-                // explicitly apply NDK version available in CI image
-                androidExtension.ndkVersion = "20.1.5948944"
-            }
-            project.dependencies {
-                androidTestImplementation('com.wix:detox:+')
 
+            project.dependencies {
                 def hermesDir = file('../../node_modules/hermes-engine/android').absolutePath
                 nextImplementation files("$hermesDir/hermes-release.aar")
             }

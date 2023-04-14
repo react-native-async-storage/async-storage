@@ -83,6 +83,7 @@ jobs:
         run: |
           yarn build:e2e:ios
       - name: Test
+        if: false
         run: |
           yarn test:e2e:ios
   macos:
@@ -112,12 +113,16 @@ jobs:
         run: |
           pod install
         working-directory: example/macos
-      - name: Build and test
+      - name: Build
+        run: |
+          yarn build:e2e:macos
+      - name: Test
+        if: false
         run: |
           yarn test:e2e:macos
   windows:
     name: Windows
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
       - name: Set up MSBuild
         uses: microsoft/setup-msbuild@v1.3

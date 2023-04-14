@@ -31,7 +31,7 @@ export default function App(): JSX.Element {
   const [iteration, setIteration] = useState(0);
   const [currentTest, setCurrentTest] = useState(SCREENS.Functional);
 
-  const dismissKeyboard = useCallback(Keyboard.dismiss, []);
+  const dismissKeyboard = useCallback(() => Keyboard.dismiss(), []);
   const simulateRestart = useCallback(
     () => setIteration(iteration + 1),
     [iteration]
