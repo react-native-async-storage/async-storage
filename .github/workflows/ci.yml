@@ -40,7 +40,7 @@ jobs:
         run: |
           yarn
       - name: Test Next Storage
-        uses: gradle/gradle-build-action@v2.3.3
+        uses: gradle/gradle-build-action@v2.4.2
         with:
           gradle-version: wrapper
           arguments: react-native-async-storage_async-storage:test
