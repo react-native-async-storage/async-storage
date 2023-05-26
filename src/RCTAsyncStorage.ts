@@ -8,7 +8,7 @@ import { shouldFallbackToLegacyNativeModule } from './shouldFallbackToLegacyNati
 let RCTAsyncStorage = TurboModuleRegistry
   ? TurboModuleRegistry.get('PlatformLocalStorage') || // Support for external modules, like react-native-windows
     TurboModuleRegistry.get('RNC_AsyncSQLiteDBStorage') ||
-    TurboModuleRegistry.get('RNCAsyncStorage');
+    TurboModuleRegistry.get('RNCAsyncStorage')
   : NativeModules['PlatformLocalStorage'] || // Support for external modules, like react-native-windows
     NativeModules['RNC_AsyncSQLiteDBStorage'] ||
     NativeModules['RNCAsyncStorage'];
