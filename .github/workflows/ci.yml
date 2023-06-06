@@ -20,7 +20,7 @@ jobs:
           node-version: 16
           cache: yarn
       - name: Install JS dependencies
-        run: yarn --frozen-lockfile
+        run: yarn
       - name: Run test ${{ matrix.test-name }}
         run: yarn test:${{ matrix.test-name }}
   android:
