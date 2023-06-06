@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/react-native-async-storage/async-storage/compare/v1.18.1...v1.18.2) (2023-06-06)
+
+
+### Bug Fixes
+
+* allow consumption of `RCTAsyncStorage` as TurboModule ([#965](https://github.com/react-native-async-storage/async-storage/issues/965)) ([62732d9](https://github.com/react-native-async-storage/async-storage/commit/62732d900f6dd2cc5b4c14230f33ed32114d6a09))
+
 ## [1.18.1](https://github.com/react-native-async-storage/async-storage/compare/v1.18.0...v1.18.1) (2023-03-29)
 
 
