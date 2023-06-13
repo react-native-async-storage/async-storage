@@ -10,9 +10,6 @@ let RCTAsyncStorage =
   NativeModules['RNCAsyncStorage'];
 
 if (!RCTAsyncStorage && shouldFallbackToLegacyNativeModule()) {
-  // TurboModuleRegistry falls back to NativeModules so we don't have to try go
-  // assign NativeModules' counterparts if TurboModuleRegistry would resolve
-  // with undefined.
   if (TurboModuleRegistry) {
     RCTAsyncStorage =
       TurboModuleRegistry.get('AsyncSQLiteDBStorage') ||

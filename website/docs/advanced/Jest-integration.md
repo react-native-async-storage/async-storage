@@ -21,7 +21,7 @@ You can use one of two ways to provide mocked version of `AsyncStorage`:
 3. Inside that file, export `Async Storage` mock.
 
 ```javascript
-export default from '@react-native-async-storage/async-storage/jest/async-storage-mock';
+export * from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 ```
 
 ### With Jest setup file

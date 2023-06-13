@@ -1,9 +1,16 @@
-require_relative '../../node_modules/react-native-test-app/test_app.rb'
+require_relative '../../node_modules/react-native-test-app/test_app'
 
 workspace 'AsyncStorageExample.xcworkspace'
 
 use_flipper! false
-use_test_app! do |target|
+
+options = {
+  :fabric_enabled => false,
+  :hermes_enabled => false,
+  :turbomodule_enabled => false,
+}
+
+use_test_app! options do |target|
   target.app do
     pod 'RNCAsyncStorage', :path => '../..'
     pod 'AsyncStorageExample', :path => '..'

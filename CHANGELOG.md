@@ -1,3 +1,32 @@
+## [1.18.2](https://github.com/react-native-async-storage/async-storage/compare/v1.18.1...v1.18.2) (2023-06-06)
+
+
+### Bug Fixes
+
+* allow consumption of `RCTAsyncStorage` as TurboModule ([#965](https://github.com/react-native-async-storage/async-storage/issues/965)) ([62732d9](https://github.com/react-native-async-storage/async-storage/commit/62732d900f6dd2cc5b4c14230f33ed32114d6a09))
+
+## [1.18.1](https://github.com/react-native-async-storage/async-storage/compare/v1.18.0...v1.18.1) (2023-03-29)
+
+
+### Bug Fixes
+
+* declare support for react-native 0.72 ([#950](https://github.com/react-native-async-storage/async-storage/issues/950)) ([f15c419](https://github.com/react-native-async-storage/async-storage/commit/f15c419c7082ac191a1c7fedb79261c03a1c0584))
+
+# [1.18.0](https://github.com/react-native-async-storage/async-storage/compare/v1.17.12...v1.18.0) (2023-03-27)
+
+
+### Features
+
+* **android:** Bump Next version dependencies, min and target SDK ([#949](https://github.com/react-native-async-storage/async-storage/issues/949)) ([271a040](https://github.com/react-native-async-storage/async-storage/commit/271a0400db12b50945882e062260826a393f1a3d))
+
+## [1.17.12](https://github.com/react-native-async-storage/async-storage/compare/v1.17.11...v1.17.12) (2023-03-15)
+
+
+### Bug Fixes
+
+* **deploy:** auth bot as git user ([#938](https://github.com/react-native-async-storage/async-storage/issues/938)) ([4de4baa](https://github.com/react-native-async-storage/async-storage/commit/4de4baa858ca707ff9d7584a1c1c0d45396a60ec))
+* **deploy:** GH token naming ([#939](https://github.com/react-native-async-storage/async-storage/issues/939)) ([06ef84c](https://github.com/react-native-async-storage/async-storage/commit/06ef84c3d03560af9654527c11dbc28392ca7562))
+
 ## [1.17.11](https://github.com/react-native-async-storage/async-storage/compare/v1.17.10...v1.17.11) (2022-11-11)
 
 

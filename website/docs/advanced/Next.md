@@ -38,27 +38,7 @@ When you enable the feature again, the new database is **not** recreated, becaus
 
 ### Enable
 
-See [Configuration](#configuration) section below to learn more about setting different versions of Kotlin or Room.
-
-1. In your project's `android` directory, locate root `build.gradle` file. Add Kotlin dependency to the `buildscript`:
-
-```diff
-buildscript {
-    ext {
-        // other extensions
-+        kotlinVersion = '1.6.10'
-    }
-    
-    dependencies {
-        // other dependencies
-+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    }
-}
-
-```
-
-2. In the same directory (normally `android`) locate `gradle.properties` file (if it does not exist, create one) and add the line:
-
+In your project's `android` directory, locate `gradle.properties` file (if it does not exist, create one) and add the line:
 ```groovy
 AsyncStorage_useNextStorage=true
 ```
@@ -67,28 +47,28 @@ AsyncStorage_useNextStorage=true
 
 **Kotlin version**
 
-Next storage is tested against Kotlin version `1.6.10`. 
+Next storage is tested against Kotlin version `1.8.10`. 
 You can specify different version, in one of two ways:
 
 - add `kotlinVersion` extension to the `rootProject`:
 
 ```groovy
-rootProject.ext.kotlinVersion = '1.6.10'
+rootProject.ext.kotlinVersion = '1.8.10'
 ```
 
 - specify `AsyncStorage_kotlinVersion` in `gradle.properties`:
 
 ```groovy
-AsyncStorage_kotlinVersion=1.6.10
+AsyncStorage_kotlinVersion=1.8.10
 ```
 
 **Room**
 
 Next AsyncStorage uses [Room persistence library](https://developer.android.com/jetpack/androidx/releases/room) to store data.
-Currently, tested version is `2.4.2`. You can specify different version, by adding a flag to `gradle.properties`:
+Currently, tested version is `2.4.3`. You can specify different version, by adding a flag to `gradle.properties`:
 
 ```groovy
-AsyncStorage_next_roomVersion=2.4.2
+AsyncStorage_next_roomVersion=2.4.3
 ```
 
 ### Notable changes

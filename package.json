@@ -1,6 +1,6 @@
 {
   "name": "@react-native-async-storage/async-storage",
-  "version": "1.17.11",
+  "version": "1.18.2",
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -37,7 +37,6 @@
     "url": "https://github.com/react-native-async-storage/async-storage.git"
   },
   "scripts": {
-    "ci": "yarn --pure-lockfile --non-interactive",
     "format": "concurrently yarn:format:*",
     "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm')",
     "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.md' '*.ts' '*.tsx' '*.yml')",
@@ -65,7 +64,7 @@
     "merge-options": "^3.0.4"
   },
   "peerDependencies": {
-    "react-native": "^0.0.0-0 || 0.60 - 0.71 || 1000.0.0"
+    "react-native": "^0.0.0-0 || 0.60 - 0.72 || 1000.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
@@ -88,14 +87,18 @@
     "react-dom": "18.2.0",
     "react-native": "0.71.2",
     "react-native-builder-bob": "^0.18.0",
-    "react-native-test-app": "^2.3.4",
+    "react-native-macos": "^0.68.0",
+    "react-native-test-app": "^2.3.10",
     "react-native-web": "^0.17.0",
     "react-native-windows": "^0.71.0",
     "react-test-renderer": "17.0.2",
     "semantic-release": "^19.0.0",
     "typescript": "^4.5.0"
   },
+  "packageManager": "yarn@3.4.1",
   "resolutions": {
+    "body-parser/qs": "^6.7.3",
+    "find-babel-config/json5": "^2.1.1",
     "npm/chalk": "^4.1.2"
   },
   "jest": {
