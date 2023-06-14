@@ -2,6 +2,12 @@ require_relative '../../node_modules/react-native-test-app/macos/test_app.rb'
 
 workspace 'AsyncStorageExample.xcworkspace'
 
+options = {
+  :fabric_enabled => true,
+  :hermes_enabled => false,
+  :turbomodule_enabled => true,
+}
+
 use_test_app! do |target|
   target.app do
     pod 'RNCAsyncStorage', :path => '../..'

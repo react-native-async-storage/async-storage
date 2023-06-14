@@ -9,6 +9,9 @@ const project = (() => {
       ios: {
         sourceDir: path.join('example', 'ios'),
       },
+      macos: {
+        sourceDir: path.join('example', 'maacos'),
+      },
       windows: {
         sourceDir: path.join('example', 'windows'),
         solutionFile: path.join(
