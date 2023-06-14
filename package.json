@@ -198,9 +198,9 @@
     ]
   },
   "codegenConfig": {
-    "name": "tmSpecs",
+    "name": "rnasyncstorage",
     "type": "modules",
-    "jsSrcsDir": "src",
+    "jsSrcsDir": "./src",
     "android": {
       "javaPackageName": "com.reactnativecommunity.asyncstorage"
     }
