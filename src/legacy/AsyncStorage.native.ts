@@ -10,14 +10,10 @@ import {
   checkValidInput,
   convertError,
   convertErrors,
-} from './helpers';
-import RCTAsyncStorage from './RCTAsyncStorage';
-import type {
-  AsyncStorageStatic,
-  ErrorLike,
-  KeyValuePair,
-  MultiRequest,
-} from './types';
+} from '../helpers';
+import RCTAsyncStorage from '../RCTAsyncStorage';
+import type { ErrorLike } from '../types';
+import type { AsyncStorageStatic, KeyValuePair, MultiRequest } from './types';
 
 /**
  * `AsyncStorage` is a simple, unencrypted, asynchronous, persistent, key-value

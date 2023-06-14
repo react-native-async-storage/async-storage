@@ -1,5 +1,5 @@
-import AsyncStorage from './AsyncStorage';
+import AsyncStorage from './legacy/AsyncStorage';
 
-export type { AsyncStorageStatic } from './types';
+export type { AsyncStorageStatic } from './legacy/types';
 
 export default AsyncStorage;
