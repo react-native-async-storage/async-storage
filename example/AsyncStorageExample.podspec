@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   s.source    = { :git => package['repository']['url'] }
   s.summary   = 'AsyncStorage example app'
 
-  s.ios.deployment_target = '12.0'
-  s.osx.deployment_target = '10.14'
+  s.ios.deployment_target = '12.4'
+  s.osx.deployment_target = '10.15'
 
   s.dependency 'React'
   s.dependency 'ReactTestApp-DevSupport'

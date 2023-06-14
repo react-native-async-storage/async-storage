@@ -69,6 +69,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.0",
     "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.22.5",
+    "@react-native-community/cli": "^11.3.2",
     "@react-native-community/eslint-config": "^3.0.0",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
@@ -85,9 +87,10 @@
     "prettier": "^2.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.2",
+    "react-native": "0.71.10",
     "react-native-builder-bob": "^0.18.0",
-    "react-native-macos": "^0.68.0",
+    "react-native-codegen": "^0.71.5",
+    "react-native-macos": "^0.71.11",
     "react-native-test-app": "^2.3.10",
     "react-native-web": "^0.17.0",
     "react-native-windows": "^0.71.0",
@@ -195,9 +198,9 @@
     ]
   },
   "codegenConfig": {
-    "name": "rnasyncstorage",
+    "name": "tmSpecs",
     "type": "modules",
-    "jsSrcsDir": "./src",
+    "jsSrcsDir": "src",
     "android": {
       "javaPackageName": "com.reactnativecommunity.asyncstorage"
     }

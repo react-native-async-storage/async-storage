@@ -11,7 +11,7 @@
 #import <React/RCTInvalidating.h>
 
 #ifdef RCT_NEW_ARCH_ENABLED
-#import <rnasyncstorage/rnasyncstorage.h>
+#import <tmSpecs/tmSpecs.h>
 #endif
 
 #import "RNCAsyncStorageDelegate.h"

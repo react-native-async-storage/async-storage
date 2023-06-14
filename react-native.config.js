@@ -2,14 +2,12 @@ const project = (() => {
   const path = require('path');
   try {
     const { configureProjects } = require('react-native-test-app');
-    const iosProject = iosProjectPath('ios');
     return configureProjects({
       android: {
         sourceDir: path.join('example', 'android'),
       },
       ios: {
-        sourceDir: 'example/ios',
-        ...(iosProject ? { project: iosProject } : undefined),
+        sourceDir: path.join('example', 'ios'),
       },
       windows: {
         sourceDir: path.join('example', 'windows'),
