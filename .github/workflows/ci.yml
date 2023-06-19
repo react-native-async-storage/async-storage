@@ -8,6 +8,9 @@ jobs:
   review:
     name: Review
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test-name: [lint, ts]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -17,14 +20,9 @@ jobs:
           node-version: 16
           cache: yarn
       - name: Install JS dependencies
-        run: |
-          yarn
-      - name: Lint
-        run: |
-          yarn test:lint
-      - name: TypeScript
-        run: |
-          yarn test:ts
+        run: yarn
+      - name: Run test ${{ matrix.test-name }}
+        run: yarn test:${{ matrix.test-name }}
   android:
     name: Android
     runs-on: ubuntu-22.04
@@ -147,6 +145,7 @@ jobs:
   release:
     name: Release
     needs: [review, android, ios, macos, windows]
+    if: github.event_name == 'push'
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
