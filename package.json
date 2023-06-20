@@ -43,9 +43,9 @@
     "prepare": "bob build",
     "start": "react-native start",
     "start:android": "react-native run-android",
-    "start:ios": "react-native run-ios --project-path example/ios",
+    "start:ios": "react-native run-ios",
     "start:macos": "react-native run-macos --project-path example/macos --scheme AsyncStorageExample",
-    "start:web": "expo start:web",
+    "start:web": "expo start --web",
     "start:windows": "install-windows-test-app -p example/windows && react-native run-windows --root example --logging --no-packager --no-telemetry",
     "build:e2e:android": "scripts/android_e2e.sh 'build'",
     "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
@@ -56,8 +56,8 @@
     "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
     "test:lint": "eslint src/**/*.ts example/**/*.ts jest/*.js",
     "test:ts": "tsc --project tsconfig.all.json",
-    "test:e2e:android": "detox test -c android.emu.release --maxConcurrency 1",
-    "test:e2e:ios": "detox test -c ios.sim.release --maxConcurrency 1",
+    "test:e2e:android": "scripts/android_e2e.sh 'test'",
+    "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
   },
   "dependencies": {
@@ -75,33 +75,38 @@
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
     "@types/lodash": "^4.14.184",
-    "@types/react": "^17.0.0",
-    "@types/react-native": "^0.68.0",
+    "@types/react": "^18.0.0",
     "concurrently": "^6.4.0",
-    "detox": "^19.4.5",
     "eslint": "^8.0.0",
-    "expo": "^45.0.0",
-    "jest": "^26.6.3",
-    "jest-circus": "^26.6.1",
+    "expo": "^48.0.0",
+    "jest": "^29.2.1",
+    "jest-circus": "^29.2.1",
     "lodash": "^4.17.21",
     "prettier": "^2.5.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.71.10",
+    "react-dom": "^18.2.0",
+    "react-native": "^0.71.0",
     "react-native-builder-bob": "^0.18.0",
     "react-native-codegen": "^0.71.5",
-    "react-native-macos": "^0.71.11",
-    "react-native-test-app": "^2.3.10",
-    "react-native-web": "^0.17.0",
+    "react-native-macos": "^0.71.0",
+    "react-native-test-app": "^2.2.1",
+    "react-native-web": "~0.18.10",
     "react-native-windows": "^0.71.0",
-    "react-test-renderer": "17.0.2",
+    "react-test-renderer": "18.2.0",
     "semantic-release": "^19.0.0",
-    "typescript": "^4.5.0"
+    "typescript": "^4.9.4"
   },
   "packageManager": "yarn@3.4.1",
   "resolutions": {
+    "@react-native-community/cli": "^10.2.5",
+    "@react-native-community/cli-platform-android": "^10.2.0",
+    "@react-native-community/cli-platform-ios": "^10.2.5",
     "body-parser/qs": "^6.7.3",
     "find-babel-config/json5": "^2.1.1",
+    "metro-react-native-babel-preset": "^0.73.10",
+    "metro-react-native-babel-transformer": "^0.73.10",
+    "metro-runtime": "^0.73.10",
+    "metro-source-map": "^0.73.10",
     "npm/chalk": "^4.1.2"
   },
   "jest": {
@@ -109,41 +114,6 @@
     "setupFiles": [
       "./example/jest.setup.js"
     ]
-  },
-  "detox": {
-    "test-runner": "jest",
-    "runner-config": "example/e2e/config.json",
-    "configurations": {
-      "ios.sim.release": {
-        "binaryPath": "example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app",
-        "type": "ios.simulator",
-        "device": {
-          "type": "iPhone 13"
-        }
-      },
-      "android.emu.release": {
-        "binaryPath": "example/android/app/build/outputs/apk/release/app-release.apk",
-        "testBinaryPath": "example/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk",
-        "type": "android.emulator",
-        "device": {
-          "avdName": "E2E_API_30",
-          "utilBinaryPaths": [
-            "/var/tmp/test-butler.apk"
-          ]
-        }
-      },
-      "android.emu.release.next": {
-        "binaryPath": "example/android/app/build/outputs/apk/next/app-next.apk",
-        "testBinaryPath": "example/android/app/build/outputs/apk/androidTest/release/app-release-androidTest.apk",
-        "type": "android.emulator",
-        "device": {
-          "avdName": "E2E_API_30",
-          "utilBinaryPaths": [
-            "/var/tmp/test-butler.apk"
-          ]
-        }
-      }
-    }
   },
   "eslintConfig": {
     "extends": [

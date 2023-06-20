@@ -64,13 +64,6 @@ allprojects {
         }
     }
 
-    repositories {
-        maven {
-            url("$rootDir/../../node_modules/detox/Detox-android")
-        }
-        mavenCentral()
-        google()
-    }
     afterEvaluate { project ->
         def androidExtension = project.extensions.findByName('android')
 
@@ -100,13 +93,8 @@ allprojects {
             }
             androidExtension.testBuildType = 'release'
             androidExtension.sourceSets.androidTest.java.srcDirs += "$rootDir/app/src/androidTest/java"
-            if(System.getenv("CIRCLECI") == "true") {
-                // explicitly apply NDK version available in CI image
-                androidExtension.ndkVersion = "20.1.5948944"
-            }
-            project.dependencies {
-                androidTestImplementation('com.wix:detox:+')
 
+            project.dependencies {
                 def hermesDir = file('../../node_modules/hermes-engine/android').absolutePath
                 nextImplementation files("$hermesDir/hermes-release.aar")
             }

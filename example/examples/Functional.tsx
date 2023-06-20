@@ -80,15 +80,15 @@ async function execute(steps: TestStep[]): Promise<void> {
 function Functional(): JSX.Element {
   const [results, setResults] = useState<[string, TestResult?][]>([]);
   useEffect(() => {
-    const results: [string, TestResult?][] = [];
+    const testResults: [string, TestResult?][] = [];
     Promise.resolve()
       .then(async () => {
         for (const [name, test] of Object.entries(tests)) {
           try {
             await execute(test);
-            results.push([name, undefined]);
+            testResults.push([name, undefined]);
           } catch (e: any) {
-            results.push([name, e]);
+            testResults.push([name, e]);
           }
         }
       })
@@ -100,7 +100,7 @@ function Functional(): JSX.Element {
           const name = currentName + ' with delegate';
 
           if (!AsyncStorageTestSupport?.test_setDelegate) {
-            results.push([name, SKIP_TEST]);
+            testResults.push([name, SKIP_TEST]);
             continue;
           }
 
@@ -108,7 +108,7 @@ function Functional(): JSX.Element {
             AsyncStorageTestSupport.test_setDelegate(resolve);
           });
           if (!isNativeDelegateSet) {
-            results.push([
+            testResults.push([
               name,
               {
                 step: 0,
@@ -121,19 +121,19 @@ function Functional(): JSX.Element {
 
           try {
             await execute(test);
-            results.push([name, undefined]);
+            testResults.push([name, undefined]);
           } catch (e: any) {
-            results.push([name, e]);
+            testResults.push([name, e]);
             await new Promise((resolve) => {
               AsyncStorageTestSupport.test_unsetDelegate(resolve);
             });
           }
         }
       })
-      .then(() => setResults(results));
+      .then(() => setResults(testResults));
   }, []);
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View>
         {results.map(([name, result]) => {
           const testID = 'test:' + name;
@@ -141,7 +141,11 @@ function Functional(): JSX.Element {
             return (
               <View key={name} style={styles.passed}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text accessibilityLabel="Pass" testID={testID}>
+                <Text
+                  accessibilityLabel="Pass"
+                  testID={testID}
+                  style={styles.testResult}
+                >
                   Pass
                 </Text>
               </View>
@@ -152,7 +156,11 @@ function Functional(): JSX.Element {
             return (
               <View key={name} style={styles.skipped}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text accessibilityLabel="Skip" testID={testID}>
+                <Text
+                  accessibilityLabel="Skip"
+                  testID={testID}
+                  style={styles.testResult}
+                >
                   Skip
                 </Text>
               </View>
@@ -163,9 +171,15 @@ function Functional(): JSX.Element {
             <View key={name} style={styles.failed}>
               <Text style={styles.testLabel}>{name}</Text>
               <View accessibilityLabel="Fail" testID={testID}>
-                <Text>{`Step: ${result.step + 1}`}</Text>
-                <Text>{`Expected: ${stringify(result.expected)}`}</Text>
-                <Text>{`Actual: ${result.actual}`}</Text>
+                <Text style={styles.testResult}>{`Step: ${
+                  result.step + 1
+                }`}</Text>
+                <Text style={styles.testResult}>{`Expected: ${stringify(
+                  result.expected
+                )}`}</Text>
+                <Text
+                  style={styles.testResult}
+                >{`Actual: ${result.actual}`}</Text>
               </View>
             </View>
           );
@@ -176,6 +190,9 @@ function Functional(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+  },
   failed: {
     backgroundColor: '#e53935',
     flex: 1,
@@ -193,7 +210,11 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   testLabel: {
+    color: '#000000',
     flex: 1,
+  },
+  testResult: {
+    color: '#000000',
   },
 });
 

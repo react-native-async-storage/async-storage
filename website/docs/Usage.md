@@ -4,10 +4,10 @@ title: Usage
 sidebar_label: Usage
 ---
 
-
-**Async Storage** can only store `string` data, so in order to store object data you need to serialize it first. 
-For data that can be serialized to JSON you can use `JSON.stringify()` when saving the data and `JSON.parse()` when loading the data.
-
+**Async Storage** can only store `string` data. In order to store object data,
+you need to serialize it first. For data that can be serialized to JSON, you can
+use `JSON.stringify()` when saving the data and `JSON.parse()` when loading the
+data.
 
 ### Importing
 
@@ -17,67 +17,67 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 ### Storing data
 
-`setItem()` is used both to add new data item (when no data for given key exists), and to modify existing item (when previous data for given key exists).
+`setItem()` is used both to add new data item (when no data for given key
+exists), and to modify existing item (when previous data for given key exists).
 
 #### Storing string value
+
 ```jsx
 const storeData = async (value) => {
   try {
-    await AsyncStorage.setItem('@storage_Key', value)
+    await AsyncStorage.setItem('my-key', value);
   } catch (e) {
     // saving error
   }
-}
+};
 ```
 
 #### Storing object value
+
 ```jsx
 const storeData = async (value) => {
   try {
-    const jsonValue = JSON.stringify(value)
-    await AsyncStorage.setItem('@storage_Key', jsonValue)
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('my-key', jsonValue);
   } catch (e) {
     // saving error
   }
-}
+};
 ```
 
 ### Reading data
 
-`getItem` returns a promise that either resolves to stored value when data is found for given key, or returns `null` otherwise.  
+`getItem` returns a promise that either resolves to stored value when data is
+found for given key, or returns `null` otherwise.
 
 #### Reading string value
-```jsx
 
+```jsx
 const getData = async () => {
   try {
-    const value = await AsyncStorage.getItem('@storage_Key')
-    if(value !== null) {
+    const value = await AsyncStorage.getItem('my-key');
+    if (value !== null) {
       // value previously stored
     }
-  } catch(e) {
+  } catch (e) {
     // error reading value
   }
-}
-
+};
 ```
-#### Reading object value 
+
+#### Reading object value
 
 ```jsx
-
 const getData = async () => {
   try {
-    const jsonValue = await AsyncStorage.getItem('@storage_Key')
+    const jsonValue = await AsyncStorage.getItem('my-key');
     return jsonValue != null ? JSON.parse(jsonValue) : null;
-  } catch(e) {
+  } catch (e) {
     // error reading value
   }
-}
-
+};
 ```
-
 
 ### More
 
 For more examples, [head over to API section.](API.md)
-
