@@ -7,7 +7,7 @@ EXTRA_PACKAGER_ARGS="--entry-file=$ENTRY_FILE"
 SIMULATOR_NAME="iPhone 14"
 
 build_project() {
-  echo "[Detox e2e] Building iOS project"
+  echo "[iOS E2E] Building iOS project"
   eval "xcodebuild \
     -workspace example/ios/AsyncStorageExample.xcworkspace \
     -scheme ReactTestApp \
@@ -34,13 +34,13 @@ run_simulator() {
   IFS='*' read -a deviceInfo <<< "$availableDevices"
 
   if [[ $deviceInfo == "" ]]; then
-    echo "[Detox e2e] Could not find device: $SIMULATOR_NAME" >&2
+    echo "[iOS E2E] Could not find device: $SIMULATOR_NAME" >&2
     exit;
   fi
 
   deviceUUID=${deviceInfo[1]}
 
-  echo "[Detox e2e] Booting up $SIMULATOR_NAME (id: $deviceUUID)"
+  echo "[iOS E2E] Booting up $SIMULATOR_NAME (id: $deviceUUID)"
 
   # Booting emulator in headless mode
   eval "open $devDir --args -CurrentDeviceUDID $deviceUUID"
@@ -51,7 +51,7 @@ run_simulator() {
 bundle_js() {
   extraArgs="$@"
   echo
-  echo "[Detox e2e] Bundling JS"
+  echo "[iOS E2E] Bundling JS"
   react-native bundle --entry-file index.ts --platform ios --bundle-output example/index.ios.jsbundle $extraArgs
 }
 
