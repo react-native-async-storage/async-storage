@@ -5,9 +5,9 @@ workspace 'AsyncStorageExample.xcworkspace'
 use_flipper! false
 
 options = {
-  :fabric_enabled => true,
+  :fabric_enabled => false,
   :hermes_enabled => false,
-  :turbomodule_enabled => true,
+  :turbomodule_enabled => false,
 }
 
 use_test_app! options do |target|
