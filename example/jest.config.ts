@@ -7,7 +7,7 @@ const config: JestConfig = {
   bail: 0,
   rootDir: '..',
   setupFilesAfterEnv: ['./example/jest.setup.ts'],
-  testMatch: ['**/?(*.)e2e.ts(x)?'],
+  testMatch: ['**/?(*.)spec.ts(x)?'],
   moduleNameMapper: {
     '^uuid$': '<rootDir>/node_modules/uuid/wrapper.mjs',
   },

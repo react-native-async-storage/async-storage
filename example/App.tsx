@@ -71,7 +71,7 @@ export default function App(): JSX.Element {
       <View style={styles.testPickerContainer}>{navigationBar}</View>
 
       <View
-        testID={`${currentTest.testId}-view`}
+        accessibilityLabel={`${currentTest.testId}-view`}
         key={currentTest.title + iteration}
         style={styles.exampleContainer}
       >

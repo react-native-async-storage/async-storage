@@ -141,11 +141,7 @@ function Functional(): JSX.Element {
             return (
               <View key={name} style={styles.passed}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text
-                  accessibilityLabel="Pass"
-                  testID={testID}
-                  style={styles.testResult}
-                >
+                <Text accessibilityLabel={testID} style={styles.testResult}>
                   Pass
                 </Text>
               </View>
@@ -156,11 +152,7 @@ function Functional(): JSX.Element {
             return (
               <View key={name} style={styles.skipped}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text
-                  accessibilityLabel="Skip"
-                  testID={testID}
-                  style={styles.testResult}
-                >
+                <Text accessibilityLabel={testID} style={styles.testResult}>
                   Skip
                 </Text>
               </View>
@@ -170,7 +162,7 @@ function Functional(): JSX.Element {
           return (
             <View key={name} style={styles.failed}>
               <Text style={styles.testLabel}>{name}</Text>
-              <View accessibilityLabel="Fail" testID={testID}>
+              <View accessibilityLabelledBy="Fail" accessibilityLabel={testID}>
                 <Text style={styles.testResult}>{`Step: ${
                   result.step + 1
                 }`}</Text>
