@@ -67,10 +67,8 @@
     "react-native": "^0.0.0-0 || 0.60 - 0.72 || 1000.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.0",
-    "@babel/preset-env": "^7.1.6",
-    "@babel/preset-react": "^7.22.5",
-    "@react-native-community/cli": "^11.3.2",
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
     "@react-native-community/eslint-config": "^3.0.0",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
