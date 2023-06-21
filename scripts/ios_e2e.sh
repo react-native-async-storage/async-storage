@@ -55,6 +55,27 @@ bundle_js() {
   react-native bundle --entry-file index.ts --platform ios --bundle-output example/index.ios.jsbundle $extraArgs
 }
 
+assert_appium_server_running() {
+  RES=$(curl -Is "http://0.0.0.0:4723/status" | grep HTTP | cut -d ' ' -f2)
+
+  if [ "$RES" != "200" ]; then
+    echo "[iOS E2E] Appium server not running! Try starting it:"
+    echo
+    echo "yarn appium --config example/appium.config.js"
+    echo
+    exit 2
+  fi;
+}
+
+run_e2e_test() {
+  export NODE_OPTIONS=--experimental-vm-modules
+  export E2E_PLATFORM=ios
+  assert_appium_server_running
+
+  echo "[iOS E2E] Running tests"
+  jest --config example/jest.config.ts --roots=$PWD
+}
+
 
 case $1 in
   build)
@@ -65,6 +86,9 @@ case $1 in
     ;;
   bundle)
     shift; bundle_js $@
+    ;;
+  test)
+    run_e2e_test
     ;;
   *)
     echo -n "Unknown argument: $1"

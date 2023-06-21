@@ -162,7 +162,7 @@ function Functional(): JSX.Element {
           return (
             <View key={name} style={styles.failed}>
               <Text style={styles.testLabel}>{name}</Text>
-              <View accessibilityLabelledBy="Fail" accessibilityLabel={testID}>
+              <View>
                 <Text style={styles.testResult}>{`Step: ${
                   result.step + 1
                 }`}</Text>

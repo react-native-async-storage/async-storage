@@ -11,7 +11,14 @@ const Capabilities = {
     'appium:automationName': 'UiAutomator2',
     'appium:newCommandTimeout': 240,
   },
-  ios: {},
+  ios: {
+    platformName: 'iOS',
+    'appium:platformVersion': '16.4',
+    'appium:deviceName': 'iPhone 14',
+    'appium:automationName': 'XCUITest',
+    'appium:app':
+      'example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app',
+  },
 };
 
 let client: WebdriverIO.Browser;

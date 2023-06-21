@@ -85,8 +85,6 @@ allprojects {
                     matchingFallbacks = ["debug", "release"]
                 }
             }
-            androidExtension.testBuildType = 'release'
-            androidExtension.sourceSets.androidTest.java.srcDirs += "$rootDir/app/src/androidTest/java"
 
             project.dependencies {
                 def hermesDir = file('../../node_modules/hermes-engine/android').absolutePath

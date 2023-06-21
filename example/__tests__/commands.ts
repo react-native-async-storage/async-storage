@@ -1,6 +1,6 @@
 import { e2e } from '../jest.setup';
 
-const testAppId = 'com.microsoft.reacttestapp';
+const testAppId = 'com.microsoft.ReactTestApp';
 
 export const commands = {
   restartApp: async () => {
@@ -8,5 +8,4 @@ export const commands = {
     await e2e.activateApp(testAppId);
   },
   elementByLabel: async (id: string) => await e2e.$(`~${id}`),
-  elementByLabelBy: async (id: string) => await e2e.$(`aria/${id}`),
 };
