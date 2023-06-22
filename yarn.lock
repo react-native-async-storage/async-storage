@@ -2869,7 +2869,7 @@ __metadata:
     react-native: ^0.71.0
     react-native-builder-bob: ^0.18.0
     react-native-macos: ^0.71.0
-    react-native-test-app: ^2.2.1
+    react-native-test-app: ^2.5.8
     react-native-web: ~0.18.10
     react-native-windows: ^0.71.0
     react-test-renderer: 18.2.0
@@ -3216,7 +3216,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnx-kit/react-native-host@npm:^0.2.6":
+"@rnx-kit/react-native-host@npm:^0.2.7":
   version: 0.2.7
   resolution: "@rnx-kit/react-native-host@npm:0.2.7"
   peerDependencies:
@@ -12349,11 +12349,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-test-app@npm:^2.2.1":
-  version: 2.5.5
-  resolution: "react-native-test-app@npm:2.5.5"
+"react-native-test-app@npm:^2.5.8":
+  version: 2.5.8
+  resolution: "react-native-test-app@npm:2.5.8"
   dependencies:
-    "@rnx-kit/react-native-host": ^0.2.6
+    "@rnx-kit/react-native-host": ^0.2.7
     ajv: ^8.0.0
     chalk: ^4.1.0
     cliui: ^8.0.0
@@ -12392,7 +12392,7 @@ __metadata:
     init: scripts/init.js
     init-test-app: scripts/init.js
     install-windows-test-app: windows/test-app.js
-  checksum: c99d12198edd7f9bf8ac4884de9257542ca4b744e229fb0adcc3e11c4a4a87b7977e1b6bdd0df1836667765b8d02566369522deae9b2c1b792d0940e72fbc360
+  checksum: f23c468daf2b388b84fc6650c569b3661907680da63ce4be1a2c8d5220ea4cb12aca3add13a1ccba77d98251e62a853cade0ff8acf2eb0bcda50e3e819e7dbbf
   languageName: node
   linkType: hard
 
