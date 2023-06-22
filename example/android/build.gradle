@@ -64,6 +64,7 @@ allprojects {
         if(androidExtension != null && project.name == 'app') {
             // android extension from test-app pacakge
             androidExtension.defaultConfig {
+                applicationId 'com.microsoft.ReactTestApp'
                 ndk {
                     abiFilters 'arm64-v8a', 'x86', 'x86_64'
                 }

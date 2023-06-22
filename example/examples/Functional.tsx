@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import {
   NativeModules,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -77,6 +78,16 @@ async function execute(steps: TestStep[]): Promise<void> {
   }
 }
 
+const testProp = (id: string) =>
+  Platform.select({
+    android: {
+      accessibilityLabel: id,
+    },
+    ios: {
+      testID: id,
+    },
+  });
+
 function Functional(): JSX.Element {
   const [results, setResults] = useState<[string, TestResult?][]>([]);
   useEffect(() => {
@@ -141,7 +152,7 @@ function Functional(): JSX.Element {
             return (
               <View key={name} style={styles.passed}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text accessibilityLabel={testID} style={styles.testResult}>
+                <Text {...testProp(testID)} style={styles.testResult}>
                   Pass
                 </Text>
               </View>
@@ -152,7 +163,7 @@ function Functional(): JSX.Element {
             return (
               <View key={name} style={styles.skipped}>
                 <Text style={styles.testLabel}>{name}</Text>
-                <Text accessibilityLabel={testID} style={styles.testResult}>
+                <Text {...testProp(testID)} style={styles.testResult}>
                   Skip
                 </Text>
               </View>
@@ -161,7 +172,9 @@ function Functional(): JSX.Element {
 
           return (
             <View key={name} style={styles.failed}>
-              <Text style={styles.testLabel}>{name}</Text>
+              <Text {...testProp(testID)} style={styles.testLabel}>
+                {name}
+              </Text>
               <View>
                 <Text style={styles.testResult}>{`Step: ${
                   result.step + 1

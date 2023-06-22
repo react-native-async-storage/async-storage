@@ -10,6 +10,8 @@ const Capabilities = {
       'example/android/app/build/outputs/apk/release/app-release.apk',
     'appium:automationName': 'UiAutomator2',
     'appium:newCommandTimeout': 240,
+    'appium:appWaitActivity':
+      'com.microsoft.reacttestapp.component.ComponentActivity',
   },
   ios: {
     platformName: 'iOS',
