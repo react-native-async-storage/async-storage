@@ -87,7 +87,7 @@
     "react-native-builder-bob": "^0.18.0",
     "react-native-codegen": "^0.71.5",
     "react-native-macos": "^0.71.0",
-    "react-native-test-app": "^2.2.1",
+    "react-native-test-app": "^2.5.8",
     "react-native-web": "~0.18.10",
     "react-native-windows": "^0.71.0",
     "react-test-renderer": "18.2.0",
