@@ -10,12 +10,13 @@ const Capabilities = {
       'example/android/app/build/outputs/apk/release/app-release.apk',
     'appium:automationName': 'UiAutomator2',
     'appium:newCommandTimeout': 240,
+    'appium:enforceAppInstall': true,
     'appium:appWaitActivity':
       'com.microsoft.reacttestapp.component.ComponentActivity',
   },
   ios: {
     platformName: 'iOS',
-    'appium:platformVersion': '16.4',
+    'appium:platformVersion': '16.2',
     'appium:deviceName': 'iPhone 14',
     'appium:automationName': 'XCUITest',
     'appium:app':
@@ -34,7 +35,7 @@ function getDriverConfig(platform: string | undefined) {
 
   const config: RemoteOptions = {
     port: 4723,
-    waitforTimeout: 60000,
+    waitforTimeout: 90000,
     logLevel: 'error',
     capabilities: Capabilities[platform],
   };

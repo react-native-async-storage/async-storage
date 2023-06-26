@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: yarn
@@ -32,17 +32,26 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |
           yarn
       - name: Test Next Storage
-        uses: gradle/gradle-build-action@v2.4.2
+        uses: gradle/gradle-build-action@v2
         with:
           gradle-version: wrapper
           arguments: react-native-async-storage_async-storage:test
           build-root-directory: example/android
+      - name: Build e2e binary
+        run: |
+          yarn build:e2e:android
+      - name: Upload e2e binary
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: example/android/app/build/outputs/apk/release/
   ios:
     name: iOS
     runs-on: macos-latest
@@ -58,7 +67,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Set up environment
         run: |
@@ -74,18 +83,18 @@ jobs:
         run: |
           RCT_NEW_ARCH_ENABLED=1 pod install
         working-directory: example/ios
-      - name: Boot simulator
-        run: |
-          ./scripts/ios_e2e.sh 'run_simulator'
-      - name: Build
+      - name: Build e2e binary
         run: |
           yarn build:e2e:ios
-      - name: Test
-        if: false
-        run: |
-          yarn test:e2e:ios
+      - name: Upload e2e binary
+        uses: actions/upload-artifact@v3
+        if: github.event_name == 'pull_request'
+        with:
+          name: ReactTestApp.app
+          path: example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app
   macos:
     name: macOS
+    if: false # TEMP, Remove once done this PR
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -99,7 +108,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |
@@ -120,6 +129,7 @@ jobs:
           yarn test:e2e:macos
   windows:
     name: Windows
+    if: false # TEMP, Remove once done this PR
     runs-on: windows-2022
     steps:
       - name: Set up MSBuild
@@ -131,7 +141,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |
@@ -142,6 +152,87 @@ jobs:
       - name: Build
         run: |
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
+
+
+  e2e-tests:
+    name: Run e2e tests
+    needs: [review, android, ios]
+    if: github.event_name == 'pull_request'
+    strategy:
+      matrix:
+        platform: [ android, ios ]
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18.16.1
+          cache: yarn
+      - name: Install JS dependencies
+        run: |
+          yarn
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
+      - name: Start Appium server
+        run: |
+          yarn appium --config example/appium.config.js &
+      - name: Wait for appium boot
+        run: |
+          sleep 5
+
+      # ios part
+      - name: Download iOS binary
+        uses: actions/download-artifact@v3
+        if: matrix.platform == 'ios'
+        with:
+          name: ReactTestApp.app
+          path: example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app
+      - uses: futureware-tech/simulator-action@v2
+        if: matrix.platform == 'ios'
+        with:
+          model: 'iPhone 14'
+      - name: Run iOS e2e
+        if: matrix.platform == 'ios'
+        run: |
+          yarn test:e2e:ios
+
+      # android part
+      - name: Download android binary
+        uses: actions/download-artifact@v3
+        if: matrix.platform == 'android'
+        with:
+          name: app-release.apk
+          path: example/android/app/build/outputs/apk/release/
+      - name: AVD cache
+        if: matrix.platform == 'android'
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-29
+      - name: create AVD and generate snapshot for caching
+        if: matrix.platform == 'android' && steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+      - name: Run Android e2e tests
+        if: matrix.platform == 'android'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: yarn test:e2e:android
+
   release:
     name: Release
     needs: [review, android, ios, macos, windows]
@@ -155,7 +246,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |

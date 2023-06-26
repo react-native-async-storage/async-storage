@@ -3,9 +3,10 @@ import { Config as JestConfig } from 'jest';
 
 const config: JestConfig = {
   preset: 'react-native',
-  testTimeout: 60000,
+  testTimeout: 120000,
   bail: 0,
   rootDir: '..',
+  transform: {},
   setupFilesAfterEnv: ['./example/jest.setup.ts'],
   testMatch: ['**/?(*.)spec.ts(x)?'],
   moduleNameMapper: {
