@@ -81,9 +81,11 @@ async function execute(steps: TestStep[]): Promise<void> {
 const testProp = (id: string) =>
   Platform.select({
     android: {
+      accessible: true,
       accessibilityLabel: id,
     },
     ios: {
+      accessible: false,
       testID: id,
     },
   });

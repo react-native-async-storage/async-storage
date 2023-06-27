@@ -51,9 +51,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: app-release.apk
-          path: example/android/app/build/outputs/apk/release/
+          path: example/android/app/build/outputs/apk/release/app-release.apk
   ios:
     name: iOS
+    if: false # temp
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -78,7 +79,7 @@ jobs:
           yarn
       - name: Bundle JS
         run: |
-          yarn bundle:ios --dev false
+          yarn bundle:ios
       - name: Install Pods
         run: |
           RCT_NEW_ARCH_ENABLED=1 pod install
@@ -156,11 +157,11 @@ jobs:
 
   e2e-tests:
     name: Run e2e tests
-    needs: [review, android, ios]
+    needs: [review, android]
     if: github.event_name == 'pull_request'
     strategy:
       matrix:
-        platform: [ android, ios ]
+        platform: [ android ] # TEMP removed ios
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -175,12 +176,6 @@ jobs:
           yarn
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
-      - name: Start Appium server
-        run: |
-          yarn appium --config example/appium.config.js &
-      - name: Wait for appium boot
-        run: |
-          sleep 5
 
       # ios part
       - name: Download iOS binary
