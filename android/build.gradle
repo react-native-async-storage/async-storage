@@ -126,7 +126,7 @@ android {
             }
 
             if (!isNewArchitectureEnabled()) {
-                srcDirs += 'src/paper/java'
+                srcDirs += 'src/oldarch/java'
             }
         }
     }
