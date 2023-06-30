@@ -19,7 +19,7 @@ import com.reactnativecommunity.asyncstorage.next.StorageModule
         StorageModule::class
     ]
 )
-class AsyncStoragePackage : TurboReactPackage(), ViewManagerOnDemandReactPackage {
+class AsyncStoragePackage : TurboReactPackage() {
     override fun getModule(name: String, context: ReactApplicationContext): NativeModule? = when (name) {
         StorageModule.NAME -> StorageModule(context)
         else -> null
@@ -54,12 +54,5 @@ class AsyncStoragePackage : TurboReactPackage(), ViewManagerOnDemandReactPackage
         }
     }
 
-    override fun getViewManagerNames(ctx: ReactApplicationContext?): MutableList<String>? = null
-
     override fun getViewManagers(reactContext: ReactApplicationContext?): MutableList<ModuleSpec>? = null
-
-    override fun createViewManager(
-        ctx: ReactApplicationContext?,
-        viewManagerName: String?
-    ): ViewManager<*, out ReactShadowNode<*>>? = null
 }

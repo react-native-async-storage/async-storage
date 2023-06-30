@@ -32,21 +32,10 @@ import javax.annotation.Nullable;
                 AsyncStorageModule.class,
         }
 )
-public class AsyncStoragePackage extends TurboReactPackage implements ViewManagerOnDemandReactPackage {
-
-    @Override
-    public List<String> getViewManagerNames(ReactApplicationContext reactContext) {
-        return null;
-    }
+public class AsyncStoragePackage extends TurboReactPackage {
 
     @Override
     protected List<ModuleSpec> getViewManagers(ReactApplicationContext reactContext) {
-        return null;
-    }
-
-    @Override
-    public @Nullable ViewManager createViewManager(
-            ReactApplicationContext reactContext, String viewManagerName) {
         return null;
     }
 
