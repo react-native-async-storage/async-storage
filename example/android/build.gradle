@@ -28,7 +28,6 @@ task fetchDependencies() {
 buildscript {
     def androidTestAppDir = "../../node_modules/react-native-test-app/android"
     apply from: "$androidTestAppDir/dependencies.gradle"
-    apply from: "${androidTestAppDir}/test-app-util.gradle"
 
     // Mainly for Detox testing for using Next Storage
     // when building next, force using next storage

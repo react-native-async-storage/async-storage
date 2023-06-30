@@ -72,7 +72,7 @@ jobs:
           yarn bundle:ios --dev false
       - name: Install Pods
         run: |
-          pod install
+          RCT_NEW_ARCH_ENABLED=1 pod install
         working-directory: example/ios
       - name: Boot simulator
         run: |
@@ -109,7 +109,7 @@ jobs:
           yarn bundle:macos
       - name: Install Pods
         run: |
-          pod install
+          RCT_NEW_ARCH_ENABLED=1 pod install
         working-directory: example/macos
       - name: Build
         run: |
