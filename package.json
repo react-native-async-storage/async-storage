@@ -67,8 +67,8 @@
     "react-native": "^0.0.0-0 || 0.60 - 0.72 || 1000.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.0",
-    "@babel/preset-env": "^7.1.6",
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
     "@react-native-community/eslint-config": "^3.0.0",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
@@ -85,6 +85,7 @@
     "react-dom": "^18.2.0",
     "react-native": "^0.71.0",
     "react-native-builder-bob": "^0.18.0",
+    "react-native-codegen": "^0.71.5",
     "react-native-macos": "^0.71.0",
     "react-native-test-app": "^2.5.8",
     "react-native-web": "~0.18.10",
@@ -163,5 +164,13 @@
         }
       ]
     ]
+  },
+  "codegenConfig": {
+    "name": "rnasyncstorage",
+    "type": "modules",
+    "jsSrcsDir": "./src",
+    "android": {
+      "javaPackageName": "com.reactnativecommunity.asyncstorage"
+    }
   }
 }

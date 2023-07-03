@@ -34,10 +34,10 @@ import java.util.concurrent.Executors;
 
 @ReactModule(name = AsyncStorageModule.NAME)
 public final class AsyncStorageModule
-    extends ReactContextBaseJavaModule implements ModuleDataCleaner.Cleanable, LifecycleEventListener {
+    extends NativeAsyncStorageModuleSpec implements ModuleDataCleaner.Cleanable, LifecycleEventListener {
 
   // changed name to not conflict with AsyncStorage from RN repo
-  public static final String NAME = "RNC_AsyncSQLiteDBStorage";
+  public static final String NAME = "RNCAsyncStorage";
 
   // SQL variable number limit, defined by SQLITE_LIMIT_VARIABLE_NUMBER:
   // https://raw.githubusercontent.com/android/platform_external_sqlite/master/dist/sqlite3.c
@@ -110,6 +110,7 @@ public final class AsyncStorageModule
    * (key, null) for the keys that haven't been found.
    */
   @ReactMethod
+  @Override
   public void multiGet(final ReadableArray keys, final Callback callback) {
     if (keys == null) {
       callback.invoke(AsyncStorageErrorUtil.getInvalidKeyError(null), null);
@@ -183,6 +184,7 @@ public final class AsyncStorageModule
    * The insertion will replace conflicting (key, value) pairs.
    */
   @ReactMethod
+  @Override
   public void multiSet(final ReadableArray keyValueArray, final Callback callback) {
     if (keyValueArray.size() == 0) {
       callback.invoke();
@@ -248,6 +250,7 @@ public final class AsyncStorageModule
    * Removes all rows of the keys given.
    */
   @ReactMethod
+  @Override
   public void multiRemove(final ReadableArray keys, final Callback callback) {
     if (keys.size() == 0) {
       callback.invoke();
@@ -300,6 +303,7 @@ public final class AsyncStorageModule
    * of the given keys, if they exist.
    */
   @ReactMethod
+  @Override
   public void multiMerge(final ReadableArray keyValueArray, final Callback callback) {
     new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
       @Override
@@ -362,6 +366,7 @@ public final class AsyncStorageModule
    * Clears the database.
    */
   @ReactMethod
+  @Override
   public void clear(final Callback callback) {
     new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
       @Override
@@ -385,6 +390,7 @@ public final class AsyncStorageModule
    * Returns an array with all keys from the database.
    */
   @ReactMethod
+  @Override
   public void getAllKeys(final Callback callback) {
     new GuardedAsyncTask<Void, Void>(getReactApplicationContext()) {
       @Override

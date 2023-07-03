@@ -50,6 +50,14 @@ buildscript {
 }
 
 allprojects {
+    // TODO: remove when https://github.com/facebook/react-native/issues/35495 is fixed
+    project.pluginManager.withPlugin("com.facebook.react") {
+        react {
+            reactNativeDir = rootProject.file("../../node_modules/react-native/")
+            codegenDir = rootProject.file("../../node_modules/react-native-codegen/")
+        }
+    }
+
     afterEvaluate { project ->
         def androidExtension = project.extensions.findByName('android')
 
