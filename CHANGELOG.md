@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/react-native-async-storage/async-storage/compare/v1.18.2...v1.19.0) (2023-07-03)
+
+
+### Features
+
+* add TurboModule support ([#910](https://github.com/react-native-async-storage/async-storage/issues/910)) ([86a7e90](https://github.com/react-native-async-storage/async-storage/commit/86a7e9021c99d5f96c5a67ae7b4692f48874c240))
+
 ## [1.18.2](https://github.com/react-native-async-storage/async-storage/compare/v1.18.1...v1.18.2) (2023-06-06)
 
 
