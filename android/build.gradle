@@ -86,6 +86,7 @@ if (isNewArchitectureEnabled()) {
 }
 
 android {
+    namespace "com.reactnativecommunity.asyncstorage"
     compileSdkVersion safeExtGet('compileSdkVersion', 32)
     // Used to override the NDK path/version by allowing users to customize
     // the NDK path/version from their root project (e.g. for M1 support)
