@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/react-native-async-storage/async-storage/compare/v1.19.0...v1.19.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* **android:** add required namespace in `build.gradle` ([#991](https://github.com/react-native-async-storage/async-storage/issues/991)) ([ce19249](https://github.com/react-native-async-storage/async-storage/commit/ce19249ca5c2a9ea41464bb430f476b78d3223b4))
+
 # [1.19.0](https://github.com/react-native-async-storage/async-storage/compare/v1.18.2...v1.19.0) (2023-07-03)
 
 
