@@ -27,7 +27,7 @@ asyncStorage.delegate = self;
 
 
 
-## The procotol
+## The protocol
 
 The delegate must conform to the `RNCAsyncStorageDelegate` protocol:
 
