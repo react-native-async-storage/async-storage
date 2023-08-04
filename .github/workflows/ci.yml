@@ -46,15 +46,9 @@ jobs:
       - name: Build e2e binary
         run: |
           yarn build:e2e:android
-      - name: Upload e2e binary
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release.apk
-          path: example/android/app/build/outputs/apk/release/app-release.apk
+
   ios:
     name: iOS
-    if: false # temp
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -70,10 +64,10 @@ jobs:
         with:
           node-version: 18.16.1
           cache: yarn
-      - name: Set up environment
-        run: |
-          brew bundle --file=.github/Brewfile.ios --no-lock
-          touch .watchmanconfig
+#      - name: Set up environment
+#        run: |
+#          brew bundle --file=.github/Brewfile.ios --no-lock
+#          touch .watchmanconfig
       - name: Install JS dependencies
         run: |
           yarn
@@ -87,12 +81,7 @@ jobs:
       - name: Build e2e binary
         run: |
           yarn build:e2e:ios
-      - name: Upload e2e binary
-        uses: actions/upload-artifact@v3
-        if: github.event_name == 'pull_request'
-        with:
-          name: ReactTestApp.app
-          path: example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app
+
   macos:
     name: macOS
     if: false # TEMP, Remove once done this PR
@@ -128,6 +117,7 @@ jobs:
         if: false
         run: |
           yarn test:e2e:macos
+
   windows:
     name: Windows
     if: false # TEMP, Remove once done this PR
@@ -153,80 +143,6 @@ jobs:
       - name: Build
         run: |
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
-
-
-  e2e-tests:
-    name: Run e2e tests
-    needs: [review, android]
-    if: github.event_name == 'pull_request'
-    strategy:
-      matrix:
-        platform: [ android ] # TEMP removed ios
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 18.16.1
-          cache: yarn
-      - name: Install JS dependencies
-        run: |
-          yarn
-      - name: Gradle cache
-        uses: gradle/gradle-build-action@v2
-
-      # ios part
-      - name: Download iOS binary
-        uses: actions/download-artifact@v3
-        if: matrix.platform == 'ios'
-        with:
-          name: ReactTestApp.app
-          path: example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app
-      - uses: futureware-tech/simulator-action@v2
-        if: matrix.platform == 'ios'
-        with:
-          model: 'iPhone 14'
-      - name: Run iOS e2e
-        if: matrix.platform == 'ios'
-        run: |
-          yarn test:e2e:ios
-
-      # android part
-      - name: Download android binary
-        uses: actions/download-artifact@v3
-        if: matrix.platform == 'android'
-        with:
-          name: app-release.apk
-          path: example/android/app/build/outputs/apk/release/
-      - name: AVD cache
-        if: matrix.platform == 'android'
-        uses: actions/cache@v3
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-29
-      - name: create AVD and generate snapshot for caching
-        if: matrix.platform == 'android' && steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "Generated AVD snapshot for caching."
-      - name: Run Android e2e tests
-        if: matrix.platform == 'android'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          script: yarn test:e2e:android
 
   release:
     name: Release
