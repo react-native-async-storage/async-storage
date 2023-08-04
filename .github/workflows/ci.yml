@@ -84,7 +84,6 @@ jobs:
 
   macos:
     name: macOS
-    if: false # TEMP, Remove once done this PR
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -120,7 +119,6 @@ jobs:
 
   windows:
     name: Windows
-    if: false # TEMP, Remove once done this PR
     runs-on: windows-2022
     steps:
       - name: Set up MSBuild
