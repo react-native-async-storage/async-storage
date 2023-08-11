@@ -64,10 +64,6 @@ jobs:
         with:
           node-version: 18.16.1
           cache: yarn
-#      - name: Set up environment
-#        run: |
-#          brew bundle --file=.github/Brewfile.ios --no-lock
-#          touch .watchmanconfig
       - name: Install JS dependencies
         run: |
           yarn
