@@ -24,15 +24,17 @@ if (!RCTAsyncStorage) {
 
 To fix this issue try these steps:
 
-  • Rebuild and restart the app.
+  • Uninstall, rebuild and restart the app.
 
   • Run the packager with \`--reset-cache\` flag.
 
-  • If you are using CocoaPods on iOS, run \`pod install\` in the \`ios\` directory and then rebuild and re-run the app.
+  • If you are using CocoaPods on iOS, run \`pod install\` in the \`ios\` directory, then rebuild and re-run the app.
 
-  • If this happens while testing with Jest, check out docs how to integrate AsyncStorage with it: https://react-native-async-storage.github.io/async-storage/docs/advanced/jest
+  • Make sure your project's \`package.json\` depends on \`@react-native-async-storage/async-storage\`, even if you only depend on it indirectly through other dependencies. CLI only autolinks native modules found in your \`package.json\`.
 
-If none of these fix the issue, please open an issue on the Github repository: https://github.com/react-native-async-storage/async-storage/issues
+  • If this happens while testing with Jest, check out how to integrate AsyncStorage here: https://react-native-async-storage.github.io/async-storage/docs/advanced/jest
+
+If none of these fix the issue, please open an issue on the GitHub repository: https://github.com/react-native-async-storage/async-storage/issues
 `);
 }
 
