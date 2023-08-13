@@ -12,7 +12,7 @@ describe('Async Storage functional tests', () => {
   const testNames = Object.keys(testCases);
   describe('storing / reading values', () => {
     for (const name of testNames) {
-      it(`${name}`, async () => {
+      it(name, async () => {
         const el = await cmd.elementByLabel(`test:${name}`);
         await expect(await el.getText()).toEqual('Pass');
       });
@@ -22,7 +22,7 @@ describe('Async Storage functional tests', () => {
   describe('storing / reading values with delegate', () => {
     for (const currentName of testNames) {
       const name = currentName + ' with delegate';
-      it(`${name}`, async () => {
+      it(name, async () => {
         const el = await cmd.elementByLabel(`test:${name}`);
         const label = await el.getText();
         if (label === 'Skip') {

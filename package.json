@@ -55,7 +55,7 @@
     "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --bundle-output example/index.macos.jsbundle",
     "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
     "test:lint": "eslint src/**/*.ts example/**/*.ts jest/*.js",
-    "test:ts": "tsc --project tsconfig.all.json",
+    "test:ts": "tsc",
     "test:e2e:android": "scripts/android_e2e.sh 'test'",
     "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
@@ -72,7 +72,6 @@
     "@react-native-community/eslint-config": "^3.0.0",
     "@semantic-release/changelog": "^6.0.0",
     "@semantic-release/git": "^10.0.0",
-    "@types/jest": "^29.5.2",
     "@types/lodash": "^4.14.184",
     "@types/mocha": "^10.0.1",
     "@types/react": "^18.0.0",
@@ -125,12 +124,10 @@
     ],
     "extends": [
       "@react-native-community",
-      "plugin:wdio/recommended",
-      "plugin:jest/recommended"
+      "plugin:wdio/recommended"
     ],
     "rules": {
-      "dot-notation": "off",
-      "jest/no-deprecated-functions": "off"
+      "dot-notation": "off"
     }
   },
   "prettier": {
@@ -151,7 +148,12 @@
     "targets": [
       "commonjs",
       "module",
-      "typescript"
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
     ]
   },
   "release": {
