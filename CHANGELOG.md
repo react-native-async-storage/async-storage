@@ -1,3 +1,10 @@
+## [1.19.2](https://github.com/react-native-async-storage/async-storage/compare/v1.19.1...v1.19.2) (2023-08-13)
+
+
+### Bug Fixes
+
+* tell users about how autolinking works ([#1000](https://github.com/react-native-async-storage/async-storage/issues/1000)) ([dc2155a](https://github.com/react-native-async-storage/async-storage/commit/dc2155a01088959bd52711a2a41e2296f5f58ebc))
+
 ## [1.19.1](https://github.com/react-native-async-storage/async-storage/compare/v1.19.0...v1.19.1) (2023-07-19)
 
 
