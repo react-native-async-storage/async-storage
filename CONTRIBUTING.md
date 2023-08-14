@@ -42,7 +42,7 @@ When you're sending a pull request:
 
 ## Commits and versioning
 
-All PRs are squashed into `master` branch and wrapped up in a single commit,
+All PRs are squashed into `main` branch and wrapped up in a single commit,
 following
 [conventional commit message](https://www.conventionalcommits.org/en/v1.0.0-beta.3).
 Combined with [semantic versioning](https://semver.org/), this allows us to have
@@ -66,7 +66,7 @@ Most notably prefixes you'll see:
 ## Release process
 
 We use [Semantic Release](http://semantic-release.org) to automatically release
-new versions of the library when changes are merged into `master` branch, which
+new versions of the library when changes are merged into `main` branch, which
 we plan to keep stable. Bug fixes take priority in the release order.
 
 ## Reporting issues
