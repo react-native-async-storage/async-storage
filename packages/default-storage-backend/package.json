@@ -52,7 +52,7 @@
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
-    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --bundle-output example/index.macos.jsbundle",
+    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output example/index.macos.jsbundle",
     "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
     "test:lint": "eslint src/**/*.ts example/**/*.ts jest/*.js",
     "test:ts": "tsc",
@@ -102,20 +102,6 @@
     "semantic-release": "^19.0.0",
     "typescript": "^4.9.4",
     "webdriverio": "^8.11.2"
-  },
-  "packageManager": "yarn@3.4.1",
-  "resolutions": {
-    "@react-native-community/cli": "^10.2.5",
-    "@react-native-community/cli-platform-android": "^10.2.0",
-    "@react-native-community/cli-platform-ios": "^10.2.5",
-    "body-parser/qs": "^6.7.3",
-    "find-babel-config/json5": "^2.1.1",
-    "metro-react-native-babel-preset": "^0.73.10",
-    "metro-react-native-babel-transformer": "^0.73.10",
-    "metro-runtime": "^0.73.10",
-    "metro-source-map": "^0.73.10",
-    "uuid": "^9.0.0",
-    "ts-node": "^10.9.1"
   },
   "eslintConfig": {
     "root": true,
