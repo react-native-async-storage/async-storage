@@ -1,74 +1,33 @@
 #!/bin/bash
 
-INTERVAL=5 # 5 secs between each check
-MAX_RETRIES=60 # wait max 5 minutes for emu to boot
-
 build_apk() {
   echo
-  echo "[Detox e2e] Building APK"
-  (cd example/android; ./gradlew assembleRelease assembleAndroidTest -PAsyncStorage_useNextStorage=false -DtestBuildType=release --max-workers 2)
+  echo "[Android E2E] Building APK"
+  (cd example/android; ./gradlew assembleRelease -PAsyncStorage_useNextStorage=false --max-workers 2)
 }
 
 bundle_js() {
   extraArgs="$@"
   echo
-  echo "[Detox e2e] Bundling JS"
-  react-native bundle --entry-file index.ts --platform android --bundle-output example/index.android.jsbundle $extraArgs
-}
-
-wait_for_emulator_to_boot() {
-  isBooted=$(adb shell getprop sys.boot_completed 2>&1 | tr -d '\r')
-  retriesLeft=${MAX_RETRIES}
-
-  echo
-  echo "[Detox e2e] Checking if emulator is booted up."
-
-  while [[ "$isBooted" != "1" ]]; do
-
-    if [[ ${retriesLeft} -eq 0 ]]; then
-      echo "[Detox e2e] Seems like emulator could not be booted." 1>&2
-      exit 125
-    fi
-
-    isBooted=$(adb shell getprop sys.boot_completed 2>&1 | tr -d '\r')
-
-    retriesLeft=$((retriesLeft - 1))
-    echo "[Detox e2e] $retriesLeft checks left."
-    sleep ${INTERVAL}
-  done
-
-  echo "[Detox e2e] Emulator booted."
-}
-
-install_test_butler() {
-  apkPath=/var/tmp/test-butler.apk
-
-  if [ -f $apkPath ]; then
-    echo "[Detox e2e] TestButler apk exists, skipping"
-  else
-    curl -o $apkPath "https://repo1.maven.org/maven2/com/linkedin/testbutler/test-butler-app/2.2.1/test-butler-app-2.2.1.apk"
-    echo
-    echo "[Detox e2e] TestButler app saved to $apkPath"
-  fi
+  echo "[Android E2E] Bundling JS"
+  react-native bundle --entry-file index.ts --platform android --bundle-output example/index.android.jsbundle --dev false $extraArgs
 }
 
 
-
-
-
+run_e2e_test() {
+  echo "[Android E2E] Running tests"
+  wdio run example/__tests__/android.conf.ts
+}
 
 case $1 in
-  wait_for_emulator)
-    wait_for_emulator_to_boot
-    ;;
   build)
     build_apk
     ;;
   bundle)
     shift; bundle_js $@
     ;;
-  install_test_butler)
-    install_test_butler
+  test)
+    run_e2e_test
     ;;
   *)
     echo -n "Unknown argument: $1"

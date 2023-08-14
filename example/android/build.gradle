@@ -64,6 +64,7 @@ allprojects {
         if(androidExtension != null && project.name == 'app') {
             // android extension from test-app pacakge
             androidExtension.defaultConfig {
+                applicationId 'com.microsoft.ReactTestApp'
                 ndk {
                     abiFilters 'arm64-v8a', 'x86', 'x86_64'
                 }
@@ -85,8 +86,6 @@ allprojects {
                     matchingFallbacks = ["debug", "release"]
                 }
             }
-            androidExtension.testBuildType = 'release'
-            androidExtension.sourceSets.androidTest.java.srcDirs += "$rootDir/app/src/androidTest/java"
 
             project.dependencies {
                 def hermesDir = file('../../node_modules/hermes-engine/android').absolutePath

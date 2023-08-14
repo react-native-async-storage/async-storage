@@ -17,6 +17,28 @@ An asynchronous, unencrypted, persistent, key-value storage system for React Nat
 Head over to [documentation](https://react-native-async-storage.github.io/async-storage/docs/install) to learn more.
 
 
+## Running E2E locally
+
+### Android
+
+1. Create and start Android Emulator with Play services, API level 29
+2. Build app and run tests
+    ```shell
+    yarn bundle:android
+    yarn build:e2e:android
+    yarn test:e2e:android
+    ```
+   
+### iOS
+
+1. Create and start iPhone 14 simulator with iOS version 16.4
+2. Build app and run tests
+    ```shell
+    yarn bundle:ios
+    yarn build:e2e:ios
+    yarn test:e2e:ios
+    ```
+
 ## Contribution
 Pull requests are welcome. Please open an issue first to discuss what you would like to change.
 

@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: yarn
@@ -32,17 +32,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |
           yarn
       - name: Test Next Storage
-        uses: gradle/gradle-build-action@v2.4.2
+        uses: gradle/gradle-build-action@v2
         with:
           gradle-version: wrapper
           arguments: react-native-async-storage_async-storage:test
           build-root-directory: example/android
+      - name: Build e2e binary
+        run: |
+          yarn build:e2e:android
+
   ios:
     name: iOS
     runs-on: macos-latest
@@ -58,32 +62,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
-      - name: Set up environment
-        run: |
-          brew bundle --file=.github/Brewfile.ios --no-lock
-          touch .watchmanconfig
       - name: Install JS dependencies
         run: |
           yarn
       - name: Bundle JS
         run: |
-          yarn bundle:ios --dev false
+          yarn bundle:ios
       - name: Install Pods
         run: |
           RCT_NEW_ARCH_ENABLED=1 pod install
         working-directory: example/ios
-      - name: Boot simulator
-        run: |
-          ./scripts/ios_e2e.sh 'run_simulator'
-      - name: Build
+      - name: Build e2e binary
         run: |
           yarn build:e2e:ios
-      - name: Test
-        if: false
-        run: |
-          yarn test:e2e:ios
+
   macos:
     name: macOS
     runs-on: macos-latest
@@ -99,7 +93,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |
@@ -118,6 +112,7 @@ jobs:
         if: false
         run: |
           yarn test:e2e:macos
+
   windows:
     name: Windows
     runs-on: windows-2022
@@ -131,7 +126,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |
@@ -142,6 +137,7 @@ jobs:
       - name: Build
         run: |
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
+
   release:
     name: Release
     needs: [review, android, ios, macos, windows]
@@ -155,7 +151,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: 16
+          node-version: 18.16.1
           cache: yarn
       - name: Install JS dependencies
         run: |

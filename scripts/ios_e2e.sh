@@ -2,12 +2,11 @@
 
 RESOURCE_DIR="$PWD/example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app"
 ENTRY_FILE="example/index.ts"
-BUNDLE_FILE="$RESOURCE_DIR/main.jsbundle"
+BUNDLE_FILE="$RESOURCE_DIR/index.ios.jsbundle"
 EXTRA_PACKAGER_ARGS="--entry-file=$ENTRY_FILE"
-SIMULATOR_NAME="iPhone 14"
 
 build_project() {
-  echo "[Detox e2e] Building iOS project"
+  echo "[iOS E2E] Building iOS project"
   eval "xcodebuild \
     -workspace example/ios/AsyncStorageExample.xcworkspace \
     -scheme ReactTestApp \
@@ -18,41 +17,16 @@ build_project() {
     EXTRA_PACKAGER_ARGS=$EXTRA_PACKAGER_ARGS"
 }
 
-run_simulator() {
-  # Find simulator
-  devDir=`xcode-select -p`
-  devDir=$devDir/Applications/Simulator.app
-
-  # parse output
-  availableDevices=$(
-    eval "xcrun simctl list devices" |\
-    eval "sed '/"$SIMULATOR_NAME"/!d'" |\
-    eval "sed '/unavailable/d'" |\
-    eval "sed 's/(Shutdown)//; s/(Shutting Down)//; s/(Booted)//; s/ (/*/; s/)//'"
-  )
-
-  IFS='*' read -a deviceInfo <<< "$availableDevices"
-
-  if [[ $deviceInfo == "" ]]; then
-    echo "[Detox e2e] Could not find device: $SIMULATOR_NAME" >&2
-    exit;
-  fi
-
-  deviceUUID=${deviceInfo[1]}
-
-  echo "[Detox e2e] Booting up $SIMULATOR_NAME (id: $deviceUUID)"
-
-  # Booting emulator in headless mode
-  eval "open $devDir --args -CurrentDeviceUDID $deviceUUID"
-  eval "xcrun instruments -w $deviceUUID" >/dev/null 2>&1
-  exit 0
-}
-
 bundle_js() {
   extraArgs="$@"
   echo
-  echo "[Detox e2e] Bundling JS"
-  react-native bundle --entry-file index.ts --platform ios --bundle-output example/index.ios.jsbundle $extraArgs
+  echo "[iOS E2E] Bundling JS"
+  react-native bundle --entry-file index.ts --platform ios --bundle-output example/index.ios.jsbundle --dev false $extraArgs
+}
+
+run_e2e_test() {
+  echo "[iOS E2E] Running tests"
+  wdio run example/__tests__/ios.conf.ts
 }
 
 
@@ -60,11 +34,11 @@ case $1 in
   build)
     build_project
     ;;
-  run_simulator)
-    run_simulator
-    ;;
   bundle)
     shift; bundle_js $@
+    ;;
+  test)
+    run_e2e_test
     ;;
   *)
     echo -n "Unknown argument: $1"
