@@ -77,7 +77,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/react-native-async-storage/async-storage/edit/master/website/',
+            'https://github.com/react-native-async-storage/async-storage/edit/main/website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
