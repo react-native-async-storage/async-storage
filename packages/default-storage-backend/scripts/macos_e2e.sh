@@ -10,7 +10,7 @@ if [[ "$CCACHE_DISABLE" != "1" ]]; then
 
   CCACHE_HOME=$(dirname $(dirname $(which ccache)))/opt/ccache
 
-  export CCACHE_DIR="$(git rev-parse --show-toplevel)/packages/default-storage/backend.ccache"
+  export CCACHE_DIR="$(git rev-parse --show-toplevel)/packages/default-storage-backend/.ccache"
 
   export CC="${CCACHE_HOME}/libexec/clang"
   export CXX="${CCACHE_HOME}/libexec/clang++"
