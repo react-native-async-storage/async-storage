@@ -5155,9 +5155,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@react-native-async-storage/project@workspace:.":
+"@react-native-async-storage/root@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@react-native-async-storage/project@workspace:."
+  resolution: "@react-native-async-storage/root@workspace:."
   languageName: unknown
   linkType: soft
 
