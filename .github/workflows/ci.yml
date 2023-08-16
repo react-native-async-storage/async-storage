@@ -23,6 +23,7 @@ jobs:
         run: yarn
       - name: Run test ${{ matrix.test-name }}
         run: yarn test:${{ matrix.test-name }}
+        working-directory: packages/default-storage-backend
   android:
     name: Android
     runs-on: ubuntu-22.04
@@ -42,10 +43,11 @@ jobs:
         with:
           gradle-version: wrapper
           arguments: react-native-async-storage_async-storage:test
-          build-root-directory: example/android
+          build-root-directory: packages/default-storage-backend/example/android
       - name: Build e2e binary
         run: |
           yarn build:e2e:android
+        working-directory: packages/default-storage-backend
 
   ios:
     name: iOS
@@ -56,7 +58,7 @@ jobs:
       - name: Cache /.ccache
         uses: actions/cache@v3
         with:
-          path: .ccache
+          path: packages/default-storage-backend/.ccache
           key: ccache-ios-${{ hashFiles('yarn.lock') }}
           restore-keys: ccache-ios-
       - name: Set up Node.js
@@ -70,13 +72,15 @@ jobs:
       - name: Bundle JS
         run: |
           yarn bundle:ios
+        working-directory: packages/default-storage-backend
       - name: Install Pods
         run: |
           RCT_NEW_ARCH_ENABLED=1 pod install
-        working-directory: example/ios
+        working-directory: packages/default-storage-backend/example/ios
       - name: Build e2e binary
         run: |
           yarn build:e2e:ios
+        working-directory: packages/default-storage-backend
 
   macos:
     name: macOS
@@ -87,7 +91,7 @@ jobs:
       - name: Cache /.ccache
         uses: actions/cache@v3
         with:
-          path: .ccache
+          path: packages/default-storage-backend/.ccache
           key: ccache-macos-${{ hashFiles('yarn.lock') }}
           restore-keys: ccache-macos-
       - name: Set up Node.js
@@ -101,17 +105,20 @@ jobs:
       - name: Bundle JS
         run: |
           yarn bundle:macos
+        working-directory: packages/default-storage-backend
       - name: Install Pods
         run: |
           RCT_NEW_ARCH_ENABLED=1 pod install
-        working-directory: example/macos
+        working-directory: packages/default-storage-backend/example/macos
       - name: Build
         run: |
           yarn build:e2e:macos
+        working-directory: packages/default-storage-backend
       - name: Test
         if: false
         run: |
           yarn test:e2e:macos
+        working-directory: packages/default-storage-backend
 
   windows:
     name: Windows
@@ -134,9 +141,11 @@ jobs:
       - name: Install Windows test app
         run: |
           yarn install-windows-test-app -p example/windows
+        working-directory: packages/default-storage-backend
       - name: Build
         run: |
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
+        working-directory: packages/default-storage-backend
 
   release:
     name: Release
@@ -168,3 +177,4 @@ jobs:
           git config user.email ${{ secrets.GH_BOT_EMAIL }}
           git config user.name ${{ secrets.GH_BOT_NAME }}
           yarn semantic-release
+        working-directory: packages/default-storage-backend

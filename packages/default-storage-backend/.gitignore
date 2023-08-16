@@ -1,0 +1,21 @@
+# ouput
+lib/
+
+android/build
+android/gradle/*
+/.gradle
+gradlew
+gradlew.bat
+build/
+gradle/wrapper/
+example/windows/.vs
+example/windows/*.sln
+example/windows/ARM
+example/windows/packages
+example/windows/x64
+msbuild.binlog
+buck-out/
+\.buckd/
+*.keystore
+
+

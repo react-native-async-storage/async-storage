@@ -1,11 +1,17 @@
-# OSX
-#
 .DS_Store
-
-# Xcode
-#
+.idea
+.yarn
+.gradle
+!.yarn/releases
+node_modules/
+npm-debug.log
+yarn-error.log
+.vscode/*
+.expo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 .xcode.env
-build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -14,53 +20,11 @@ build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata
 *.xccheckout
 *.moved-aside
 DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-project.xcworkspace
-
-# Android/IntelliJ
-#
-.idea
-.gradle
 local.properties
 *.iml
-android/build
-android/gradle/
-android/gradlew
-android/gradlew.bat
-
-# Visual Studio
-#
-example/windows/.vs
-example/windows/*.sln
-example/windows/ARM
-example/windows/packages
-example/windows/x64
-msbuild.binlog
-
-# node.js
-#
-.yarn
-!.yarn/releases
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-
-# Editor config
-.vscode/*
-!.vscode/extensions.json
-.expo
-/web-build
-
-# builds by bob
-lib/

@@ -15,10 +15,6 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
-  "resolutions": {
-    "recursive-readdir/minimatch": "^3.0.5",
-    "serve-handler/minimatch": "^3.0.5"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
