@@ -24,9 +24,18 @@ Pod::Spec.new do |s|
       'CLANG_CXX_LANGUAGE_STANDARD' => 'c++17',
     }
     s.platforms       = { ios: '13.4', tvos: '11.0', :osx => "10.15" }
-    s.compiler_flags  = folly_compiler_flags + ' -DRCT_NEW_ARCH_ENABLED'
+    s.compiler_flags  = folly_compiler_flags + ' -DRCT_NEW_ARCH_ENABLED=1'
 
-    install_modules_dependencies(s)
+    if respond_to?(:install_modules_dependencies, true)
+      install_modules_dependencies(s)
+    else
+      s.dependency "React-Core"
+      s.dependency "React-Codegen"
+      s.dependency "RCT-Folly"
+      s.dependency "RCTRequired"
+      s.dependency "RCTTypeSafety"
+      s.dependency "ReactCommon/turbomodule/core"
+    end
   else
     s.platforms = { :ios => "9.0", :tvos => "9.2", :osx => "10.14" }
 
