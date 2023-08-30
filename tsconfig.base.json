@@ -1,7 +1,6 @@
 {
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "rootDir": ".",
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
