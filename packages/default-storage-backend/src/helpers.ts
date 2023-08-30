@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { ErrorLike } from './types';
 
 export function checkValidArgs(keyValuePairs: unknown[], callback: unknown) {
