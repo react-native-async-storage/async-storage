@@ -7,12 +7,12 @@
  */
 
 // @ts-ignore Cannot find module 'merge-options' or its corresponding type declarations
-import mergeOptions from 'merge-options';
+import mergeOptions from "merge-options";
 import type {
   AsyncStorageStatic,
   MultiCallback,
   MultiGetCallback,
-} from './types';
+} from "./types";
 
 const merge = mergeOptions.bind({
   concatArrays: true,
@@ -112,7 +112,7 @@ const AsyncStorage: AsyncStorageStatic = {
       const numberOfKeys = window.localStorage.length;
       const keys: string[] = [];
       for (let i = 0; i < numberOfKeys; i += 1) {
-        const key = window.localStorage.key(i) || '';
+        const key = window.localStorage.key(i) || "";
         keys.push(key);
       }
       return keys;

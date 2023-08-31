@@ -10,14 +10,14 @@ import {
   checkValidInput,
   convertError,
   convertErrors,
-} from './helpers';
-import RCTAsyncStorage from './RCTAsyncStorage';
+} from "./helpers";
+import RCTAsyncStorage from "./RCTAsyncStorage";
 import type {
   AsyncStorageStatic,
   ErrorLike,
   KeyValuePair,
   MultiRequest,
-} from './types';
+} from "./types";
 
 if (!RCTAsyncStorage) {
   throw new Error(`[@RNC/AsyncStorage]: NativeModule: AsyncStorage is null.

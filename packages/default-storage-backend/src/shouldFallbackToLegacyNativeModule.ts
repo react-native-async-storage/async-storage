@@ -1,8 +1,8 @@
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 
 export function shouldFallbackToLegacyNativeModule(): boolean {
   const expoConstants =
-    NativeModules['NativeUnimoduleProxy']?.modulesConstants?.ExponentConstants;
+    NativeModules["NativeUnimoduleProxy"]?.modulesConstants?.ExponentConstants;
 
   if (expoConstants) {
     /**
@@ -24,7 +24,7 @@ export function shouldFallbackToLegacyNativeModule(): boolean {
      */
     if (
       isLegacySdkVersion ||
-      ['storeClient', 'standalone'].includes(expoConstants.executionEnvironment)
+      ["storeClient", "standalone"].includes(expoConstants.executionEnvironment)
     ) {
       return true;
     }

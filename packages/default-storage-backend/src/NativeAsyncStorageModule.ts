@@ -1,4 +1,4 @@
-import { TurboModuleRegistry, TurboModule } from 'react-native';
+import { TurboModuleRegistry, TurboModule } from "react-native";
 
 export interface Spec extends TurboModule {
   multiGet: (
@@ -23,4 +23,4 @@ export interface Spec extends TurboModule {
   clear: (callback: (error?: Object[]) => void) => void;
 }
 
-export default TurboModuleRegistry.get<Spec>('RNCAsyncStorage');
+export default TurboModuleRegistry.get<Spec>("RNCAsyncStorage");

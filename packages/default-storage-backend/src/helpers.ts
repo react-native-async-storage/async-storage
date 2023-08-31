@@ -1,4 +1,4 @@
-import type { ErrorLike } from './types';
+import type { ErrorLike } from "./types";
 
 export function checkValidArgs(keyValuePairs: unknown[], callback: unknown) {
   if (
@@ -7,19 +7,19 @@ export function checkValidArgs(keyValuePairs: unknown[], callback: unknown) {
     !Array.isArray(keyValuePairs[0])
   ) {
     throw new Error(
-      '[AsyncStorage] Expected array of key-value pairs as first argument to multiSet'
+      "[AsyncStorage] Expected array of key-value pairs as first argument to multiSet"
     );
   }
 
-  if (callback && typeof callback !== 'function') {
+  if (callback && typeof callback !== "function") {
     if (Array.isArray(callback)) {
       throw new Error(
-        '[AsyncStorage] Expected function as second argument to multiSet. Did you forget to wrap key-value pairs in an array for the first argument?'
+        "[AsyncStorage] Expected function as second argument to multiSet. Did you forget to wrap key-value pairs in an array for the first argument?"
       );
     }
 
     throw new Error(
-      '[AsyncStorage] Expected function as second argument to multiSet'
+      "[AsyncStorage] Expected function as second argument to multiSet"
     );
   }
 }
@@ -27,14 +27,14 @@ export function checkValidArgs(keyValuePairs: unknown[], callback: unknown) {
 export function checkValidInput(...input: unknown[]) {
   const [key, value] = input;
 
-  if (typeof key !== 'string') {
+  if (typeof key !== "string") {
     // eslint-disable-next-line no-console
     console.warn(
       `[AsyncStorage] Using ${typeof key} type for key is not supported. This can lead to unexpected behavior/errors. Use string instead.\nKey passed: ${key}\n`
     );
   }
 
-  if (input.length > 1 && typeof value !== 'string') {
+  if (input.length > 1 && typeof value !== "string") {
     if (value == null) {
       throw new Error(
         `[AsyncStorage] Passing null/undefined as value is not supported. If you want to remove value, Use .removeItem method instead.\nPassed value: ${value}\nPassed key: ${key}\n`
