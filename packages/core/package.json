@@ -2,11 +2,13 @@
   "name": "@react-native-async-storage/core",
   "version": "0.0.0",
   "description": "Core API of Async Storage",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
+  "source": "src/index.ts",
+  "react-native": "src/index.ts",
   "types": "lib/typescript/index.d.ts",
-  "react-native": "src/index",
-  "source": "src/index",
+  "exports": {
+    "import": "./lib/module/index.js",
+    "require": "./lib/commonjs/index.js"
+  },
   "files": [
     "src",
     "lib"

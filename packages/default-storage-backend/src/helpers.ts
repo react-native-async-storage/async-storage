@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type { ErrorLike } from './types';
 
 export function checkValidArgs(keyValuePairs: unknown[], callback: unknown) {
@@ -29,6 +28,7 @@ export function checkValidInput(...input: unknown[]) {
   const [key, value] = input;
 
   if (typeof key !== 'string') {
+    // eslint-disable-next-line no-console
     console.warn(
       `[AsyncStorage] Using ${typeof key} type for key is not supported. This can lead to unexpected behavior/errors. Use string instead.\nKey passed: ${key}\n`
     );
@@ -40,6 +40,7 @@ export function checkValidInput(...input: unknown[]) {
         `[AsyncStorage] Passing null/undefined as value is not supported. If you want to remove value, Use .removeItem method instead.\nPassed value: ${value}\nPassed key: ${key}\n`
       );
     } else {
+      // eslint-disable-next-line no-console
       console.warn(
         `[AsyncStorage] The value for key "${key}" is not a string. This can lead to unexpected behavior/errors. Consider stringifying it.\nPassed value: ${value}\nPassed key: ${key}\n`
       );
