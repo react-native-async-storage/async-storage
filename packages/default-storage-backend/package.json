@@ -60,6 +60,9 @@
     "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
   },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
   "dependencies": {
     "merge-options": "^3.0.4"
   },
