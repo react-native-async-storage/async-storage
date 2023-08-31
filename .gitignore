@@ -28,3 +28,6 @@ DerivedData
 *.xcuserstate
 local.properties
 *.iml
+
+#workspaces
+/packages/*/lib

@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "../../.eslintrc",
+    "plugin:wdio/recommended"
+  ],
+  "plugins": ["wdio"],
+  "rules": {
+    "dot-notation": "off"
+  }
+}

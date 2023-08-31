@@ -1,22 +1,5 @@
 {
-  "compilerOptions": {
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true,
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "checkJs": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "target": "ESNext",
-    "skipLibCheck": true
-  },
+  "extends": "../../tsconfig.base.json",
   "include": [
     "src"
   ]
