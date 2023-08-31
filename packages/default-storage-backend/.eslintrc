@@ -1,6 +1,6 @@
 {
   "extends": [
-    "../../.eslintrc",
+    "../../.config/.eslintrc",
     "plugin:wdio/recommended"
   ],
   "plugins": ["wdio"],

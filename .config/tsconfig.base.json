@@ -1,5 +1,7 @@
 {
-  "exclude": ["node_modules"],
+  "exclude": [
+    "../node_modules"
+  ],
   "compilerOptions": {
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
