@@ -38,7 +38,7 @@
   },
   "scripts": {
     "format": "concurrently yarn:format:*",
-    "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm')",
+    "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm') --style file:../../.config/.clang-format",
     "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.md' '*.ts' '*.tsx' '*.yml')",
     "prepare": "bob build",
     "start": "react-native start",

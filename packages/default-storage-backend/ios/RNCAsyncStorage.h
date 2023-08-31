@@ -29,11 +29,12 @@
  */
 @interface RNCAsyncStorage : NSObject <
 #ifdef RCT_NEW_ARCH_ENABLED
-        NativeAsyncStorageModuleSpec
+                                 NativeAsyncStorageModuleSpec
 #else
-        RCTBridgeModule
+                                 RCTBridgeModule
 #endif
-    , RCTInvalidating>
+                                 ,
+                                 RCTInvalidating>
 
 @property (nonatomic, weak, nullable) id<RNCAsyncStorageDelegate> delegate;
 
