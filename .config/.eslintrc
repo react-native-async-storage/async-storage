@@ -2,6 +2,6 @@
   "extends": ["@react-native-community"],
   "rules": {
     "no-console": "error",
-    "quotes": ["error", "double", {"avoidEscape":  true, "allowTemplateLiterals": true}]
+    "quotes": "off"
   }
 }
