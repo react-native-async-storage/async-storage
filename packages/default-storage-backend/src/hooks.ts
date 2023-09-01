@@ -1,5 +1,5 @@
-import AsyncStorage from './AsyncStorage';
-import type { AsyncStorageHook } from './types';
+import AsyncStorage from "./AsyncStorage";
+import type { AsyncStorageHook } from "./types";
 
 export function useAsyncStorage(key: string): AsyncStorageHook {
   return {

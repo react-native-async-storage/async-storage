@@ -42,7 +42,7 @@ Head over to [documentation](https://react-native-async-storage.github.io/async-
 ## Contribution
 Pull requests are welcome. Please open an issue first to discuss what you would like to change.
 
-See the [CONTRIBUTING](CONTRIBUTING.md) file for more information.
+See the [CONTRIBUTING](.github/CONTRIBUTING.md) file for more information.
 
 ## License
 

@@ -1,5 +1,5 @@
-const testAppId = 'com.microsoft.ReactTestApp';
-import { browser } from '@wdio/globals';
+const testAppId = "com.microsoft.ReactTestApp";
+import { browser } from "@wdio/globals";
 
 export const commands = {
   restartApp: async () => {

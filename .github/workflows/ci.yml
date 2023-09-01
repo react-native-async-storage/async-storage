@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         test-name: [lint, ts]
+        workspace: [default-storage-backend, core]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -23,7 +24,7 @@ jobs:
         run: yarn
       - name: Run test ${{ matrix.test-name }}
         run: yarn test:${{ matrix.test-name }}
-        working-directory: packages/default-storage-backend
+        working-directory: packages/${{ matrix.workspace }}
   android:
     name: Android
     runs-on: ubuntu-22.04
