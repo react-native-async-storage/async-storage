@@ -1,0 +1,7 @@
+{
+    "extends": "../../.config/tsconfig.base.json",
+    "include": ["./src/**/*", "./example/**/*"],
+    "compilerOptions": {
+        "types": ["jest"]
+    }
+}

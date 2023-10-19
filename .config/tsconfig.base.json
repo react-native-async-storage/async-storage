@@ -12,6 +12,7 @@
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "strictNullChecks": true,
     "allowJs": true,
     "checkJs": true,
     "allowSyntheticDefaultImports": true,
