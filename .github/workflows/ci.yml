@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         test-name: [lint, ts]
-        workspace: [default-storage-backend, core]
+        workspace: [default-storage-backend, api]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
