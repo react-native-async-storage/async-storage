@@ -1,3 +1,10 @@
+## [1.19.4](https://github.com/react-native-async-storage/async-storage/compare/v1.19.3...v1.19.4) (2023-11-01)
+
+
+### Bug Fixes
+
+* **tvos:** Apple TV warning should only happen once ([#1021](https://github.com/react-native-async-storage/async-storage/issues/1021)) ([c770d4d](https://github.com/react-native-async-storage/async-storage/commit/c770d4d9e15cf56f653bf85c2c8916df272b90e5))
+
 ## [1.19.3](https://github.com/react-native-async-storage/async-storage/compare/v1.19.2...v1.19.3) (2023-08-24)
 
 
