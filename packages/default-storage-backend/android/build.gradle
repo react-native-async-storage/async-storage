@@ -88,9 +88,12 @@ if (isNewArchitectureEnabled()) {
 android {
     def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
     if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
-      namespace "com.reactnativecommunity.asyncstorage"
+        namespace "com.reactnativecommunity.asyncstorage"
+        buildFeatures {
+            buildConfig true
+        }
     }
-    
+
     compileSdkVersion safeExtGet('compileSdkVersion', 32)
     // Used to override the NDK path/version by allowing users to customize
     // the NDK path/version from their root project (e.g. for M1 support)
