@@ -1,3 +1,10 @@
+## [1.19.5](https://github.com/react-native-async-storage/async-storage/compare/v1.19.4...v1.19.5) (2023-11-10)
+
+
+### Bug Fixes
+
+* **android:** add buildFeaturesbuildConfig for android gradle plugin 8 ([#1026](https://github.com/react-native-async-storage/async-storage/issues/1026)) ([f54a93b](https://github.com/react-native-async-storage/async-storage/commit/f54a93b55a6fdafdf3a820e7d625469ba7a1bec3))
+
 ## [1.19.4](https://github.com/react-native-async-storage/async-storage/compare/v1.19.3...v1.19.4) (2023-11-01)
 
 
