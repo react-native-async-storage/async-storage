@@ -1,5 +1,5 @@
-import { StorageKeys, StorageModel } from "./StorageModel";
-import { StorageExtension } from "./StorageExtension";
+import type { StorageKeys, StorageModel } from "./StorageModel";
+import type { StorageExtension } from "./StorageExtension";
 
 /**
  * AsyncStorage Interface

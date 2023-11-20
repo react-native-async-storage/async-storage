@@ -1,3 +1,3 @@
 export { AsyncStorage } from "./AsyncStorage";
-export { StorageExtension } from "./StorageExtension";
-export * from "./StorageModel";
+export type { StorageExtension } from "./StorageExtension";
+export type { StorageKeys, StorageModel } from "./StorageModel";
