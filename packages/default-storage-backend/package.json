@@ -34,7 +34,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-async-storage/async-storage.git"
+    "url": "https://github.com/react-native-async-storage/async-storage.git",
+    "directory": "packages/default-storage-backend"
   },
   "scripts": {
     "format": "concurrently yarn:format:*",
@@ -67,7 +68,7 @@
     "merge-options": "^3.0.4"
   },
   "peerDependencies": {
-    "react-native": "^0.0.0-0 || 0.60 - 0.72 || 1000.0.0"
+    "react-native": "^0.0.0-0 || >=0.60 <1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
