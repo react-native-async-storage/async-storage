@@ -37,10 +37,8 @@ class ExampleStorage implements AsyncStorage<MyModel, MyExampleExtension> {
     keys: K[]
   ): Promise<{ [k in K]: MyModel[k] }> => {
     return keys.reduce((entries, key) => {
-      return {
-        ...entries,
-        [key]: this.storage[key] ?? null,
-      };
+      entries[key] = this.storage[key] ?? null;
+      return entries;
     }, {} as { [k in K]: MyModel[k] });
   };
 
