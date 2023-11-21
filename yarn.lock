@@ -3941,7 +3941,7 @@ __metadata:
     typescript: ^4.9.4
     webdriverio: ^8.11.2
   peerDependencies:
-    react-native: ^0.0.0-0 || 0.60 - 0.72 || 1000.0.0
+    react-native: ^0.0.0-0 || >=0.60 <1.0
   languageName: unknown
   linkType: soft
 
