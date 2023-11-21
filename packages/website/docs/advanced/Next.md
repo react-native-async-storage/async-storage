@@ -71,8 +71,9 @@ Currently, tested version is `2.4.3`. You can specify different version, by addi
 AsyncStorage_next_roomVersion=2.4.3
 ```
 
-KSP is enabled for symbol processing for Room.
-If you use different Kotlin version than default, you should also [update KSP version](https://github.com/google/ksp/releases) to keep compatibility:
+KSP is enabled for symbol processing for the Room library.
+KSP version will be selected based on Kotlin version in your project.
+If you want to use different KSP version, you can set a property in `gradle.properties`:
 
 ```groovy
 AsyncStorage_next_kspVersion=1.9.20-1.0.14
