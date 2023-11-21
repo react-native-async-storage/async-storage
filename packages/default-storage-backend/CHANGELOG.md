@@ -1,3 +1,10 @@
+## [1.19.6](https://github.com/react-native-async-storage/async-storage/compare/v1.19.5...v1.19.6) (2023-11-21)
+
+
+### Bug Fixes
+
+* widen supported version range ([#1029](https://github.com/react-native-async-storage/async-storage/issues/1029)) ([921f24a](https://github.com/react-native-async-storage/async-storage/commit/921f24a82597af6e88d5be7ccf2cceccc70da554))
+
 ## [1.19.5](https://github.com/react-native-async-storage/async-storage/compare/v1.19.4...v1.19.5) (2023-11-10)
 
 
