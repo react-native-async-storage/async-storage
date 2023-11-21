@@ -38,9 +38,9 @@
     "directory": "packages/default-storage-backend"
   },
   "scripts": {
-    "format": "concurrently yarn:format:*",
+    "format": "concurrently 'yarn:format:*'",
     "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm') --style file:../../.config/.clang-format",
-    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.md' '*.ts' '*.tsx' '*.yml')",
+    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')",
     "prepare": "bob build",
     "start": "react-native start",
     "start:android": "react-native run-android",
@@ -87,7 +87,7 @@
     "appium-uiautomator2-driver": "^2.26.2",
     "appium-xcuitest-driver": "^4.32.5",
     "concurrently": "^6.4.0",
-    "eslint": "8.26.0",
+    "eslint": "^8.26.0",
     "eslint-plugin-wdio": "^8.8.7",
     "expo": "^48.0.0",
     "lodash": "^4.17.21",
@@ -103,7 +103,7 @@
     "react-native-windows": "^0.71.0",
     "react-test-renderer": "18.2.0",
     "semantic-release": "^19.0.0",
-    "typescript": "^4.9.4",
+    "typescript": "^5.0.0",
     "webdriverio": "^8.11.2"
   },
   "react-native-builder-bob": {

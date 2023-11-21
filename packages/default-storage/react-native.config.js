@@ -1,23 +1,23 @@
 const project = (() => {
-  const path = require('path');
+  const path = require("path");
   try {
-    const { configureProjects } = require('react-native-test-app');
+    const { configureProjects } = require("react-native-test-app");
     return configureProjects({
       android: {
-        sourceDir: path.join('example', 'android'),
+        sourceDir: path.join("example", "android"),
       },
       ios: {
-        sourceDir: path.join('example', 'ios'),
+        sourceDir: path.join("example", "ios"),
       },
       macos: {
-        sourceDir: path.join('example', 'macos'),
+        sourceDir: path.join("example", "macos"),
       },
       windows: {
-        sourceDir: path.join('example', 'windows'),
+        sourceDir: path.join("example", "windows"),
         solutionFile: path.join(
-          'example',
-          'windows',
-          'AsyncStorageExample.sln'
+          "example",
+          "windows",
+          "AsyncStorageExample.sln"
         ),
       },
     });
@@ -28,7 +28,7 @@ const project = (() => {
 
 module.exports = {
   dependencies: {
-    '@react-native-async-storage/async-storage': {
+    "@react-native-async-storage/async-storage": {
       root: __dirname,
       // rn-cli incorrectly resolves node_modules path for the following platforms
       platforms: {
@@ -46,7 +46,7 @@ module.exports = {
       },
     },
     // Suppress warnings about bob not being a proper native module
-    'react-native-builder-bob': {
+    "react-native-builder-bob": {
       platforms: {
         android: null,
         ios: null,

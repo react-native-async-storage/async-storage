@@ -1,6 +1,6 @@
 // @ts-ignore
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React from "react";
 import {
   Button,
   ScrollView,
@@ -8,7 +8,7 @@ import {
   Text,
   TextInput,
   View,
-} from 'react-native';
+} from "react-native";
 
 type DataType = {
   deeper?: DataType;
@@ -17,45 +17,45 @@ type DataType = {
 };
 
 const mergeInitialValue = {
-  initial: 'keep',
-  override1: 'override',
+  initial: "keep",
+  override1: "override",
   nested: {
-    nestedValue: 'keep',
-    override2: 'override',
+    nestedValue: "keep",
+    override2: "override",
     deeper: {
-      deeperValue: 'keep',
-      override3: 'override',
+      deeperValue: "keep",
+      override3: "override",
     },
   },
 };
 
 function hasMessage(e: unknown): e is { message: string } {
-  return Boolean(typeof e === 'object' && e && 'message' in e);
+  return Boolean(typeof e === "object" && e && "message" in e);
 }
 
 function NextExample() {
   const [keys, setKeys] = React.useState([]);
-  const [error, setError] = React.useState('');
-  const [inputKey, setInputKey] = React.useState('');
-  const [inputValue, setInputValue] = React.useState('');
+  const [error, setError] = React.useState("");
+  const [inputKey, setInputKey] = React.useState("");
+  const [inputValue, setInputValue] = React.useState("");
   const [value, setValue] = React.useState();
   const [mergedValue, setMergedValue] = React.useState();
   const [overrideValue, setOverrideValue] = React.useState({
-    override1: '',
-    override2: '',
-    override3: '',
+    override1: "",
+    override2: "",
+    override3: "",
   });
 
   function runWithCatch(block: () => Promise<void>) {
     return async () => {
       try {
-        setError('');
+        setError("");
         await block();
       } catch (e) {
         if (hasMessage(e)) {
-          setError('Caught error: ' + (e.message || e));
+          setError("Caught error: " + (e.message || e));
         } else {
-          setError('Unknown error: ' + e);
+          setError("Unknown error: " + e);
         }
       }
     };
@@ -76,15 +76,15 @@ function NextExample() {
   }
 
   async function crashValueType() {
-    await AsyncStorage.setItem('CRASH', 435345);
+    await AsyncStorage.setItem("CRASH", 435345);
   }
 
   async function crashKeyNull() {
-    await AsyncStorage.setItem(null, '435345');
+    await AsyncStorage.setItem(null, "435345");
   }
 
   async function crashKeyNotString() {
-    await AsyncStorage.setItem(432, '435345');
+    await AsyncStorage.setItem(432, "435345");
   }
 
   async function removeValue() {
@@ -96,13 +96,13 @@ function NextExample() {
   }
 
   async function resetMergedValue() {
-    await AsyncStorage.setItem('MERGER', JSON.stringify(mergeInitialValue));
-    const saved = await AsyncStorage.getItem('MERGER');
+    await AsyncStorage.setItem("MERGER", JSON.stringify(mergeInitialValue));
+    const saved = await AsyncStorage.getItem("MERGER");
     setMergedValue(JSON.parse(saved));
   }
 
   async function readMergedValue() {
-    const saved = await AsyncStorage.getItem('MERGER');
+    const saved = await AsyncStorage.getItem("MERGER");
     setMergedValue(saved ? JSON.parse(saved) : {});
   }
 
@@ -112,7 +112,7 @@ function NextExample() {
     // leave out empty inputs
     const toMerge: DataType = {};
     if (override1) {
-      toMerge['override1'] = override1;
+      toMerge["override1"] = override1;
     }
     if (override2) {
       toMerge.nested = {
@@ -132,7 +132,7 @@ function NextExample() {
         };
       }
     }
-    await AsyncStorage.mergeItem('MERGER', JSON.stringify(toMerge));
+    await AsyncStorage.mergeItem("MERGER", JSON.stringify(toMerge));
   }
 
   return (
@@ -226,7 +226,7 @@ function NextExample() {
         <View style={styles.row}>
           <Button title="Get all keys" onPress={runWithCatch(getAllKeys)} />
         </View>
-        <Text>{keys.join(', ')}</Text>
+        <Text>{keys.join(", ")}</Text>
       </View>
 
       <View style={styles.example}>
@@ -242,34 +242,34 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     paddingTop: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#e3e3e3',
-    borderStyle: 'solid',
-    justifyContent: 'space-between',
+    borderBottomColor: "#e3e3e3",
+    borderStyle: "solid",
+    justifyContent: "space-between",
   },
   input: {
     borderWidth: 1,
-    borderColor: '#eee',
-    borderStyle: 'solid',
+    borderColor: "#eee",
+    borderStyle: "solid",
   },
   error: {
     fontSize: 18,
-    color: 'red',
+    color: "red",
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   title: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: "700",
     paddingBottom: 12,
   },
 });
 
 export default {
-  title: 'Basic',
-  testId: 'basic',
-  description: 'Basic functionality test',
+  title: "Basic",
+  testId: "basic",
+  description: "Basic functionality test",
   render() {
     return <NextExample />;
   },

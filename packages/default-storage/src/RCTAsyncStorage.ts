@@ -1,4 +1,3 @@
-// @ts-ignore Module '"react-native"' has no exported member 'TurboModuleRegistry'.
 import { NativeModules, TurboModuleRegistry } from "react-native";
 import { shouldFallbackToLegacyNativeModule } from "./shouldFallbackToLegacyNativeModule";
 

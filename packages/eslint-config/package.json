@@ -1,0 +1,27 @@
+{
+  "name": "@react-native-async-storage/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shareable ESLint config for @react-native-async-storage",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-native-async-storage/async-storage",
+    "directory": "packages/eslint-config"
+  },
+  "scripts": {
+    "format": "prettier --write --loglevel error index.js package.json"
+  },
+  "dependencies": {
+    "@eslint/eslintrc": "^2.1.3",
+    "@eslint/js": "^8.33.0",
+    "@rnx-kit/eslint-plugin": "^0.5.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}

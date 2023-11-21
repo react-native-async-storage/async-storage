@@ -24,7 +24,7 @@ export type MultiRequest = {
   callback?: MultiGetCallback;
   keyIndex: number;
   resolve?: (result: readonly KeyValuePair[]) => void;
-  reject?: (error?: any) => void;
+  reject?: (error?: ErrorLike) => void;
 };
 
 export type AsyncStorageHook = {
