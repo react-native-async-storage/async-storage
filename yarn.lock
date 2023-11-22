@@ -4159,7 +4159,7 @@ __metadata:
     react-native-builder-bob: ^0.18.0
     react-native-codegen: ^0.71.5
     react-native-macos: ^0.71.0
-    react-native-test-app: ^2.5.8
+    react-native-test-app: ^2.5.33
     react-native-web: ~0.18.10
     react-native-windows: ^0.71.0
     react-test-renderer: 18.2.0
@@ -4524,12 +4524,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnx-kit/react-native-host@npm:^0.2.7":
-  version: 0.2.7
-  resolution: "@rnx-kit/react-native-host@npm:0.2.7"
+"@rnx-kit/react-native-host@npm:^0.2.8":
+  version: 0.2.9
+  resolution: "@rnx-kit/react-native-host@npm:0.2.9"
   peerDependencies:
     react-native: ">=0.64"
-  checksum: 67570885718da085f33512defbd56878f9b745ea5bd16a1c5854054d0d85874ad1fdd5f17909960301709d17fa7e35dcccfb428c817c92bcfa486fb80ac010de
+  checksum: 1d7678930cd59b6ca84b9858ef0834991f89909df0a4f8176592d967d921d547405431f7518803b29bc4cb1bddc722898c42758b2a8889df11f0550283dff146
   languageName: node
   linkType: hard
 
@@ -20254,11 +20254,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-test-app@npm:^2.5.8":
-  version: 2.5.8
-  resolution: "react-native-test-app@npm:2.5.8"
+"react-native-test-app@npm:^2.5.33":
+  version: 2.5.33
+  resolution: "react-native-test-app@npm:2.5.33"
   dependencies:
-    "@rnx-kit/react-native-host": ^0.2.7
+    "@rnx-kit/react-native-host": ^0.2.8
     ajv: ^8.0.0
     chalk: ^4.1.0
     cliui: ^8.0.0
@@ -20269,24 +20269,12 @@ __metadata:
     uuid: ^8.3.2
   peerDependencies:
     "@expo/config-plugins": ">=5.0"
-    "@react-native-community/cli": ">=5.0"
-    "@react-native-community/cli-platform-android": ">=5.0"
-    "@react-native-community/cli-platform-ios": ">=5.0"
-    mustache: ^4.0.0
     react: ~17.0.1 || ~18.0.0 || ~18.1.0 || ~18.2.0
     react-native: ^0.0.0-0 || 0.64 - 0.72 || 1000.0.0
-    react-native-macos: ^0.0.0-0 || 0.64 || 0.66 || 0.68 || 0.71
+    react-native-macos: ^0.0.0-0 || 0.64 || 0.66 || 0.68 || 0.71 - 0.72
     react-native-windows: ^0.0.0-0 || 0.64 - 0.72
   peerDependenciesMeta:
     "@expo/config-plugins":
-      optional: true
-    "@react-native-community/cli":
-      optional: true
-    "@react-native-community/cli-platform-android":
-      optional: true
-    "@react-native-community/cli-platform-ios":
-      optional: true
-    mustache:
       optional: true
     react-native-macos:
       optional: true
@@ -20297,7 +20285,7 @@ __metadata:
     init: scripts/init.js
     init-test-app: scripts/init.js
     install-windows-test-app: windows/test-app.js
-  checksum: f23c468daf2b388b84fc6650c569b3661907680da63ce4be1a2c8d5220ea4cb12aca3add13a1ccba77d98251e62a853cade0ff8acf2eb0bcda50e3e819e7dbbf
+  checksum: 96e9d78b44c3cb620e11b02177660e859a652f7ff492580f93d5ac7e38af0114c85540087b62a7b9b4347373cb5cd9f411f2c97b90b16dc9fb0e37ebe8635b0e
   languageName: node
   linkType: hard
 
