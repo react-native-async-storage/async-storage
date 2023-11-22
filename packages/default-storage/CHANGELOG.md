@@ -1,3 +1,10 @@
+## [1.19.7](https://github.com/react-native-async-storage/async-storage/compare/v1.19.6...v1.19.7) (2023-11-22)
+
+
+### Bug Fixes
+
+* add missing `README.md` ([#1030](https://github.com/react-native-async-storage/async-storage/issues/1030)) ([821eb01](https://github.com/react-native-async-storage/async-storage/commit/821eb01b1a7326db592e80018246cdc662c6dc5d))
+
 ## [1.19.6](https://github.com/react-native-async-storage/async-storage/compare/v1.19.5...v1.19.6) (2023-11-21)
 
 
