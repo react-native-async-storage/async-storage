@@ -21,6 +21,9 @@
     "@eslint/js": "^8.33.0",
     "@rnx-kit/eslint-plugin": "^0.5.0"
   },
+  "peerDependencies": {
+    "eslint": "^8.54.0"
+  },
   "devDependencies": {
     "prettier": "^2.8.8"
   }

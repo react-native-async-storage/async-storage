@@ -4120,11 +4120,11 @@ __metadata:
   resolution: "@react-native-async-storage/api@workspace:packages/api"
   dependencies:
     "@types/jest": 29.5.4
-    eslint: ^8.26.0
+    eslint: ^8.54.0
     jest: 29.5.0
     react-native-builder-bob: 0.20.0
     ts-jest: 29.1.1
-    typescript: ^5.0.0
+    typescript: ^5.3.0
   languageName: unknown
   linkType: soft
 
@@ -4148,7 +4148,7 @@ __metadata:
     appium-uiautomator2-driver: ^2.26.2
     appium-xcuitest-driver: ^4.32.5
     concurrently: ^6.4.0
-    eslint: ^8.26.0
+    eslint: ^8.54.0
     eslint-plugin-wdio: ^8.8.7
     expo: ^48.0.0
     lodash: ^4.17.21
@@ -4165,7 +4165,7 @@ __metadata:
     react-native-windows: ^0.71.0
     react-test-renderer: 18.2.0
     semantic-release: ^19.0.0
-    typescript: ^5.0.0
+    typescript: ^5.3.0
     webdriverio: ^8.11.2
   peerDependencies:
     react-native: ^0.0.0-0 || >=0.60 <1.0
@@ -4180,6 +4180,8 @@ __metadata:
     "@eslint/js": ^8.33.0
     "@rnx-kit/eslint-plugin": ^0.5.0
     prettier: ^2.8.8
+  peerDependencies:
+    eslint: ^8.54.0
   languageName: unknown
   linkType: soft
 
@@ -4188,9 +4190,9 @@ __metadata:
   resolution: "@react-native-async-storage/root@workspace:."
   dependencies:
     "@rnx-kit/eslint-plugin": ^0.5.0
-    eslint: ^8.26.0
+    eslint: ^8.54.0
     prettier: ^2.8.8
-    typescript: ^5.0.0
+    typescript: ^5.3.0
   languageName: unknown
   linkType: soft
 
@@ -10977,7 +10979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.26.0":
+"eslint@npm:^8.54.0":
   version: 8.54.0
   resolution: "eslint@npm:8.54.0"
   dependencies:
@@ -23748,7 +23750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.0":
+"typescript@npm:^5.3.0":
   version: 5.3.2
   resolution: "typescript@npm:5.3.2"
   bin:
@@ -23768,7 +23770,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.0.0#~builtin<compat/typescript>":
+"typescript@patch:typescript@^5.3.0#~builtin<compat/typescript>":
   version: 5.3.2
   resolution: "typescript@patch:typescript@npm%3A5.3.2#~builtin<compat/typescript>::version=5.3.2&hash=1f5320"
   bin:
