@@ -1,1 +1,1 @@
-module.exports = require("@react-native-async-storage/eslint-config");
+module.exports = require("@react-native-async-storage/eslint-config/recommended-wdio");
