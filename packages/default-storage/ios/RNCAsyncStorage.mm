@@ -157,7 +157,7 @@ static NSString *RCTGetStorageDirectory()
     dispatch_once(&onceToken, ^{
 #if TARGET_OS_TV
       RCTLogWarn(
-        @"Persistent storage is not supported on tvOS, your data may be removed at any point.");
+          @"Persistent storage is not supported on tvOS, your data may be removed at any point.");
 #endif
       storageDirectory = RCTCreateStorageDirectoryPath(RCTStorageDirectory);
     });

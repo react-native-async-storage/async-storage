@@ -3,8 +3,8 @@
  * integration tests during local development or on CI services.
  */
 
-const exclusionList = require('metro-config/src/defaults/exclusionList');
-const path = require('path');
+const exclusionList = require("metro-config/src/defaults/exclusionList");
+const path = require("path");
 
 module.exports = {
   projectRoot: `${__dirname}/example`,
@@ -14,8 +14,8 @@ module.exports = {
       // This stops "react-native run-windows" from causing the metro server to crash if its already running
       new RegExp(
         `${path
-          .resolve(__dirname, 'example', 'windows')
-          .replace(/[/\\]/g, '/')}.*`
+          .resolve(__dirname, "example", "windows")
+          .replace(/[/\\]/g, "/")}.*`
       ),
 
       // Workaround for `EBUSY: resource busy or locked, open '~\msbuild.ProjectImports.zip'`

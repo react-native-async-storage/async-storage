@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   Keyboard,
@@ -14,11 +14,11 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import Basic from './examples/Basic';
-import Functional from './examples/Functional';
-import GetSetClear from './examples/GetSetClear';
-import MergeItem from './examples/MergeItem';
+} from "react-native";
+import Basic from "./examples/Basic";
+import Functional from "./examples/Functional";
+import GetSetClear from "./examples/GetSetClear";
+import MergeItem from "./examples/MergeItem";
 
 const SCREENS = {
   Functional,
@@ -86,13 +86,13 @@ export default function App(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: "#F5FCFF",
     padding: 8,
   },
   exampleContainer: {
     padding: 4,
-    backgroundColor: '#FFF',
-    borderColor: '#EEE',
+    backgroundColor: "#FFF",
+    borderColor: "#EEE",
     borderTopWidth: 1,
     borderBottomWidth: 1,
     flex: 1,
@@ -101,11 +101,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   exampleDescription: {
-    color: '#333333',
+    color: "#333333",
     marginBottom: 16,
   },
   exampleInnerContainer: {
-    borderColor: '#EEE',
+    borderColor: "#EEE",
     borderTopWidth: 1,
     paddingTop: 10,
     flex: 1,
@@ -113,17 +113,17 @@ const styles = StyleSheet.create({
   restartButton: {
     padding: 6,
     borderRadius: 5,
-    backgroundColor: '#F3F3F3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'flex-end',
+    backgroundColor: "#F3F3F3",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "flex-end",
   },
   closeKeyboardView: {
     width: 5,
     height: 5,
   },
   testPickerContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
 });

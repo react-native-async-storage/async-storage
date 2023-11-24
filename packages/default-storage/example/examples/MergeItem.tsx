@@ -6,8 +6,8 @@
  */
 
 // @ts-ignore
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useCallback, useState } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   NativeModules,
@@ -15,7 +15,7 @@ import {
   Text,
   TextInput,
   View,
-} from 'react-native';
+} from "react-native";
 
 type Personalia = {
   age: string;
@@ -26,40 +26,40 @@ type Personalia = {
   };
 };
 
-const KEY = '@@KEY';
+const KEY = "@@KEY";
 
 const INPUTS = [
   {
-    title: 'Name',
-    stateFragment: 'name',
+    title: "Name",
+    stateFragment: "name",
     inputType: undefined,
-    testId: 'testInput-name',
+    testId: "testInput-name",
   },
   {
-    title: 'Age',
-    stateFragment: 'age',
-    inputType: 'number-pad',
-    testId: 'testInput-age',
+    title: "Age",
+    stateFragment: "age",
+    inputType: "number-pad",
+    testId: "testInput-age",
   },
   {
-    title: 'Eyes color',
-    stateFragment: 'trait1',
+    title: "Eyes color",
+    stateFragment: "trait1",
     inputType: undefined,
-    testId: 'testInput-eyes',
+    testId: "testInput-eyes",
   },
   {
-    title: 'Shoe size',
-    stateFragment: 'trait2',
-    inputType: 'number-pad',
-    testId: 'testInput-shoe',
+    title: "Shoe size",
+    stateFragment: "trait2",
+    inputType: "number-pad",
+    testId: "testInput-shoe",
   },
 ] as const;
 
 function Merge(): JSX.Element {
   const [needRestart, setNeedRestart] = useState(false);
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [traits, setTraits] = useState({ trait1: '', trait2: '' });
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [traits, setTraits] = useState({ trait1: "", trait2: "" });
 
   const mergeItem = useCallback(async () => {
     const obj = { name, age, traits };
@@ -95,9 +95,9 @@ function Merge(): JSX.Element {
 
     const { name, age, traits } = storedItem || {};
 
-    setName(name || '');
-    setAge(age || '');
-    setTraits(traits || { trait1: '', trait2: '' });
+    setName(name || "");
+    setAge(age || "");
+    setTraits(traits || { trait1: "", trait2: "" });
   }, []);
 
   const { trait1, trait2 } = traits;
@@ -114,26 +114,26 @@ function Merge(): JSX.Element {
       {INPUTS.map(({ title, stateFragment, inputType, testId }) => {
         const value = (() => {
           switch (stateFragment) {
-            case 'age':
+            case "age":
               return age;
-            case 'name':
+            case "name":
               return name;
 
-            case 'trait1':
-            case 'trait2':
+            case "trait1":
+            case "trait2":
               return traits[stateFragment];
           }
         })();
 
         const onChangeHandler = (() => {
           switch (stateFragment) {
-            case 'age':
+            case "age":
               return setAge;
-            case 'name':
+            case "name":
               return setName;
 
-            case 'trait1':
-            case 'trait2':
+            case "trait1":
+            case "trait2":
               return (text: string) =>
                 setTraits({
                   ...traits,
@@ -148,7 +148,7 @@ function Merge(): JSX.Element {
             <TextInput
               testID={testId}
               style={styles.inputView}
-              keyboardType={inputType || 'default'}
+              keyboardType={inputType || "default"}
               onChangeText={onChangeHandler}
               value={value}
             />
@@ -175,22 +175,22 @@ function Merge(): JSX.Element {
           testID="setDelegate_button"
           title="Set native delegate"
           disabled={
-            !NativeModules['AsyncStorageTestSupport'] ||
-            !NativeModules['AsyncStorageTestSupport'].test_setDelegate
+            !NativeModules["AsyncStorageTestSupport"] ||
+            !NativeModules["AsyncStorageTestSupport"].test_setDelegate
           }
           onPress={() =>
-            NativeModules['AsyncStorageTestSupport'].test_setDelegate(() => {})
+            NativeModules["AsyncStorageTestSupport"].test_setDelegate(() => {})
           }
         />
         <Button
           testID="unsetDelegate_button"
           title="Unset native delegate"
           disabled={
-            !NativeModules['AsyncStorageTestSupport'] ||
-            !NativeModules['AsyncStorageTestSupport'].test_unsetDelegate
+            !NativeModules["AsyncStorageTestSupport"] ||
+            !NativeModules["AsyncStorageTestSupport"].test_unsetDelegate
           }
           onPress={() =>
-            NativeModules['AsyncStorageTestSupport'].test_unsetDelegate(
+            NativeModules["AsyncStorageTestSupport"].test_unsetDelegate(
               () => {}
             )
           }
@@ -204,27 +204,27 @@ function Merge(): JSX.Element {
 
 const styles = StyleSheet.create({
   inputView: {
-    borderColor: '#333',
+    borderColor: "#333",
     borderWidth: 0.5,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     fontSize: 14,
     padding: 0,
   },
   bottomButtons: {
-    justifyContent: 'space-around',
+    justifyContent: "space-around",
     marginTop: 20,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   story: {
     fontSize: 18,
-    color: '#222',
+    color: "#222",
   },
 });
 
 export default {
-  title: 'Merge item',
-  testId: 'merge-item',
-  description: 'Merge object with already stored data',
+  title: "Merge item",
+  testId: "merge-item",
+  description: "Merge object with already stored data",
   render() {
     return <Merge />;
   },

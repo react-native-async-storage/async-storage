@@ -1,7 +1,7 @@
 // @ts-ignore
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect, useState } from 'react';
-import isEqual from 'lodash/isEqual';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
+import isEqual from "lodash/isEqual";
 import {
   NativeModules,
   Platform,
@@ -9,11 +9,11 @@ import {
   StyleSheet,
   Text,
   View,
-} from 'react-native';
-import type { TestStep, TestValue } from './tests';
-import tests from './tests';
+} from "react-native";
+import type { TestStep, TestValue } from "./tests";
+import tests from "./tests";
 
-const SKIP_TEST = '51609ccd-8ca7-4559-a03a-273e237dba4f';
+const SKIP_TEST = "51609ccd-8ca7-4559-a03a-273e237dba4f";
 
 type TestResult =
   | typeof SKIP_TEST
@@ -24,18 +24,18 @@ type TestResult =
     };
 
 function compare(expected: TestValue, actual: string): boolean {
-  return typeof expected === 'string'
+  return typeof expected === "string"
     ? expected === actual
     : isEqual(expected, JSON.parse(actual));
 }
 
 function stringify(value: unknown): string {
-  return typeof value === 'string' ? value : JSON.stringify(value);
+  return typeof value === "string" ? value : JSON.stringify(value);
 }
 
 async function executeStep(step: TestStep): Promise<void> {
   switch (step.command) {
-    case 'merge': {
+    case "merge": {
       const { key, value, expected } = step;
       await AsyncStorage.mergeItem(key, stringify(value));
       const actual = await AsyncStorage.getItem(key);
@@ -44,7 +44,7 @@ async function executeStep(step: TestStep): Promise<void> {
       }
       break;
     }
-    case 'remove': {
+    case "remove": {
       const { key } = step;
       await AsyncStorage.removeItem(key);
       const actual = await AsyncStorage.getItem(key);
@@ -53,7 +53,7 @@ async function executeStep(step: TestStep): Promise<void> {
       }
       break;
     }
-    case 'set': {
+    case "set": {
       const { key, value, expected } = step;
       await AsyncStorage.setItem(key, stringify(value));
       const actual = await AsyncStorage.getItem(key);
@@ -70,7 +70,12 @@ async function execute(steps: TestStep[]): Promise<void> {
   for (let i = 0; i < numSteps; ++i) {
     try {
       await executeStep(steps[i]);
-    } catch ([expected, actual]) {
+    } catch (e) {
+      if (!Array.isArray(e)) {
+        throw e;
+      }
+
+      const [expected, actual] = e;
       throw { step: i, expected, actual };
     } finally {
       await AsyncStorage.clear();
@@ -107,10 +112,10 @@ function Functional(): JSX.Element {
       })
       .then(async () => {
         const AsyncStorageTestSupport =
-          NativeModules['AsyncStorageTestSupport'];
+          NativeModules["AsyncStorageTestSupport"];
 
         for (const [currentName, test] of Object.entries(tests)) {
-          const name = currentName + ' with delegate';
+          const name = currentName + " with delegate";
 
           if (!AsyncStorageTestSupport?.test_setDelegate) {
             testResults.push([name, SKIP_TEST]);
@@ -125,8 +130,8 @@ function Functional(): JSX.Element {
               name,
               {
                 step: 0,
-                expected: 'Native delegate is set',
-                actual: 'Failed to set native delegate',
+                expected: "Native delegate is set",
+                actual: "Failed to set native delegate",
               },
             ]);
             continue;
@@ -149,7 +154,7 @@ function Functional(): JSX.Element {
     <ScrollView contentContainerStyle={styles.container}>
       <View>
         {results.map(([name, result]) => {
-          const testID = 'test:' + name;
+          const testID = "test:" + name;
           if (!result) {
             return (
               <View key={name} style={styles.passed}>
@@ -201,34 +206,34 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   failed: {
-    backgroundColor: '#e53935',
+    backgroundColor: "#e53935",
     flex: 1,
     padding: 4,
   },
   passed: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 4,
   },
   skipped: {
-    backgroundColor: '#ffeb3b',
+    backgroundColor: "#ffeb3b",
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 4,
   },
   testLabel: {
-    color: '#000000',
+    color: "#000000",
     flex: 1,
   },
   testResult: {
-    color: '#000000',
+    color: "#000000",
   },
 });
 
 export default {
-  title: 'Functional',
-  testId: 'functional',
-  description: 'Functional tests',
+  title: "Functional",
+  testId: "functional",
+  description: "Functional tests",
   render() {
     return <Functional />;
   },

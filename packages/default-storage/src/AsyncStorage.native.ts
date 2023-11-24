@@ -265,8 +265,6 @@ const AsyncStorage = ((): AsyncStorageStatic => {
         callback: callback,
         // do we need this?
         keyIndex: _getKeys.length,
-        resolve: null as any,
-        reject: null as any,
       };
 
       const promiseResult = new Promise<readonly KeyValuePair[]>(

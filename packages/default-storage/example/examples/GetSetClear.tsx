@@ -6,12 +6,12 @@
  */
 
 // @ts-ignore
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 function GetSet() {
-  const [storedNumber, setStoredNumber] = React.useState('');
+  const [storedNumber, setStoredNumber] = React.useState("");
   const [needsRestart, setNeedsRestart] = React.useState(false);
 
   React.useEffect(() => {
@@ -58,19 +58,19 @@ function GetSet() {
 
 const styles = StyleSheet.create({
   text: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10,
   },
 });
 
-export const STORAGE_KEY = 'random';
+export const STORAGE_KEY = "random";
 
 export default {
-  title: 'Simple Get/Set value',
-  testId: 'get-set-clear',
-  description: 'Store and retrieve persisted data',
+  title: "Simple Get/Set value",
+  testId: "get-set-clear",
+  description: "Store and retrieve persisted data",
   render() {
     return <GetSet />;
   },

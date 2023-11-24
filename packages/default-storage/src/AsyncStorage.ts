@@ -6,13 +6,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-// @ts-ignore Cannot find module 'merge-options' or its corresponding type declarations
 import mergeOptions from "merge-options";
 import type {
   AsyncStorageStatic,
   MultiCallback,
   MultiGetCallback,
 } from "./types";
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+type OnMultiResult = Function;
+// eslint-disable-next-line @typescript-eslint/ban-types
+type OnResult = Function;
 
 const merge = mergeOptions.bind({
   concatArrays: true,
@@ -31,7 +35,7 @@ function mergeLocalStorageItem(key: string, value: string) {
   }
 }
 
-function createPromise<Result, Callback extends Function>(
+function createPromise<Result, Callback extends OnResult>(
   getValue: () => Result,
   callback?: Callback
 ): Promise<Result> {
@@ -47,7 +51,11 @@ function createPromise<Result, Callback extends Function>(
   });
 }
 
-function createPromiseAll<ReturnType, Result, ResultProcessor extends Function>(
+function createPromiseAll<
+  ReturnType,
+  Result,
+  ResultProcessor extends OnMultiResult
+>(
   promises: Promise<Result>[],
   callback?: MultiCallback | MultiGetCallback,
   processResult?: ResultProcessor
