@@ -5,7 +5,13 @@
     "packages/*"
   ],
   "packageManager": "yarn@3.4.1",
+  "scripts": {
+    "format": "concurrently 'yarn:format:*'",
+    "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm') --style file:.config/.clang-format",
+    "format:js": "prettier --write --loglevel error $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')"
+  },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
     "prettier": "^2.8.8",
     "typescript": "^5.3.0"

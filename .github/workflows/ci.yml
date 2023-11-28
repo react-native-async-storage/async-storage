@@ -5,6 +5,23 @@ on:
       - main
   pull_request:
 jobs:
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18.16.1
+          cache: yarn
+      - name: Install JS dependencies
+        run: yarn
+      - name: Format
+        run: |
+          yarn format
+          git diff --exit-code
   review:
     name: Review
     runs-on: ubuntu-latest
@@ -150,7 +167,7 @@ jobs:
 
   release:
     name: Release
-    needs: [review, android, ios, macos, windows]
+    needs: [format, review, android, ios, macos, windows]
     if: github.event_name == 'push'
     runs-on: ubuntu-22.04
     steps:
@@ -170,7 +187,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           GIT_AUTHOR_EMAIL: ${{ secrets.GH_BOT_EMAIL }}
-          GIT_AUTHOR_NAME : ${{ secrets.GH_BOT_NAME }}
+          GIT_AUTHOR_NAME: ${{ secrets.GH_BOT_NAME }}
           GIT_COMMITTER_EMAIL: ${{ secrets.GH_BOT_EMAIL }}
           GIT_COMMITTER_NAME: ${{ secrets.GH_BOT_NAME }}
           NPM_TOKEN: ${{ secrets.NPM_RELEASE_TOKEN }}

@@ -6,7 +6,7 @@ const PlatformSupport = ({ platformIcon, title }) => (
       display: "flex",
       margin: "10px 20px",
       alignItems: "center",
-      flexDirection: "row"
+      flexDirection: "row",
     }}
   >
     <img
