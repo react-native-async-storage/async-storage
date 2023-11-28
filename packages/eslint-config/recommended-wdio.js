@@ -7,10 +7,11 @@ const compat = new FlatCompat({
 });
 
 module.exports = [
+  ...require("./index"),
   {
     plugins: {
       wdio: require("eslint-plugin-wdio"),
     },
   },
-  ...compat.extends("plugin:@rnx-kit/recommended", "plugin:wdio/recommended"),
+  ...compat.extends("plugin:wdio/recommended"),
 ];

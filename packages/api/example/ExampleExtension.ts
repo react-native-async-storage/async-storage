@@ -1,4 +1,4 @@
-import { StorageExtension } from "../src";
+import type { StorageExtension } from "../src";
 
 export interface MyExampleExtension extends StorageExtension {
   double: (num: number) => Promise<number>;

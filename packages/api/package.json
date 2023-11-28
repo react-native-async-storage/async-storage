@@ -16,7 +16,7 @@
   "scripts": {
     "prepack": "yarn build",
     "build": "bob build",
-    "test:lint": "eslint src/**",
+    "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
     "test:ts": "tsc --noEmit",
     "test:jest": "jest"
   },
