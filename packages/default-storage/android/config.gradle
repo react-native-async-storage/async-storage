@@ -51,7 +51,7 @@ String getKspVersion(String kotlinVersion) {
         return overriddenKspVersion
     }
     // https://github.com/google/ksp/releases
-    return [
+    def kspVersions = [
             "1.9.20-1.0.14",
             "1.9.10-1.0.13",
             "1.9.0-1.0.13",
@@ -71,7 +71,9 @@ String getKspVersion(String kotlinVersion) {
             "1.6.0-1.0.2",
             "1.5.31-1.0.1",
             "1.5.30-1.0.0",
-    ].find { it.startsWith(kotlinVersion) }
+    ]
+
+    return kspVersions.find { it.startsWith(kotlinVersion) } ?: kspVersions.first()
 }
 
 // AsyncStorage has default size of 6MB.
