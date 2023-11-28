@@ -24,6 +24,8 @@ apply from: 'config.gradle'
 boolean isNewArchitectureEnabled = ext.AsyncStorageConfig.isNewArchitectureEnabled
 boolean useNextStorage = ext.AsyncStorageConfig.useNextStorage
 
+logger.info("[AsyncStorage] Config used: {}", ext.AsyncStorageConfig)
+
 if (useNextStorage) {
     apply plugin: 'com.google.devtools.ksp'
     apply plugin: 'kotlin-android'
