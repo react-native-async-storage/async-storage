@@ -10,5 +10,5 @@
       "expect-webdriverio"
     ]
   },
-  "include": ["example/**/*.ts", "example/**/*.tsx"]
+  "include": ["example/**/*.ts", "example/**/*.tsx", "src"]
 }

@@ -54,6 +54,7 @@ export function convertError(error?: ErrorLike): Error | null {
   }
 
   const out = new Error(error.message);
+  // @ts-expect-error Ignoring to keep backward compatibility
   out["key"] = error.key;
   return out;
 }
