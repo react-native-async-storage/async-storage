@@ -8,7 +8,6 @@ type MyModel = StorageModel<{
   likes: boolean[];
 }>;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class ExampleStorage implements AsyncStorage<MyModel, MyExampleExtension> {
   private storage: MyModel = {
     age: null,
