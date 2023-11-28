@@ -19,12 +19,10 @@ buildscript {
 
 
 apply plugin: 'com.android.library'
-apply from: "config.gradle"
+apply from: 'config.gradle'
 
 boolean isNewArchitectureEnabled = ext.AsyncStorageConfig.isNewArchitectureEnabled
 boolean useNextStorage = ext.AsyncStorageConfig.useNextStorage
-
-println("[AsyncStorage] Config: ${ext.AsyncStorageConfig}")
 
 if (useNextStorage) {
     apply plugin: 'com.google.devtools.ksp'
@@ -103,26 +101,20 @@ repositories {
 dependencies {
     if (useNextStorage) {
         def room_version = project.ext.AsyncStorageConfig.roomVersion
-        def coroutines_version = "1.7.3"
-        def junit_version = "4.13.2"
-        def robolectric_version = "4.11.1"
-        def truth_version = "1.1.3"
-        def androidxtest_version = "1.4.0"
-        def androidtest_junit_version = "1.1.3"
 
         implementation "androidx.room:room-runtime:$room_version"
         implementation "androidx.room:room-ktx:$room_version"
         ksp "androidx.room:room-compiler:$room_version"
 
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+        implementation project.ext.AsyncStorageLibs.coroutines
 
-        testImplementation "junit:junit:$junit_version"
-        testImplementation "androidx.test:runner:$androidxtest_version"
-        testImplementation "androidx.test:rules:$androidxtest_version"
-        testImplementation "androidx.test.ext:junit:$androidtest_junit_version"
-        testImplementation "org.robolectric:robolectric:$robolectric_version"
-        testImplementation "com.google.truth:truth:$truth_version"
-        testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+        testImplementation project.ext.AsyncStorageLibs.testCoroutines
+        testImplementation project.ext.AsyncStorageLibs.testJunit
+        testImplementation project.ext.AsyncStorageLibs.testExtJunit
+        testImplementation project.ext.AsyncStorageLibs.testRunner
+        testImplementation project.ext.AsyncStorageLibs.testRules
+        testImplementation project.ext.AsyncStorageLibs.testRobolectric
+        testImplementation project.ext.AsyncStorageLibs.testTruth
     }
 
     implementation 'com.facebook.react:react-native:+' // from node_modules
