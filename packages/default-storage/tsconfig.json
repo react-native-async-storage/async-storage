@@ -3,12 +3,12 @@
   "compilerOptions": {
     "noEmit": true,
     "types": [
-      "node",
-      "mocha",
       "@wdio/globals/types",
       "@wdio/mocha-framework",
-      "expect-webdriverio"
+      "expect-webdriverio",
+      "mocha",
+      "node"
     ]
   },
-  "include": ["example/**/*.ts", "example/**/*.tsx"]
+  "include": ["example/**/*.ts", "example/**/*.tsx", "src"]
 }
