@@ -53,7 +53,7 @@ export function convertError(error?: ErrorLike): Error | null {
     return null;
   }
 
-  const out = new Error(error.message);
+  const out = new Error(error.message) as Error & ErrorLike;
   out["key"] = error.key;
   return out;
 }

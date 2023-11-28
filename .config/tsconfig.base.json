@@ -4,21 +4,29 @@
   ],
   "compilerOptions": {
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
-    "moduleResolution": "node",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "strictNullChecks": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "allowJs": true,
     "checkJs": true,
-    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "jsx": "react",
     "target": "ESNext",
-    "skipLibCheck": true
+    "pretty": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
   }
 }

@@ -1,6 +1,6 @@
 export type ErrorLike = {
   message: string;
-  key: string;
+  key?: string;
 };
 
 export type Callback = (error?: Error | null) => void;
