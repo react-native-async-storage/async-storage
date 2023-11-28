@@ -8,10 +8,9 @@
   "types": "lib/typescript/index.d.ts",
   "files": [
     "RNCAsyncStorage.podspec",
-    "android/build.gradle",
-    "android/src",
-    "android/testresults.gradle",
-    "android/config.gradle",
+    "android/",
+    "!android/.gradle",
+    "!android/build",
     "ios/",
     "jest/",
     "lib/",
