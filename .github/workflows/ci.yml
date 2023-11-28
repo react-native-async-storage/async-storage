@@ -167,7 +167,7 @@ jobs:
 
   release:
     name: Release
-    needs: [review, android, ios, macos, windows]
+    needs: [format, review, android, ios, macos, windows]
     if: github.event_name == 'push'
     runs-on: ubuntu-22.04
     steps:
