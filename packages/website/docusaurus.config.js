@@ -1,68 +1,68 @@
 module.exports = {
-  title: 'Async Storage',
-  tagline: 'Data storage system for React Native.',
-  url: 'https://react-native-async-storage.github.io',
-  baseUrl: '/async-storage/',
-  favicon: 'img/favicon.ico',
-  organizationName: 'react-native-async-storage',
-  projectName: 'async-storage',
+  title: "Async Storage",
+  tagline: "Data storage system for React Native.",
+  url: "https://react-native-async-storage.github.io",
+  baseUrl: "/async-storage/",
+  favicon: "img/favicon.ico",
+  organizationName: "react-native-async-storage",
+  projectName: "async-storage",
   themeConfig: {
     prism: {
-      theme: require('prism-react-renderer/themes/vsDark'),
-      darkTheme: require('prism-react-renderer/themes/vsDark'),
-      lightTheme: require('prism-react-renderer/themes/vsLight'),
+      theme: require("prism-react-renderer/themes/vsDark"),
+      darkTheme: require("prism-react-renderer/themes/vsDark"),
+      lightTheme: require("prism-react-renderer/themes/vsLight"),
     },
     navbar: {
-      title: 'Async Storage',
+      title: "Async Storage",
       logo: {
-        alt: 'Async Storage Logo',
-        src: 'img/logo.svg',
+        alt: "Async Storage Logo",
+        src: "img/logo.svg",
       },
       items: [
         {
-          label: 'Docs',
-          to: 'docs/install',
-          activeBasePath: '/docs',
-          position: 'right',
+          label: "Docs",
+          to: "docs/install",
+          activeBasePath: "/docs",
+          position: "right",
         },
         {
-          href: 'https://github.com/react-native-async-storage/async-storage',
-          label: 'GitHub',
-          position: 'right',
+          href: "https://github.com/react-native-async-storage/async-storage",
+          label: "GitHub",
+          position: "right",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Documentation',
+          title: "Documentation",
           items: [
             {
-              label: 'Installation',
-              to: 'docs/install',
+              label: "Installation",
+              to: "docs/install",
             },
             {
-              label: 'API reference',
-              to: 'docs/api',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Discord',
-              href: 'https://discord.gg/PycDts2',
+              label: "API reference",
+              to: "docs/api",
             },
           ],
         },
         {
-          title: 'More',
+          title: "Community",
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/react-native-async-storage/async-storage',
+              label: "Discord",
+              href: "https://discord.gg/PycDts2",
+            },
+          ],
+        },
+        {
+          title: "More",
+          items: [
+            {
+              label: "GitHub",
+              href: "https://github.com/react-native-async-storage/async-storage",
             },
           ],
         },
@@ -72,15 +72,15 @@ module.exports = {
   },
   presets: [
     [
-      '@docusaurus/preset-classic',
+      "@docusaurus/preset-classic",
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
-            'https://github.com/react-native-async-storage/async-storage/edit/main/website/',
+            "https://github.com/react-native-async-storage/async-storage/edit/main/website/",
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],

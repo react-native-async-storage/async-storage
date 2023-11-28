@@ -8,7 +8,9 @@ type MyModel = StorageModel<{
   likes: boolean[];
 }>;
 
-export class ExampleStorage implements AsyncStorage<MyModel, MyExampleExtension> {
+export class ExampleStorage
+  implements AsyncStorage<MyModel, MyExampleExtension>
+{
   private storage: MyModel = {
     age: null,
     name: null,

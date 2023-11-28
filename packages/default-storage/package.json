@@ -38,9 +38,6 @@
     "directory": "packages/default-storage-backend"
   },
   "scripts": {
-    "format": "concurrently 'yarn:format:*'",
-    "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm') --style file:../../.config/.clang-format",
-    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')",
     "prepare": "bob build",
     "start": "react-native start",
     "start:android": "react-native run-android",
@@ -86,7 +83,7 @@
     "appium": "2.2.2",
     "appium-uiautomator2-driver": "^2.34.1",
     "appium-xcuitest-driver": "^5.9.1",
-    "concurrently": "^6.4.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
     "expo": "^48.0.0",
     "lodash": "^4.17.21",

@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'packages/website/**'
+      - "packages/website/**"
 
 jobs:
   deploy:
