@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error cannot find module
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import isEqual from "lodash/isEqual";
@@ -22,6 +22,18 @@ type TestResult =
       expected: TestValue;
       actual?: string | null;
     };
+
+function isTestResult(result: unknown): result is TestResult {
+  return (
+    result === SKIP_TEST ||
+    Boolean(
+      result &&
+        typeof result === "object" &&
+        "step" in result &&
+        "expected" in result
+    )
+  );
+}
 
 function compare(expected: TestValue, actual: string): boolean {
   return typeof expected === "string"
@@ -105,7 +117,11 @@ function Functional(): JSX.Element {
           try {
             await execute(test);
             testResults.push([name, undefined]);
-          } catch (e: any) {
+          } catch (e: unknown) {
+            if (!isTestResult(e)) {
+              throw e;
+            }
+
             testResults.push([name, e]);
           }
         }
@@ -140,7 +156,11 @@ function Functional(): JSX.Element {
           try {
             await execute(test);
             testResults.push([name, undefined]);
-          } catch (e: any) {
+          } catch (e: unknown) {
+            if (!isTestResult(e)) {
+              throw e;
+            }
+
             testResults.push([name, e]);
             await new Promise((resolve) => {
               AsyncStorageTestSupport.test_unsetDelegate(resolve);

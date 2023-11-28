@@ -1,5 +1,6 @@
-import { AsyncStorage, StorageKeys, StorageModel } from "../src";
-import { ExampleExtension, MyExampleExtension } from "./ExampleExtension";
+import type { AsyncStorage, StorageKeys, StorageModel } from "../src";
+import type { MyExampleExtension } from "./ExampleExtension";
+import { ExampleExtension } from "./ExampleExtension";
 
 type MyModel = StorageModel<{
   age: number;
@@ -7,9 +8,8 @@ type MyModel = StorageModel<{
   likes: boolean[];
 }>;
 
-// @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-class ExampleStorage implements AsyncStorage<MyModel, MyExampleExtension> {
+export class ExampleStorage implements AsyncStorage<MyModel, MyExampleExtension> {
   private storage: MyModel = {
     age: null,
     name: null,

@@ -1,4 +1,4 @@
-// @ts-ignore
+// @ts-expect-error cannot find module
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import {

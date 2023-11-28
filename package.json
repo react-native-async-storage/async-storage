@@ -6,7 +6,6 @@
   ],
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
-    "@rnx-kit/eslint-plugin": "^0.5.0",
     "eslint": "^8.54.0",
     "prettier": "^2.8.8",
     "typescript": "^5.3.0"
