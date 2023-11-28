@@ -55,7 +55,7 @@
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
     "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output example/index.macos.jsbundle",
     "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
-    "test:lint": "eslint src/**/*.ts example/**/*.ts example/**/*.tsx jest/*.js",
+    "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
     "test:ts": "tsc",
     "test:e2e:android": "scripts/android_e2e.sh 'test'",
     "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
