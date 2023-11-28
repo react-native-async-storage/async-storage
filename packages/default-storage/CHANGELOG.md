@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/react-native-async-storage/async-storage/compare/v1.19.8...v1.20.0) (2023-11-28)
+
+
+### Features
+
+* **android:** Bump versions for Next storage ([#1028](https://github.com/react-native-async-storage/async-storage/issues/1028)) ([14489a7](https://github.com/react-native-async-storage/async-storage/commit/14489a79fbb3d6fc31171e82a826cb4df6317cb8))
+
 ## [1.19.8](https://github.com/react-native-async-storage/async-storage/compare/v1.19.7...v1.19.8) (2023-11-22)
 
 
