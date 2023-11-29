@@ -3,8 +3,10 @@ import java.nio.file.Paths
 def DEFAULT_KOTLIN_VERSION = "1.9.20"
 def DEFAULT_ROOM_VERSION = "2.4.3"
 
+def kotlinVersion = getKotlinVersion(DEFAULT_KOTLIN_VERSION)
+
 project.ext.AsyncStorageConfig = [
-        kotlinVersion           : getKotlinVersion(DEFAULT_KOTLIN_VERSION),
+        kotlinVersion           : kotlinVersion,
         kspVersion              : getKspVersion(kotlinVersion),
         roomVersion             : getPropertyOfDefault('AsyncStorage_next_roomVersion', DEFAULT_ROOM_VERSION),
         minSdkVersion           : safeExtGet('minSdkVersion', 23),
