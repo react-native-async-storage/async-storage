@@ -1,3 +1,15 @@
+# [1.21.0](https://github.com/react-native-async-storage/async-storage/compare/v1.20.0...v1.21.0) (2023-11-29)
+
+
+### Bug Fixes
+
+* missing `kotlinVersion` property ([#1042](https://github.com/react-native-async-storage/async-storage/issues/1042)) ([cff03e8](https://github.com/react-native-async-storage/async-storage/commit/cff03e8fa76e268002017e18349a0b462547df87))
+
+
+### Features
+
+* **windows:** bump minimum target platform version to 10.0.17763.0 ([#1031](https://github.com/react-native-async-storage/async-storage/issues/1031)) ([5682e8c](https://github.com/react-native-async-storage/async-storage/commit/5682e8ce2548ff423d978b0317e1b70de7a8a76f))
+
 # [1.20.0](https://github.com/react-native-async-storage/async-storage/compare/v1.19.8...v1.20.0) (2023-11-28)
 
 
