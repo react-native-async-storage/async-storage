@@ -461,7 +461,7 @@ removeFew = async () => {
 
 ## `clear`
 
-Removes **whole** `AsyncStorage` data, for all clients, libraries, etc. You probably want to use [removeItem](#removeItem) or [multiRemove](#multiRemove) to clear only your App's keys.
+Removes **whole** `AsyncStorage` data, for all clients, libraries, etc. You probably want to use [removeItem](#removeitem) or [multiRemove](#multiremove) to clear only your App's keys.
 
 **Signature**:
 
