@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/react-native-async-storage/async-storage/compare/v1.21.0...v1.22.0) (2024-02-15)
+
+
+### Features
+
+* add visionOS support ([#1063](https://github.com/react-native-async-storage/async-storage/issues/1063)) ([a170bac](https://github.com/react-native-async-storage/async-storage/commit/a170baced0265e197dc7c6659ee963efbc0418a6))
+
 # [1.21.0](https://github.com/react-native-async-storage/async-storage/compare/v1.20.0...v1.21.0) (2023-11-29)
 
 
