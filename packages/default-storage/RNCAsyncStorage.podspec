@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
       'HEADER_SEARCH_PATHS' => '"$(PODS_ROOT)/boost" "$(PODS_ROOT)/boost-for-react-native" "$(PODS_ROOT)/RCT-Folly"',
       'CLANG_CXX_LANGUAGE_STANDARD' => 'c++17',
     }
-    s.platforms       = { ios: '13.4', tvos: '11.0', :osx => "10.15" }
+    s.platforms       = { ios: '13.4', tvos: '11.0', :osx => "10.15", :visionos => "1.0" }
     s.compiler_flags  = folly_compiler_flags + ' -DRCT_NEW_ARCH_ENABLED=1'
 
     if respond_to?(:install_modules_dependencies, true)
@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
       s.dependency "ReactCommon/turbomodule/core"
     end
   else
-    s.platforms = { :ios => "9.0", :tvos => "9.2", :osx => "10.14" }
+    s.platforms = { :ios => "9.0", :tvos => "9.2", :osx => "10.14", :visionos => "1.0" }
 
     s.dependency "React-Core"
   end
