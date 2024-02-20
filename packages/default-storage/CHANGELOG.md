@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/react-native-async-storage/async-storage/compare/v1.22.0...v1.22.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* **ios:** Merging empty object should not override current value ([#1064](https://github.com/react-native-async-storage/async-storage/issues/1064)) ([ea9fc7a](https://github.com/react-native-async-storage/async-storage/commit/ea9fc7a38bf19c2aa8746a20bc9992f06943a753))
+
 # [1.22.0](https://github.com/react-native-async-storage/async-storage/compare/v1.21.0...v1.22.0) (2024-02-15)
 
 
