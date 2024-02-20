@@ -50,7 +50,7 @@ const tests: Record<string, TestStep[]> = {
       },
     },
   ],
-  "Should merge items #2": [
+  "Should keep existing entries when merging with an empty object": [
     {
       command: "set",
       key: "merge_test_2",
