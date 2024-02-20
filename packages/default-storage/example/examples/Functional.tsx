@@ -79,19 +79,21 @@ async function executeStep(step: TestStep): Promise<void> {
 
 async function execute(steps: TestStep[]): Promise<void> {
   const numSteps = steps.length;
-  for (let i = 0; i < numSteps; ++i) {
-    try {
-      await executeStep(steps[i]);
-    } catch (e) {
-      if (!Array.isArray(e)) {
-        throw e;
-      }
+  try {
+    for (let i = 0; i < numSteps; ++i) {
+      try {
+        await executeStep(steps[i]);
+      } catch (e) {
+        if (!Array.isArray(e)) {
+          throw e;
+        }
 
-      const [expected, actual] = e;
-      throw { step: i, expected, actual };
-    } finally {
-      await AsyncStorage.clear();
+        const [expected, actual] = e;
+        throw { step: i, expected, actual };
+      }
     }
+  } finally {
+    await AsyncStorage.clear();
   }
 }
 

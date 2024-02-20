@@ -1,10 +1,5 @@
 #!/bin/bash
 
-RESOURCE_DIR="$PWD/example/ios/build/Build/Products/Release-iphonesimulator/ReactTestApp.app"
-ENTRY_FILE="example/index.ts"
-BUNDLE_FILE="$RESOURCE_DIR/index.ios.jsbundle"
-EXTRA_PACKAGER_ARGS="--entry-file=$ENTRY_FILE"
-
 build_project() {
   echo "[iOS E2E] Building iOS project"
   eval "xcodebuild \
@@ -12,9 +7,7 @@ build_project() {
     -scheme ReactTestApp \
     -configuration Release \
     -sdk iphonesimulator \
-    -derivedDataPath example/ios/build \
-    BUNDLE_FILE=$BUNDLE_FILE \
-    EXTRA_PACKAGER_ARGS=$EXTRA_PACKAGER_ARGS"
+    -derivedDataPath example/ios/build"
 }
 
 bundle_js() {
