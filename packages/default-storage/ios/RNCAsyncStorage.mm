@@ -787,7 +787,8 @@ RCT_EXPORT_METHOD(multiMerge:(NSArray<NSArray<NSString *> *> *)kvPairs
             if (value) {
                 NSError *jsonError;
                 NSMutableDictionary *mergedVal = RCTJSONParseMutable(value, &jsonError);
-                if (RCTMergeRecursive(mergedVal, RCTJSONParse(entry[1], &jsonError))) {
+                NSDictionary *mergingValue = RCTJSONParse(entry[1], &jsonError);
+                if (!mergingValue.count || RCTMergeRecursive(mergedVal, mergingValue)) {
                     entry = @[entry[0], RCTNullIfNil(RCTJSONStringify(mergedVal, NULL))];
                 }
                 if (jsonError) {

@@ -35,6 +35,7 @@ to learn more.
 2. Build app and run tests
    ```shell
    yarn bundle:ios
+   pod install --project-directory=example/ios
    yarn build:e2e:ios
    yarn test:e2e:ios
    ```

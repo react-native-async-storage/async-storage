@@ -71,11 +71,19 @@ static AsyncStorageDevSupport *_sharedInstance;
          completion:(RNCAsyncStorageResultCallback)completion
 {
     NSError *error = nil;
-    NSDictionary *dictionary =
+    NSMutableDictionary *destination = [NSJSONSerialization
+        JSONObjectWithData:[_memoryStorage[keys[0]] dataUsingEncoding:NSUTF8StringEncoding]
+                   options:NSJSONReadingMutableContainers
+                     error:&error];
+
+    NSDictionary *source =
         [NSJSONSerialization JSONObjectWithData:[values[0] dataUsingEncoding:NSUTF8StringEncoding]
                                         options:NSJSONReadingMutableContainers
                                           error:&error];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&error];
+
+    [destination addEntriesFromDictionary:source];
+
+    NSData *data = [NSJSONSerialization dataWithJSONObject:destination options:0 error:&error];
     NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     _memoryStorage[keys[0]] = str;
     completion(@[str]);
