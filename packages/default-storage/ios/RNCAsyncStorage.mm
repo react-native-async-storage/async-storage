@@ -869,8 +869,14 @@ RCT_EXPORT_METHOD(clear:(RCTResponseSenderBlock)callback)
 
     [_manifest removeAllObjects];
     [RCTGetCache() removeAllObjects];
-    NSDictionary *error = RCTDeleteStorageDirectory();
-    callback(@[RCTNullIfNil(error)]);
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:RCTGetStorageDirectory()]) {
+        NSDictionary *error = RCTDeleteStorageDirectory();
+        callback(@[RCTNullIfNil(error)]);
+    } else {
+        callback(@[[NSNull null]]);
+    }
 }
 
 // clang-format off
