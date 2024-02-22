@@ -250,6 +250,9 @@ static NSDictionary *RCTDeleteStorageDirectory()
     NSError *error;
     [[NSFileManager defaultManager] removeItemAtPath:RCTGetStorageDirectory() error:&error];
     RCTHasCreatedStorageDirectory = NO;
+    if (error.code == NSFileNoSuchFileError) {
+        return nil;
+    }
     return error ? RCTMakeError(@"Failed to delete storage directory.", error, nil) : nil;
 }
 
@@ -869,14 +872,8 @@ RCT_EXPORT_METHOD(clear:(RCTResponseSenderBlock)callback)
 
     [_manifest removeAllObjects];
     [RCTGetCache() removeAllObjects];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:RCTGetStorageDirectory()]) {
-        NSDictionary *error = RCTDeleteStorageDirectory();
-        callback(@[RCTNullIfNil(error)]);
-    } else {
-        callback(@[[NSNull null]]);
-    }
+    NSDictionary *error = RCTDeleteStorageDirectory();
+    callback(@[RCTNullIfNil(error)]);
 }
 
 // clang-format off
