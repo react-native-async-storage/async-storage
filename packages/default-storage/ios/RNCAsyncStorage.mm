@@ -250,7 +250,10 @@ static NSDictionary *RCTDeleteStorageDirectory()
     NSError *error;
     [[NSFileManager defaultManager] removeItemAtPath:RCTGetStorageDirectory() error:&error];
     RCTHasCreatedStorageDirectory = NO;
-    return error ? RCTMakeError(@"Failed to delete storage directory.", error, nil) : nil;
+    if (error && error.code != NSFileNoSuchFileError) {
+        return RCTMakeError(@"Failed to delete storage directory.", error, nil);
+    }
+    return nil;
 }
 
 static NSDate *RCTManifestModificationDate(NSString *manifestFilePath)
