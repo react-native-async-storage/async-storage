@@ -1,3 +1,10 @@
+## [1.22.2](https://github.com/react-native-async-storage/async-storage/compare/v1.22.1...v1.22.2) (2024-02-23)
+
+
+### Bug Fixes
+
+* **ios:** check directory before call delete ([#1066](https://github.com/react-native-async-storage/async-storage/issues/1066)) ([9db07c8](https://github.com/react-native-async-storage/async-storage/commit/9db07c8d10d9cee1c0ef8038d2374d2c231a41dc))
+
 ## [1.22.1](https://github.com/react-native-async-storage/async-storage/compare/v1.22.0...v1.22.1) (2024-02-20)
 
 
