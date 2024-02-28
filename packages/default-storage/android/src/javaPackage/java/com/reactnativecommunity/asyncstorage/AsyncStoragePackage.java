@@ -8,7 +8,6 @@
 package com.reactnativecommunity.asyncstorage;
 
 import com.facebook.react.TurboReactPackage;
-import com.facebook.react.ViewManagerOnDemandReactPackage;
 import com.facebook.react.bridge.ModuleSpec;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
@@ -17,7 +16,6 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.module.annotations.ReactModuleList;
 import com.facebook.react.module.model.ReactModuleInfo;
 import com.facebook.react.module.model.ReactModuleInfoProvider;
-import com.facebook.react.turbomodule.core.interfaces.TurboModule;
 import com.facebook.react.uimanager.ViewManager;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @ReactModuleList(
         nativeModules = {
@@ -62,6 +59,7 @@ public class AsyncStoragePackage extends TurboReactPackage {
                 @Override
                 public Map<String, ReactModuleInfo> getReactModuleInfos() {
                     final Map<String, ReactModuleInfo> reactModuleInfoMap = new HashMap<>();
+                    boolean isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
 
                     Class<? extends NativeModule>[] moduleList =
                             new Class[] {
@@ -80,7 +78,7 @@ public class AsyncStoragePackage extends TurboReactPackage {
                                         reactModule.needsEagerInit(),
                                         reactModule.hasConstants(),
                                         reactModule.isCxxModule(),
-                                        TurboModule.class.isAssignableFrom(moduleClass)));
+                                        isTurboModule));
                     }
 
                     return reactModuleInfoMap;
@@ -90,11 +88,6 @@ public class AsyncStoragePackage extends TurboReactPackage {
             throw new RuntimeException(
                     "No ReactModuleInfoProvider for com.reactnativecommunity.asyncstorage.AsyncStoragePackage$$ReactModuleInfoProvider", e);
         }
-    }
-
-    // Deprecated in RN 0.47 
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-        return Collections.emptyList();
     }
 
     @Override

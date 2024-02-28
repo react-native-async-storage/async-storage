@@ -62,6 +62,7 @@ android {
         buildConfigField "Long", "AsyncStorage_db_size", "${project.ext.AsyncStorageConfig.databaseSizeMB}L"
         buildConfigField "boolean", "AsyncStorage_useDedicatedExecutor", "${project.ext.AsyncStorageConfig.useDedicatedExecutor}"
         buildConfigField "boolean", "AsyncStorage_useNextStorage", "${useNextStorage}"
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", "${isNewArchitectureEnabled}"
     }
     lintOptions {
         abortOnError false
