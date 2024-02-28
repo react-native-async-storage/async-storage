@@ -1,3 +1,10 @@
+## [1.22.3](https://github.com/react-native-async-storage/async-storage/compare/v1.22.2...v1.22.3) (2024-02-28)
+
+
+### Bug Fixes
+
+* **android:** bridgeless mode broken on react-native 0.74 ([#1068](https://github.com/react-native-async-storage/async-storage/issues/1068)) ([253126d](https://github.com/react-native-async-storage/async-storage/commit/253126d08c9d26e407782995134231639b71bce5))
+
 ## [1.22.2](https://github.com/react-native-async-storage/async-storage/compare/v1.22.1...v1.22.2) (2024-02-23)
 
 
