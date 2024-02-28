@@ -1,7 +1,6 @@
 package com.reactnativecommunity.asyncstorage
 
 import com.facebook.react.TurboReactPackage
-import com.facebook.react.ViewManagerOnDemandReactPackage
 import com.facebook.react.bridge.ModuleSpec
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
@@ -9,9 +8,6 @@ import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.module.annotations.ReactModuleList
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import com.facebook.react.turbomodule.core.interfaces.TurboModule
-import com.facebook.react.uimanager.ReactShadowNode
-import com.facebook.react.uimanager.ViewManager
 import com.reactnativecommunity.asyncstorage.next.StorageModule
 
 @ReactModuleList(
@@ -32,10 +28,11 @@ class AsyncStoragePackage : TurboReactPackage() {
             return reactModuleInfoProviderClass.newInstance() as ReactModuleInfoProvider
         } catch (e: ClassNotFoundException) {
             return ReactModuleInfoProvider {
+                val isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
                 val reactModule: ReactModule = StorageModule::class.java.getAnnotation(
                     ReactModule::class.java)!!
 
-                mutableMapOf(
+                mapOf(
                     StorageModule.NAME to ReactModuleInfo(
                         reactModule.name,
                         StorageModule::class.java.name,
@@ -43,7 +40,7 @@ class AsyncStoragePackage : TurboReactPackage() {
                         reactModule.needsEagerInit,
                         reactModule.hasConstants,
                         reactModule.isCxxModule,
-                        TurboModule::class.java.isAssignableFrom(StorageModule::class.java)
+                        isTurboModule
                     )
                 )
             }
