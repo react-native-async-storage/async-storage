@@ -1,0 +1,19 @@
+name: Setup project
+description: Install required tools
+inputs:
+  node-version:
+    required: false
+    description: node version to install
+    default: 20.10.0 # is already cached in Ubuntu 22.04 runner
+runs:
+  using: composite
+  steps:
+    - name: Enable corepack
+      shell: bash
+      run: |
+        corepack enable
+        yarn --version
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: "yarn"
