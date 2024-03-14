@@ -1,4 +1,4 @@
-name: Mark stale issues and pull requests
+name: Stale issue
 on:
   schedule:
     - cron: "30 1 * * *"
