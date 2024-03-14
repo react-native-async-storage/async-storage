@@ -4,7 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@4.1.1",
   "engines": {
     "node": "v20.11.1"
   },

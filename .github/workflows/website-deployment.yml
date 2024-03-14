@@ -1,4 +1,4 @@
-name: Website Deployment
+name: Website
 on:
   push:
     branches:

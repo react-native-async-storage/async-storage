@@ -1,4 +1,4 @@
-name: default-storage
+name: Default storage
 on:
   push:
     branches:
