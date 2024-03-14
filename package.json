@@ -11,10 +11,10 @@
   "scripts": {
     "format": "concurrently 'yarn:format:*'",
     "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm') --style file:.config/.clang-format",
-    "format:js": "prettier --write --loglevel error $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')",
+    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')",
     "test:lint": "turbo run test:lint",
     "test:ts": "turbo run test:ts",
-    "test:unit": "turbo run test:unit"
+    "test:format": "prettier --check --loglevel warn $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
