@@ -19,9 +19,8 @@
     "!android/gradlew",
     "!android/gradlew.bat",
     "!android/local.properties",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__",
+    "!tests",
+    "!example",
     "!**/.*"
   ],
   "keywords": [
@@ -43,7 +42,8 @@
     "prepare": "bob build",
     "test:unit": "jest",
     "test:ts": "tsc",
-    "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')"
+    "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
+    "example:start": "react-native start"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
@@ -55,6 +55,11 @@
     "react-native": "^0.0.0-0 || >=0.69 <1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/preset-env": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native/babel-preset": "0.73.21",
+    "@rnx-kit/metro-config": "^1.3.14",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.2.44",
     "eslint": "^8.51.0",
@@ -63,6 +68,7 @@
     "react": "18.2.0",
     "react-native": "0.73.6",
     "react-native-builder-bob": "^0.20.0",
+    "react-native-test-app": "^3.3.1",
     "typescript": "^5.2.2"
   },
   "react-native-builder-bob": {

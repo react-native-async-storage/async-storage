@@ -1,7 +1,10 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@react-native-async-storage/sqlite-storage": ["./src/index"]
+    }
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests", "example/**/*.ts", "example/**/*.tsx"]
 }

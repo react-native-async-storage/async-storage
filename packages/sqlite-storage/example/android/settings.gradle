@@ -1,4 +1,12 @@
-rootProject.name = 'SqliteStorageExample'
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-include ':app'
-includeBuild('../node_modules/@react-native/gradle-plugin')
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+    }
+}
+
+rootProject.name = "AsyncStorageSQLiteExample"
+
+apply(from: "../../node_modules/react-native-test-app/test-app.gradle")
+applyTestAppSettings(settings)

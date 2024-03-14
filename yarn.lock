@@ -4452,6 +4452,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@react-native-async-storage/sqlite-storage@workspace:packages/sqlite-storage"
   dependencies:
+    "@babel/core": ^7.20.0
+    "@babel/preset-env": ^7.20.0
+    "@babel/runtime": ^7.20.0
+    "@react-native/babel-preset": 0.73.21
+    "@rnx-kit/metro-config": ^1.3.14
     "@types/jest": ^29.5.5
     "@types/react": ^18.2.44
     eslint: ^8.51.0
@@ -4460,6 +4465,7 @@ __metadata:
     react: 18.2.0
     react-native: 0.73.6
     react-native-builder-bob: ^0.20.0
+    react-native-test-app: ^3.3.1
     typescript: ^5.2.2
   peerDependencies:
     react-native: ^0.0.0-0 || >=0.69 <1.0
@@ -4999,6 +5005,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rnx-kit/console@npm:^1.0.0":
+  version: 1.0.12
+  resolution: "@rnx-kit/console@npm:1.0.12"
+  dependencies:
+    chalk: ^4.1.0
+  checksum: a023cafcd3b5aa57b2c6547ec6a4f12589cdf47c479a5f7f4f09a8ce6f530717651521466ae4eabad46d4f94ba2f961f69283171d5c71ce323c6a99f938d77b6
+  languageName: node
+  linkType: hard
+
 "@rnx-kit/eslint-plugin@npm:^0.6.0":
   version: 0.6.0
   resolution: "@rnx-kit/eslint-plugin@npm:0.6.0"
@@ -5017,12 +5032,68 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnx-kit/react-native-host@npm:^0.2.8":
+"@rnx-kit/metro-config@npm:^1.3.14":
+  version: 1.3.15
+  resolution: "@rnx-kit/metro-config@npm:1.3.15"
+  dependencies:
+    "@rnx-kit/console": ^1.0.0
+    "@rnx-kit/tools-node": ^2.0.0
+    "@rnx-kit/tools-react-native": ^1.3.4
+    "@rnx-kit/tools-workspaces": ^0.1.3
+  peerDependencies:
+    "@react-native/metro-config": "*"
+    react: "*"
+    react-native: "*"
+  peerDependenciesMeta:
+    "@react-native/metro-config":
+      optional: true
+  checksum: 44c3def6c9ce79add9bfda81ffdda7ce49722026f1ccf0064a6260e0dbe6f710723581c6cff955290e35aea545098988c0feb23d8412e6ac2d53585e9f57041c
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/react-native-host@npm:^0.2.9":
   version: 0.2.9
   resolution: "@rnx-kit/react-native-host@npm:0.2.9"
   peerDependencies:
     react-native: ">=0.64"
   checksum: 1d7678930cd59b6ca84b9858ef0834991f89909df0a4f8176592d967d921d547405431f7518803b29bc4cb1bddc722898c42758b2a8889df11f0550283dff146
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/react-native-host@npm:^0.4.4":
+  version: 0.4.5
+  resolution: "@rnx-kit/react-native-host@npm:0.4.5"
+  peerDependencies:
+    react-native: ">=0.66"
+  checksum: 2af669862b4154c04549d7de29f88a80d1a37b12dcf5824d130271f43542fa570e31ea8d5ae6cad0191f90aea9d04401b1872d21a6def7f0bb69721e7f47b64b
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/tools-node@npm:^2.0.0, @rnx-kit/tools-node@npm:^2.0.1":
+  version: 2.1.1
+  resolution: "@rnx-kit/tools-node@npm:2.1.1"
+  checksum: 6a274ad65c6ae776c1758d1573ba30a533dd242b82973891f610983992d738ce1ead7ac8ca4308a4267bcdbf4d30a124f82c9756b9b433a901ddcd9ac30a4772
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/tools-react-native@npm:^1.3.4":
+  version: 1.3.5
+  resolution: "@rnx-kit/tools-react-native@npm:1.3.5"
+  dependencies:
+    "@rnx-kit/tools-node": ^2.0.1
+  checksum: 2049dfb24655765ec4254e404a5deda3bb4d58bce1ed255e9543b5f5c75a0f39ac6da7c7f078351af316b546c6ae165b08c36f5e7442013d300664f43b8bb949
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/tools-workspaces@npm:^0.1.3":
+  version: 0.1.5
+  resolution: "@rnx-kit/tools-workspaces@npm:0.1.5"
+  dependencies:
+    fast-glob: ^3.2.7
+    find-up: ^5.0.0
+    read-yaml-file: ^2.1.0
+    strip-json-comments: ^3.1.1
+  checksum: 7fd39b74f77af2e5d8340dd580f209f39e0805fc3236d8b123f2d38cce296c9690d6741e99b06f2b0952a46824d39ce2effcb010a2f614884ac98bb1ca242ffd
   languageName: node
   linkType: hard
 
@@ -12212,6 +12283,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-glob@npm:^3.2.7":
+  version: 3.3.2
+  resolution: "fast-glob@npm:3.3.2"
+  dependencies:
+    "@nodelib/fs.stat": ^2.0.2
+    "@nodelib/fs.walk": ^1.2.3
+    glob-parent: ^5.1.2
+    merge2: ^1.3.0
+    micromatch: ^4.0.4
+  checksum: 900e4979f4dbc3313840078419245621259f349950411ca2fa445a2f9a1a6d98c3b5e7e0660c5ccd563aa61abe133a21765c6c0dec8e57da1ba71d8000b05ec1
+  languageName: node
+  linkType: hard
+
 "fast-json-stable-stringify@npm:2.x, fast-json-stable-stringify@npm:^2.0.0, fast-json-stable-stringify@npm:^2.1.0":
   version: 2.1.0
   resolution: "fast-json-stable-stringify@npm:2.1.0"
@@ -16019,7 +16103,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:4.1.0, js-yaml@npm:^4.1.0":
+"js-yaml@npm:4.1.0, js-yaml@npm:^4.0.0, js-yaml@npm:^4.1.0":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
   dependencies:
@@ -21476,10 +21560,10 @@ __metadata:
   linkType: hard
 
 "react-native-test-app@npm:^2.5.33":
-  version: 2.5.33
-  resolution: "react-native-test-app@npm:2.5.33"
+  version: 2.5.35
+  resolution: "react-native-test-app@npm:2.5.35"
   dependencies:
-    "@rnx-kit/react-native-host": ^0.2.8
+    "@rnx-kit/react-native-host": ^0.2.9
     ajv: ^8.0.0
     chalk: ^4.1.0
     cliui: ^8.0.0
@@ -21490,10 +21574,10 @@ __metadata:
     uuid: ^8.3.2
   peerDependencies:
     "@expo/config-plugins": ">=5.0"
-    react: ~17.0.1 || ~18.0.0 || ~18.1.0 || ~18.2.0
-    react-native: ^0.0.0-0 || 0.64 - 0.72 || 1000.0.0
-    react-native-macos: ^0.0.0-0 || 0.64 || 0.66 || 0.68 || 0.71 - 0.72
-    react-native-windows: ^0.0.0-0 || 0.64 - 0.72
+    react: 17.0.1 - 18.2
+    react-native: ^0.0.0-0 || 0.64 - 0.73 || 1000.0.0
+    react-native-macos: ^0.0.0-0 || 0.64 || 0.66 || 0.68 || 0.71 - 0.73
+    react-native-windows: ^0.0.0-0 || 0.64 - 0.73
   peerDependenciesMeta:
     "@expo/config-plugins":
       optional: true
@@ -21506,7 +21590,44 @@ __metadata:
     init: scripts/init.js
     init-test-app: scripts/init.js
     install-windows-test-app: windows/test-app.js
-  checksum: 96e9d78b44c3cb620e11b02177660e859a652f7ff492580f93d5ac7e38af0114c85540087b62a7b9b4347373cb5cd9f411f2c97b90b16dc9fb0e37ebe8635b0e
+  checksum: 7c76bf12b728b8dffb96c7adaae751fc52d855084731b3b1cb2c2e41ee9daf7db0aa14defb76dd1e4741583c2413d3bc89fb6e495f15bfb6bee062eb4fd7a3a3
+  languageName: node
+  linkType: hard
+
+"react-native-test-app@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "react-native-test-app@npm:3.3.1"
+  dependencies:
+    "@rnx-kit/react-native-host": ^0.4.4
+    ajv: ^8.0.0
+    cliui: ^8.0.0
+    fast-xml-parser: ^4.0.0
+    prompts: ^2.4.0
+    semver: ^7.3.5
+    uuid: ^8.3.2
+    yoctocolors: ^2.0.0
+  peerDependencies:
+    "@callstack/react-native-visionos": 0.73
+    "@expo/config-plugins": ">=5.0"
+    react: 17.0.1 - 18.2
+    react-native: ^0.0.0-0 || 0.66 - 0.73 || 1000.0.0
+    react-native-macos: ^0.0.0-0 || 0.66 || 0.68 || 0.71 - 0.73
+    react-native-windows: ^0.0.0-0 || 0.66 - 0.73
+  peerDependenciesMeta:
+    "@callstack/react-native-visionos":
+      optional: true
+    "@expo/config-plugins":
+      optional: true
+    react-native-macos:
+      optional: true
+    react-native-windows:
+      optional: true
+  bin:
+    configure-test-app: scripts/configure.mjs
+    init: scripts/init.mjs
+    init-test-app: scripts/init.mjs
+    install-windows-test-app: windows/test-app.mjs
+  checksum: f2afae4eb09da5a87187b4787cdf7ea864b8a3ef949c95ce5f78f7130be650968c20c676758d4da89b27ef70bef5db94607d7dddaa4b6494ca56e70a00fa02d5
   languageName: node
   linkType: hard
 
@@ -21861,6 +21982,16 @@ __metadata:
     parse-json: ^7.0.0
     type-fest: ^4.2.0
   checksum: f4cd164f096e78cf3e338a55f800043524e3055f9b0b826143290002fafc951025fc3cbd6ca683ebaf7945efcfb092d31c683dd252a7871a974662985c723b67
+  languageName: node
+  linkType: hard
+
+"read-yaml-file@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "read-yaml-file@npm:2.1.0"
+  dependencies:
+    js-yaml: ^4.0.0
+    strip-bom: ^4.0.0
+  checksum: 52765eb183e79466f51eebeb19b933cc0f0e907052d062d67300b97e79910064a24b370cdb0b5dd8b05afff3d0ec57282670fd9070dc608e13b11820ac79183d
   languageName: node
   linkType: hard
 
@@ -26626,6 +26757,13 @@ __metadata:
   version: 1.0.0
   resolution: "yocto-queue@npm:1.0.0"
   checksum: 2cac84540f65c64ccc1683c267edce396b26b1e931aa429660aefac8fbe0188167b7aee815a3c22fa59a28a58d898d1a2b1825048f834d8d629f4c2a5d443801
+  languageName: node
+  linkType: hard
+
+"yoctocolors@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "yoctocolors@npm:2.0.0"
+  checksum: ae0e5a244bf5c2be111bff84cc5e40751da4df5a26e90c60485df14d1334ff349a1af2908af6c12e90f8d534bbb5e03009182437639e95bfebb6a99b9370ed14
   languageName: node
   linkType: hard
 
