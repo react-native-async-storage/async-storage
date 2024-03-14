@@ -1,0 +1,15 @@
+require_relative '../../node_modules/react-native-test-app/test_app'
+
+workspace 'AsyncStorageSQLiteExample.xcworkspace'
+
+options = {
+  :fabric_enabled => false,
+  :hermes_enabled => false,
+  :turbomodule_enabled => false,
+}
+
+use_test_app! options do |target|
+  target.app do
+    pod 'RNAsyncStorageSQLite', :path => '../..'
+  end
+end
