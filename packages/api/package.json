@@ -17,8 +17,7 @@
     "prepack": "yarn build",
     "build": "bob build",
     "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
-    "test:ts": "tsc --noEmit",
-    "test:jest": "jest"
+    "test:ts": "tsc --noEmit"
   },
   "keywords": [
     "react-native",
@@ -31,12 +30,9 @@
   "author": "Krzysztof Borowy <contact@kborowy.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "29.5.4",
     "eslint": "^8.54.0",
-    "jest": "29.5.0",
     "prettier": "^2.8.8",
     "react-native-builder-bob": "0.20.0",
-    "ts-jest": "29.1.1",
     "typescript": "^5.3.0"
   },
   "react-native-builder-bob": {
