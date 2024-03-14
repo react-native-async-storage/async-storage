@@ -6,7 +6,7 @@
   ],
   "packageManager": "yarn@3.4.1",
   "engines": {
-    "node": "v20.10.0"
+    "node": "v20.11.1"
   },
   "scripts": {
     "format": "concurrently 'yarn:format:*'",
