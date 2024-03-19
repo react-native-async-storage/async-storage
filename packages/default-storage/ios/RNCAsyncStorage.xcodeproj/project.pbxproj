@@ -11,7 +11,7 @@
 		1990B97B223993B0009E5EA1 /* RNCAsyncStorageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
 		747102F0243FFB7400D4F466 /* RNCAsyncStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */; };
 		747102F1243FFB7400D4F466 /* RNCAsyncStorageDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */; };
-		B3E7B58A1CC2AC0600A0062D /* RNCAsyncStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */; };
+		E29A30832BA9DF6000E66900 /* RNCAsyncStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = E29A30822BA9DF6000E66900 /* RNCAsyncStorage.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,7 +32,8 @@
 		134814201AA4EA6300B7C361 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNCAsyncStorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCAsyncStorageDelegate.h; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCAsyncStorage.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCAsyncStorage.m; sourceTree = "<group>"; };
+		E29A30822BA9DF6000E66900 /* RNCAsyncStorage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RNCAsyncStorage.mm; sourceTree = "<group>"; };
+		E29A30842BA9E0E600E66900 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +58,9 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				E29A30842BA9E0E600E66900 /* PrivacyInfo.xcprivacy */,
 				B3E7B5881CC2AC0600A0062D /* RNCAsyncStorage.h */,
-				B3E7B5891CC2AC0600A0062D /* RNCAsyncStorage.m */,
+				E29A30822BA9DF6000E66900 /* RNCAsyncStorage.mm */,
 				1990B9402233FE3A009E5EA1 /* RNCAsyncStorageDelegate.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
@@ -134,7 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E7B58A1CC2AC0600A0062D /* RNCAsyncStorage.m in Sources */,
+				E29A30832BA9DF6000E66900 /* RNCAsyncStorage.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
