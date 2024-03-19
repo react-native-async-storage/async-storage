@@ -17,5 +17,5 @@ msbuild.binlog
 buck-out/
 \.buckd/
 *.keystore
-
-
+xcuserdata
+xcshareddata
