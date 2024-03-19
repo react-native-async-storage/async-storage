@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/react-native-async-storage/async-storage/compare/v1.22.3...v1.23.0) (2024-03-19)
+
+
+### Features
+
+* **default-storage:** Add Privacy Manifest for iOS ([#1075](https://github.com/react-native-async-storage/async-storage/issues/1075)) ([864626d](https://github.com/react-native-async-storage/async-storage/commit/864626d6d8a2c85a7ddf38c0a9c512db64fcdf06))
+
 ## [1.22.3](https://github.com/react-native-async-storage/async-storage/compare/v1.22.2...v1.22.3) (2024-02-28)
 
 
