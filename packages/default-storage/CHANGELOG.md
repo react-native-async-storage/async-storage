@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/react-native-async-storage/async-storage/compare/v1.23.0...v1.23.1) (2024-03-20)
+
+
+### Bug Fixes
+
+* **default-storage:** Privacy manifest missing key ([#1076](https://github.com/react-native-async-storage/async-storage/issues/1076)) ([c4ed1fa](https://github.com/react-native-async-storage/async-storage/commit/c4ed1fa2fd1541ad26a06f937af4438158aa15df))
+
 # [1.23.0](https://github.com/react-native-async-storage/async-storage/compare/v1.22.3...v1.23.0) (2024-03-19)
 
 
