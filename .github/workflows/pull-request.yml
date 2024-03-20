@@ -1,0 +1,19 @@
+name: PR review
+on:
+  pull_request:
+jobs:
+  code-quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test-name: [lint, ts, format]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup project
+        uses: ./.github/actions/setup-project
+      - name: Install dependencies
+        run: yarn
+      - name: test ${{ matrix.test-name }}
+        run: yarn test:${{ matrix.test-name }}

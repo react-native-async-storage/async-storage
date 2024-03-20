@@ -1,58 +1,35 @@
-name: CI
+name: Default storage
 on:
   push:
     branches:
       - main
   pull_request:
 jobs:
-  format:
-    name: Format
+  changes:
+    name: report changed files
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.filter.outputs.storage }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
         with:
-          node-version: 18.16.1
-          cache: yarn
-      - name: Install JS dependencies
-        run: yarn
-      - name: Format
-        run: |
-          yarn format
-          git diff --exit-code
-  review:
-    name: Review
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        test-name: [lint, ts]
-        workspace: [default-storage, api]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 18.16.1
-          cache: yarn
-      - name: Install JS dependencies
-        run: yarn
-      - name: Run test ${{ matrix.test-name }}
-        run: yarn test:${{ matrix.test-name }}
-        working-directory: packages/${{ matrix.workspace }}
+          token: ${{ secrets.GH_RELEASE_TOKEN }}
+          filters: |
+            storage:
+              - 'packages/default-storage'
+
   android:
     name: Android
+    needs: changes
+    if: ${{ needs.changes.outputs.changed == 'true' }}
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 18.16.1
-          cache: yarn
+        uses: actions/checkout@v4
+      - name: Setup project
+        uses: ./.github/actions/setup-project
       - name: Install JS dependencies
         run: |
           yarn
@@ -69,21 +46,20 @@ jobs:
 
   ios:
     name: iOS
+    needs: changes
+    if: ${{ needs.changes.outputs.changed == 'true' }}
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+      - name: Setup project
+        uses: ./.github/actions/setup-project
       - name: Cache /.ccache
         uses: actions/cache@v3
         with:
           path: packages/default-storage/.ccache
           key: ccache-ios-${{ hashFiles('yarn.lock') }}
           restore-keys: ccache-ios-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 18.16.1
-          cache: yarn
       - name: Install JS dependencies
         run: |
           yarn
@@ -102,21 +78,20 @@ jobs:
 
   macos:
     name: macOS
+    needs: changes
+    if: ${{ needs.changes.outputs.changed == 'true' }}
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+      - name: Setup project
+        uses: ./.github/actions/setup-project
       - name: Cache /.ccache
         uses: actions/cache@v3
         with:
           path: packages/default-storage/.ccache
           key: ccache-macos-${{ hashFiles('yarn.lock') }}
           restore-keys: ccache-macos-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 18.16.1
-          cache: yarn
       - name: Install JS dependencies
         run: |
           yarn
@@ -140,6 +115,8 @@ jobs:
 
   windows:
     name: Windows
+    needs: changes
+    if: ${{ needs.changes.outputs.changed == 'true' }}
     runs-on: windows-2022
     steps:
       - name: Set up MSBuild
@@ -147,12 +124,9 @@ jobs:
       - name: Setup VSTest.console.exe
         uses: darenm/Setup-VSTest@v1.2
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 18.16.1
-          cache: yarn
+        uses: actions/checkout@v4
+      - name: Setup project
+        uses: ./.github/actions/setup-project
       - name: Install JS dependencies
         run: |
           yarn
@@ -167,19 +141,16 @@ jobs:
 
   release:
     name: Release
-    needs: [format, review, android, ios, macos, windows]
+    needs: [android, ios, macos, windows]
     if: github.event_name == 'push'
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Set up Node.js
-        uses: actions/setup-node@v3.6.0
-        with:
-          node-version: 18.16.1
-          cache: yarn
+      - name: Setup project
+        uses: ./.github/actions/setup-project
       - name: Install JS dependencies
         run: |
           yarn

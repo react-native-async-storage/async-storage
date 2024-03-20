@@ -1,0 +1,13 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "test:lint": {},
+    "test:ts": {},
+    "build": {
+      "outputs": ["lib/**"]
+    },
+    "async-storage-website#build": {
+      "outputs": ["build/**"]
+    }
+  }
+}

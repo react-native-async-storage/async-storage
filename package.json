@@ -4,16 +4,24 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@4.1.1",
+  "engines": {
+    "node": "v20.11.1"
+  },
   "scripts": {
+    "build": "turbo run build",
     "format": "concurrently 'yarn:format:*'",
     "format:c": "clang-format -i $(git ls-files '*.cpp' '*.h' '*.m' '*.mm') --style file:.config/.clang-format",
-    "format:js": "prettier --write --loglevel error $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')"
+    "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')",
+    "test:lint": "turbo run test:lint",
+    "test:ts": "turbo run test:ts",
+    "test:format": "prettier --check --loglevel warn $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
     "prettier": "^2.8.8",
+    "turbo": "^1.12.5",
     "typescript": "^5.3.0"
   },
   "resolutions": {
