@@ -119,14 +119,14 @@ jobs:
     if: ${{ needs.changes.outputs.changed == 'true' }}
     runs-on: windows-2022
     steps:
-      - name: Set up MSBuild
-        uses: microsoft/setup-msbuild@v1.3
-      - name: Setup VSTest.console.exe
-        uses: darenm/Setup-VSTest@v1.2
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup project
         uses: ./.github/actions/setup-project
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v1.3
+      - name: Setup VSTest.console.exe
+        uses: darenm/Setup-VSTest@v1.2
       - name: Install JS dependencies
         run: |
           yarn
