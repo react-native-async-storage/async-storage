@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.GH_RELEASE_TOKEN }}
           filters: |
             storage:
-              - 'packages/default-storage'
+              - 'packages/default-storage/**'
 
   android:
     name: Android
