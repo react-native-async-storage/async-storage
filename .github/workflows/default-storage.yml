@@ -123,6 +123,21 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup project
         uses: ./.github/actions/setup-project
+        with:
+          windows-fix: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "yarn"
+      - name: Enable corepack
+        shell: bash
+        run: |
+          corepack enable
+          yarn --version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "yarn"
       - name: Set up MSBuild
         uses: microsoft/setup-msbuild@v1.3
       - name: Setup VSTest.console.exe
