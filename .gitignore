@@ -31,3 +31,4 @@ local.properties
 #workspaces
 /packages/*/lib
 .turbo
+build/

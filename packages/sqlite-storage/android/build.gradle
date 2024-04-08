@@ -44,7 +44,7 @@ def supportsNamespace() {
 
 android {
   if (supportsNamespace()) {
-    namespace "com.sqlitestorage"
+    namespace "org.rnasyncstorage.sqlitestorage"
 
     sourceSets {
       main {
