@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.GH_RELEASE_TOKEN }}
           filters: |
             storage:
-              - 'packages/default-storage'
+              - 'packages/default-storage/**'
 
   android:
     name: Android
@@ -127,6 +127,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup project
         uses: ./.github/actions/setup-project
+        with:
+          windows-fix: true
       - name: Install JS dependencies
         run: |
           yarn

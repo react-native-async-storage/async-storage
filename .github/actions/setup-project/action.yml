@@ -5,9 +5,18 @@ inputs:
     required: false
     description: node version to install
     default: 20.10.0 # is already cached in Ubuntu 22.04 runner
+  windows-fix:
+    required: false
+    description: https://github.com/actions/setup-node/issues/899#issuecomment-1837381044
+    default: "false"
 runs:
   using: composite
   steps:
+    - uses: actions/setup-node@v4
+      if: ${{ inputs.windows-fix == 'true' }}
+      name: (Windows fix) Setup node without cache
+      with:
+        node-version: ${{ inputs.node-version }}
     - name: Enable corepack
       shell: bash
       run: |
