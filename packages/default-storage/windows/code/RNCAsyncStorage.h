@@ -10,6 +10,16 @@ namespace winrt::ReactNativeAsyncStorage::implementation
     REACT_MODULE(RNCAsyncStorage)
     struct RNCAsyncStorage {
 
+        REACT_INIT(Initialize)
+        void Initialize(winrt::Microsoft::ReactNative::ReactContext const &reactContext) noexcept
+        {
+            winrt::Microsoft::ReactNative::ReactPropertyId<winrt::hstring> propId{L"ReactNativeAsyncStorage", L"Path"};
+            const auto path = reactContext.Properties().Get(propId);
+            if (path.has_value()) {
+                m_dbStorage.Path(path.value());
+            }
+        }
+
         REACT_METHOD(multiGet)
         void multiGet(
             std::vector<std::string> &&keys,

@@ -142,6 +142,10 @@ struct DBStorage {
 
     winrt::Windows::Foundation::IAsyncAction RunTasks() noexcept;
 
+    void Path(const winrt::hstring &path) noexcept {
+        m_path = path;
+    }
+
 private:
     static constexpr auto s_dbPathProperty = L"React-Native-Community-Async-Storage-Database-Path";
 
@@ -150,6 +154,7 @@ private:
     winrt::slim_condition_variable m_cv;
     winrt::Windows::Foundation::IAsyncAction m_action{nullptr};
     std::vector<std::unique_ptr<DBTask>> m_tasks;
+    winrt::hstring m_path{L""};
 };
 
 void ReadValue(const winrt::Microsoft::ReactNative::IJSValueReader &reader,

@@ -238,9 +238,13 @@ DBStorage::InitializeStorage(DBStorage::ErrorManager &errorManager) noexcept
 
     std::string path;
     try {
-        if (auto pathInspectable =
+        if (m_path != L"") {
+            path = winrt::to_string(m_path);
+#ifndef USE_WINUI3
+        } else if (auto pathInspectable =
                 winrt::CoreApplication::Properties().TryLookup(s_dbPathProperty)) {
             path = winrt::to_string(winrt::unbox_value<winrt::hstring>(pathInspectable));
+#endif
         } else {
             auto const localAppDataPath = winrt::ApplicationData::Current().LocalFolder().Path();
             path = winrt::to_string(localAppDataPath) + "\\AsyncStorage.db";
