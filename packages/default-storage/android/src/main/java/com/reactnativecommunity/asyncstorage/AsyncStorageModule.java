@@ -81,7 +81,7 @@ public final class AsyncStorageModule
   }
 
   @Override
-  public void onCatalystInstanceDestroy() {
+  public void invalidate() {
     mShuttingDown = true;
   }
 
