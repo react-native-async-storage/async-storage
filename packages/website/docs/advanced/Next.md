@@ -47,28 +47,28 @@ AsyncStorage_useNextStorage=true
 
 **Kotlin version**
 
-Next storage is tested against Kotlin version `1.9.20`. 
+Next storage is tested against Kotlin version `1.9.23`. 
 You can specify different version, in one of two ways:
 
 - add `kotlinVersion` extension to the `rootProject`:
 
 ```groovy
-rootProject.ext.kotlinVersion = '1.9.20'
+rootProject.ext.kotlinVersion = '1.9.23'
 ```
 
 - specify `AsyncStorage_kotlinVersion` in `gradle.properties`:
 
 ```groovy
-AsyncStorage_kotlinVersion=1.9.20
+AsyncStorage_kotlinVersion=1.9.23
 ```
 
 **Room**
 
 Next AsyncStorage uses [Room persistence library](https://developer.android.com/jetpack/androidx/releases/room) to store data.
-Currently, tested version is `2.4.3`. You can specify different version, by adding a flag to `gradle.properties`:
+Currently, tested version is `2.6.1`. You can specify different version, by adding a flag to `gradle.properties`:
 
 ```groovy
-AsyncStorage_next_roomVersion=2.4.3
+AsyncStorage_next_roomVersion=2.6.1
 ```
 
 KSP is enabled for symbol processing for the Room library.
@@ -76,7 +76,7 @@ KSP version will be selected based on Kotlin version in your project.
 If you want to use different KSP version, you can set a property in `gradle.properties`:
 
 ```groovy
-AsyncStorage_next_kspVersion=1.9.20-1.0.14
+AsyncStorage_next_kspVersion=1.9.23-1.0.20
 ```
 
 ### Notable changes
