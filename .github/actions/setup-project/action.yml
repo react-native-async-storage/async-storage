@@ -1,10 +1,15 @@
 name: Setup project
 description: Install required tools
 inputs:
+  java-version:
+    description: Desired Java version
+    default: "17"
   node-version:
     required: false
     description: node version to install
-    default: 20.10.0 # is already cached in Ubuntu 22.04 runner
+    # Use pre-installed Node version in Ubuntu 22.04 runner
+    # https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2204-Readme.md
+    default: 20.13.1
   windows-fix:
     required: false
     description: https://github.com/actions/setup-node/issues/899#issuecomment-1837381044
@@ -12,6 +17,11 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: ${{ inputs.java-version }}
     - uses: actions/setup-node@v4
       if: ${{ inputs.windows-fix == 'true' }}
       name: (Windows fix) Setup node without cache
