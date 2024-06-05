@@ -4,7 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@4.1.1",
+  "packageManager": "yarn@4.2.2",
   "engines": {
     "node": "v20.11.1"
   },
@@ -25,15 +25,15 @@
     "typescript": "^5.3.0"
   },
   "resolutions": {
-    "@react-native-community/cli": "^10.2.5",
-    "@react-native-community/cli-platform-android": "^10.2.0",
-    "@react-native-community/cli-platform-ios": "^10.2.5",
+    "@react-native-community/cli": "^12.3.0",
+    "@react-native-community/cli-platform-android": "^12.3.0",
+    "@react-native-community/cli-platform-ios": "^12.3.0",
+    "@react-native/babel-preset": "^0.73.0",
+    "@react-native/community-cli-plugin": "^0.73.0",
+    "@react-native/community-cli-plugin/@react-native-community/cli-server-api": "^12.3.0",
+    "@react-native/community-cli-plugin/@react-native-community/cli-tools": "^12.3.0",
     "body-parser/qs": "^6.7.3",
     "find-babel-config/json5": "^2.1.1",
-    "metro-react-native-babel-preset": "^0.73.10",
-    "metro-react-native-babel-transformer": "^0.73.10",
-    "metro-runtime": "^0.73.10",
-    "metro-source-map": "^0.73.10",
     "uuid": "^9.0.0",
     "ts-node": "^10.9.1",
     "recursive-readdir/minimatch": "^3.0.5",
