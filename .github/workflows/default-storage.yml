@@ -138,7 +138,7 @@ jobs:
         working-directory: packages/default-storage
       - name: Build
         run: |
-          yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts" --no-telemetry
+          yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts,UseBundle=false" --no-telemetry
         working-directory: packages/default-storage
 
   release:
