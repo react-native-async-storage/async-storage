@@ -26,8 +26,16 @@ task fetchDependencies() {
 }
 
 buildscript {
-    def androidTestAppDir = "../../node_modules/react-native-test-app/android"
-    apply from: "$androidTestAppDir/dependencies.gradle"
+    apply(from: {
+        def searchDir = rootDir.toPath()
+        do {
+            def p = searchDir.resolve("node_modules/react-native-test-app/android/dependencies.gradle")
+            if (p.toFile().exists()) {
+                return p.toRealPath().toString()
+            }
+        } while (searchDir = searchDir.getParent())
+        throw new GradleException("Could not find `react-native-test-app`");
+    }())
 
     // Mainly for Detox testing for using Next Storage
     // when building next, force using next storage
@@ -50,14 +58,6 @@ buildscript {
 }
 
 allprojects {
-    // TODO: remove when https://github.com/facebook/react-native/issues/35495 is fixed
-    project.pluginManager.withPlugin("com.facebook.react") {
-        react {
-            reactNativeDir = rootProject.file("../../node_modules/react-native/")
-            codegenDir = rootProject.file("../../node_modules/react-native-codegen/")
-        }
-    }
-
     afterEvaluate { project ->
         def androidExtension = project.extensions.findByName('android')
 
@@ -85,11 +85,6 @@ allprojects {
                     initWith release
                     matchingFallbacks = ["debug", "release"]
                 }
-            }
-
-            project.dependencies {
-                def hermesDir = file('../../node_modules/hermes-engine/android').absolutePath
-                nextImplementation files("$hermesDir/hermes-release.aar")
             }
         }
     }
