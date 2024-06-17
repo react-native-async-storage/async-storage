@@ -1,3 +1,10 @@
+## [1.23.2](https://github.com/react-native-async-storage/async-storage/compare/v1.23.1...v1.23.2) (2024-06-17)
+
+
+### Bug Fixes
+
+* `multiSet` should expect read-only input ([#1103](https://github.com/react-native-async-storage/async-storage/issues/1103)) ([9993f6e](https://github.com/react-native-async-storage/async-storage/commit/9993f6ec14353f1f41f361003b564e8f5461e72e))
+
 ## [1.23.1](https://github.com/react-native-async-storage/async-storage/compare/v1.23.0...v1.23.1) (2024-03-20)
 
 
