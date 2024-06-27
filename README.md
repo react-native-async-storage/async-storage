@@ -8,6 +8,7 @@ Native.
 - Android
 - iOS
 - [macOS](https://github.com/react-native-async-storage/async-storage/releases/tag/v1.8.1)
+- [visionOS](https://github.com/react-native-async-storage/async-storage/releases/tag/v1.22.0)
 - [Web](https://github.com/react-native-async-storage/async-storage/releases/tag/v1.9.0)
 - [Windows](https://github.com/react-native-async-storage/async-storage/releases/tag/v1.10.0)
 
