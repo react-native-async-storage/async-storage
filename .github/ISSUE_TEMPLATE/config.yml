@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: I use Expo
-    url: https://forums.expo.dev/tag/asyncstorage
-    about: I have issues with AsyncStorage and Expo.
+  - name: I use Expo and I have issues with AsyncStorage.
+    url: https://discord.com/invite/expo
+    about: Visit Expo Discord to discuss your problem.
