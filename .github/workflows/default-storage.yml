@@ -1,8 +1,5 @@
 name: Default storage
 on:
-  push:
-    branches:
-      - main
   pull_request:
 jobs:
   changes:
