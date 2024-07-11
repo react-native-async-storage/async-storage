@@ -12,6 +12,8 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@react-native-async-storage/eslint-config",
-    "async-storage-website"
+    "async-storage-website",
+    "@react-native-async-storage/api",
+    "@react-native-async-storage/sqlite-storage"
   ]
 }
