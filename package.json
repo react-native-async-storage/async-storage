@@ -20,6 +20,7 @@
     "release:publish": "changeset release"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.7",
     "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
