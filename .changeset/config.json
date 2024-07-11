@@ -10,5 +10,8 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [
+    "@react-native-async-storage/eslint-config",
+    "async-storage-website"
+  ]
 }
