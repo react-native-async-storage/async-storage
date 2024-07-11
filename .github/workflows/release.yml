@@ -1,0 +1,29 @@
+name: Release
+on:
+  push:
+    branches: [main]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup project
+        uses: ./.github/actions/setup-project
+      - name: Install dependencies
+        run: yarn
+      - name: Setup git user
+        run: |
+          git config --global user.name ${{ secrets.GH_BOT_NAME }}
+          git config --global user.email ${{ secrets.GH_BOT_EMAIL }}
+      - name: Version or release packages
+        uses: changesets/action@v1
+        with:
+          title: "release: version packages"
+          commit: "release: version packages"
+          setupGitUser: false
+          publish: "yarn release:publish"
+          version: "yarn release:version"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_RELEASE_TOKEN }}

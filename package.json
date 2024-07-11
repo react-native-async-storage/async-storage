@@ -15,9 +15,12 @@
     "format:js": "prettier --write $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')",
     "test:lint": "turbo run test:lint",
     "test:ts": "turbo run test:ts",
-    "test:format": "prettier --check --loglevel warn $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')"
+    "test:format": "prettier --check --loglevel warn $(git ls-files '*.js' '*.json' '*.ts' '*.tsx' '*.yml' 'README.md')",
+    "release:version": "changeset version",
+    "release:publish": "changeset release"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.7",
     "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
     "prettier": "^2.8.8",

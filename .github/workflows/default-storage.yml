@@ -1,8 +1,5 @@
 name: Default storage
 on:
-  push:
-    branches:
-      - main
   pull_request:
 jobs:
   changes:
@@ -139,33 +136,4 @@ jobs:
       - name: Build
         run: |
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts,UseBundle=false" --no-telemetry
-        working-directory: packages/default-storage
-
-  release:
-    name: Release
-    needs: [android, ios, macos, windows]
-    if: github.event_name == 'push'
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - name: Setup project
-        uses: ./.github/actions/setup-project
-      - name: Install JS dependencies
-        run: |
-          yarn
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-          GIT_AUTHOR_EMAIL: ${{ secrets.GH_BOT_EMAIL }}
-          GIT_AUTHOR_NAME: ${{ secrets.GH_BOT_NAME }}
-          GIT_COMMITTER_EMAIL: ${{ secrets.GH_BOT_EMAIL }}
-          GIT_COMMITTER_NAME: ${{ secrets.GH_BOT_NAME }}
-          NPM_TOKEN: ${{ secrets.NPM_RELEASE_TOKEN }}
-        run: |
-          git config user.email ${{ secrets.GH_BOT_EMAIL }}
-          git config user.name ${{ secrets.GH_BOT_NAME }}
-          yarn semantic-release
         working-directory: packages/default-storage
