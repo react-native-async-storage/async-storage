@@ -17,7 +17,7 @@ jobs:
         with:
           title: "release: version packages"
           commit: "release: version packages"
-          setupGitUser: false
+          setupGitUser: "false"
           publish: "yarn release:publish"
           version: "yarn release:version"
         env:

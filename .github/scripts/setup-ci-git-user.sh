@@ -12,8 +12,8 @@ then
   exit 1
 fi
 
-git config --global user.name "$GITHUB_NAME"
-git config --global user.email "$GITHUB_EMAIL"
-echo "machine github.com login $GITHUB_NAME password $GITHUB_TOKEN" > ~/.netrc
+git config user.name "$GITHUB_NAME"
+git config user.email "$GITHUB_EMAIL"
+echo "machine github.com login $GITHUB_NAME password $GITHUB_TOKEN" > "$HOME/.netrc"
 
 
