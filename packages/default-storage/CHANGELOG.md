@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.24.0
+
+### Minor Changes
+
+- 8bf1526: dependencies bump and multiset type fix
+
 ## 1.23.2
 
 > [!WARNING]  
