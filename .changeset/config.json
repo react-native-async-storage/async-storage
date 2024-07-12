@@ -1,9 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.0.2/schema.json",
-  "changelog": [
-    "@changesets/changelog-github",
-    { "repo": "react-native-async-storage/async-storage" }
-  ],
+  "changelog": "@changesets/cli/changelog",
   "commit": ["@changesets/cli/commit", { "skipCI": false }],
   "fixed": [],
   "linked": [],
@@ -12,6 +9,8 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@react-native-async-storage/eslint-config",
-    "async-storage-website"
+    "async-storage-website",
+    "@react-native-async-storage/api",
+    "@react-native-async-storage/sqlite-storage"
   ]
 }

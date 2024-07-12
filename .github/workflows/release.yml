@@ -22,6 +22,6 @@ jobs:
           version: "yarn release:version"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-          GITHUB_NAME: ${{ secrets.GH_BOT_NAME }}
-          GITHUB_EMAIL: ${{ secrets.GH_BOT_EMAIL }}
+          GITHUB_NAME: ${{ vars.GH_BOT_NAME }}
+          GITHUB_EMAIL: ${{ vars.GH_BOT_EMAIL }}
           NPM_TOKEN: ${{ secrets.NPM_RELEASE_TOKEN }}
