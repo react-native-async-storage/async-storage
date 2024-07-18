@@ -74,5 +74,5 @@ export default AsyncStorageMock;
 ```
 
 You can
-[check its implementation](https://github.com/react-native-async-storage/async-storage/blob/main/jest/async-storage-mock.js)
+[check its implementation](https://github.com/react-native-async-storage/async-storage/blob/main/packages/default-storage/jest/async-storage-mock.js)
 to get more insight into methods signatures.
