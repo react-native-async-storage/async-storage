@@ -1,4 +1,4 @@
-package com.reactnativecommunity.asyncstorage.next
+package com.reactnativecommunity.asyncstorage
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback

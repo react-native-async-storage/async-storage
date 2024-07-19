@@ -1,4 +1,4 @@
-package com.reactnativecommunity.asyncstorage.next
+package com.reactnativecommunity.asyncstorage
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
@@ -9,7 +9,8 @@ import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.module.annotations.ReactModule
 import com.reactnativecommunity.asyncstorage.NativeAsyncStorageModuleSpec
-import com.reactnativecommunity.asyncstorage.SerialExecutor
+import com.reactnativecommunity.asyncstorage.next.AsyncStorageAccess
+import com.reactnativecommunity.asyncstorage.next.StorageSupplier
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

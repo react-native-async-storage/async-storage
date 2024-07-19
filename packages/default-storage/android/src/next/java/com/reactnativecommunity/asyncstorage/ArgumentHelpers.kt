@@ -1,7 +1,8 @@
-package com.reactnativecommunity.asyncstorage.next
+package com.reactnativecommunity.asyncstorage
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
+import com.reactnativecommunity.asyncstorage.next.Entry
 import org.json.JSONException
 import org.json.JSONObject
 

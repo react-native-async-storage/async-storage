@@ -81,6 +81,7 @@ android {
         java {
             if (useNextStorage) {
                 srcDirs += 'src/kotlinPackage/java'
+                srcDirs += 'src/next/java'
             } else {
                 srcDirs += 'src/javaPackage/java'
             }

@@ -8,7 +8,6 @@ import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.module.annotations.ReactModuleList
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import com.reactnativecommunity.asyncstorage.next.StorageModule
 
 @ReactModuleList(
     nativeModules = [

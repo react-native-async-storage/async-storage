@@ -15,6 +15,8 @@ import androidx.room.RoomDatabase
 import androidx.room.Transaction
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.reactnativecommunity.asyncstorage.isValidJson
+import com.reactnativecommunity.asyncstorage.mergeWith
 import org.json.JSONObject
 
 private const val DATABASE_VERSION = 2
