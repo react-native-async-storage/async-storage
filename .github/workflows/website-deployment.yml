@@ -20,7 +20,7 @@ jobs:
         run: yarn
         working-directory: ./packages/website
       - name: Setup git user
-        run: setup-ci-git-user.sh
+        run: ./setup-ci-git-user.sh
         working-directory: ./.github/scripts
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
