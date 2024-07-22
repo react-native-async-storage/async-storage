@@ -38,10 +38,33 @@ When you enable the feature again, the new database is **not** recreated, becaus
 
 ### Enable
 
+#### Add config flag
+
 In your project's `android` directory, locate `gradle.properties` file (if it does not exist, create one) and add the line:
 ```groovy
 AsyncStorage_useNextStorage=true
 ```
+
+#### React Native < 0.73
+
+For React Native below version 0.73, you need to apply Kotlin plugin to your project.
+In your project's android directory, locate root build.gradle file. Add Kotlin dependency to the buildscript:
+
+```diff
+ buildscript {
+     ext {
+         // other extensions
++        kotlinVersion = '1.9.24'
+     }
+    
+     dependencies {
+         // other dependencies
++        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+     }
+ }
+
+```
+
 
 ### Configuration
 
