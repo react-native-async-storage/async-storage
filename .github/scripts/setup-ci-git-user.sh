@@ -16,4 +16,8 @@ git config user.name "$GITHUB_NAME"
 git config user.email "$GITHUB_EMAIL"
 echo "machine github.com login $GITHUB_NAME password $GITHUB_TOKEN" > "$HOME/.netrc"
 
-
+if [ "$GIT_SET_GLOBAL_USER" = "true" ]
+then
+  git config --global user.name "$GITHUB_NAME"
+  git config --global user.email "$GITHUB_EMAIL"
+fi
