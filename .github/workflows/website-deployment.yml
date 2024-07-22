@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "packages/website/**"
+      - ".github/workflows/website-deployment.yml"
 
 jobs:
   deploy:
