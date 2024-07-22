@@ -51,17 +51,17 @@ For React Native below version 0.73, you need to apply Kotlin plugin to your pro
 In your project's android directory, locate root build.gradle file. Add Kotlin dependency to the buildscript:
 
 ```diff
-buildscript {
-    ext {
-        // other extensions
+ buildscript {
+     ext {
+         // other extensions
 +        kotlinVersion = '1.9.24'
-    }
+     }
     
-    dependencies {
-        // other dependencies
+     dependencies {
+         // other dependencies
 +        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    }
-}
+     }
+ }
 
 ```
 
