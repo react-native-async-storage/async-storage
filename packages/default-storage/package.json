@@ -122,6 +122,10 @@
     "jsSrcsDir": "./src",
     "android": {
       "javaPackageName": "com.reactnativecommunity.asyncstorage"
+    },
+    "windows": {
+      "namespace": "defaultStorageCodegen",
+      "outputDirectory": "windows/ReactNativeAsyncStorage/codegen"
     }
   }
 }
