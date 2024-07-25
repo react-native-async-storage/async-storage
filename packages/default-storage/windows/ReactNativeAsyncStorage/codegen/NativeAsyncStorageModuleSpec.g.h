@@ -8,11 +8,11 @@
  */
 #pragma once
 
+
 #include <NativeModules.h>
 #include <tuple>
 
-namespace defaultStorageCodegen {
-
+namespace ReactNativeAsyncStorageAsyncStorageCodegen {
 
 struct AsyncStorageModuleSpec : winrt::Microsoft::ReactNative::TurboModuleSpec {
   static constexpr auto methods = std::tuple{
@@ -61,4 +61,4 @@ struct AsyncStorageModuleSpec : winrt::Microsoft::ReactNative::TurboModuleSpec {
   }
 };
 
-} // namespace defaultStorageCodegen
+} // namespace ReactNativeAsyncStorageAsyncStorageCodegen

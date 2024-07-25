@@ -8,11 +8,11 @@ gradlew
 gradlew.bat
 build/
 gradle/wrapper/
-example/windows/.vs
-example/windows/*.sln
-example/windows/ARM
-example/windows/packages
-example/windows/x64
+sample/windows/.vs
+sample/windows/*.sln
+sample/windows/ARM
+sample/windows/packages
+sample/windows/x64
 msbuild.binlog
 buck-out/
 \.buckd/

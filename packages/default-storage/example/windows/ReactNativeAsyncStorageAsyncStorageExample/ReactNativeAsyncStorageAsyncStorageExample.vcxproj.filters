@@ -21,7 +21,10 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ReactNativeAsyncStorage.h">
+    <ClInclude Include="ReactNativeAsyncStorageAsyncStorageExample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AutolinkedNativeModules.g.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
@@ -29,7 +32,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ReactNativeAsyncStorage.cpp">
+    <ClCompile Include="ReactNativeAsyncStorageAsyncStorageExample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AutolinkedNativeModules.g.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -37,8 +43,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ReactNativeAsyncStorage.rc">
+    <ResourceCompile Include="ReactNativeAsyncStorageAsyncStorageExample.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ReactNativeAsyncStorageAsyncStorageExample.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -43,21 +43,23 @@
     "start": "react-native start",
     "start:android": "react-native run-android",
     "start:ios": "react-native run-ios",
-    "start:macos": "react-native run-macos --project-path example/macos --scheme AsyncStorageExample",
+    "start:macos": "react-native run-macos --project-path sample/macos --scheme AsyncStorageExample",
     "start:web": "expo start --web",
-    "start:windows": "install-windows-test-app -p example/windows && react-native run-windows --root example --logging --no-packager --no-telemetry",
+    "start:windows": "install-windows-test-app -p sample/windows && react-native run-windows --root sample --logging --no-packager --no-telemetry",
     "build:e2e:android": "scripts/android_e2e.sh 'build'",
     "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
-    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output example/index.macos.jsbundle",
+    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output sample/index.macos.jsbundle",
     "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
     "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
     "test:ts": "tsc",
     "test:e2e:android": "scripts/android_e2e.sh 'test'",
     "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
-    "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
+    "test:e2e:macos": "scripts/macos_e2e.sh 'test'",
+    "windows": "react-native run-windows",
+    "test:windows": "jest --config jest.config.windows.js"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
@@ -100,7 +102,8 @@
     "react-native-windows": "^0.75.0",
     "react-test-renderer": "^18.2.0",
     "typescript": "^5.3.0",
-    "webdriverio": "^8.24.0"
+    "webdriverio": "^8.24.0",
+    "@rnx-kit/jest-preset": "^0.1.16"
   },
   "react-native-builder-bob": {
     "source": "src",
@@ -124,8 +127,9 @@
       "javaPackageName": "com.reactnativecommunity.asyncstorage"
     },
     "windows": {
-      "namespace": "defaultStorageCodegen",
-      "outputDirectory": "windows/ReactNativeAsyncStorage/codegen"
+      "namespace": "ReactNativeAsyncStorageAsyncStorageCodegen",
+      "outputDirectory": "windows/ReactNativeAsyncStorage/codegen",
+      "separateDataTypes": true
     }
   }
 }
