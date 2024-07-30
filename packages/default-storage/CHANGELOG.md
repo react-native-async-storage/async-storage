@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0
+
+### Major Changes
+
+- c319205: Support 0.74 (by migrating off deprecated `onCatalystInstanceDestroy`) — unfortunately, this also means that we must bump the minimum supported version to 0.65
+
 ## 1.24.0
 
 ### Minor Changes
