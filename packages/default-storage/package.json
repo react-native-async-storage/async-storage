@@ -75,6 +75,7 @@
     "@babel/preset-env": "^7.20.0",
     "@react-native/babel-preset": "^0.75.0",
     "@react-native/metro-config": "^0.75.0",
+    "@rnx-kit/jest-preset": "^0.1.16",
     "@rnx-kit/metro-config": "^2.0.0",
     "@types/lodash": "^4.14.184",
     "@types/mocha": "^10.0.1",
@@ -102,8 +103,7 @@
     "react-native-windows": "^0.75.0",
     "react-test-renderer": "^18.2.0",
     "typescript": "^5.3.0",
-    "webdriverio": "^8.24.0",
-    "@rnx-kit/jest-preset": "^0.1.16"
+    "webdriverio": "^8.24.0"
   },
   "react-native-builder-bob": {
     "source": "src",
