@@ -127,8 +127,8 @@
       "javaPackageName": "com.reactnativecommunity.asyncstorage"
     },
     "windows": {
-      "namespace": "ReactNativeAsyncStorageAsyncStorageCodegen",
-      "outputDirectory": "windows/ReactNativeAsyncStorage/codegen",
+      "namespace": "RNCAsyncStorage",
+      "outputDirectory": "windows/code/codegen",
       "separateDataTypes": true
     }
   }
