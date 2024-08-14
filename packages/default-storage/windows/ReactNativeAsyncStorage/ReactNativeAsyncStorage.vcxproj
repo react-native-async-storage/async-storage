@@ -8,7 +8,7 @@
     <ProjectGuid>{4855D892-E16C-404D-8286-0089E0F7F9C4}</ProjectGuid>
     <ProjectName>ReactNativeAsyncStorage</ProjectName>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ReactNativeAsyncStorageAsyncStorage</RootNamespace>
+    <RootNamespace>ReactNativeAsyncStorage</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
@@ -86,7 +86,9 @@
       <AdditionalDependencies>shell32.lib;user32.lib;windowsapp.lib;%(AdditionalDependenices)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
-      <ModuleDefinitionFile>ReactNativeAsyncStorage.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>..\code\ReactNativeAsyncStorage.def</ModuleDefinitionFile>
+      <AdditionalDependencies>winsqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>winsqlite3.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -106,26 +108,31 @@
   </ItemDefinitionGroup>
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <ClInclude Include="ReactNativeAsyncStorage.h" />
-    <ClInclude Include="ReactPackageProvider.h">
-      <DependentUpon>ReactPackageProvider.idl</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="..\code\ReactPackageProvider.h">
+      <DependentUpon>..\code\ReactPackageProvider.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="..\code\DBStorage.h" />
+    <ClInclude Include="..\code\RNCAsyncStorage.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ReactNativeAsyncStorage.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ReactPackageProvider.cpp">
-      <DependentUpon>ReactPackageProvider.idl</DependentUpon>
-    </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="..\code\ReactPackageProvider.cpp">
+      <DependentUpon>..\code\ReactPackageProvider.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="..\code\DBStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="ReactPackageProvider.idl" />
+    <None Include="packages.config" />
+    <None Include="..\code\ReactNativeAsyncStorage.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\code\ReactPackageProvider.idl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ReactNativeAsyncStorage.rc" />
@@ -141,7 +148,9 @@
     <PropertyGroup>
       <ErrorText>This project references targets in your node_modules\react-native-windows folder. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props'))" />
-    <Error Condition="!Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets'))" />
+    <Error Condition="'$(UseFabric)'!='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props'))" />
+    <Error Condition="'$(UseFabric)'!='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets'))" />
+    <Error Condition="'$(UseFabric)'=='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props'))" />
+    <Error Condition="'$(UseFabric)'=='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets'))" />
   </Target>
 </Project>

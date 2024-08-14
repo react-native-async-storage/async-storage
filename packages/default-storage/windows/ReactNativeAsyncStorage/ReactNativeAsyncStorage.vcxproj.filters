@@ -21,7 +21,13 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ReactNativeAsyncStorage.h">
+    <ClInclude Include="..\code\RNCAsyncStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\DBStorage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\code\ReactPackageProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
@@ -29,12 +35,25 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ReactNativeAsyncStorage.cpp">
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClInclude Include="..\code\DBStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\code\ReactPackageProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\code\ReactNativeAsyncStorage.def" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\code\ReactPackageProvider.idl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ReactNativeAsyncStorage.rc">

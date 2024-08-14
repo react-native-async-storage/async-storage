@@ -28,3 +28,9 @@
 #include <tchar.h>
 
 // Reference additional headers your project requires here
+#include <functional>
+#include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.Data.Json.h>
+#include <winrt/Windows.Foundation.Collections.h>
+#include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Storage.h>
