@@ -19,6 +19,7 @@ const rnwPath = fs.realpathSync(
 
 const config = {
   //
+  projectRoot: path.join(__dirname, "example"),
   resolver: {
     blockList: exclusionList([
       // This stops "react-native run-windows" from causing the metro server to crash if its already running

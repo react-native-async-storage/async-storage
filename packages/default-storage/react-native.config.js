@@ -4,18 +4,18 @@ const project = (() => {
     const { configureProjects } = require("react-native-test-app");
     return configureProjects({
       android: {
-        sourceDir: path.join("sample", "android"),
+        sourceDir: path.join("example", "android"),
       },
       ios: {
-        sourceDir: path.join("sample", "ios"),
+        sourceDir: path.join("example", "ios"),
       },
       macos: {
-        sourceDir: path.join("sample", "macos"),
+        sourceDir: path.join("example", "macos"),
       },
       windows: {
-        sourceDir: path.join("sample", "windows"),
+        sourceDir: path.join("example", "windows"),
         solutionFile: path.join(
-          "sample",
+          "example",
           "windows",
           "AsyncStorageExample.sln"
         ),

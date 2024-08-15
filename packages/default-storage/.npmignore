@@ -21,7 +21,7 @@ codecov.yml
 scripts/
 
 # Example
-sample/
+example/
 app.json
 
 # Android

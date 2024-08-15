@@ -43,15 +43,15 @@
     "start": "react-native start",
     "start:android": "react-native run-android",
     "start:ios": "react-native run-ios",
-    "start:macos": "react-native run-macos --project-path sample/macos --scheme AsyncStorageExample",
+    "start:macos": "react-native run-macos --project-path example/macos --scheme AsyncStorageExample",
     "start:web": "expo start --web",
-    "start:windows": "install-windows-test-app -p sample/windows && react-native run-windows --root sample --logging --no-packager --no-telemetry",
+    "start:windows": "install-windows-test-app -p example/windows && react-native run-windows --root example --logging --no-packager --no-telemetry",
     "build:e2e:android": "scripts/android_e2e.sh 'build'",
     "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
-    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output sample/index.macos.jsbundle",
+    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output example/index.macos.jsbundle",
     "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
     "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
     "test:ts": "tsc",
@@ -65,6 +65,7 @@
     "hoistingLimits": "workspaces"
   },
   "dependencies": {
+    "@babel/runtime": "^7.25.0",
     "merge-options": "^3.0.4"
   },
   "peerDependencies": {

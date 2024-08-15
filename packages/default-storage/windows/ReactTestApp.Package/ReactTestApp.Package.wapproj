@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\ExperimentalFeatures.props" Condition="Exists('$(SolutionDir)\ExperimentalFeatures.props')" />
   <PropertyGroup>
-    <ProjectGuid>{6711f75f-f6ce-4aeb-9e36-72bcba5115cb}</ProjectGuid>
+    <ProjectGuid>{5e64b729-08fa-489f-882d-29b023e4e208}</ProjectGuid>
     <DefaultLanguage>en-US</DefaultLanguage>
     <EntryPointProjectUniqueName>..\ReactTestApp\ReactTestApp.vcxproj</EntryPointProjectUniqueName>
     <DebuggerType>NativeOnly</DebuggerType>

@@ -1,5 +1,5 @@
 {
   "expo": {
-    "entryPoint": "./sample/index"
+    "entryPoint": "./example/index"
   }
 }
