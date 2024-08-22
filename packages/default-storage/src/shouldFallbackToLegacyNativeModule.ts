@@ -1,8 +1,8 @@
-import { NativeModules } from "react-native";
+import { NativeModules, TurboModuleRegistry } from "react-native";
 
 export function shouldFallbackToLegacyNativeModule(): boolean {
   const expoConstants =
-    NativeModules["NativeUnimoduleProxy"]?.modulesConstants?.ExponentConstants;
+  TurboModuleRegistry.get('NativeUnimoduleProxy')?.getConstants()?.modulesConstants?.ExponentConstants;
 
   if (expoConstants) {
     /**

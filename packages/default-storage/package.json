@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@babel/plugin-transform-runtime": "^7.24.7",
     "@babel/preset-env": "^7.20.0",
     "@react-native/babel-preset": "^0.75.0",
     "@react-native/metro-config": "^0.75.0",

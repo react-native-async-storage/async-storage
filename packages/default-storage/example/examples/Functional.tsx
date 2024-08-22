@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TurboModuleRegistry,
   View,
 } from "react-native";
 import type { TestStep, TestValue } from "./tests";
@@ -130,7 +131,7 @@ function Functional(): JSX.Element {
       })
       .then(async () => {
         const AsyncStorageTestSupport =
-          NativeModules["AsyncStorageTestSupport"];
+          TurboModuleRegistry.get("AsyncStorageTestSupport");
 
         for (const [currentName, test] of Object.entries(tests)) {
           const name = currentName + " with delegate";

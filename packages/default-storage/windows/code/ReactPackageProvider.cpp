@@ -14,7 +14,7 @@ namespace winrt::ReactNativeAsyncStorage::implementation
 
     void ReactPackageProvider::CreatePackage(IReactPackageBuilder const &packageBuilder) noexcept
     {
-        AddAttributedModules(packageBuilder);
+        AddAttributedModules(packageBuilder, true);
     }
 
 }  // namespace winrt::ReactNativeAsyncStorage::implementation

@@ -32,6 +32,9 @@ const config = {
       /.*\.ProjectImports\.zip/,
     ]),
     //
+    extraNodeModules: {
+      "@react-native-async-storage/async-storage": __dirname,
+    },
   },
   transformer: {
     getTransformOptions: async () => ({

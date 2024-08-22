@@ -14,6 +14,7 @@
     "release:publish": "./.github/scripts/setup-ci-git-user.sh && changeset publish"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.24.7",
     "@changesets/cli": "^2.27.7",
     "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
