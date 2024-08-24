@@ -379,13 +379,13 @@ const multiMerge = [
 
 
 mergeMultiple = async () => {
-  let currentlyMerged
+  let parsedCurrentlyMerged
 
   try {
     await AsyncStorage.multiSet(multiSet)
     await AsyncStorage.multiMerge(multiMerge)
-    currentlyMerged = await AsyncStorage.multiGet(['@MyApp_USER_1', '@MyApp_USER_2'])
-    const parsedCurrentlyMerged = currentlyMerged.map(([key, value]) => [
+    const currentlyMerged = await AsyncStorage.multiGet(['@MyApp_USER_1', '@MyApp_USER_2'])
+    parsedCurrentlyMerged = currentlyMerged.map(([key, value]) => [
       key,
       JSON.parse(value),
     ]);
