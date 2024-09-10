@@ -379,41 +379,50 @@ const multiMerge = [
 
 
 mergeMultiple = async () => {
-  let currentlyMerged
+  let parsedCurrentlyMerged
 
   try {
     await AsyncStorage.multiSet(multiSet)
     await AsyncStorage.multiMerge(multiMerge)
-    currentlyMerged = await AsyncStorage.multiGet(['@MyApp_USER_1', '@MyApp_USER_2'])
+    const currentlyMerged = await AsyncStorage.multiGet(['@MyApp_USER_1', '@MyApp_USER_2'])
+    parsedCurrentlyMerged = currentlyMerged.map(([key, value]) => [
+      key,
+      JSON.parse(value),
+    ]);
   } catch(e) {
     // error
   }
 
-  console.log(currentlyMerged)
+  console.log(
+    'parsedCurrentlyMerged',
+    JSON.stringify(parsedCurrentlyMerged, null, 2),
+  );
   // console.log output:
-  // [
-  //   [
-  //     'USER_1',
-  //     {
-  //       name:"Tom",
-  //       age:30,
-  //       traits: {
-  //         hair: 'brown'
-  //         eyes: 'blue'
-  //       }
-  //     }
-  //   ],
-  //   [
-  //     'USER_2',
-  //     {
-  //       name:'Sarah',
-  //       age:26,
-  //       traits: {
-  //         hair: 'green'
-  //       }
-  //     }
-  //   ]
-  // ]
+  /* 
+  [
+    [
+      "@MyApp_USER_1",
+      {
+        "name": "Tom",
+        "age": 31,
+        "traits": {
+          "hair": "brown",
+          "eyes": "blue"
+        }
+      }
+    ],
+    [
+      "@MyApp_USER_2",
+      {
+        "name": "Sarah",
+        "age": 26,
+        "traits": {
+          "hair": "green"
+        }
+      }
+    ]
+  ]
+  */
 }
 ```
 
