@@ -46,6 +46,7 @@
     "start:macos": "react-native run-macos --project-path example/macos --scheme AsyncStorageExample",
     "start:web": "expo start --web",
     "start:windows": "install-windows-test-app -p example/windows && react-native run-windows --root example --logging --no-packager --no-telemetry",
+    "start:windows:fabric": "install-windows-test-app -p example/windows --use-fabric && react-native run-windows --root example --logging --no-packager --no-telemetry",
     "build:e2e:android": "scripts/android_e2e.sh 'build'",
     "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",

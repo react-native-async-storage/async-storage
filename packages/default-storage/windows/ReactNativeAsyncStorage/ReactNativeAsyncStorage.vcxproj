@@ -2,18 +2,39 @@
 <!-- This project was created with react-native-windows 0.74.12 -->
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\ExperimentalFeatures.props" Condition="Exists('$(SolutionDir)\ExperimentalFeatures.props')" />
-  <PropertyGroup Label="Globals">
-    <CppWinRTOptimized>true</CppWinRTOptimized>
-    <MinimalCoreWin>true</MinimalCoreWin>
-    <ProjectGuid>{4855D892-E16C-404D-8286-0089E0F7F9C4}</ProjectGuid>
-    <ProjectName>ReactNativeAsyncStorage</ProjectName>
-    <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ReactNativeAsyncStorage</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <DefaultLanguage>en-US</DefaultLanguage>
-    <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
-    <AppxPackage>false</AppxPackage>
-  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(UseFabric)'=='true'">
+      <PropertyGroup Label="Globals">
+        <CppWinRTOptimized>true</CppWinRTOptimized>
+        <MinimalCoreWin>true</MinimalCoreWin>
+        <ProjectGuid>{4855D892-E16C-404D-8286-0089E0F7F9C4}</ProjectGuid>
+        <ProjectName>ReactNativeAsyncStorage</ProjectName>
+        <Keyword>Win32Proj</Keyword>
+        <RootNamespace>ReactNativeAsyncStorage</RootNamespace>
+        <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+        <DefaultLanguage>en-US</DefaultLanguage>
+        <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
+        <AppxPackage>false</AppxPackage>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup Label="Globals">
+        <CppWinRTOptimized>true</CppWinRTOptimized>
+        <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
+        <MinimalCoreWin>true</MinimalCoreWin>
+        <ProjectGuid>{4855D892-E16C-404D-8286-0089E0F7F9C4}</ProjectGuid>
+        <ProjectName>ReactNativeAsyncStorage</ProjectName>
+        <RootNamespace>ReactNativeAsyncStorage</RootNamespace>
+        <DefaultLanguage>en-US</DefaultLanguage>
+        <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
+        <AppContainerApplication>true</AppContainerApplication>
+        <ApplicationType>Windows Store</ApplicationType>
+        <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+        <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0</WindowsTargetPlatformVersion>
+        <WindowsTargetPlatformMinVersion Condition=" '$(WindowsTargetPlatformMinVersion)' == '' ">10.0.17763.0</WindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
   <PropertyGroup Label="ReactNativeWindowsProps">
     <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
     <RunAutolinkCheck>false</RunAutolinkCheck>
@@ -65,6 +86,9 @@
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(UseFabric)'!='true'">
+    <Import Project="PropertySheet.props" />
+  </ImportGroup>
   <ImportGroup Label="ReactNativeWindowsPropertySheets">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\external\Microsoft.ReactNative.Uwp.CppLib.props" Condition="'$(UseFabric)'!='true' And Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props')" />
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props" Condition="'$(UseFabric)'=='true' And Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props')" />
@@ -114,8 +138,8 @@
     </ClInclude>
     <ClInclude Include="..\code\DBStorage.h" />
     <ClInclude Include="..\code\RNCAsyncStorage.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="resource.h" Condition="'$(UseFabric)'=='true'" />
+    <ClInclude Include="targetver.h" Condition="'$(UseFabric)'=='true'" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
