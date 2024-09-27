@@ -59,8 +59,6 @@
     "test:e2e:android": "scripts/android_e2e.sh 'test'",
     "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'",
-    "windows": "react-native run-windows",
-    "test:windows": "jest --config jest.config.windows.js"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
