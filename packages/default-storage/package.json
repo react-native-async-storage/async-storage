@@ -64,7 +64,6 @@
     "hoistingLimits": "workspaces"
   },
   "dependencies": {
-    "@babel/runtime": "^7.25.0",
     "merge-options": "^3.0.4"
   },
   "peerDependencies": {
