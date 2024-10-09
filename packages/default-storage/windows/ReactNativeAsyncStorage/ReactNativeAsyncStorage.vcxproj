@@ -158,9 +158,6 @@
   <ItemGroup>
     <Midl Include="..\code\ReactPackageProvider.idl" />
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="ReactNativeAsyncStorage.rc" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ReactNativeWindowsTargets">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets" Condition="'$(UseFabric)'!='true' And Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets')" />

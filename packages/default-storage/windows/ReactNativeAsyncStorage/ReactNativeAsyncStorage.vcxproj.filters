@@ -55,9 +55,4 @@
   <ItemGroup>
     <Midl Include="..\code\ReactPackageProvider.idl" />
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="ReactNativeAsyncStorage.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
 </Project>
