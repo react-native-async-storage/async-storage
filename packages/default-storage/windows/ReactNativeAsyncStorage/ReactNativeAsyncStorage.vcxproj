@@ -36,7 +36,7 @@
     </Otherwise>
   </Choose>
   <PropertyGroup Label="ReactNativeWindowsProps">
-    <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
+    <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(SolutionDir), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
     <RunAutolinkCheck>false</RunAutolinkCheck>
   </PropertyGroup>
   <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.WindowsSdk.Default.props" />

@@ -186,7 +186,7 @@ function Merge(): JSX.Element {
           testID="unsetDelegate_button"
           title="Unset native delegate"
           disabled={
-            TurboModuleRegistry.get('AsyncStorageTestSupport')?.test_unsetDelegate
+            !TurboModuleRegistry.get('AsyncStorageTestSupport')?.test_unsetDelegate
           }
           onPress={() =>
             TurboModuleRegistry.get('AsyncStorageTestSupport')?.test_unsetDelegate(
