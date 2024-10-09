@@ -18,7 +18,7 @@ namespace winrt::ReactNativeAsyncStorage::implementation
         AddAttributedModules(packageBuilder, true);
     #else
         AddAttributedModules(packageBuilder);
-    #endifs
+    #endif
     }
 
 }  // namespace winrt::ReactNativeAsyncStorage::implementation
