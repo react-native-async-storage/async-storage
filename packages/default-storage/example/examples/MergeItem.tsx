@@ -176,22 +176,26 @@ function Merge(): JSX.Element {
           testID="setDelegate_button"
           title="Set native delegate"
           disabled={
-            !TurboModuleRegistry.get('AsyncStorageTestSupport')?.test_setDelegate
+            !TurboModuleRegistry.get("AsyncStorageTestSupport")
+              ?.test_setDelegate
           }
           onPress={() =>
-            TurboModuleRegistry.get('AsyncStorageTestSupport')?.test_setDelegate(() => {})
+            TurboModuleRegistry.get(
+              "AsyncStorageTestSupport"
+            )?.test_setDelegate(() => {})
           }
         />
         <Button
           testID="unsetDelegate_button"
           title="Unset native delegate"
           disabled={
-            !TurboModuleRegistry.get('AsyncStorageTestSupport')?.test_unsetDelegate
+            !TurboModuleRegistry.get("AsyncStorageTestSupport")
+              ?.test_unsetDelegate
           }
           onPress={() =>
-            TurboModuleRegistry.get('AsyncStorageTestSupport')?.test_unsetDelegate(
-              () => {}
-            )
+            TurboModuleRegistry.get(
+              "AsyncStorageTestSupport"
+            )?.test_unsetDelegate(() => {})
           }
         />
       </View>
