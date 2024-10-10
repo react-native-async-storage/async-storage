@@ -10,7 +10,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useState } from "react";
 import {
   Button,
-  NativeModules,
   StyleSheet,
   Text,
   TextInput,
