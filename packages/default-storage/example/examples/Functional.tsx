@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import isEqual from "lodash/isEqual";
 import {
+  NativeModules,
   Platform,
   ScrollView,
   StyleSheet,
@@ -129,9 +130,9 @@ function Functional(): JSX.Element {
         }
       })
       .then(async () => {
-        const AsyncStorageTestSupport = TurboModuleRegistry.get(
-          "AsyncStorageTestSupport"
-        );
+        const AsyncStorageTestSupport = TurboModuleRegistry
+          ? TurboModuleRegistry.get("AsyncStorageTestSupport")
+          : NativeModules["AsyncStorageTestSupport"];
 
         for (const [currentName, test] of Object.entries(tests)) {
           const name = currentName + " with delegate";

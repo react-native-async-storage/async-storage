@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useState } from "react";
 import {
   Button,
+  NativeModules,
   StyleSheet,
   Text,
   TextInput,
@@ -102,6 +103,10 @@ function Merge(): JSX.Element {
 
   const { trait1, trait2 } = traits;
 
+  const AsyncStorageTestSupport = TurboModuleRegistry
+    ? TurboModuleRegistry.get("AsyncStorageTestSupport")
+    : NativeModules["AsyncStorageTestSupport"];
+
   return (
     <View>
       <View>
@@ -174,28 +179,14 @@ function Merge(): JSX.Element {
         <Button
           testID="setDelegate_button"
           title="Set native delegate"
-          disabled={
-            !TurboModuleRegistry.get("AsyncStorageTestSupport")
-              ?.test_setDelegate
-          }
-          onPress={() =>
-            TurboModuleRegistry.get(
-              "AsyncStorageTestSupport"
-            )?.test_setDelegate(() => {})
-          }
+          disabled={!AsyncStorageTestSupport?.test_setDelegate}
+          onPress={() => AsyncStorageTestSupport?.test_setDelegate(() => {})}
         />
         <Button
           testID="unsetDelegate_button"
           title="Unset native delegate"
-          disabled={
-            !TurboModuleRegistry.get("AsyncStorageTestSupport")
-              ?.test_unsetDelegate
-          }
-          onPress={() =>
-            TurboModuleRegistry.get(
-              "AsyncStorageTestSupport"
-            )?.test_unsetDelegate(() => {})
-          }
+          disabled={!AsyncStorageTestSupport?.test_unsetDelegate}
+          onPress={() => AsyncStorageTestSupport?.test_unsetDelegate(() => {})}
         />
       </View>
 
