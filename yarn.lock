@@ -5579,11 +5579,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-windows/cli@npm:0.75.3":
-  version: 0.75.3
-  resolution: "@react-native-windows/cli@npm:0.75.3"
+"@react-native-windows/cli@npm:0.75.4":
+  version: 0.75.4
+  resolution: "@react-native-windows/cli@npm:0.75.4"
   dependencies:
-    "@react-native-windows/codegen": "npm:0.75.1"
+    "@react-native-windows/codegen": "npm:0.75.2"
     "@react-native-windows/fs": "npm:0.75.0"
     "@react-native-windows/package-utils": "npm:0.75.0"
     "@react-native-windows/telemetry": "npm:0.75.1"
@@ -5606,13 +5606,13 @@ __metadata:
     xpath: "npm:^0.0.27"
   peerDependencies:
     react-native: "*"
-  checksum: 10c0/bce01859f8943ca98fde01c6f2d8f1b16a8155ff93b4a2585a239829194ea5e2baef85176f06be58a71d07bf945ef7a5831b6b705a8abda69541ec71607ca78a
+  checksum: 10c0/95ff332d2077412268cd8bfd2aaf9591f6bc73cc76d215698d7deb3a5f24bbd33a34782e5bc461e53a48b71c7c76c328c9ba92c37e06bf6c1fa5842be7b9d471
   languageName: node
   linkType: hard
 
-"@react-native-windows/codegen@npm:0.75.1":
-  version: 0.75.1
-  resolution: "@react-native-windows/codegen@npm:0.75.1"
+"@react-native-windows/codegen@npm:0.75.2":
+  version: 0.75.2
+  resolution: "@react-native-windows/codegen@npm:0.75.2"
   dependencies:
     "@react-native-windows/fs": "npm:0.75.0"
     chalk: "npm:^4.1.0"
@@ -5624,7 +5624,7 @@ __metadata:
     react-native: "*"
   bin:
     react-native-windows-codegen: bin.js
-  checksum: 10c0/ba025dc70013811e0c2bbb723057c6fbe67d6a59c5739d263b68c2143f7fb8320c1a1dcea02e06efe6eed90379606b2ced390d6e9d0911695324e388220b032f
+  checksum: 10c0/f594707a5f2b431a2a89536cf8bde78bc81897b48b5b47205bc2ab6547c812b243660c2ae797ead4ea0ac078924577e828102a8d7db095b785a72426322f0050
   languageName: node
   linkType: hard
 
@@ -20356,28 +20356,29 @@ __metadata:
   linkType: hard
 
 "react-native-windows@npm:^0.75.0":
-  version: 0.75.3
-  resolution: "react-native-windows@npm:0.75.3"
+  version: 0.75.5
+  resolution: "react-native-windows@npm:0.75.5"
   dependencies:
     "@babel/runtime": "npm:^7.0.0"
     "@jest/create-cache-key-function": "npm:^29.6.3"
-    "@react-native-community/cli": "npm:14.0.0"
-    "@react-native-community/cli-platform-android": "npm:14.0.0"
-    "@react-native-community/cli-platform-ios": "npm:14.0.0"
-    "@react-native-windows/cli": "npm:0.75.3"
+    "@react-native-community/cli": "npm:14.1.0"
+    "@react-native-community/cli-platform-android": "npm:14.1.0"
+    "@react-native-community/cli-platform-ios": "npm:14.1.0"
+    "@react-native-windows/cli": "npm:0.75.4"
     "@react-native/assets": "npm:1.0.0"
-    "@react-native/assets-registry": "npm:0.75.2"
-    "@react-native/codegen": "npm:0.75.2"
-    "@react-native/community-cli-plugin": "npm:0.75.2"
-    "@react-native/gradle-plugin": "npm:0.75.2"
-    "@react-native/js-polyfills": "npm:0.75.2"
-    "@react-native/normalize-colors": "npm:0.75.2"
-    "@react-native/virtualized-lists": "npm:0.75.2"
+    "@react-native/assets-registry": "npm:0.75.3"
+    "@react-native/codegen": "npm:0.75.3"
+    "@react-native/community-cli-plugin": "npm:0.75.3"
+    "@react-native/gradle-plugin": "npm:0.75.3"
+    "@react-native/js-polyfills": "npm:0.75.3"
+    "@react-native/normalize-colors": "npm:0.75.3"
+    "@react-native/virtualized-lists": "npm:0.75.3"
     abort-controller: "npm:^3.0.0"
     anser: "npm:^1.4.9"
     ansi-regex: "npm:^5.0.0"
     base64-js: "npm:^1.5.1"
     chalk: "npm:^4.0.0"
+    commander: "npm:^9.4.1"
     event-target-shim: "npm:^5.0.1"
     flow-enums-runtime: "npm:^0.0.6"
     glob: "npm:^7.1.1"
@@ -20405,8 +20406,8 @@ __metadata:
   peerDependencies:
     "@types/react": ^18.2.6
     react: ^18.2.0
-    react-native: ^0.75.2
-  checksum: 10c0/fe394d7a642e198aa9789cf3a60682a4db8fd23cd708a3e7934d64aeb9006ba2bed8a2ba0ba8614ebd20e6fe8f9fee15a756333c21045515c0491c2d0641385f
+    react-native: ^0.75.3
+  checksum: 10c0/4de9bacbd4c9a5ae2c1e1e8219f6becc95a078dabf0e4582ad35c3e1ba5303cc8ff41a47d4e6b89b8f32a88f7218dee678a21dafa87eb5957bf9630f03488d8f
   languageName: node
   linkType: hard
 
