@@ -10,7 +10,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useState } from "react";
 import {
   Button,
-  NativeModules,
   StyleSheet,
   Text,
   TextInput,
@@ -103,9 +102,15 @@ function Merge(): JSX.Element {
 
   const { trait1, trait2 } = traits;
 
-  const AsyncStorageTestSupport = TurboModuleRegistry
-    ? TurboModuleRegistry.get("AsyncStorageTestSupport")
-    : NativeModules["AsyncStorageTestSupport"];
+  type AsyncStorageDelegate = () => void;
+
+  type AsyncStorageTestSupport = {
+    test_setDelegate: (delegate: AsyncStorageDelegate) => void;
+    test_unsetDelegate: (delegate: AsyncStorageDelegate) => void;
+    getConstants(): object;
+  };
+
+  const AsyncStorageTestSupport = TurboModuleRegistry.get<AsyncStorageTestSupport>("AsyncStorageTestSupport")
 
   return (
     <View>
