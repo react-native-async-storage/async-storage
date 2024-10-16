@@ -92,11 +92,11 @@
   <ImportGroup Label="PropertySheets" Condition="'$(UseFabric)'!='true'">
     <Import Project="PropertySheet.props" />
   </ImportGroup>
-  <ImportGroup Label="ReactNativeWindowsPropertySheets" Condition="'$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMinor), 76))'">
+  <ImportGroup Label="ReactNativeWindowsPropertySheets" Condition="'$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))'">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\external\Microsoft.ReactNative.Uwp.CppLib.props" Condition="'$(UseFabric)'!='true' And Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props')" />
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props" Condition="'$(UseFabric)'=='true' And Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props')" />
   </ImportGroup>
-  <ImportGroup Label="ReactNativeWindowsPropertySheets" Condition="'$(ReactNativeWindowsCanary)'=='true' Or '$([MSBuild]::VersionGreaterThanOrEquals($(ReactNativeWindowsMinor), 76))'">
+  <ImportGroup Label="ReactNativeWindowsPropertySheets" Condition="'$(ReactNativeWindowsCanary)'=='true' Or '$([MSBuild]::VersionGreaterThanOrEquals($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))'">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.props" Condition="Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.props')" />
   </ImportGroup>
   <ItemDefinitionGroup>
@@ -165,11 +165,11 @@
     <Midl Include="..\code\ReactPackageProvider.idl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ReactNativeWindowsTargets" Condition="'$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMinor), 76))'">
+  <ImportGroup Label="ReactNativeWindowsTargets" Condition="'$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))'">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets" Condition="'$(UseFabric)'!='true' And Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets')" />
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets" Condition="'$(UseFabric)'=='true' And Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets')" />
   </ImportGroup>
-  <ImportGroup Label="ReactNativeWindowsTargets" Condition="'$(ReactNativeWindowsCanary)'=='true' Or '$([MSBuild]::VersionGreaterThanOrEquals($(ReactNativeWindowsMinor), 76))'">
+  <ImportGroup Label="ReactNativeWindowsTargets" Condition="'$(ReactNativeWindowsCanary)'=='true' Or '$([MSBuild]::VersionGreaterThanOrEquals($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))'">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.targets" Condition="Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.targets')" />
   </ImportGroup>
   <ItemGroup>
@@ -178,10 +178,10 @@
     <PropertyGroup>
       <ErrorText>This project references targets in your node_modules\react-native-windows folder. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="'$(UseFabric)'!='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props'))" />
-    <Error Condition="'$(UseFabric)'!='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets'))" />
-    <Error Condition="'$(UseFabric)'=='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props'))" />
-    <Error Condition="'$(UseFabric)'=='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets'))" />
+    <Error Condition="'$(UseFabric)'!='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props') And ('$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props'))" />
+    <Error Condition="'$(UseFabric)'!='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets') And ('$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets'))" />
+    <Error Condition="'$(UseFabric)'=='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props') And ('$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.props'))" />
+    <Error Condition="'$(UseFabric)'=='true' And !Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets') And ('$(ReactNativeWindowsCanary)'!='true' And '$([MSBuild]::VersionLessThan($(ReactNativeWindowsMajor).$(ReactNativeWindowsMinor).$(ReactNativeWindowsPatch), 0.76.0))')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Composition.CppLib.targets'))" />
     <Error Condition="!Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.props') And ('$(ReactNativeWindowsCanary)'=='true' Or '$([MSBuild]::VersionGreaterThanOrEquals($(ReactNativeWindowsMinor), 76))')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.props'))" />
     <Error Condition="!Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.targets') And ('$(ReactNativeWindowsCanary)'=='true' Or '$([MSBuild]::VersionGreaterThanOrEquals($(ReactNativeWindowsMinor), 76))')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.CppLib.targets'))" />
   </Target>
