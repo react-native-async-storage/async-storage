@@ -40,7 +40,8 @@
     "@react-native/js-polyfills": "^0.75.0",
     "@react-native/normalize-colors": "^0.75.0",
     "@react-native/virtualized-lists": "^0.75.0",
-    "find-babel-config/json5": "^2.1.1"
+    "find-babel-config/json5": "^2.1.1",
+    "react-native-windows": "^0.75.5"
   },
   "workspaces": [
     "packages/api",

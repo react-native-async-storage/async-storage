@@ -20355,7 +20355,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-windows@npm:^0.75.0":
+"react-native-windows@npm:^0.75.5":
   version: 0.75.5
   resolution: "react-native-windows@npm:0.75.5"
   dependencies:
