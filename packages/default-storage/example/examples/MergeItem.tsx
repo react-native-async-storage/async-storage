@@ -110,7 +110,8 @@ function Merge(): JSX.Element {
     getConstants(): object;
   };
 
-  const AsyncStorageTestSupport = TurboModuleRegistry.get<AsyncStorageTestSupport>("AsyncStorageTestSupport")
+  const AsyncStorageTestSupport =
+    TurboModuleRegistry.get<AsyncStorageTestSupport>("AsyncStorageTestSupport");
 
   return (
     <View>

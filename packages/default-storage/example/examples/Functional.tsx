@@ -130,7 +130,10 @@ function Functional(): JSX.Element {
         }
       })
       .then(async () => {
-        const AsyncStorageTestSupport = TurboModuleRegistry.get<AsyncStorageTestSupport>("AsyncStorageTestSupport") 
+        const AsyncStorageTestSupport =
+          TurboModuleRegistry.get<AsyncStorageTestSupport>(
+            "AsyncStorageTestSupport"
+          );
 
         for (const [currentName, test] of Object.entries(tests)) {
           const name = currentName + " with delegate";
