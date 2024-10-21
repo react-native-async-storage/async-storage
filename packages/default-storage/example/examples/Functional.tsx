@@ -10,6 +10,7 @@ import {
   TurboModuleRegistry,
   View,
 } from "react-native";
+import type { AsyncStorageTestSupport } from "./types";
 import type { TestStep, TestValue } from "./tests";
 import tests from "./tests";
 
@@ -129,14 +130,6 @@ function Functional(): JSX.Element {
         }
       })
       .then(async () => {
-        type AsyncStorageDelegate = (value: boolean) => void;
-
-        type AsyncStorageTestSupport = {
-          test_setDelegate: (delegate: AsyncStorageDelegate) => void;
-          test_unsetDelegate: (delegate: AsyncStorageDelegate) => void;
-          getConstants(): object;
-        };
-
         const AsyncStorageTestSupport = TurboModuleRegistry.get<AsyncStorageTestSupport>("AsyncStorageTestSupport") 
 
         for (const [currentName, test] of Object.entries(tests)) {
