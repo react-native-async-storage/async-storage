@@ -16,6 +16,8 @@ import {
   TurboModuleRegistry,
   View,
 } from "react-native";
+import type { AsyncStorageTestSupport } from "./types";
+
 
 type Personalia = {
   age: string;
@@ -101,14 +103,6 @@ function Merge(): JSX.Element {
   }, []);
 
   const { trait1, trait2 } = traits;
-
-  type AsyncStorageDelegate = () => void;
-
-  type AsyncStorageTestSupport = {
-    test_setDelegate: (delegate: AsyncStorageDelegate) => void;
-    test_unsetDelegate: (delegate: AsyncStorageDelegate) => void;
-    getConstants(): object;
-  };
 
   const AsyncStorageTestSupport =
     TurboModuleRegistry.get<AsyncStorageTestSupport>("AsyncStorageTestSupport");
