@@ -18,7 +18,6 @@ import {
 } from "react-native";
 import type { AsyncStorageTestSupport } from "./types";
 
-
 type Personalia = {
   age: string;
   name: string;
