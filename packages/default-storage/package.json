@@ -46,6 +46,7 @@
     "start:macos": "react-native run-macos --project-path example/macos --scheme AsyncStorageExample",
     "start:web": "expo start --web",
     "start:windows": "install-windows-test-app -p example/windows && react-native run-windows --root example --logging --no-packager --no-telemetry",
+    "start:windows:fabric": "install-windows-test-app -p example/windows --use-fabric && react-native run-windows --root example --logging --no-packager --no-telemetry",
     "build:e2e:android": "scripts/android_e2e.sh 'build'",
     "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
@@ -73,6 +74,7 @@
     "@babel/preset-env": "^7.20.0",
     "@react-native/babel-preset": "^0.75.0",
     "@react-native/metro-config": "^0.75.0",
+    "@rnx-kit/jest-preset": "^0.1.16",
     "@rnx-kit/metro-config": "^2.0.0",
     "@types/lodash": "^4.14.184",
     "@types/mocha": "^10.0.1",
@@ -122,6 +124,11 @@
     "jsSrcsDir": "./src",
     "android": {
       "javaPackageName": "com.reactnativecommunity.asyncstorage"
+    },
+    "windows": {
+      "namespace": "RNCAsyncStorage",
+      "outputDirectory": "windows/code/codegen",
+      "separateDataTypes": true
     }
   }
 }
