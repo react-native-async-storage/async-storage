@@ -45,6 +45,7 @@
   "workspaces": [
     "packages/api",
     "packages/default-storage",
+    "packages/default-storage-expo-plugin",
     "packages/eslint-config",
     "packages/sqlite-storage",
     "packages/website"

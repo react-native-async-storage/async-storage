@@ -102,6 +102,51 @@ If you want to use different KSP version, you can set a property in `gradle.prop
 AsyncStorage_next_kspVersion=1.9.24-1.0.20
 ```
 
+### Configuration with Expo
+
+If you are using Expo, you can configure the feature using [config plugins](https://docs.expo.dev/guides/config-plugins/).
+
+First, install the required plugins:
+
+```bash
+expo install expo-build-properties @react-native-async-storage/async-storage-expo-plugin
+```
+
+Next, in your Expo project's `app.json`, add the plugins:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.9.23"
+          }
+        }
+      ],
+      [
+        "@react-native-async-storage/async-storage-expo-plugin",
+        {
+          "android": {
+            "nextStorage": {
+              "enabled": true
+            }
+          }
+        }
+      ]
+    ]
+  }
+}
+```
+
+Finally, use the Expo prebuild command to re-generate the Android project:
+
+```bash
+expo prebuild --platform android --clean
+```
+
 ### Notable changes
 
 Alongside of a warning regarding `key`/`value`, errors are thrown when:

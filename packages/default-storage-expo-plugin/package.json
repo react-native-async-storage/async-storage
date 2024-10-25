@@ -1,0 +1,53 @@
+{
+  "name": "@react-native-async-storage/async-storage-expo-plugin",
+  "version": "1.0.0",
+  "description": "Asynchronous, persistent, key-value storage system for React Native.",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build/",
+    "src/",
+    "app.plugin.js"
+  ],
+  "author": "Two Doors Dev <hello@twodoors.dev>",
+  "contributors": [
+    "Hassan Khan <h@twodoors.dev> (https://github.com/hassankhan)",
+    "Bill Spooner <b@twodoors.dev> (https://github.com/sandyklark)"
+  ],
+  "homepage": "https://github.com/react-native-async-storage/async-storage#readme",
+  "license": "MIT",
+  "keywords": [
+    "react-native",
+    "react native",
+    "async storage",
+    "asyncstorage",
+    "storage",
+    "expo",
+    "expo config plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-native-async-storage/async-storage.git",
+    "directory": "packages/default-storage-expo-plugin"
+  },
+  "scripts": {
+    "prepack": "yarn build",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "build": "EXPO_NONINTERACTIVE=true expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test:ts": "yarn build --noEmit",
+    "test:lint": "yarn lint"
+  },
+  "devDependencies": {
+    "@expo/config-plugins": "^8.0.8",
+    "eslint": "^8.54.0",
+    "expo-module-scripts": "^3.5.2",
+    "prettier": "^2.8.8"
+  },
+  "peerDependencies": {
+    "expo": "^51"
+  },
+  "upstreamPackage": "@react-native-async-storage/async-storage"
+}
