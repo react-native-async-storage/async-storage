@@ -14,7 +14,11 @@ namespace winrt::ReactNativeAsyncStorage::implementation
 
     void ReactPackageProvider::CreatePackage(IReactPackageBuilder const &packageBuilder) noexcept
     {
+    #ifdef USE_FABRIC    
+        AddAttributedModules(packageBuilder, true);
+    #else
         AddAttributedModules(packageBuilder);
+    #endif
     }
 
 }  // namespace winrt::ReactNativeAsyncStorage::implementation

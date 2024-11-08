@@ -36,6 +36,7 @@ local.properties
 /windows/AppPackages
 /windows/ExperimentalFeatures.props
 /windows/NuGet.Config
+/windows/ReactApp.Package
 
 # node.js
 #
