@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.1.0
+
+### Minor Changes
+
+- b7c842c: Windows: Add New Architecture support
+
 ## 2.0.0
 
 ### Major Changes
