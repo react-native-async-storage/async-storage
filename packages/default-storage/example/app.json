@@ -3,12 +3,22 @@
   "displayName": "AsyncStorageExample",
   "components": [
     {
-      "appKey": "AsyncStorageExample"
+      "appKey": "AsyncStorageExample",
+      "displayName": "AsyncStorageExample"
     }
   ],
   "resources": {
-    "android": ["index.android.jsbundle"],
-    "ios": ["index.ios.jsbundle"],
-    "macos": ["index.macos.jsbundle"]
+    "android": [
+      "index.android.jsbundle"
+    ],
+    "ios": [
+      "index.ios.jsbundle"
+    ],
+    "macos": [
+      "index.macos.jsbundle"
+    ],
+    "windows": [
+      "main.windows.bundle"
+    ]
   }
 }

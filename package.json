@@ -21,30 +21,17 @@
     "turbo": "^1.12.5",
     "typescript": "^5.3.0"
   },
+  "resolutions": {
+    "@react-native-mac/virtualized-lists": "0.76.0"
+  },
   "engines": {
     "node": "v20.11.1"
   },
   "packageManager": "yarn@4.2.2",
-  "resolutions": {
-    "@react-native-community/cli": "^14.0.0",
-    "@react-native-community/cli-platform-android": "^14.0.0",
-    "@react-native-community/cli-platform-ios": "^14.0.0",
-    "@react-native/assets-registry": "^0.75.0",
-    "@react-native/babel-plugin-codegen": "^0.75.0",
-    "@react-native/babel-preset": "^0.75.0",
-    "@react-native/codegen": "^0.75.0",
-    "@react-native/community-cli-plugin": "^0.75.0",
-    "@react-native/community-cli-plugin/@react-native-community/cli-server-api": "^14.0.0",
-    "@react-native/community-cli-plugin/@react-native-community/cli-tools": "^14.0.0",
-    "@react-native/gradle-plugin": "^0.75.0",
-    "@react-native/js-polyfills": "^0.75.0",
-    "@react-native/normalize-colors": "^0.75.0",
-    "@react-native/virtualized-lists": "^0.75.0",
-    "find-babel-config/json5": "^2.1.1"
-  },
   "workspaces": [
     "packages/api",
     "packages/default-storage",
+    "packages/default-storage/example",
     "packages/eslint-config",
     "packages/sqlite-storage",
     "packages/website"
