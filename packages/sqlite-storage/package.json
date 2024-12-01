@@ -43,7 +43,7 @@
     "test:unit": "jest",
     "test:ts": "tsc",
     "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
-    "example:start": "react-native start"
+    "example:start": "(cd example && yarn start)"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
@@ -52,24 +52,22 @@
     "registry": "https://registry.npmjs.org/"
   },
   "peerDependencies": {
-    "react-native": "^0.0.0-0 || >=0.69 <1.0"
+    "react-native": "^0.0.0-0 || >=0.71 <1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@babel/preset-env": "^7.20.0",
-    "@babel/runtime": "^7.20.0",
-    "@react-native/babel-preset": "^0.75.0",
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@babel/runtime": "^7.25.0",
+    "@react-native/babel-preset": "^0.76.2",
     "@rnx-kit/metro-config": "^2.0.0",
     "@types/jest": "^29.5.5",
-    "@types/react": "^18.2.44",
-    "eslint": "^8.51.0",
+    "@types/react": "^18.3.12",
+    "eslint": "^8.54.0",
     "jest": "^29.2.1",
-    "prettier": "^3.0.3",
-    "react": "^18.2.0",
-    "react-native": "^0.75.0",
-    "react-native-builder-bob": "^0.20.0",
-    "react-native-test-app": "^3.9.2",
-    "typescript": "^5.2.2"
+    "react": "^18.3.1",
+    "react-native": "^0.76.2",
+    "react-native-builder-bob": "^0.33.3",
+    "typescript": "^5.3.0"
   },
   "react-native-builder-bob": {
     "source": "src",

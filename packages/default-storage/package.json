@@ -55,12 +55,9 @@
     "react-native": "^0.0.0-0 || >=0.65 <1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@babel/preset-env": "^7.20.0",
-    "@react-native/babel-preset": "^0.75.0",
-    "@react-native/metro-config": "^0.75.0",
-    "@rnx-kit/jest-preset": "^0.1.16",
-    "@rnx-kit/metro-config": "^2.0.0",
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@react-native/babel-preset": "^0.76.2",
     "@types/lodash": "^4.14.184",
     "@types/mocha": "^10.0.1",
     "@types/react": "^18.0.0",
