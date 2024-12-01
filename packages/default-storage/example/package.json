@@ -15,7 +15,7 @@
     "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
     "bundle:android": "scripts/android_e2e.sh 'bundle'",
     "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
-    "bundle:macos": "react-native bundle --entry-file index.js --platform macos --dev false --bundle-output index.macos.jsbundle",
+    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output index.macos.jsbundle",
     "test:e2e:android": "scripts/android_e2e.sh 'test'",
     "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
     "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
