@@ -26,11 +26,11 @@ fi
 defaults write com.microsoft.ReactTestApp "NSWindow Frame MainWindow" "0 0 800 500 0 0 2560 1417 "
 
 xcodebuild \
-  -workspace example/macos/AsyncStorageExample.xcworkspace \
+  -workspace macos/AsyncStorageExample.xcworkspace \
   -scheme ReactTestApp \
   -configuration Release \
   -sdk macosx \
-  -derivedDataPath example/macos/build \
+  -derivedDataPath macos/build \
   $BUILD_ACTIONS
 
 if [[ "$CCACHE_DISABLE" != "1" ]]; then

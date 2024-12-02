@@ -17,9 +17,10 @@
 #include <unknwn.h>
 
 // WinRT Header Files
-#include <winrt/base.h>
 #include <CppWinRTIncludes.h>
+
 #include <winrt/Microsoft.ReactNative.h>
+#include <winrt/base.h>
 
 // C RunTime Header Files
 #include <malloc.h>
@@ -29,6 +30,7 @@
 
 // Reference additional headers your project requires here
 #include <functional>
+
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.Data.Json.h>
 #include <winrt/Windows.Foundation.Collections.h>

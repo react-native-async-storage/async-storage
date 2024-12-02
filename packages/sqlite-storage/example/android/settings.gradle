@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "AsyncStorageSQLiteExample"
+rootProject.name = "SQLiteExample"
 
 apply(from: {
     def searchDir = rootDir.toPath()
