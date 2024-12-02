@@ -36,7 +36,9 @@
     "@react-native-community/cli-platform-ios": "15.0.0",
     "@react-native/babel-preset": "0.76.2",
     "@react-native/metro-config": "0.76.2",
+    "expo": "^48.0.0",
     "react-native-builder-bob": "^0.33.3",
+    "react-native-macos": "^0.76.2",
     "react-native-test-app": "^4.0.3"
   }
 }

@@ -39,7 +39,7 @@ jobs:
       - name: Build e2e binary
         run: |
           yarn build:e2e:android
-        working-directory: packages/default-storage
+        working-directory: packages/default-storage/example
 
   ios:
     name: iOS
@@ -63,7 +63,7 @@ jobs:
       - name: Bundle JS
         run: |
           yarn bundle:ios
-        working-directory: packages/default-storage
+        working-directory: packages/default-storage/example
       - name: Install Pods
         run: |
           RCT_NEW_ARCH_ENABLED=1 pod install
@@ -71,7 +71,7 @@ jobs:
       - name: Build e2e binary
         run: |
           yarn build:e2e:ios
-        working-directory: packages/default-storage
+        working-directory: packages/default-storage/example
 
   macos:
     name: macOS
@@ -95,7 +95,7 @@ jobs:
       - name: Bundle JS
         run: |
           yarn bundle:macos
-        working-directory: packages/default-storage
+        working-directory: packages/default-storage/example
       - name: Install Pods
         run: |
           RCT_NEW_ARCH_ENABLED=1 pod install
@@ -103,12 +103,12 @@ jobs:
       - name: Build
         run: |
           yarn build:e2e:macos
-        working-directory: packages/default-storage
+        working-directory: packages/default-storage/example
       - name: Test
         if: false
         run: |
           yarn test:e2e:macos
-        working-directory: packages/default-storage
+        working-directory: packages/default-storage/example
 
   windows:
     name: Windows
@@ -136,4 +136,4 @@ jobs:
       - name: Build
         run: |
           yarn react-native run-windows --release --arch x64 --logging --no-packager --no-launch --no-deploy --msbuildprops "BundleEntryFile=index.ts,UseBundle=false" --no-telemetry
-        working-directory: packages/default-storage
+        working-directory: packages/default-storage/example
