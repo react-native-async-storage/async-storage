@@ -12739,12 +12739,12 @@ __metadata:
     "@react-native-community/cli-platform-ios": "npm:15.0.0"
     "@react-native/babel-preset": "npm:0.76.2"
     "@react-native/metro-config": "npm:0.76.2"
-    expo: "npm:^48.0.0"
     react: "npm:18.3.1"
     react-native: "npm:0.76.1"
     react-native-builder-bob: "npm:^0.33.3"
     react-native-macos: "npm:^0.76.2"
     react-native-test-app: "npm:^4.0.3"
+    react-native-windows: "npm:^0.76.2"
   languageName: unknown
   linkType: soft
 
