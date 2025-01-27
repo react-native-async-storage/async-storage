@@ -14,7 +14,7 @@ bundle_js() {
   extraArgs="$@"
   echo
   echo "[iOS E2E] Bundling JS"
-  react-native bundle --entry-file index.ts --platform ios --bundle-output index.ios.jsbundle --dev false $extraArgs
+  react-native bundle --entry-file index.ts --platform ios --bundle-output main.ios.bundle --dev false $extraArgs
 }
 
 run_e2e_test() {

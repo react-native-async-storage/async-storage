@@ -10,7 +10,7 @@ bundle_js() {
   extraArgs="$@"
   echo
   echo "[Android E2E] Bundling JS"
-  react-native bundle --entry-file index.ts --platform android --bundle-output index.android.jsbundle --dev false $extraArgs
+  react-native bundle --entry-file index.ts --platform android --bundle-output main.android.bundle --dev false $extraArgs
 }
 
 

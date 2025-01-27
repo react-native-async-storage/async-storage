@@ -8,9 +8,9 @@
     }
   ],
   "resources": {
-    "android": ["index.android.jsbundle"],
-    "ios": ["index.ios.jsbundle"],
-    "macos": ["index.macos.jsbundle"],
+    "android": ["main.android.bundle"],
+    "ios": ["main.ios.bundle"],
+    "macos": ["main.macos.bundle"],
     "windows": ["main.windows.bundle"]
   }
 }
