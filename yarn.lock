@@ -4752,6 +4752,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rnx-kit/metro-config@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@rnx-kit/metro-config@npm:2.0.1"
+  dependencies:
+    "@rnx-kit/tools-node": "npm:^3.0.0"
+    "@rnx-kit/tools-react-native": "npm:^2.0.0"
+    "@rnx-kit/tools-workspaces": "npm:^0.2.0"
+  peerDependencies:
+    "@react-native/metro-config": "*"
+    react: "*"
+    react-native: "*"
+  peerDependenciesMeta:
+    "@react-native/metro-config":
+      optional: true
+  checksum: 10c0/fb90bdcec980595898a7c675dd83c81a91f08bdfea06ed1e9f8583fa69b719b089527bc0595406d65e3c70fd46c5acfbafd373183cd91e0c68cb7c81427b8d11
+  languageName: node
+  linkType: hard
+
 "@rnx-kit/react-native-host@npm:^0.5.0":
   version: 0.5.0
   resolution: "@rnx-kit/react-native-host@npm:0.5.0"
@@ -10810,6 +10828,7 @@ __metadata:
     "@react-native-community/cli-platform-ios": "npm:^15.0.0"
     "@react-native/babel-preset": "npm:^0.76.0"
     "@react-native/metro-config": "npm:^0.76.0"
+    "@rnx-kit/metro-config": "npm:^2.0.1"
     react: "npm:18.3.1"
     react-native: "npm:0.76.1"
     react-native-builder-bob: "npm:^0.33.3"
