@@ -10808,6 +10808,7 @@ __metadata:
     "@react-native-community/cli-platform-android": "npm:^15.0.0"
     "@react-native-community/cli-platform-ios": "npm:^15.0.0"
     "@react-native/babel-preset": "npm:^0.76.0"
+    "@react-native/metro-config": "npm:^0.76.0"
     "@rnx-kit/metro-config": "npm:^2.0.1"
     react: "npm:18.3.1"
     react-native: "npm:0.76.1"
