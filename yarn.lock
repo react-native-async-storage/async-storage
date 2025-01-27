@@ -4169,7 +4169,6 @@ __metadata:
     "@babel/preset-env": "npm:^7.25.0"
     "@babel/runtime": "npm:^7.25.0"
     "@react-native/babel-preset": "npm:^0.76.1"
-    "@rnx-kit/metro-config": "npm:^2.0.0"
     "@types/jest": "npm:^29.5.5"
     "@types/react": "npm:^18.3.12"
     eslint: "npm:^8.54.0"
@@ -4731,24 +4730,6 @@ __metadata:
   peerDependencies:
     eslint: ">=8.56.0"
   checksum: 10c0/744dca76d5daac5472fd605e4c77cdbd7b12c2b8c3ef3fe3caa597f6c5772242c519be619bf60ab77eb06b4a97216110a8aaf5b44ca294b8e3cdb4354f1b7738
-  languageName: node
-  linkType: hard
-
-"@rnx-kit/metro-config@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@rnx-kit/metro-config@npm:2.0.0"
-  dependencies:
-    "@rnx-kit/tools-node": "npm:^3.0.0"
-    "@rnx-kit/tools-react-native": "npm:^2.0.0"
-    "@rnx-kit/tools-workspaces": "npm:^0.2.0"
-  peerDependencies:
-    "@react-native/metro-config": "*"
-    react: "*"
-    react-native: "*"
-  peerDependenciesMeta:
-    "@react-native/metro-config":
-      optional: true
-  checksum: 10c0/0d942fc507e418ece131b2ee08881b6bb67ebd17eef8f3140fe7165df109ab0cb6fa0542705c645a593b992f64a9341180aa4f7f7af471fbc0bce7a3b69ecb41
   languageName: node
   linkType: hard
 
@@ -10827,7 +10808,6 @@ __metadata:
     "@react-native-community/cli-platform-android": "npm:^15.0.0"
     "@react-native-community/cli-platform-ios": "npm:^15.0.0"
     "@react-native/babel-preset": "npm:^0.76.0"
-    "@react-native/metro-config": "npm:^0.76.0"
     "@rnx-kit/metro-config": "npm:^2.0.1"
     react: "npm:18.3.1"
     react-native: "npm:0.76.1"
@@ -19228,7 +19208,7 @@ __metadata:
     "@react-native/babel-preset": "npm:^0.76.0"
     "@react-native/metro-config": "npm:^0.76.0"
     "@react-native/typescript-config": "npm:^0.76.0"
-    "@rnx-kit/metro-config": "npm:^2.0.0"
+    "@rnx-kit/metro-config": "npm:^2.0.1"
     react: "npm:18.3.1"
     react-native: "npm:0.76.1"
     react-native-builder-bob: "npm:^0.33.2"

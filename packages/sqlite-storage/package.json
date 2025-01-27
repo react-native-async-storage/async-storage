@@ -59,7 +59,6 @@
     "@babel/preset-env": "^7.25.0",
     "@babel/runtime": "^7.25.0",
     "@react-native/babel-preset": "^0.76.1",
-    "@rnx-kit/metro-config": "^2.0.0",
     "@types/jest": "^29.5.5",
     "@types/react": "^18.3.12",
     "eslint": "^8.54.0",

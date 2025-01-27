@@ -25,7 +25,7 @@
     "@react-native/babel-preset": "^0.76.0",
     "@react-native/metro-config": "^0.76.0",
     "@react-native/typescript-config": "^0.76.0",
-    "@rnx-kit/metro-config": "^2.0.0",
+    "@rnx-kit/metro-config": "^2.0.1",
     "react-native-builder-bob": "^0.33.2",
     "react-native-test-app": "4.0.4"
   },
