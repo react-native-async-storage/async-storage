@@ -3,23 +3,23 @@
 build_project() {
   echo "[iOS E2E] Building iOS project"
   eval "xcodebuild \
-    -workspace example/ios/AsyncStorageExample.xcworkspace \
+    -workspace ios/AsyncStorageExample.xcworkspace \
     -scheme ReactTestApp \
     -configuration Release \
     -sdk iphonesimulator \
-    -derivedDataPath example/ios/build"
+    -derivedDataPath ios/build"
 }
 
 bundle_js() {
   extraArgs="$@"
   echo
   echo "[iOS E2E] Bundling JS"
-  react-native bundle --entry-file index.ts --platform ios --bundle-output example/index.ios.jsbundle --dev false $extraArgs
+  react-native bundle --entry-file index.ts --platform ios --bundle-output main.ios.bundle --dev false $extraArgs
 }
 
 run_e2e_test() {
   echo "[iOS E2E] Running tests"
-  wdio run example/__tests__/ios.conf.ts
+  wdio run __tests__/ios.conf.ts
 }
 
 

@@ -1,0 +1,45 @@
+{
+  "name": "example-defaultstorage",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "start:android": "react-native run-android",
+    "start:ios": "react-native run-ios",
+    "start:macos": "react-native run-macos --project-path macos --scheme AsyncStorageExample",
+    "start:web": "expo start --web",
+    "start:windows": "install-windows-test-app -p windows && react-native run-windows --logging --no-packager --no-telemetry",
+    "start:windows:fabric": "install-windows-test-app -p windows --use-fabric && react-native run-windows --logging --no-packager --no-telemetry",
+    "build:e2e:android": "scripts/android_e2e.sh 'build'",
+    "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
+    "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
+    "bundle:android": "scripts/android_e2e.sh 'bundle'",
+    "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
+    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output main.macos.bundle",
+    "test:e2e:android": "scripts/android_e2e.sh 'test'",
+    "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
+    "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-native": "0.76.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-community/cli": "^15.0.0",
+    "@react-native-community/cli-platform-android": "^15.0.0",
+    "@react-native-community/cli-platform-ios": "^15.0.0",
+    "@react-native/babel-preset": "^0.76.0",
+    "@react-native/metro-config": "^0.76.0",
+    "@rnx-kit/metro-config": "^2.0.1",
+    "react-native-builder-bob": "^0.33.3",
+    "react-native-macos": "^0.76.0",
+    "react-native-test-app": "^4.0.3",
+    "react-native-windows": "^0.76.0"
+  }
+}

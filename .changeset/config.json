@@ -11,6 +11,7 @@
     "@react-native-async-storage/eslint-config",
     "async-storage-website",
     "@react-native-async-storage/api",
-    "@react-native-async-storage/sqlite-storage"
+    "@react-native-async-storage/sqlite-storage",
+    "react-native-example-sqlitestorage"
   ]
 }

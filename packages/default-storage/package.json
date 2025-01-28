@@ -23,6 +23,7 @@
     "Evan Bacon <bacon@expo.io> (https://github.com/evanbacon)",
     "Tommy Nguyen <4123478+tido64@users.noreply.github.com> (https://github.com/tido64)"
   ],
+  "source": "src/index",
   "homepage": "https://github.com/react-native-async-storage/async-storage#readme",
   "license": "MIT",
   "keywords": [
@@ -40,25 +41,9 @@
   "scripts": {
     "prepack": "yarn build",
     "build": "bob build",
-    "start": "react-native start",
-    "start:android": "react-native run-android",
-    "start:ios": "react-native run-ios",
-    "start:macos": "react-native run-macos --project-path example/macos --scheme AsyncStorageExample",
-    "start:web": "expo start --web",
-    "start:windows": "install-windows-test-app -p example/windows && react-native run-windows --root example --logging --no-packager --no-telemetry",
-    "start:windows:fabric": "install-windows-test-app -p example/windows --use-fabric && react-native run-windows --root example --logging --no-packager --no-telemetry",
-    "build:e2e:android": "scripts/android_e2e.sh 'build'",
-    "build:e2e:ios": "scripts/ios_e2e.sh 'build'",
-    "build:e2e:macos": "scripts/macos_e2e.sh 'build'",
-    "bundle:android": "scripts/android_e2e.sh 'bundle'",
-    "bundle:ios": "scripts/ios_e2e.sh 'bundle'",
-    "bundle:macos": "react-native bundle --entry-file index.ts --platform macos --dev false --bundle-output example/index.macos.jsbundle",
-    "test": "concurrently -n lint,ts yarn:test:lint yarn:test:ts",
+    "start": "(cd example && react-native start)",
     "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
-    "test:ts": "tsc",
-    "test:e2e:android": "scripts/android_e2e.sh 'test'",
-    "test:e2e:ios": "scripts/ios_e2e.sh 'test'",
-    "test:e2e:macos": "scripts/macos_e2e.sh 'test'"
+    "test:ts": "tsc"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
@@ -70,12 +55,9 @@
     "react-native": "^0.0.0-0 || >=0.65 <1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@babel/preset-env": "^7.20.0",
-    "@react-native/babel-preset": "^0.75.0",
-    "@react-native/metro-config": "^0.75.0",
-    "@rnx-kit/jest-preset": "^0.1.16",
-    "@rnx-kit/metro-config": "^2.0.0",
+    "@babel/core": "^7.25.0",
+    "@babel/preset-env": "^7.25.0",
+    "@react-native/babel-preset": "^0.76.2",
     "@types/lodash": "^4.14.184",
     "@types/mocha": "^10.0.1",
     "@types/react": "^18.0.0",
@@ -92,14 +74,13 @@
     "expo": "^48.0.0",
     "lodash": "^4.17.21",
     "prettier": "2.8.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-native": "^0.75.0",
-    "react-native-builder-bob": "^0.18.0",
-    "react-native-macos": "^0.75.0",
-    "react-native-test-app": "^3.9.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-native": "^0.76.1",
+    "react-native-builder-bob": "^0.33.3",
+    "react-native-macos": "^0.76.1",
     "react-native-web": "~0.18.10",
-    "react-native-windows": "^0.75.0",
+    "react-native-windows": "^0.76.1",
     "react-test-renderer": "^18.2.0",
     "typescript": "^5.3.0",
     "webdriverio": "^8.24.0"

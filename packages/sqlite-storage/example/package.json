@@ -1,0 +1,35 @@
+{
+  "name": "react-native-example-sqlitestorage",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-native": "0.76.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-async-storage/sqlite-storage": "workspace:^",
+    "@react-native-community/cli": "^15.0.0",
+    "@react-native-community/cli-platform-android": "^15.0.0",
+    "@react-native-community/cli-platform-ios": "^15.0.0",
+    "@react-native/babel-preset": "^0.76.0",
+    "@react-native/metro-config": "^0.76.0",
+    "@react-native/typescript-config": "^0.76.0",
+    "@rnx-kit/metro-config": "^2.0.1",
+    "react-native-builder-bob": "^0.33.2",
+    "react-native-test-app": "4.0.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
