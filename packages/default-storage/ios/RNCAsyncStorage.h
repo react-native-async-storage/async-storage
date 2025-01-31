@@ -50,13 +50,13 @@
 
 // Grab data from the cache. ResponseBlock result array will have an error at position 0, and an
 // array of arrays at position 1.
-- (void)multiGet:(NSArray<NSString *> *)keys callback:(RCTResponseSenderBlock)callback;
+- (void)multiGet:(NSArray<NSString *> *_Nullable)keys callback:(RCTResponseSenderBlock _Nullable )callback;
 
 // Add multiple key value pairs to the cache.
-- (void)multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
-        callback:(RCTResponseSenderBlock)callback;
+- (void)multiSet:(NSArray<NSArray<NSString *> *> *_Nullable)kvPairs
+        callback:(RCTResponseSenderBlock _Nullable )callback;
 
 // Interface for natively fetching all the keys from the storage data.
-- (void)getAllKeys:(RCTResponseSenderBlock)callback;
+- (void)getAllKeys:(RCTResponseSenderBlock _Nullable )callback;
 
 @end
