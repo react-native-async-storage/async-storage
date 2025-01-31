@@ -27,6 +27,9 @@
  *
  * Keys and values must always be strings or an error is returned.
  */
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface RNCAsyncStorage : NSObject <
 #ifdef RCT_NEW_ARCH_ENABLED
                                  NativeAsyncStorageModuleSpec
@@ -50,13 +53,15 @@
 
 // Grab data from the cache. ResponseBlock result array will have an error at position 0, and an
 // array of arrays at position 1.
-- (void)multiGet:(NSArray<NSString *> *_Nullable)keys callback:(RCTResponseSenderBlock _Nullable )callback;
+- (void)multiGet:(NSArray<NSString *> *)keys callback:(RCTResponseSenderBlock)callback;
 
 // Add multiple key value pairs to the cache.
-- (void)multiSet:(NSArray<NSArray<NSString *> *> *_Nullable)kvPairs
-        callback:(RCTResponseSenderBlock _Nullable )callback;
+- (void)multiSet:(NSArray<NSArray<NSString *> *> *)kvPairs
+        callback:(RCTResponseSenderBlock)callback;
 
 // Interface for natively fetching all the keys from the storage data.
-- (void)getAllKeys:(RCTResponseSenderBlock _Nullable )callback;
+- (void)getAllKeys:(RCTResponseSenderBlock )callback;
 
 @end
+
+NS_ASSUME_NONNULL_END
