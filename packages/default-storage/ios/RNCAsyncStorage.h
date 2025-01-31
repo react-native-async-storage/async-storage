@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
         callback:(RCTResponseSenderBlock)callback;
 
 // Interface for natively fetching all the keys from the storage data.
-- (void)getAllKeys:(RCTResponseSenderBlock )callback;
+- (void)getAllKeys:(RCTResponseSenderBlock)callback;
 
 @end
 
