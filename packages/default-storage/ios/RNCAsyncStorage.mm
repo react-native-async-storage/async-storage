@@ -302,7 +302,7 @@ static void RCTStorageDirectoryMigrate(NSString *oldDirectoryPath,
         // this folder and attempt folder copying again
         if (error != nil && error.code == 4 &&
             [newDirectoryPath isEqualToString:RCTGetStorageDirectory()]) {
-            NSError *error = nil;
+            error = nil;
             _createStorageDirectory(RCTCreateStorageDirectoryPath(@""), &error);
             if (error == nil) {
                 RCTStorageDirectoryMigrate(
@@ -559,7 +559,7 @@ RCT_EXPORT_MODULE()
     return nil;
 }
 
-- (NSDictionary *)_writeManifest:(NSMutableArray<NSDictionary *> **)errors
+- (NSDictionary *)_writeManifest:(NSMutableArray<NSDictionary *> *__autoreleasing *)errors
 {
     NSError *error;
     NSString *serialized = RCTJSONStringify(_manifest, &error);
@@ -587,7 +587,7 @@ RCT_EXPORT_MODULE()
     return errorOut;
 }
 
-- (NSString *)_getValueForKey:(NSString *)key errorOut:(NSDictionary **)errorOut
+- (NSString *)_getValueForKey:(NSString *)key errorOut:(NSDictionary *__autoreleasing *)errorOut
 {
     NSString *value =
         _manifest[key];  // nil means missing, null means there may be a data file, else: NSString
@@ -699,14 +699,14 @@ RCT_EXPORT_METHOD(multiGet:(NSArray<NSString *> *)keys
         }
     }
 
-    NSDictionary *errorOut = [self _ensureSetup];
-    if (errorOut) {
-        callback(@[@[errorOut], (id)kCFNull]);
+    NSDictionary *ensureSetupErrorOut = [self _ensureSetup];
+    if (ensureSetupErrorOut) {
+        callback(@[@[ensureSetupErrorOut], (id)kCFNull]);
         return;
     }
     [self _multiGet:keys
            callback:callback
-             getter:^(NSUInteger i, NSString *key, NSDictionary **errorOut) {
+             getter:^(__unused NSUInteger i, NSString *key, NSDictionary **errorOut) {
                return [self _getValueForKey:key errorOut:errorOut];
              }];
 }
