@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.1.1
+
+### Patch Changes
+
+- 5042047: Mark some methods as nonnull
+
 ## 2.1.0
 
 ### Minor Changes
