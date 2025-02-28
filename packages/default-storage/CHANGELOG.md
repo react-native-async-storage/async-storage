@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.1.2
+
+### Patch Changes
+
+- 21d0c22: Remove unnecessary `getViewManagers` overrides
+
 ## 2.1.1
 
 ### Patch Changes
