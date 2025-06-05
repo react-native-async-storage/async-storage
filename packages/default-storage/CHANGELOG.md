@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.2.0
+
+### Minor Changes
+
+- 8b2f32b: Fix support for React Native 0.80
+
 ## 2.1.2
 
 ### Patch Changes
