@@ -1,0 +1,30 @@
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const API_URL = "http://localhost:3000"; // change this to your backend URL
+
+const api = axios.create({
+  baseURL: API_URL,
+});
+
+// Automatically add token
+api.interceptors.request.use(async (config) => {
+  const token = await AsyncStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export const signup = (name: string, email: string, password: string, role: "CUSTOMER" | "RESTAURANT") =>
+  api.post("/auth/signup", { name, email, password, role });
+
+export const login = (email: string, password: string) =>
+  api.post("/auth/login", { email, password });
+
+export const getRestaurants = () => api.get("/restaurants");
+
+export const getRestaurantMenu = (id: string) => api.get(`/restaurants/${id}`);
+
+export const placeOrder = (restaurantId: string, items: { menuItemId: string; quantity: number }[]) =>
+  api.post("/orders", { restaurantId, items }); ho  
