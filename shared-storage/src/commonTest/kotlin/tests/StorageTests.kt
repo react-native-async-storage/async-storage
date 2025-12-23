@@ -1,14 +1,19 @@
 package tests
 
 import app.cash.turbine.test
+import kotlin.random.Random
+import kotlin.random.nextInt
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import org.asyncstorage.shared_storage.Entry
 import org.asyncstorage.shared_storage.SharedStorage
-import kotlin.random.Random
-import kotlin.random.nextInt
-import kotlin.test.*
-import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * todo: testing scenarios:
@@ -84,7 +89,7 @@ class SharedStorageTest : TestRunner() {
     }
 
     @Test
-    fun `does nothing duplicate key removal`() = runTest {
+    fun `ignores duplicate keys on removal`() = runTest {
         storage.setValues(listOf(Entry("key1", value = "1"), Entry("key2", value = "2")))
         assertEquals(2, storage.getKeys().size)
         storage.removeValues(listOf("key1", "key2", "key1", "key2", "key2", "key1", "diff key"))
@@ -205,5 +210,22 @@ class SharedStorageTest : TestRunner() {
             storage.getValues(listOf("non-existing", "another-null"))
         )
 
+    }
+
+    @Test
+    fun `does not override stored values if not required`() = runTest {
+        val entry1 = Entry("key1", "value1")
+        val entry2 = Entry("key2", "value2")
+        val entry3 = Entry("key3", "value3")
+
+        storage.setValues(listOf(entry1, entry2, entry3))
+
+
+        storage.setValues(listOf(entry2.copy(value = "new value")))
+
+        val entries = storage.getValues(listOf("key1", "key2", "key3"))
+        assertEquals("value1", entries[0].value)
+        assertEquals("new value", entries[1].value)
+        assertEquals("value3", entries[2].value)
     }
 }
