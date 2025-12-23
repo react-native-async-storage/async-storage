@@ -15,6 +15,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            export(projects.sharedStorage)
         }
     }
 
@@ -24,7 +25,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
-            implementation(projects.sharedStorage)
+            api(projects.sharedStorage)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
