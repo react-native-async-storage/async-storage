@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-next.3
+
+### Patch Changes
+
+- 6ffa4d9: Fixes crashes on ios 16 and below due to unescaped urls
+
 ## 3.0.0-next.2
 
 ### Patch Changes
