@@ -1,8 +1,24 @@
 package org.asyncstorage.shared_storage.database
 
-import kotlinx.cinterop.*
+import kotlinx.cinterop.BetaInteropApi
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.ObjCObjectVar
+import kotlinx.cinterop.alloc
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.value
 import org.asyncstorage.shared_storage.PlatformContext
-import platform.Foundation.*
+import platform.Foundation.NSApplicationSupportDirectory
+import platform.Foundation.NSBundle
+import platform.Foundation.NSCharacterSet
+import platform.Foundation.NSError
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSString
+import platform.Foundation.NSURL
+import platform.Foundation.NSURLIsExcludedFromBackupKey
+import platform.Foundation.NSUserDomainMask
+import platform.Foundation.URLQueryAllowedCharacterSet
+import platform.Foundation.stringByAddingPercentEncodingWithAllowedCharacters
 
 @Throws(IllegalStateException::class, IllegalArgumentException::class)
 actual fun DatabaseFiles.Companion.of(
@@ -20,10 +36,10 @@ internal fun DatabaseFiles.Companion.ofInMemory(): DatabaseFiles {
 }
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
+@Throws(Exception::class)
 private fun createDbDirectory(dir: String) {
     val fs = NSFileManager.defaultManager
-    val url = NSURL.URLWithString(dir)
-    requireNotNull(url)
+    val url = dir.asEscapedURL()
 
     if (!fs.fileExistsAtPath(dir)) {
         memScoped {
@@ -64,4 +80,16 @@ private fun getDatabasesPath(): String {
 
         return supportDir.removeSuffix("/") + "/${bundleId.removeSuffix("/")}"
     }
+}
+
+/** Turns given string into URL-safe URL. This is required for file paths on iOS 16 and below */
+private fun String.asEscapedURL(): NSURL {
+    val escaped =
+        (this as NSString).stringByAddingPercentEncodingWithAllowedCharacters(
+            NSCharacterSet.URLQueryAllowedCharacterSet
+        )
+    requireNotNull(escaped)
+    val escapedUrl = NSURL.URLWithString(escaped)
+    requireNotNull(escapedUrl)
+    return escapedUrl
 }
