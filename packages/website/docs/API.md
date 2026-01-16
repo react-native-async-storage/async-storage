@@ -580,3 +580,114 @@ In this example:
 1. On mount, we read the value at `@storage_key` and save it to the state under `value`
 2. When pressing on "update value", a new string gets generated, saved to async storage, and to the component state
 3. Try to reload your app - you'll see that the last value is still being read from async storage
+
+
+## `useAsyncStorageObject`
+
+A hook with automatic JSON serialization for storing and retrieving objects directly, without manual `JSON.stringify()` and `JSON.parse()` calls.
+
+The `useAsyncStorageObject` hook accepts a storage key and an optional default value. It returns an object with methods to interact with the stored value, automatically handling JSON serialization and deserialization.
+
+**Signature**:
+
+```ts
+function useAsyncStorageObject<T>(
+  key: string,
+  defaultValue?: T
+): {
+  getItem: (
+    callback?: (error: Error | null, result: T | null) => void
+  ) => Promise<T | null>;
+  setItem: (
+    value: T,
+    callback?: (error: Error | null) => void
+  ) => Promise<void>;
+  mergeItem: (
+    value: Partial<T>,
+    callback?: (error: Error | null) => void
+  ) => Promise<void>;
+  removeItem: (
+    callback?: (error: Error | null) => void
+  ) => Promise<void>;
+}
+```
+
+**Parameters**:
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| key | `string` | Yes | The storage key to use |
+| defaultValue | `T` | No | Value to return when storage is empty or contains invalid JSON |
+
+**Returns**:
+
+An object with the following methods:
+
+- `getItem` - Retrieves and parses the stored JSON value. Returns `defaultValue` (or `null`) if the key doesn't exist or contains invalid JSON.
+- `setItem` - Stringifies and stores the value.
+- `mergeItem` - Deep merges a partial object with the existing stored object.
+- `removeItem` - Removes the stored value.
+
+**Example**:
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button } from 'react-native';
+import { useAsyncStorageObject } from '@react-native-async-storage/async-storage';
+
+interface UserPreferences {
+  theme: 'light' | 'dark';
+  notifications: boolean;
+  language: string;
+}
+
+const defaultPreferences: UserPreferences = {
+  theme: 'light',
+  notifications: true,
+  language: 'en',
+};
+
+export default function SettingsScreen() {
+  const [preferences, setPreferences] = useState<UserPreferences>(defaultPreferences);
+  const { getItem, setItem, mergeItem } = useAsyncStorageObject<UserPreferences>(
+    '@user_preferences',
+    defaultPreferences
+  );
+
+  useEffect(() => {
+    loadPreferences();
+  }, []);
+
+  const loadPreferences = async () => {
+    const stored = await getItem();
+    if (stored) {
+      setPreferences(stored);
+    }
+  };
+
+  const toggleTheme = async () => {
+    const newTheme = preferences.theme === 'light' ? 'dark' : 'light';
+    // Update only the theme property using mergeItem
+    await mergeItem({ theme: newTheme });
+    setPreferences(prev => ({ ...prev, theme: newTheme }));
+  };
+
+  const saveAllPreferences = async (newPrefs: UserPreferences) => {
+    await setItem(newPrefs);
+    setPreferences(newPrefs);
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text>Current theme: {preferences.theme}</Text>
+      <Text>Notifications: {preferences.notifications ? 'On' : 'Off'}</Text>
+      <Text>Language: {preferences.language}</Text>
+      <Button title="Toggle Theme" onPress={toggleTheme} />
+    </View>
+  );
+}
+```
+
+**Error Handling**:
+
+The hook gracefully handles JSON parse errors by returning the `defaultValue` (or `null` if no default is provided). This ensures your app won't crash if the stored data becomes corrupted.

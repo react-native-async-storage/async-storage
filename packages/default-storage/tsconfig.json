@@ -10,5 +10,6 @@
       "node"
     ]
   },
-  "include": ["example/**/*.ts", "example/**/*.tsx", "src"]
+  "include": ["example/**/*.ts", "example/**/*.tsx", "src"],
+  "exclude": ["src/__tests__"]
 }

@@ -43,7 +43,8 @@
     "build": "bob build",
     "start": "(cd example && react-native start)",
     "test:lint": "eslint $(git ls-files '*.js' '*.ts' '*.tsx')",
-    "test:ts": "tsc"
+    "test:ts": "tsc",
+    "test:unit": "jest"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
@@ -58,6 +59,7 @@
     "@babel/core": "^7.25.0",
     "@babel/preset-env": "^7.25.0",
     "@react-native/babel-preset": "^0.76.2",
+    "@types/jest": "^29.5.5",
     "@types/lodash": "^4.14.184",
     "@types/mocha": "^10.0.1",
     "@types/react": "^18.0.0",
@@ -72,6 +74,7 @@
     "concurrently": "^8.2.2",
     "eslint": "^8.54.0",
     "expo": "^48.0.0",
+    "jest": "^29.7.0",
     "lodash": "^4.17.21",
     "prettier": "2.8.8",
     "react": "^18.3.1",

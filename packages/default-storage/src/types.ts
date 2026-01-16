@@ -34,6 +34,13 @@ export type AsyncStorageHook = {
   removeItem: (callback?: Callback) => Promise<void>;
 };
 
+export type AsyncStorageObjectHook<T> = {
+  getItem: (callback?: CallbackWithResult<T>) => Promise<T | null>;
+  setItem: (value: T, callback?: Callback) => Promise<void>;
+  mergeItem: (value: Partial<T>, callback?: Callback) => Promise<void>;
+  removeItem: (callback?: Callback) => Promise<void>;
+};
+
 /**
  * `AsyncStorage` is a simple, unencrypted, asynchronous, persistent, key-value
  * storage system that is global to the app.  It should be used instead of

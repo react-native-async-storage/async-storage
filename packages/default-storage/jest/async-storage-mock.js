@@ -45,6 +45,36 @@ const asMock = {
       removeItem: (...args) => asMock.removeItem(key, ...args),
     };
   }),
+  useAsyncStorageObject: jest.fn((key, defaultValue) => {
+    return {
+      getItem: async (callback) => {
+        try {
+          const value = await asMock.getItem(key);
+          if (value === null) {
+            const result = defaultValue ?? null;
+            callback && callback(null, result);
+            return result;
+          }
+          const parsed = JSON.parse(value);
+          callback && callback(null, parsed);
+          return parsed;
+        } catch (error) {
+          const result = defaultValue ?? null;
+          callback && callback(null, result);
+          return result;
+        }
+      },
+      setItem: async (value, callback) => {
+        const stringified = JSON.stringify(value);
+        return asMock.setItem(key, stringified, callback);
+      },
+      mergeItem: async (value, callback) => {
+        const stringified = JSON.stringify(value);
+        return asMock.mergeItem(key, stringified, callback);
+      },
+      removeItem: (...args) => asMock.removeItem(key, ...args),
+    };
+  }),
 };
 
 async function _multiSet(keyValuePairs, callback) {

@@ -4102,6 +4102,7 @@ __metadata:
     "@babel/core": "npm:^7.25.0"
     "@babel/preset-env": "npm:^7.25.0"
     "@react-native/babel-preset": "npm:^0.76.2"
+    "@types/jest": "npm:^29.5.5"
     "@types/lodash": "npm:^4.14.184"
     "@types/mocha": "npm:^10.0.1"
     "@types/react": "npm:^18.0.0"
@@ -4116,6 +4117,7 @@ __metadata:
     concurrently: "npm:^8.2.2"
     eslint: "npm:^8.54.0"
     expo: "npm:^48.0.0"
+    jest: "npm:^29.7.0"
     lodash: "npm:^4.17.21"
     merge-options: "npm:^3.0.4"
     prettier: "npm:2.8.8"
@@ -14619,7 +14621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.2.1":
+"jest@npm:^29.2.1, jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
