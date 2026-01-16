@@ -45,7 +45,81 @@ const asMock = {
       removeItem: (...args) => asMock.removeItem(key, ...args),
     };
   }),
+  useAsyncStorageObject: jest.fn((key) => {
+    return {
+      getItem: async () => {
+        const item = await asMock.getItem(key);
+        if (item === null) {
+          return null;
+        }
+        try {
+          return JSON.parse(item);
+        } catch (error) {
+          console.warn(
+            `Failed to parse JSON for key "${key}":`,
+            error instanceof Error ? error.message : error
+          );
+          return null;
+        }
+      },
+      setItem: async (value) => {
+        const stringValue = JSON.stringify(value);
+        await asMock.setItem(key, stringValue);
+      },
+      mergeItem: async (value) => {
+        const existingItem = await asMock.getItem(key);
+        let existingObject;
+
+        if (existingItem === null) {
+          existingObject = value;
+        } else {
+          try {
+            existingObject = JSON.parse(existingItem);
+          } catch (parseError) {
+            console.warn(
+              `Failed to parse existing JSON for key "${key}", replacing with new value:`,
+              parseError instanceof Error ? parseError.message : parseError
+            );
+            existingObject = value;
+          }
+        }
+
+        const merged = deepMerge(existingObject, value);
+        const stringValue = JSON.stringify(merged);
+        await asMock.setItem(key, stringValue);
+      },
+      removeItem: async () => {
+        await asMock.removeItem(key);
+      },
+    };
+  }),
 };
+
+function deepMerge(target, source) {
+  const output = { ...target };
+
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      const sourceValue = source[key];
+      const targetValue = output[key];
+
+      if (
+        sourceValue &&
+        typeof sourceValue === "object" &&
+        !Array.isArray(sourceValue) &&
+        targetValue &&
+        typeof targetValue === "object" &&
+        !Array.isArray(targetValue)
+      ) {
+        output[key] = deepMerge(targetValue, sourceValue);
+      } else {
+        output[key] = sourceValue;
+      }
+    }
+  }
+
+  return output;
+}
 
 async function _multiSet(keyValuePairs, callback) {
   keyValuePairs.forEach((keyValue) => {

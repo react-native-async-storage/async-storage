@@ -580,3 +580,174 @@ In this example:
 1. On mount, we read the value at `@storage_key` and save it to the state under `value`
 2. When pressing on "update value", a new string gets generated, saved to async storage, and to the component state
 3. Try to reload your app - you'll see that the last value is still being read from async storage
+
+
+<br />
+<br />
+
+## `useAsyncStorageObject`
+
+The `useAsyncStorageObject` hook provides automatic JSON serialization for storing and retrieving objects. Unlike `useAsyncStorage` which works with strings only, this hook handles `JSON.stringify()` and `JSON.parse()` automatically, allowing you to work directly with objects.
+
+This hook is fully type-safe when using TypeScript, supporting generics for compile-time type checking of your stored objects.
+
+**Signature**:
+
+```typescript
+function useAsyncStorageObject<T>(key: string): {
+  getItem: () => Promise<T | null>,
+  setItem: (value: T) => Promise<void>,
+  mergeItem: (value: Partial<T>) => Promise<void>,
+  removeItem: () => Promise<void>,
+}
+```
+
+**Returns**:
+
+An object with methods to interact with the stored object value:
+
+- `getItem()`: Retrieves and deserializes the stored object. Returns `null` if the key doesn't exist or if JSON parsing fails (logs warning to console).
+- `setItem(value)`: Serializes and stores the object.
+- `mergeItem(value)`: Deep merges the partial object with the existing stored object. Nested objects are merged recursively, while arrays are replaced (not merged).
+- `removeItem()`: Removes the stored value.
+
+**Error Handling**:
+
+- If stored data is corrupted or not valid JSON, `getItem()` returns `null` and logs a warning to the console.
+- The same behavior applies to `mergeItem()` when existing data cannot be parsed - it treats the new value as the complete object.
+
+**TypeScript Usage**:
+
+```typescript
+import { useAsyncStorageObject } from '@react-native-async-storage/async-storage';
+
+type User = {
+  name: string;
+  age: number;
+  preferences?: {
+    theme: string;
+    notifications: boolean;
+  };
+};
+
+function UserProfile() {
+  const { getItem, setItem, mergeItem } = useAsyncStorageObject<User>('@user_profile');
+
+  // Get typed object
+  const user = await getItem(); // Returns User | null
+
+  // Set object (type-checked)
+  await setItem({
+    name: 'Alice',
+    age: 25,
+    preferences: { theme: 'dark', notifications: true }
+  });
+
+  // Deep merge - only updates specified fields
+  await mergeItem({
+    age: 26,
+    preferences: { theme: 'light' } // notifications remains unchanged
+  });
+}
+```
+
+**JavaScript Example**:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useAsyncStorageObject } from '@react-native-async-storage/async-storage';
+
+export default function App() {
+  const [user, setUser] = useState(null);
+  const { getItem, setItem, mergeItem } = useAsyncStorageObject('@user_data');
+
+  const readUserFromStorage = async () => {
+    const userData = await getItem();
+    setUser(userData);
+  };
+
+  const saveUser = async () => {
+    const newUser = {
+      name: 'John Doe',
+      age: 30,
+      email: 'john@example.com',
+      preferences: {
+        theme: 'dark',
+        notifications: true,
+      },
+    };
+    await setItem(newUser);
+    setUser(newUser);
+  };
+
+  const updatePreferences = async () => {
+    // Only updates the theme, keeps other user data intact
+    await mergeItem({
+      preferences: {
+        theme: 'light',
+      },
+    });
+    await readUserFromStorage();
+  };
+
+  useEffect(() => {
+    readUserFromStorage();
+  }, []);
+
+  return (
+    <View style={{ margin: 40 }}>
+      <Text>User: {user ? JSON.stringify(user, null, 2) : 'None'}</Text>
+      <TouchableOpacity onPress={saveUser}>
+        <Text>Save User</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={updatePreferences}>
+        <Text>Update Theme</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+```
+
+**Deep Merge Behavior**:
+
+The `mergeItem` method performs a deep merge of nested objects:
+
+```js
+// Initial object
+await setItem({
+  name: 'Alice',
+  settings: {
+    theme: 'dark',
+    language: 'en',
+  },
+  tags: ['user', 'premium'],
+});
+
+// Merge with partial object
+await mergeItem({
+  settings: {
+    theme: 'light', // Updates theme
+    // language: 'en' is preserved
+  },
+  tags: ['admin'], // Arrays are replaced, not merged
+});
+
+// Result
+{
+  name: 'Alice',
+  settings: {
+    theme: 'light',
+    language: 'en', // Preserved
+  },
+  tags: ['admin'], // Replaced
+}
+```
+
+**When to Use**:
+
+- ✅ Use `useAsyncStorageObject` when working with structured data (objects)
+- ✅ Use with TypeScript for type-safe storage operations
+- ✅ Use when you need deep merging of nested objects
+- ❌ Use `useAsyncStorage` for simple string values
+- ❌ For very large objects, consider breaking them into smaller keys for better performance

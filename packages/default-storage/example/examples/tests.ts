@@ -1,4 +1,4 @@
-export type TestValue = string | Record<string, string>;
+export type TestValue = string | Record<string, any>;
 
 export type TestStep =
   | {
@@ -70,6 +70,50 @@ const tests: Record<string, TestStep[]> = {
         age: "21",
         eyesColor: "blue",
         shoeSize: "9",
+      },
+    },
+  ],
+  "Should merge nested objects deeply": [
+    {
+      command: "set",
+      key: "deep_merge_test",
+      value: {
+        name: "John",
+        age: "30",
+        address: {
+          city: "New York",
+          zip: "10001",
+        },
+        preferences: {
+          theme: "dark",
+          notifications: "enabled",
+        },
+      },
+    },
+    {
+      command: "merge",
+      key: "deep_merge_test",
+      value: {
+        age: "31",
+        address: {
+          country: "USA",
+        },
+        preferences: {
+          theme: "light",
+        },
+      },
+      expected: {
+        name: "John",
+        age: "31",
+        address: {
+          city: "New York",
+          zip: "10001",
+          country: "USA",
+        },
+        preferences: {
+          theme: "light",
+          notifications: "enabled",
+        },
       },
     },
   ],

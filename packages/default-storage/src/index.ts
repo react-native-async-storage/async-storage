@@ -1,6 +1,6 @@
 import AsyncStorage from "./AsyncStorage";
 
-export { useAsyncStorage } from "./hooks";
+export { useAsyncStorage, useAsyncStorageObject } from "./hooks";
 
 export type { AsyncStorageStatic } from "./types";
 
