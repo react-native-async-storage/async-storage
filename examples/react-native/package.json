@@ -36,7 +36,7 @@
     "@callstack/out-of-tree-platforms": "^0.77.0",
     "@react-native-async-storage/async-storage": "workspace:*",
     "@react-native-async-storage/eslint-config": "workspace:*",
-    "@react-native-community/cli": "18.0.0",
+    "@react-native-community/cli": "18.0.1",
     "@react-native-community/cli-platform-android": "18.0.0",
     "@react-native-community/cli-platform-ios": "18.0.0",
     "@react-native/babel-preset": "0.79.6",
