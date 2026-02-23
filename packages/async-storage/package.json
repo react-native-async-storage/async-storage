@@ -1,6 +1,6 @@
 {
   "name": "@react-native-async-storage/async-storage",
-  "version": "3.0.0-next.3",
+  "version": "3.0.0",
   "description": "Asynchronous, persistent, key-value storage system for React Native.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/index.d.ts",
