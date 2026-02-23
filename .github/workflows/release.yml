@@ -6,8 +6,47 @@ on:
   push:
     branches: [main]
 jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: "false"
+      - name: Setup project
+        uses: ./.github/actions/setup-project
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+      - name: Build Android native library
+        run: bash ./scripts/build-native-lib.sh android
+      - name: Upload Android artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-artifacts
+          path: packages/async-storage/android/local_repo
+
+  build-apple:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: "false"
+      - name: Setup project
+        uses: ./.github/actions/setup-project
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+      - name: Build Apple native library
+        run: bash ./scripts/build-native-lib.sh apple
+      - name: Upload Apple artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-artifacts
+          path: packages/async-storage/apple-frameworks
+
   release:
     runs-on: ubuntu-latest
+    needs: [build-android, build-apple]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,6 +56,16 @@ jobs:
         uses: ./.github/actions/setup-project
       - name: Install dependencies
         run: yarn
+      - name: Download Android artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: android-artifacts
+          path: packages/async-storage/android/local_repo
+      - name: Download Apple artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: apple-artifacts
+          path: packages/async-storage/apple-frameworks
       - name: Version or release packages
         uses: changesets/action@v1
         with:
