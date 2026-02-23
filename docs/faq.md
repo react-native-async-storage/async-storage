@@ -11,12 +11,12 @@ title: FAQ
 AsyncStorage only stores strings. Serialize values with `JSON.stringify` before writing, and `JSON.parse` when reading:
 
 ```typescript
-import {createAsyncStorage} from "@react-native-async-storage/async-storage";
+import { createAsyncStorage } from "@react-native-async-storage/async-storage";
 
 const storage = createAsyncStorage("my-app");
 
 // Storing an object
-const user = {name: "John", age: 30};
+const user = { name: "John", age: 30 };
 await storage.setItem("user", JSON.stringify(user));
 
 // Reading it back
@@ -47,19 +47,19 @@ The v3 `AsyncStorage` instance implements exactly the storage interface Redux Pe
 `removeItem`), so you can pass an instance directly as the `storage` option:
 
 ```typescript
-import {createAsyncStorage} from "@react-native-async-storage/async-storage";
-import {persistReducer, persistStore} from "redux-persist";
-import {combineReducers, createStore} from "redux";
+import { createAsyncStorage } from "@react-native-async-storage/async-storage";
+import { persistReducer, persistStore } from "redux-persist";
+import { combineReducers, createStore } from "redux";
 
 const storage = createAsyncStorage("redux");
 
 const persistConfig = {
-    key: "root",
-    storage,
+  key: "root",
+  storage,
 };
 
 const rootReducer = combineReducers({
-    // your reducers
+  // your reducers
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -77,31 +77,31 @@ TanStack Query's `@tanstack/query-async-storage-persister` package expects a sto
 and `removeItem`. The v3 AsyncStorage instance matches this interface directly:
 
 ```jsx
-import {createAsyncStorage} from "@react-native-async-storage/async-storage";
-import {createAsyncStoragePersister} from "@tanstack/query-async-storage-persister";
-import {QueryClient} from "@tanstack/react-query";
-import {PersistQueryClientProvider} from "@tanstack/react-query-persist-client";
+import { createAsyncStorage } from "@react-native-async-storage/async-storage";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import { QueryClient } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            gcTime: 1000 * 60 * 60 * 24, // 24 hours
-        },
+  defaultOptions: {
+    queries: {
+      gcTime: 1000 * 60 * 60 * 24, // 24 hours
     },
+  },
 });
 
 const storage = createAsyncStorage("tanstack-query");
-const persister = createAsyncStoragePersister({storage});
+const persister = createAsyncStoragePersister({ storage });
 
 export default function App() {
-    return (
-        <PersistQueryClientProvider
-            client={queryClient}
-            persistOptions={{persister}}
-        >
-            <YourApp/>
-        </PersistQueryClientProvider>
-    )
+  return (
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister }}
+    >
+      <YourApp />
+    </PersistQueryClientProvider>
+  );
 }
 ```
 
@@ -114,30 +114,30 @@ Zustand's `persist` middleware accepts a custom storage adapter via `createJSONS
 returning an AsyncStorage instance:
 
 ```typescript
-import {create} from "zustand";
-import {persist, createJSONStorage} from "zustand/middleware";
-import {createAsyncStorage} from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { createAsyncStorage } from "@react-native-async-storage/async-storage";
 
 const storage = createAsyncStorage("zustand");
 
 interface BearState {
-    bears: number;
-    addBear: () => void;
-    reset: () => void;
+  bears: number;
+  addBear: () => void;
+  reset: () => void;
 }
 
 export const useBearStore = create<BearState>()(
-    persist(
-        (set) => ({
-            bears: 0,
-            addBear: () => set((state) => ({bears: state.bears + 1})),
-            reset: () => set({bears: 0}),
-        }),
-        {
-            name: "bear-storage",
-            storage: createJSONStorage(() => storage),
-        }
-    )
+  persist(
+    (set) => ({
+      bears: 0,
+      addBear: () => set((state) => ({ bears: state.bears + 1 })),
+      reset: () => set({ bears: 0 }),
+    }),
+    {
+      name: "bear-storage",
+      storage: createJSONStorage(() => storage),
+    }
+  )
 );
 ```
 
@@ -153,16 +153,19 @@ All AsyncStorage methods throw `AsyncStorageError` on failure. Use a try/catch b
 specific failure modes:
 
 ```typescript
-import {AsyncStorageError, createAsyncStorage,} from "@react-native-async-storage/async-storage";
+import {
+  AsyncStorageError,
+  createAsyncStorage,
+} from "@react-native-async-storage/async-storage";
 
 const storage = createAsyncStorage("my-app");
 
 try {
-    await storage.setItem("key", "value");
+  await storage.setItem("key", "value");
 } catch (e) {
-    if (e instanceof AsyncStorageError) {
-        console.error(`Storage error [${e.type}]: ${e.message}`);
-    }
+  if (e instanceof AsyncStorageError) {
+    console.error(`Storage error [${e.type}]: ${e.message}`);
+  }
 }
 ```
 
@@ -172,4 +175,3 @@ See the [Error handling](api/errors.md) guide for the full list of error types a
 
 Batch operations (`setMany`, `getMany`, `removeMany`) are atomic. If any part of the operation fails, the entire batch
 is rolled back and an `AsyncStorageError` is thrown. No partial writes will be committed.
-
