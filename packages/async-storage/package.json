@@ -6,7 +6,7 @@
   "types": "./lib/typescript/index.d.ts",
   "exports": {
     ".": {
-      "source": "./src/index.tsx",
+      "source": "./src/index.ts",
       "types": "./lib/typescript/index.d.ts",
       "default": "./lib/module/index.js"
     },
@@ -17,7 +17,7 @@
     "build": "del-cli lib && bob build",
     "build:watch": "watch 'bob build' src",
     "test:ts": "tsc --noEmit",
-    "test:lint": "eslint src/*.{js,ts,tsx}"
+    "test:lint": "eslint src/*.{js,ts}"
   },
   "files": [
     "src",
