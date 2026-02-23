@@ -34,6 +34,8 @@ jobs:
           persist-credentials: "false"
       - name: Setup project
         uses: ./.github/actions/setup-project
+        with:
+          node-cache: ""
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
       - name: Build Android native library
@@ -55,6 +57,8 @@ jobs:
           persist-credentials: "false"
       - name: Setup project
         uses: ./.github/actions/setup-project
+        with:
+          node-cache: ""
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
       - name: Build Apple native library
