@@ -38,10 +38,10 @@ Other components:
 
 ```shell
 # Using npm
-npm install @react-native-async-storage/async-storage@next
+npm install @react-native-async-storage/async-storage
 
 # Using yarn
-yarn add @react-native-async-storage/async-storage@next
+yarn add @react-native-async-storage/async-storage
 ```
 
 ### Android
