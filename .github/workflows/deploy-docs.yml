@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          token: ${{ secrets.GH_RELEASE_TOKEN }}
       - uses: actions/setup-python@v6
         with:
           python-version: 3.11
