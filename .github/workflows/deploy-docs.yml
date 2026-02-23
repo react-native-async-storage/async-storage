@@ -41,6 +41,9 @@ jobs:
       - name: Setup gh-pages remote
         run: |
           git remote add docs https://github.com/react-native-async-storage/react-native-async-storage.github.io.git
+      - name: Fetch gh-pages
+        run: |
+          git fetch docs gh-pages
       - name: Deploy Docs with mike
         run: |
           mike deploy -u -r docs ${{ steps.version.outputs.versionDocs }} latest --push
