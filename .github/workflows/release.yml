@@ -6,7 +6,26 @@ on:
   push:
     branches: [main]
 jobs:
+  check-release:
+    runs-on: ubuntu-latest
+    outputs:
+      will-publish: ${{ steps.check.outputs.will-publish }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check for pending changesets
+        id: check
+        run: |
+          CHANGESETS=$(find .changeset -name "*.md" -not -name "README.md" | wc -l | tr -d ' ')
+          if [ "$CHANGESETS" -eq 0 ]; then
+            echo "will-publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "will-publish=false" >> $GITHUB_OUTPUT
+          fi
+
   build-android:
+    needs: check-release
+    if: needs.check-release.outputs.will-publish == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,6 +45,8 @@ jobs:
           path: packages/async-storage/android/local_repo
 
   build-apple:
+    needs: check-release
+    if: needs.check-release.outputs.will-publish == 'true'
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -46,7 +67,8 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    needs: [build-android, build-apple]
+    needs: [check-release, build-android, build-apple]
+    if: '!failure() && !cancelled()'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,11 +79,13 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Download Android artifacts
+        if: needs.check-release.outputs.will-publish == 'true'
         uses: actions/download-artifact@v4
         with:
           name: android-artifacts
           path: packages/async-storage/android/local_repo
       - name: Download Apple artifacts
+        if: needs.check-release.outputs.will-publish == 'true'
         uses: actions/download-artifact@v4
         with:
           name: apple-artifacts
