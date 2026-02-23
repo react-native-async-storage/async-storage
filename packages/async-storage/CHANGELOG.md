@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.1
+
+### Patch Changes
+
+- 7b64ea4: missing build step from CI added
+
 ## 3.0.0
 
 ### Major Changes
