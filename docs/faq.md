@@ -6,7 +6,7 @@ title: FAQ
 
 ## General
 
-### How do I store objects, arrays, or other non-string values?
+### How do I store objects, arrays or other non-string values?
 
 AsyncStorage only stores strings. Serialize values with `JSON.stringify` before writing, and `JSON.parse` when reading:
 
