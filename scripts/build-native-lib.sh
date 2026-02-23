@@ -11,7 +11,7 @@ ANDROID_OUTPUT_DIR="$MODULE_NAME/build"
 ANDROID_RN_OUTPUT_DIR="$RN_MODULE_DIR/android"
 ANDROID_PUBLISH_TASK="publishAndroidPublicationToLocalRepoRepository"
 
-APPLE_BUILD_TASK="assembleSharedAsyncStorageXCFramework"
+APPLE_BUILD_TASK="assembleSharedAsyncStorageReleaseXCFramework"
 APPLE_OUTPUT_NAME="SharedAsyncStorage.xcframework"
 APPLE_OUTPUT_DIR="$MODULE_NAME/build/XCFrameworks/release"
 APPLE_RN_OUTPUT_DIR="$RN_MODULE_DIR/apple-frameworks"
@@ -57,10 +57,10 @@ build_apple() {
   # symlinks
   rm "$MAC_OS_FRAMEWORK/Headers" "$MAC_OS_FRAMEWORK/Modules" "$MAC_OS_FRAMEWORK/Resources" "$MAC_OS_FRAMEWORK/SharedAsyncStorage"
 
-  cp -r --copy-content "$MAC_OS_FRAMEWORK/Versions/A/Headers" -t "$MAC_OS_FRAMEWORK/"
-  cp -r --copy-content "$MAC_OS_FRAMEWORK/Versions/A/Modules" -t "$MAC_OS_FRAMEWORK/"
-  cp -r --copy-content "$MAC_OS_FRAMEWORK/Versions/A/Resources" -t "$MAC_OS_FRAMEWORK/"
-  cp --copy-content "$MAC_OS_FRAMEWORK/Versions/A/SharedAsyncStorage" -t "$MAC_OS_FRAMEWORK/"
+  cp -rL "$MAC_OS_FRAMEWORK/Versions/A/Headers" "$MAC_OS_FRAMEWORK/"
+  cp -rL "$MAC_OS_FRAMEWORK/Versions/A/Modules" "$MAC_OS_FRAMEWORK/"
+  cp -rL "$MAC_OS_FRAMEWORK/Versions/A/Resources" "$MAC_OS_FRAMEWORK/"
+  cp -L "$MAC_OS_FRAMEWORK/Versions/A/SharedAsyncStorage" "$MAC_OS_FRAMEWORK/"
 
   # clear versions, not needed
   rm -r "$MAC_OS_FRAMEWORK/Versions"
