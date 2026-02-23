@@ -29,3 +29,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           GITHUB_NAME: ${{ vars.GH_BOT_NAME }}
           GITHUB_EMAIL: ${{ vars.GH_BOT_EMAIL }}
+          NPM_TOKEN: '' # https://github.com/changesets/changesets/issues/1152#issuecomment-3765490009
+          NPM_CONFIG_PROVENANCE: true
