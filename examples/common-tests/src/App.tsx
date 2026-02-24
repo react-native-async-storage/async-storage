@@ -64,4 +64,3 @@ export function TestApp(): React.JSX.Element {
     </SafeAreaProvider>
   );
 }
-

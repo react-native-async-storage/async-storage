@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "plugins": [
-      "@react-native-async-storage/expo-with-async-storage"
-    ],
+    "plugins": ["@react-native-async-storage/expo-with-async-storage"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.anonymous.exampleexpoapp"
