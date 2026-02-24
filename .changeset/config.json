@@ -11,6 +11,7 @@
     "@react-native-async-storage/eslint-config",
     "example-react-native",
     "example-web",
-    "example-common-tests"
+    "example-common-tests",
+    "example-expo"
   ]
 }

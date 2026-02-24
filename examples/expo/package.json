@@ -1,0 +1,31 @@
+{
+  "name": "example-expo",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "test:lint": "eslint .",
+    "test:ts": "tsc --noEmit"
+  },
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
+  "dependencies": {
+    "expo": "54.0.33",
+    "expo-status-bar": "~3.0.9",
+    "react": "19.1.0",
+    "react-native": "0.81.5"
+  },
+  "devDependencies": {
+    "@react-native-async-storage/async-storage": "workspace:*",
+    "@react-native-async-storage/eslint-config": "workspace:*",
+    "@types/react": "~19.1.0",
+    "eslint": "9.34.0",
+    "example-common-tests": "workspace:*",
+    "typescript": "5.9.2"
+  }
+}

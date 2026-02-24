@@ -19,11 +19,11 @@
     "@tsconfig/node18": "18.2.6",
     "del-cli": "^5.1.0",
     "eslint": "9.34.0",
-    "expo": "^52.0.0",
+    "expo": "^53.0.27",
     "typescript": "5.9.2"
   },
   "peerDependencies": {
-    "expo": ">=52.0.0"
+    "expo": ">=53.0.0"
   },
   "peerDependenciesMeta": {
     "expo": {
