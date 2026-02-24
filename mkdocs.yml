@@ -10,6 +10,8 @@ nav:
       - "Database naming": api/db-naming.md
       - "Error handling": api/errors.md
       - "Brownfield integration": api/brownfield.md
+  - Integrations:
+      - Expo: integrations/expo.md
   - "Migration to v3": migration-to-3.md
   - FAQ: faq.md
   - Contributing: contributing.md
