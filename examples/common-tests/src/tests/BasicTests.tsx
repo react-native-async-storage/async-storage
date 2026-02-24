@@ -1,6 +1,6 @@
 import React from "react";
 import { useTestStorage } from "../useTestStorage";
-import { useBasicTest } from "../cases/basic.tsx";
+import { useBasicTest } from "../cases/basic";
 import { TestRunnerView } from "../components/TestRunnerView";
 
 type Props = {
