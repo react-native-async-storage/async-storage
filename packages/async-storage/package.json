@@ -46,7 +46,7 @@
     "idb": "8.0.3"
   },
   "devDependencies": {
-    "@react-native-community/cli": "18.0.0",
+    "@react-native-community/cli": "18.0.1",
     "@types/react": "^19.0.0",
     "del-cli": "^5.1.0",
     "eslint": "9.34.0",
