@@ -1,0 +1,51 @@
+{
+  "name": "@react-native-async-storage/expo-with-async-storage",
+  "version": "0.0.1",
+  "description": "Expo config plugin to configure @react-native-async-storage/async-storage",
+  "main": "app.plugin.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "src",
+    "app.plugin.js"
+  ],
+  "scripts": {
+    "build": "del-cli lib && expo-module tsc",
+    "prepare": "yarn build",
+    "test:ts": "tsc --noEmit",
+    "test:lint": "eslint src/*.ts"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "18.2.6",
+    "del-cli": "^5.1.0",
+    "eslint": "9.34.0",
+    "expo": "^52.0.0",
+    "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "expo": ">=52.0.0"
+  },
+  "peerDependenciesMeta": {
+    "expo": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "expo",
+    "expo-plugin",
+    "config-plugin",
+    "async-storage",
+    "react-native"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-native-async-storage/async-storage.git",
+    "directory": "packages/expo-with-async-storage"
+  },
+  "bugs": {
+    "url": "https://github.com/react-native-async-storage/async-storage/issues"
+  },
+  "homepage": "https://github.com/react-native-async-storage/async-storage#readme",
+  "author": "Krzysztof Borowy <contact@kborowy.com> (https://www.kborowy.com)",
+  "license": "MIT"
+}

@@ -34,6 +34,7 @@
   "workspaces": [
     "packages/async-storage",
     "packages/eslint-config",
+    "packages/expo-with-async-storage",
     "examples/react-native",
     "examples/web",
     "examples/common-tests"
