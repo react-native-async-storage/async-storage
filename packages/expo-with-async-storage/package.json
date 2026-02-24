@@ -1,6 +1,6 @@
 {
   "name": "@react-native-async-storage/expo-with-async-storage",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Expo config plugin to configure @react-native-async-storage/async-storage",
   "main": "app.plugin.js",
   "types": "./lib/index.d.ts",
