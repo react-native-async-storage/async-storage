@@ -16,11 +16,11 @@ export const withAndroidAsyncStorage: ConfigPlugin = (config) => {
       return mod;
     }
 
-    const mavenBlock = `\nmaven { ${isKt ? KotlinUriContent : GroovyUriContent} }`;
+    const mavenBlock = `maven { ${isKt ? KotlinUriContent : GroovyUriContent} }`;
 
     mod.modResults.contents = contents.replace(
       /allprojects\s*\{[\s\S]*?repositories\s*\{/,
-      (match) => match + mavenBlock
+      (match) => match + "\n\t" + mavenBlock
     );
 
     return mod;

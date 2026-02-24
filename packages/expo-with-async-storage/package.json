@@ -10,7 +10,7 @@
     "app.plugin.js"
   ],
   "scripts": {
-    "build": "del-cli lib && expo-module tsc",
+    "build": "del-cli lib && tsc",
     "prepare": "yarn build",
     "test:ts": "tsc --noEmit",
     "test:lint": "eslint src/*.ts"

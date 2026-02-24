@@ -3460,7 +3460,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@react-native-async-storage/expo-with-async-storage@workspace:packages/expo-with-async-storage":
+"@react-native-async-storage/expo-with-async-storage@workspace:*, @react-native-async-storage/expo-with-async-storage@workspace:packages/expo-with-async-storage":
   version: 0.0.0-use.local
   resolution: "@react-native-async-storage/expo-with-async-storage@workspace:packages/expo-with-async-storage"
   dependencies:
@@ -8144,13 +8144,15 @@ __metadata:
   dependencies:
     "@react-native-async-storage/async-storage": "workspace:*"
     "@react-native-async-storage/eslint-config": "workspace:*"
+    "@react-native-async-storage/expo-with-async-storage": "workspace:*"
     "@types/react": "npm:~19.1.0"
     eslint: "npm:9.34.0"
     example-common-tests: "workspace:*"
     expo: "npm:54.0.33"
     expo-status-bar: "npm:~3.0.9"
-    react: "npm:19.0.0"
+    react: "npm:19.1.0"
     react-native: "npm:0.81.5"
+    react-native-edge-to-edge: "npm:^1.8.1"
     react-native-safe-area-context: "npm:^5.6.1"
     typescript: "npm:5.9.2"
   languageName: unknown
@@ -13610,6 +13612,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-edge-to-edge@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "react-native-edge-to-edge@npm:1.8.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/c51244f93d2b65fb1e09bcc780be36e7fc7fd05d56de80d22fe90c07b0045666fb2ab719ad799230affdce9ae565a0ae2f703f72c501fe4f98c6c33b2880e609
+  languageName: node
+  linkType: hard
+
 "react-native-is-edge-to-edge@npm:^1.2.1":
   version: 1.2.1
   resolution: "react-native-is-edge-to-edge@npm:1.2.1"
@@ -13920,6 +13932,13 @@ __metadata:
   version: 19.0.0
   resolution: "react@npm:19.0.0"
   checksum: 10c0/9cad8f103e8e3a16d15cb18a0d8115d8bd9f9e1ce3420310aea381eb42aa0a4f812cf047bb5441349257a05fba8a291515691e3cb51267279b2d2c3253f38471
+  languageName: node
+  linkType: hard
+
+"react@npm:19.1.0":
+  version: 19.1.0
+  resolution: "react@npm:19.1.0"
+  checksum: 10c0/530fb9a62237d54137a13d2cfb67a7db6a2156faed43eecc423f4713d9b20c6f2728b026b45e28fcd72e8eadb9e9ed4b089e99f5e295d2f0ad3134251bdd3698
   languageName: node
   linkType: hard
 
