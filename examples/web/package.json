@@ -15,8 +15,8 @@
     "@react-native-async-storage/eslint-config": "workspace:*",
     "@tailwindcss/vite": "^4.1.13",
     "example-common-tests": "workspace:*",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "tailwindcss": "^4.1.13"
   },
   "installConfig": {

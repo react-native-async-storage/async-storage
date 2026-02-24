@@ -8124,15 +8124,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-common-tests@workspace:examples/common-tests"
   dependencies:
-    "@react-native-async-storage/async-storage": "workspace:*"
     "@react-native-async-storage/eslint-config": "workspace:*"
     "@types/lodash.isequal": "npm:^4.5.8"
     "@types/react": "npm:^19.0.0"
     eslint: "npm:9.34.0"
     lodash.isequal: "npm:4.5.0"
     prettier: "npm:3.6.2"
-    react: "npm:19.0.0"
+    react-native-safe-area-context: "npm:^5.6.1"
     typescript: "npm:5.9.2"
+  peerDependencies:
+    "@react-native-async-storage/async-storage": "workspace:*"
+    react: 19.0.0
   languageName: unknown
   linkType: soft
 
@@ -8147,8 +8149,9 @@ __metadata:
     example-common-tests: "workspace:*"
     expo: "npm:54.0.33"
     expo-status-bar: "npm:~3.0.9"
-    react: "npm:19.1.0"
+    react: "npm:19.0.0"
     react-native: "npm:0.81.5"
+    react-native-safe-area-context: "npm:^5.6.1"
     typescript: "npm:5.9.2"
   languageName: unknown
   linkType: soft
@@ -8202,8 +8205,8 @@ __metadata:
     "@vitejs/plugin-react": "npm:5.0.0"
     eslint: "npm:9.34.0"
     example-common-tests: "workspace:*"
-    react: "npm:19.1.1"
-    react-dom: "npm:19.1.1"
+    react: "npm:19.0.0"
+    react-dom: "npm:19.0.0"
     tailwindcss: "npm:^4.1.13"
     typescript: "npm:5.9.2"
     vite: "npm:7.1.5"
@@ -13526,14 +13529,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.1.1":
-  version: 19.1.1
-  resolution: "react-dom@npm:19.1.1"
+"react-dom@npm:19.0.0":
+  version: 19.0.0
+  resolution: "react-dom@npm:19.0.0"
   dependencies:
-    scheduler: "npm:^0.26.0"
+    scheduler: "npm:^0.25.0"
   peerDependencies:
-    react: ^19.1.1
-  checksum: 10c0/8c91198510521299c56e4e8d5e3a4508b2734fb5e52f29eeac33811de64e76fe586ad32c32182e2e84e070d98df67125da346c3360013357228172dbcd20bcdd
+    react: ^19.0.0
+  checksum: 10c0/a36ce7ab507b237ae2759c984cdaad4af4096d8199fb65b3815c16825e5cfeb7293da790a3fc2184b52bfba7ba3ff31c058c01947aff6fd1a3701632aabaa6a9
   languageName: node
   linkType: hard
 
@@ -13917,20 +13920,6 @@ __metadata:
   version: 19.0.0
   resolution: "react@npm:19.0.0"
   checksum: 10c0/9cad8f103e8e3a16d15cb18a0d8115d8bd9f9e1ce3420310aea381eb42aa0a4f812cf047bb5441349257a05fba8a291515691e3cb51267279b2d2c3253f38471
-  languageName: node
-  linkType: hard
-
-"react@npm:19.1.0":
-  version: 19.1.0
-  resolution: "react@npm:19.1.0"
-  checksum: 10c0/530fb9a62237d54137a13d2cfb67a7db6a2156faed43eecc423f4713d9b20c6f2728b026b45e28fcd72e8eadb9e9ed4b089e99f5e295d2f0ad3134251bdd3698
-  languageName: node
-  linkType: hard
-
-"react@npm:19.1.1":
-  version: 19.1.1
-  resolution: "react@npm:19.1.1"
-  checksum: 10c0/8c9769a2dfd02e603af6445058325e6c8a24b47b185d0e461f66a6454765ddcaecb3f0a90184836c68bb509f3c38248359edbc42f0d07c23eb500a5c30c87b4e
   languageName: node
   linkType: hard
 
@@ -14452,7 +14441,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:0.26.0, scheduler@npm:^0.26.0":
+"scheduler@npm:0.26.0":
   version: 0.26.0
   resolution: "scheduler@npm:0.26.0"
   checksum: 10c0/5b8d5bfddaae3513410eda54f2268e98a376a429931921a81b5c3a2873aab7ca4d775a8caac5498f8cbc7d0daeab947cf923dbd8e215d61671f9f4e392d34356

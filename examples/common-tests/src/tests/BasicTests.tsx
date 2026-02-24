@@ -1,15 +1,16 @@
 import React from "react";
-import { usePerformanceTest, useTestStorage } from "example-common-tests";
+import { useTestStorage } from "../useTestStorage";
+import { useBasicTest } from "../cases/basic.tsx";
 import { TestRunnerView } from "../components/TestRunnerView";
 
 type Props = {
   storageName: string | null;
 };
 
-const PerformanceTest: React.FC<Props> = ({ storageName }) => {
+const BasicTests: React.FC<Props> = ({ storageName }) => {
   const storage = useTestStorage(storageName);
-  const basicTest = usePerformanceTest(storage);
+  const basicTest = useBasicTest(storage);
   return <TestRunnerView runner={basicTest} />;
 };
 
-export default PerformanceTest;
+export default BasicTests;

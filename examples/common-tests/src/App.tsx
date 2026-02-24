@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { StatusBar, useColorScheme, View, Text, Platform } from "react-native";
+import { Platform, StatusBar, Text, useColorScheme, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { TabButton } from "./components/TabButton";
 import BasicTests from "./tests/BasicTests";
-import PerformanceTests from "./tests/PerformanceTest";
 
-function App(): React.JSX.Element {
+export function TestApp(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
   const [example, setExample] = useState<
     "basic" | "legacy-basic" | "perf" | "legacy-perf"
@@ -28,7 +27,6 @@ function App(): React.JSX.Element {
         <Text style={{ fontSize: 24, color: "red" }}>
           Platform: {getPlatform()}
         </Text>
-
         <View
           style={{
             alignItems: "center",
@@ -61,24 +59,9 @@ function App(): React.JSX.Element {
             onPress={() => setExample("legacy-perf")}
           />
         </View>
-
-        {(() => {
-          switch (example) {
-            case "basic":
-              return <BasicTests key={example} storageName="test-db-storage" />;
-            case "legacy-basic":
-              return <BasicTests key={example} storageName={null} />;
-            case "perf":
-              return (
-                <PerformanceTests key={example} storageName="test-db-storage" />
-              );
-            case "legacy-perf":
-              return <PerformanceTests key={example} storageName={null} />;
-          }
-        })()}
+        <BasicTests key={example} storageName="test-db-storage" />
       </SafeAreaView>
     </SafeAreaProvider>
   );
 }
 
-export default App;
