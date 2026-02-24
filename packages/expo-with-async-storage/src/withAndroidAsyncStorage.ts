@@ -1,13 +1,28 @@
 import { type ConfigPlugin, withProjectBuildGradle } from "expo/config-plugins";
-import type { WithAsyncStorageConfig } from "./types";
 
-export const withAndroidAsyncStorage: ConfigPlugin<WithAsyncStorageConfig> = (
-  config,
-  props
-) => {
-  // config
+const projectContent = 'project(":react-native-async-storage_async-storage")';
+const KotlinUriContent = `url = uri(${projectContent}.file("local_repo"))`;
+const GroovyUriContent = `url uri(${projectContent}.projectDir.toString() + "/local_repo")`;
+
+export const withAndroidAsyncStorage: ConfigPlugin = (config) => {
   return withProjectBuildGradle(config, (mod) => {
-    mod.modResults.contents = JSON.stringify(props);
+    const contents = mod.modResults.contents;
+    const isKt = mod.modResults.language === "kt";
+
+    if (
+      contents.includes("async-storage/local_repo") ||
+      contents.includes(projectContent)
+    ) {
+      return mod;
+    }
+
+    const mavenBlock = `\nmaven { ${isKt ? KotlinUriContent : GroovyUriContent} }`;
+
+    mod.modResults.contents = contents.replace(
+      /allprojects\s*\{[\s\S]*?repositories\s*\{/,
+      (match) => match + mavenBlock
+    );
+
     return mod;
   });
 };
