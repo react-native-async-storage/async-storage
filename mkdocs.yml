@@ -12,6 +12,8 @@ nav:
       - "Brownfield integration": api/brownfield.md
   - Integrations:
       - Expo: integrations/expo.md
+      - Jest: integrations/jest.md
+      - Brownfield: integrations/brownfield.md
   - "Migration to v3": migration-to-3.md
   - FAQ: faq.md
   - Contributing: contributing.md
