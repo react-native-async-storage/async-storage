@@ -10,7 +10,12 @@
       "types": "./lib/typescript/index.d.ts",
       "default": "./lib/module/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./jest": {
+      "source": "./src/jest/AsyncStorageMock.ts",
+      "types": "./lib/typescript/jest/AsyncStorageMock.d.ts",
+      "default": "./lib/module/jest/AsyncStorageMock.js"
+    }
   },
   "scripts": {
     "prepare": "yarn build",
