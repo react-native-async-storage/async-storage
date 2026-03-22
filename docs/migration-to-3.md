@@ -26,20 +26,7 @@ Other components:
 
 ### Installation changes
 
-Android requires a local Maven repository to be added to your `android/build.gradle(.kts)`:
-
-```groovy
-allprojects {
-    repositories {
-        // ... others like google(), mavenCentral()
-
-        maven {
-            url = uri(project(":react-native-async-storage_async-storage").file("local_repo"))
-            // or uri("path/to/node_modules/@react-native-async-storage/async-storage/android/local_repo")
-        }
-    }
-}
-```
+No additional Android setup is required — the local Maven repository for `shared-storage` is configured automatically by the library's `build.gradle`.
 
 ### `AsyncStorage` is now instance-based
 
