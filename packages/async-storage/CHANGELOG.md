@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- 1d1867f: include jest mock
+
 ## 3.0.1
 
 ### Patch Changes
