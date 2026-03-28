@@ -77,6 +77,16 @@ android {
     }
 }
 
+def storageRepo = "$projectDir/local_repo"
+
+rootProject.allprojects {
+    repositories {
+        maven {
+            url storageRepo
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     google()
