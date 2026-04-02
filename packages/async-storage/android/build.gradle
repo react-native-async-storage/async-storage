@@ -78,8 +78,19 @@ android {
 }
 
 repositories {
+    maven {
+        url("${project.projectDir}/local_repo")
+    }
     mavenCentral()
     google()
+}
+
+rootProject.allprojects {
+    repositories {
+        maven {
+            url("${rootDir}/../node_modules/@react-native-async-storage/async-storage/android/local_repo")
+        }
+    }
 }
 
 dependencies {
