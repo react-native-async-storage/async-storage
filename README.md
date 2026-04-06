@@ -46,7 +46,7 @@ npm install @react-native-async-storage/async-storage
 yarn add @react-native-async-storage/async-storage
 ```
 
-### Android
+### Android - For React-Native <= 0.76
 
 Inside your `android/build.gradle(.kts)` file, add link to local maven repo:
 
@@ -61,6 +61,33 @@ allprojects {
         }
     }
 }
+```
+
+### Android - For React-Native > 0.76
+
+Inside your `settings.gradle` file, add a section:
+
+```
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+rootProject.name = 'jobsaccounting'
+
+// add the following section (for react-native-async-storage "v3" + React-Native > 0.76)
+dependencyResolutionManagement {
+   repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+   repositories {
+      google()
+      mavenCentral()
+
+      maven { url = uri("https://jitpack.io") } // You might need this if you use libraries that use jitPack. Add it if you get errors (during the build process) like "Could not resolve all dependencies for ..."
+
+      maven { url = uri("../node_modules/@react-native-async-storage/async-storage/android/local_repo") } // required for react-native-async-storage v3 & react-native > 0.77
+   }
+}
+
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
 ```
 
 ### iOS/macOS
