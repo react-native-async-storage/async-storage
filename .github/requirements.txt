@@ -88,7 +88,7 @@ requests==2.33.0
     # via mkdocs-material
 six==1.17.0
     # via python-dateutil
-urllib3==2.5.0
+urllib3==2.7.0
     # via requests
 verspec==0.1.0
     # via mike
