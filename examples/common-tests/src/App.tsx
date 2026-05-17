@@ -3,6 +3,7 @@ import { Platform, StatusBar, Text, useColorScheme, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { TabButton } from "./components/TabButton";
 import BasicTests from "./tests/BasicTests";
+import PerformanceTest from "./tests/PerformanceTest.tsx";
 
 export function TestApp(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
@@ -59,7 +60,18 @@ export function TestApp(): React.JSX.Element {
             onPress={() => setExample("legacy-perf")}
           />
         </View>
-        <BasicTests key={example} storageName="test-db-storage" />
+        {(() => {
+          switch (example) {
+            case "basic":
+              return <BasicTests key={example} storageName="test-basic" />;
+            case "perf":
+              return <PerformanceTest storageName="test-performance" />;
+            case "legacy-basic":
+              return <BasicTests storageName={null} />;
+            case "legacy-perf":
+              return <PerformanceTest storageName={null} />;
+          }
+        })()}
       </SafeAreaView>
     </SafeAreaProvider>
   );
