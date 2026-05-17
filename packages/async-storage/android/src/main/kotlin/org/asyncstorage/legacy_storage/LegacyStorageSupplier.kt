@@ -113,24 +113,22 @@ internal abstract class StorageDb : RoomDatabase() {
     abstract fun storage(): StorageDao
 
     companion object {
-        private var instance: StorageDb? = null
+        @Volatile private var instance: StorageDb? = null
 
         fun getDatabase(context: Context): StorageDb {
-            var inst = instance
-            if (inst != null) {
-                return inst
+            return instance
+                ?: synchronized(this) { instance ?: buildDatabase(context).also { instance = it } }
+        }
+
+        private fun buildDatabase(context: Context): StorageDb {
+            val oldDbFile = context.getDatabasePath("RKStorage")
+            val db = Room.databaseBuilder(context, StorageDb::class.java, DATABASE_NAME)
+            if (oldDbFile.exists()) {
+                // migrate data from old database, if it exists
+                db.createFromFile(oldDbFile).addMigrations(MIGRATION_TO_NEXT)
             }
-            synchronized(this) {
-                val oldDbFile = context.getDatabasePath("RKStorage")
-                val db = Room.databaseBuilder(context, StorageDb::class.java, DATABASE_NAME)
-                if (oldDbFile.exists()) {
-                    // migrate data from old database, if it exists
-                    db.createFromFile(oldDbFile).addMigrations(MIGRATION_TO_NEXT)
-                }
-                inst = db.build()
-                instance = inst
-                return instance!!
-            }
+
+            return db.build()
         }
     }
 }
