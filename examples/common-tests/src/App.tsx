@@ -3,7 +3,7 @@ import { Platform, StatusBar, Text, useColorScheme, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { TabButton } from "./components/TabButton";
 import BasicTests from "./tests/BasicTests";
-import PerformanceTest from "./tests/PerformanceTest.tsx";
+import PerformanceTest from "./tests/PerformanceTest";
 
 export function TestApp(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";

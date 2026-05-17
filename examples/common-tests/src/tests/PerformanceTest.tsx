@@ -1,6 +1,6 @@
 import React from "react";
 import { useTestStorage } from "../useTestStorage";
-import { usePerformanceTest } from "../cases/performance.tsx";
+import { usePerformanceTest } from "../cases/performance";
 import { TestRunnerView } from "../components/TestRunnerView";
 
 type Props = {
