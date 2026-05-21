@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.0
+
+### Minor Changes
+
+- fa6d5bc: Shared Storage artifact published to maven central
+
+  This eliminates the extra step in installation for android.
+
 ## 3.0.3
 
 ### Patch Changes
