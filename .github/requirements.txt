@@ -67,7 +67,7 @@ platformdirs==4.4.0
     # via mkdocs-get-deps
 pygments==2.19.2
     # via mkdocs-material
-pymdown-extensions==10.16.1
+pymdown-extensions==10.21.3
     # via mkdocs-material
 pyparsing==3.2.5
     # via mike
