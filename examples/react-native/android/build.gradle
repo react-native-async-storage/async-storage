@@ -37,10 +37,9 @@ allprojects {
             } while (searchDir = searchDir.getParent())
             // As of 0.80, React Native is no longer installed from npm
         }()
+
+        mavenLocal()
         mavenCentral()
         google()
-        maven {
-            url = uri(project(":react-native-async-storage_async-storage").file("local_repo"))
-        }
     }
 }

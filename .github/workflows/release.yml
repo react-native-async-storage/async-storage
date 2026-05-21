@@ -23,29 +23,6 @@ jobs:
             echo "will-publish=false" >> $GITHUB_OUTPUT
           fi
 
-  build-android:
-    needs: check-release
-    if: needs.check-release.outputs.will-publish == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: "false"
-      - name: Setup project
-        uses: ./.github/actions/setup-project
-        with:
-          node-cache: ""
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
-      - name: Build Android native library
-        run: bash ./scripts/build-native-lib.sh android
-      - name: Upload Android artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-artifacts
-          path: packages/async-storage/android/local_repo
-
   build-apple:
     needs: check-release
     if: needs.check-release.outputs.will-publish == 'true'
@@ -82,12 +59,6 @@ jobs:
         uses: ./.github/actions/setup-project
       - name: Install dependencies
         run: yarn
-      - name: Download Android artifacts
-        if: needs.check-release.outputs.will-publish == 'true'
-        uses: actions/download-artifact@v4
-        with:
-          name: android-artifacts
-          path: packages/async-storage/android/local_repo
       - name: Download Apple artifacts
         if: needs.check-release.outputs.will-publish == 'true'
         uses: actions/download-artifact@v4

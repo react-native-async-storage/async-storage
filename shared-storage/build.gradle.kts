@@ -89,3 +89,8 @@ kotlin {
 }
 
 skie { build { produceDistributableFramework() } }
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+}

@@ -78,13 +78,15 @@ android {
 }
 
 repositories {
+    mavenLocal() // used for local development of AsyncStorage
     mavenCentral()
     google()
 }
 
 dependencies {
+    def shared_storage_version = project.ext.AsyncStorage.sharedStorageVersion
     implementation "com.facebook.react:react-android"
-    api "org.asyncstorage.shared_storage:storage-android:1.0.0"
+    api "io.github.react-native-async-storage:shared-storage-android:$shared_storage_version"
 
 
     // ksp/room is required to support legacy storage

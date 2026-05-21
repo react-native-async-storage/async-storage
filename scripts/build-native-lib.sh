@@ -6,10 +6,9 @@ MODULE_NAME="shared-storage"
 RN_MODULE_DIR="packages/async-storage"
 
 ANDROID_BUILD_TASK="bundleAndroidMainAar"
-ANDROID_OUTPUT_NAME="local_repo" # Maven local repo
 ANDROID_OUTPUT_DIR="$MODULE_NAME/build"
 ANDROID_RN_OUTPUT_DIR="$RN_MODULE_DIR/android"
-ANDROID_PUBLISH_TASK="publishAndroidPublicationToLocalRepoRepository"
+ANDROID_PUBLISH_TASK="publishToMavenLocal --no-configuration-cache"
 
 APPLE_BUILD_TASK="assembleSharedAsyncStorageReleaseXCFramework"
 APPLE_OUTPUT_NAME="SharedAsyncStorage.xcframework"
@@ -22,14 +21,9 @@ build_android() {
   log "👷 Assembling android shared-storage"
   ./gradlew :$MODULE_NAME:$ANDROID_BUILD_TASK
 
-  log "Publishing binaries to local repo"
+  log "Publishing binaries to mavem local"
   ./gradlew :$MODULE_NAME:$ANDROID_PUBLISH_TASK
 
-  log "Remove old local repo"
-  rm -rf $ANDROID_RN_OUTPUT_DIR/$ANDROID_OUTPUT_NAME
-
-  log "Moving local repo to RN target"
-  mv $ANDROID_OUTPUT_DIR/$ANDROID_OUTPUT_NAME $ANDROID_RN_OUTPUT_DIR/$ANDROID_OUTPUT_NAME
 
   log "🚀 all done"
 }

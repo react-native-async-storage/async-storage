@@ -1,6 +1,7 @@
 project.ext.AsyncStorage = [
         isNewArch  : project.hasProperty("newArchEnabled") && project.newArchEnabled == "true",
         roomVersion: getConfigValueOrDefault("roomVersion"),
+        sharedStorageVersion: getConfigValueOrDefault("sharedStorageVersion"),
 
         compileSdk : getConfigValueOrDefault("compileSdkVersion").toInteger(),
         minSdk     : getConfigValueOrDefault("minSdkVersion").toInteger(),
