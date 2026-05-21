@@ -24,7 +24,6 @@ Other components:
 | ios min target   | 13      |
 | macOS min target | 12      |
 
-
 ### `AsyncStorage` is now instance-based
 
 In v3, AsyncStorage is no longer a singleton.  
