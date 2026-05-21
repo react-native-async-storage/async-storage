@@ -89,12 +89,3 @@ kotlin {
 }
 
 skie { build { produceDistributableFramework() } }
-
-publishing {
-    repositories {
-        maven {
-            name = "LocalRepo"
-            url = uri(layout.buildDirectory.dir("local_repo"))
-        }
-    }
-}
