@@ -21,7 +21,7 @@ yarn test:format
 1. Update `VERSION_NAME` in [gradle.properties](shared-storage/gradle.properties)
 2. Commit changes ("release shared-storage-android vX.X.X")
 3. Create PR, NO CHANGESET LOG, Merge.
-4. Release artifact via `./gradlew publishToMavenCentral --no-configuration-cache`
+4. Release artifact via `./gradlew :shared-storage:publishToMavenCentral --no-configuration-cache`
 5. Publish deployment on [Sonatype Central](https://central.sonatype.com/publishing/deployments)
 
 ## Release new Async Storage version
