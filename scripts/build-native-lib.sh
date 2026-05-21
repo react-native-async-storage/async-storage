@@ -21,7 +21,7 @@ build_android() {
   log "👷 Assembling android shared-storage"
   ./gradlew :$MODULE_NAME:$ANDROID_BUILD_TASK
 
-  log "Publishing binaries to mavem local"
+  log "Publishing binaries to maven local"
   ./gradlew :$MODULE_NAME:$ANDROID_PUBLISH_TASK
 
 
