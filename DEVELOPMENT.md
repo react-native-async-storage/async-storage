@@ -14,7 +14,8 @@ To build the sdk, run:
 yarn build:android
 ```
 
-The artifact is then moved to `packages/async-storage/android/local_repo` for distribution.
+This runs `publishToMavenLocal` and makes the artifact available at `~/.m2`. The example app resolves it from there via
+`mavenLocal()`.
 
 ### Apple (iOS/macOS)
 
@@ -30,7 +31,8 @@ The artifact is then moved to `packages/async-storage/apple/Frameworks` for dist
 
 ## Documentation
 
-Documentation should follow major.minor version of Async Storage. Update the documentation version in root's package.json:
+Documentation should follow major.minor version of Async Storage. Update the documentation version in root's
+package.json:
 
 ```json
 {
@@ -63,4 +65,5 @@ Run `mike deploy` to deploy docs and mark them as latest:
 
 ```shell
 mike deploy -u -r docs --push DOCS_VERSION_FROM_PCK_JSON latest
+mike set-default latest -r docs --push
 ```

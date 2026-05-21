@@ -24,22 +24,6 @@ Other components:
 | ios min target   | 13      |
 | macOS min target | 12      |
 
-### Installation changes
-
-Android requires a local Maven repository to be added to your `android/build.gradle(.kts)`:
-
-```groovy
-allprojects {
-    repositories {
-        // ... others like google(), mavenCentral()
-
-        maven {
-            url = uri(project(":react-native-async-storage_async-storage").file("local_repo"))
-            // or uri("path/to/node_modules/@react-native-async-storage/async-storage/android/local_repo")
-        }
-    }
-}
-```
 
 ### `AsyncStorage` is now instance-based
 

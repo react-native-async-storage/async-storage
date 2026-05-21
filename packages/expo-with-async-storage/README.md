@@ -2,6 +2,12 @@
 title: Expo config plugin
 ---
 
+!!! warning "No longer required for version 3.1.0+"
+
+    This plugin originally was intended to include locally build artifact for Android.
+    With version 3.1.0 of Async Storage, this artifact is provided via Maven Central (no extra steps needed).
+
+
 # Expo config plugin for Async Storage
 
 An [Expo config plugin](https://docs.expo.dev/config-plugins/introduction/) that automatically configures

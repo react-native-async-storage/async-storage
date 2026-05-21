@@ -2,7 +2,7 @@
   "private": true,
   "name": "@react-native-async-storage/root",
   "version": "0.0.1-dev",
-  "versionDocs": "3.0",
+  "versionDocs": "3.1",
   "scripts": {
     "build": "turbo run build",
     "build:android": "./scripts/build-native-lib.sh android",
