@@ -1,5 +1,5 @@
 PODS:
-  - AsyncStorage (3.0.2):
+  - AsyncStorage (3.1.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2023,7 +2023,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AsyncStorage: a9bcd43f5f652c1d38de15e13f7db6dbcc470c4b
+  AsyncStorage: 93adfedf5abc90ca9a36c35aa4c6c5e4be192a5a
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
