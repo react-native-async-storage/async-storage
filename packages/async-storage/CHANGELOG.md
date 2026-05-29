@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- b751ff4: bump native dependencies for sqlite and room
+
 ## 3.1.0
 
 ### Minor Changes
