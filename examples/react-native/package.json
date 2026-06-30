@@ -30,7 +30,7 @@
     "react-native-windows": "^0.79.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
+    "@babel/core": "^7.29.6",
     "@babel/preset-env": "^7.25.3",
     "@babel/runtime": "^7.25.0",
     "@callstack/out-of-tree-platforms": "^0.77.0",
