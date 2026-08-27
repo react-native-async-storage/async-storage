@@ -49,11 +49,11 @@ internal interface StorageDao {
 
     @Transaction
     suspend fun mergeValues(entries: List<Entry>) {
-        val currentDbEntries = getValues(entries.map { it.key })
+        val currentDbEntries = getValues(entries.map { it.key }).associateBy { it.key }
         val newEntries = mutableListOf<Entry>()
 
         entries.forEach { newEntry ->
-            val oldEntry = currentDbEntries.find { it.key == newEntry.key }
+            val oldEntry = currentDbEntries[newEntry.key]
             if (oldEntry?.value == null) {
                 newEntries.add(newEntry)
             } else if (!oldEntry.value.isValidJson() || !newEntry.value.isValidJson()) {
@@ -158,11 +158,13 @@ class StorageSupplier internal constructor(db: StorageDb) : AsyncStorageAccess {
 
     override suspend fun getValues(keys: List<String>): List<Entry> {
         val values = access.getValues(keys)
-        return keys.fold(values) { values, current ->
-            if (values.find { it.key == current } != null) {
-                values
-            } else {
-                values + Entry(current, null)
+        val knownKeys = values.mapTo(HashSet()) { it.key }
+        return buildList {
+            addAll(values)
+            for (key in keys) {
+                if (knownKeys.add(key)) {
+                    add(Entry(key, null))
+                }
             }
         }
     }
