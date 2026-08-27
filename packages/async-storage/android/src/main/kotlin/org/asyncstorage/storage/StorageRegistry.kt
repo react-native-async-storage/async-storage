@@ -22,7 +22,7 @@ object StorageRegistry {
 
     fun getRNStorage(ctx: Context, name: String): RNStorage =
         rnStorages.computeIfAbsent(name) {
-            val storage = storages.getOrPut(name) { SharedStorage(ctx, name) }
+            val storage = getStorage(ctx, name)
             RNStorage(storage, name)
         }
 
