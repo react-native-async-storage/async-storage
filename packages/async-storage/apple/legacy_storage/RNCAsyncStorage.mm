@@ -603,9 +603,14 @@ RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory,
         value = [RCTGetCache() objectForKey:key];
         if (!value) {
             NSString *filePath = [self _filePathForKey:key];
-            value = RCTReadFile(filePath, key, errorOut);
+            NSDictionary *readError = nil;
+            value = RCTReadFile(filePath, key, &readError);
             if (value) {
                 [RCTGetCache() setObject:value forKey:key cost:value.length];
+            } else if (readError) {
+                if (errorOut) {
+                    *errorOut = readError;
+                }
             } else {
                 // file does not exist after all, so remove from manifest (no need to save
                 // manifest immediately though, as cost of checking again next time is negligible)
@@ -641,12 +646,14 @@ RCTStorageDirectoryMigrationCheck(NSString *fromStorageDirectory,
         return nil;
     }
     [value writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    [RCTGetCache() setObject:value forKey:key cost:value.length];
     if (error) {
         errorOut = RCTMakeError(@"Failed to write value.", error, @{@"key": key});
-    } else if (_manifest[key] != (id)kCFNull) {
-        *changedManifest = YES;
-        _manifest[key] = (id)kCFNull;
+    } else {
+        [RCTGetCache() setObject:value forKey:key cost:value.length];
+        if (_manifest[key] != (id)kCFNull) {
+            *changedManifest = YES;
+            _manifest[key] = (id)kCFNull;
+        }
     }
     return errorOut;
 }
