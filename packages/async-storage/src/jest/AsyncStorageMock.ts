@@ -43,7 +43,7 @@ class AsyncStorageMemoryImpl implements AsyncStorage {
   };
 }
 
-const inMemoryDbRegistry = new Map<string, AsyncStorageMemoryImpl>();
+const inMemoryDbRegistry = new Map<string, AsyncStorage>();
 
 export function createAsyncStorage(databaseName: string): AsyncStorage {
   if (!inMemoryDbRegistry.has(databaseName)) {
@@ -53,7 +53,12 @@ export function createAsyncStorage(databaseName: string): AsyncStorage {
 }
 
 export function clearAllMockStorages(): void {
+  for (const storage of inMemoryDbRegistry.values()) {
+    void storage.clear();
+  }
   inMemoryDbRegistry.clear();
+  inMemoryDbRegistry.set("legacy", legacyStorage);
 }
 
-export default createAsyncStorage("legacy");
+const legacyStorage = createAsyncStorage("legacy");
+export default legacyStorage;
