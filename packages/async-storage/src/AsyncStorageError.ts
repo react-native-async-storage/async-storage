@@ -40,7 +40,7 @@ export class AsyncStorageError extends Error {
   static nativeError(e: unknown): AsyncStorageError {
     // do not override own error
     if (e instanceof AsyncStorageError) {
-      throw e;
+      return e;
     }
 
     const error = getNativeError(e);
@@ -58,6 +58,7 @@ export class AsyncStorageError extends Error {
         errorType = AsyncStorageErrorType.SqliteStorageError;
         break;
       case "OtherException":
+      case "LegacyStorageException":
         errorType = AsyncStorageErrorType.OtherStorageError;
         break;
     }
@@ -77,7 +78,7 @@ export class AsyncStorageError extends Error {
 
 // Native module reject promises with special code
 function isNativeError(e: unknown): e is PotentialNativeError {
-  if (typeof e !== "object") {
+  if (e === null || typeof e !== "object") {
     return false;
   }
 
