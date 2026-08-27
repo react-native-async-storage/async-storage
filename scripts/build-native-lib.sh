@@ -77,11 +77,11 @@ case "$TARGET" in
     build_apple
     ;;
   all)
-    build_all
+    build_android
+    build_apple
     ;;
   *)
-    echo "Usage: $0 {android|apple}"
+    echo "Usage: $0 {android|apple|all}"
     exit 1
     ;;
 esac
-
