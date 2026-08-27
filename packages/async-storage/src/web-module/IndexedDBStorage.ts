@@ -12,14 +12,15 @@ class IndexedDBStorage {
       const tx = db.transaction(registry.TableName, "readonly");
       const store = tx.objectStore(registry.TableName);
 
-      const result = await Promise.all(
-        keys.map(async (key) => {
-          const entry = await store.get(key);
-          return { key, value: entry ?? null };
-        })
-      );
-
-      await tx.done;
+      const [result] = await Promise.all([
+        Promise.all(
+          keys.map(async (key) => {
+            const entry = await store.get(key);
+            return { key, value: entry ?? null };
+          })
+        ),
+        tx.done,
+      ]);
       return result;
     } catch (e: any) {
       throw this.createError(e);
@@ -34,14 +35,15 @@ class IndexedDBStorage {
       const tx = db.transaction(registry.TableName, "readwrite");
       const store = tx.objectStore(registry.TableName);
 
-      const result = await Promise.all(
-        values.map(async (entry) => {
-          await store.put(entry.value, entry.key);
-          return { key: entry.key, value: entry.value };
-        })
-      );
-
-      await tx.done;
+      const [result] = await Promise.all([
+        Promise.all(
+          values.map(async (entry) => {
+            await store.put(entry.value, entry.key);
+            return { key: entry.key, value: entry.value };
+          })
+        ),
+        tx.done,
+      ]);
       return result;
     } catch (e: any) {
       throw this.createError(e);
@@ -54,11 +56,10 @@ class IndexedDBStorage {
       const tx = db.transaction(registry.TableName, "readwrite");
       const store = tx.objectStore(registry.TableName);
 
-      await Promise.all(
-        keys.map(async (key) => {
-          await store.delete(key);
-        })
-      );
+      await Promise.all([
+        tx.done,
+        ...keys.map(async (key) => await store.delete(key)),
+      ]);
     } catch (e: any) {
       throw this.createError(e);
     }
