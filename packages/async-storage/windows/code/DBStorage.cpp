@@ -145,7 +145,11 @@ namespace
         std::optional<bool> Commit() noexcept
         {
             if (m_db) {
-                return Exec(std::exchange(m_db, nullptr), m_errorManager, "COMMIT");
+                auto result = Exec(m_db, m_errorManager, "COMMIT");
+                if (result) {
+                    m_db = nullptr;
+                }
+                return result;
             }
             return std::nullopt;
         }
@@ -203,7 +207,11 @@ namespace
     // A convenience wrapper for sqlite3_bind_text function.
     int BindString(StatementPtr &statement, int index, const std::string &str) noexcept
     {
-        return sqlite3_bind_text(statement.get(), index, str.c_str(), -1, SQLITE_TRANSIENT);
+        if (str.size() > static_cast<size_t>(std::numeric_limits<int>::max())) {
+            return SQLITE_TOOBIG;
+        }
+        return sqlite3_bind_text(
+            statement.get(), index, str.data(), static_cast<int>(str.size()), SQLITE_TRANSIENT);
     }
 
     // Merge source into destination.
@@ -416,6 +424,9 @@ std::optional<std::vector<DBStorage::KeyValue>>
 DBStorage::DBTask::MultiGet(sqlite3 *db, const std::vector<std::string> &keys) noexcept
 {
     CHECK(!m_errorManager.HasErrors());
+    if (keys.empty()) {
+        return std::vector<KeyValue>{};
+    }
     CHECK(CheckArgs(db, m_errorManager, keys));
 
     auto argCount = static_cast<int>(keys.size());
@@ -445,7 +456,9 @@ DBStorage::DBTask::MultiGet(sqlite3 *db, const std::vector<std::string> &keys) n
         if (!value) {
             return m_errorManager.AddError(sqlite3_errmsg(db));
         }
-        result.push_back(KeyValue{key, value});
+        result.push_back(KeyValue{
+            std::string(key, static_cast<size_t>(sqlite3_column_bytes(statement.get(), 0))),
+            std::string(value, static_cast<size_t>(sqlite3_column_bytes(statement.get(), 1)))});
     }
     return result;
 }
@@ -514,6 +527,9 @@ std::optional<bool> DBStorage::DBTask::MultiRemove(sqlite3 *db,
                                                    const std::vector<std::string> &keys) noexcept
 {
     CHECK(!m_errorManager.HasErrors());
+    if (keys.empty()) {
+        return true;
+    }
     CHECK(CheckArgs(db, m_errorManager, keys));
     auto argCount = static_cast<int>(keys.size());
     auto sql =
@@ -539,14 +555,22 @@ std::optional<std::vector<std::string>> DBStorage::DBTask::GetAllKeys(sqlite3 *d
 {
     CHECK(!m_errorManager.HasErrors());
     std::vector<std::string> result;
-    auto getAllKeysCallback = [&](int columnCount, char **columnTexts, char **) {
-        if (columnCount > 0) {
-            result.emplace_back(columnTexts[0]);
+    auto statement = StatementPtr{nullptr, &sqlite3_finalize};
+    CHECK_SQL_OK(PrepareStatement(db, "SELECT key FROM AsyncLocalStorage", &statement));
+    for (;;) {
+        auto stepResult = sqlite3_step(statement.get());
+        if (stepResult == SQLITE_DONE) {
+            break;
         }
-        return SQLITE_OK;
-    };
-
-    CHECK(Exec(db, m_errorManager, "SELECT key FROM AsyncLocalStorage", getAllKeysCallback));
+        if (stepResult != SQLITE_ROW) {
+            return m_errorManager.AddError(sqlite3_errmsg(db));
+        }
+        auto key = reinterpret_cast<const char *>(sqlite3_column_text(statement.get(), 0));
+        if (!key) {
+            return m_errorManager.AddError(sqlite3_errmsg(db));
+        }
+        result.emplace_back(key, static_cast<size_t>(sqlite3_column_bytes(statement.get(), 0)));
+    }
     return result;
 }
 
