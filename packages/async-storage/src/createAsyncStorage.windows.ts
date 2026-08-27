@@ -102,11 +102,11 @@ class LegacyAsyncStorageImpl implements AsyncStorage {
             return reject(error);
           }
           const resultMap = new Map(result);
-          const entries: Record<string, string | null> = {};
-          for (const key of keys) {
-            entries[key] = resultMap.get(key) ?? null;
-          }
-          resolve(entries);
+          resolve(
+            Object.fromEntries(
+              keys.map((key) => [key, resultMap.get(key) ?? null])
+            )
+          );
         });
       });
     } catch (e) {

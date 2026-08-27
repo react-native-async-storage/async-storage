@@ -16,10 +16,9 @@ class AsyncStorageMemoryImpl implements AsyncStorage {
   };
 
   getMany = async (keys: string[]): Promise<Record<string, string | null>> => {
-    return keys.reduce<Record<string, string | null>>((result, key) => {
-      result[key] = this.store.get(key) ?? null;
-      return result;
-    }, {});
+    return Object.fromEntries(
+      keys.map((key) => [key, this.store.get(key) ?? null])
+    );
   };
 
   setMany = async (entries: Record<string, string>): Promise<void> => {

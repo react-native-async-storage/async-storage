@@ -72,12 +72,8 @@ class AsyncStorageImpl implements AsyncStorage {
 
   getMany = async (keys: string[]): Promise<Record<string, string | null>> => {
     try {
-      return await this.db.getValues(this.dbName, keys).then((entries) =>
-        entries.reduce<Record<string, string | null>>((values, current) => {
-          values[current.key] = current.value;
-          return values;
-        }, {})
-      );
+      const entries = await this.db.getValues(this.dbName, keys);
+      return Object.fromEntries(entries.map(({ key, value }) => [key, value]));
     } catch (e) {
       throw AsyncStorageError.nativeError(e);
     }
@@ -176,11 +172,9 @@ class LegacyAsyncStorageImpl implements AsyncStorage {
 
   getMany = async (keys: string[]): Promise<Record<string, string | null>> => {
     try {
-      return await this.db.legacy_multiGet(keys).then((entries) =>
-        entries.reduce<Record<string, string | null>>((values, current) => {
-          values[current[0]] = current[1] ?? null;
-          return values;
-        }, {})
+      const entries = await this.db.legacy_multiGet(keys);
+      return Object.fromEntries(
+        entries.map(([key, value]) => [key, value ?? null])
       );
     } catch (e) {
       throw AsyncStorageError.nativeError(e);
