@@ -58,7 +58,7 @@ class IndexedDBStorage {
 
       await Promise.all([
         tx.done,
-        ...keys.map(async (key) => await store.delete(key)),
+        ...keys.map((key) => store.delete(key)),
       ]);
     } catch (e: any) {
       throw this.createError(e);
