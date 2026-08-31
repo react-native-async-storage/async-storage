@@ -49,12 +49,8 @@ class AsyncStorageWebImpl implements AsyncStorage {
 
   getMany = async (keys: string[]): Promise<Record<string, string | null>> => {
     try {
-      return await this.db.getValues(keys).then((entries) =>
-        entries.reduce<Record<string, string | null>>((values, current) => {
-          values[current.key] = current.value;
-          return values;
-        }, {})
-      );
+      const entries = await this.db.getValues(keys);
+      return Object.fromEntries(entries.map(({ key, value }) => [key, value]));
     } catch (e) {
       throw this.createError(e);
     }
@@ -139,10 +135,9 @@ class LegacyAsyncStorageWebImpl implements AsyncStorage {
   };
 
   getMany = async (keys: string[]): Promise<Record<string, string | null>> => {
-    return keys.reduce<Record<string, string | null>>((entries, current) => {
-      entries[current] = this.storage.getItem(current) ?? null;
-      return entries;
-    }, {});
+    return Object.fromEntries(
+      keys.map((key) => [key, this.storage.getItem(key) ?? null])
+    );
   };
 
   setMany = async (entries: Record<string, string>): Promise<void> => {
