@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- eaa7b60: Return existing AsyncStorageError instances, handle null rejection values safely, and classify LegacyStorageException as OtherStorageError.
+- ce0bf26: Clear existing mock stores before resetting the registry and preserve the default legacy instance's registry identity.
+
 ## 3.1.1
 
 ### Patch Changes
