@@ -56,10 +56,7 @@ class IndexedDBStorage {
       const tx = db.transaction(registry.TableName, "readwrite");
       const store = tx.objectStore(registry.TableName);
 
-      await Promise.all([
-        tx.done,
-        ...keys.map((key) => store.delete(key)),
-      ]);
+      await Promise.all([tx.done, ...keys.map((key) => store.delete(key))]);
     } catch (e: any) {
       throw this.createError(e);
     }

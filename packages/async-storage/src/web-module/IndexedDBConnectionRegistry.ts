@@ -1,5 +1,6 @@
 import type { DBSchema, IDBPDatabase } from "idb";
 import { openDB } from "idb";
+import { AsyncStorageError } from "../AsyncStorageError";
 
 const WebStorageTableName = "entries" as const;
 
@@ -28,6 +29,12 @@ class IndexedDBConnectionRegistry {
         if (!db.objectStoreNames.contains(WebStorageTableName)) {
           db.createObjectStore(WebStorageTableName);
         }
+      },
+      blocked: (currentVersion: number, blockedVersion: number | null) => {
+        throw AsyncStorageError.jsError(
+          `New version (${blockedVersion}) is blocked by current one (${currentVersion})`,
+          AsyncStorageError.Type.WebStorageError
+        );
       },
       blocking: () => {
         void db.then((connection) => connection.close());
