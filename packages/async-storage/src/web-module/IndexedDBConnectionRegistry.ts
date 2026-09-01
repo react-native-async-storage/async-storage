@@ -36,11 +36,15 @@ class IndexedDBConnectionRegistry {
           AsyncStorageError.Type.WebStorageError
         );
       },
-      blocking: () => {
+      blocking: (currentVersion: number, blockedVersion: number | null) => {
         void db.then((connection) => connection.close());
         if (this.registry.get(dbName) === db) {
           this.registry.delete(dbName);
         }
+        throw AsyncStorageError.jsError(
+          `Current db version (${currentVersion}) is blocking upgrade to next version (${blockedVersion})`,
+          AsyncStorageError.Type.WebStorageError
+        );
       },
       terminated: () => {
         if (this.registry.get(dbName) === db) {
