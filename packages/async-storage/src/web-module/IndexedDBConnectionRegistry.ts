@@ -30,35 +30,36 @@ class IndexedDBConnectionRegistry {
           db.createObjectStore(WebStorageTableName);
         }
       },
-      blocked: (
-        currentVersion: number,
-        blockedVersion: number | null,
-        _: IDBVersionChangeEvent
-      ) => {
+      blocked: (currentVersion: number, blockedVersion: number | null) => {
         throw AsyncStorageError.jsError(
           `New version (${blockedVersion}) is blocked by current one (${currentVersion})`,
           AsyncStorageError.Type.WebStorageError
         );
       },
-      blocking: (
-        currentVersion: number,
-        blockedVersion: number | null,
-        _: IDBVersionChangeEvent
-      ) => {
+      blocking: (currentVersion: number, blockedVersion: number | null) => {
+        void db.then((connection) => connection.close());
+        if (this.registry.get(dbName) === db) {
+          this.registry.delete(dbName);
+        }
         throw AsyncStorageError.jsError(
           `Current db version (${currentVersion}) is blocking upgrade to next version (${blockedVersion})`,
           AsyncStorageError.Type.WebStorageError
         );
       },
+      terminated: () => {
+        if (this.registry.get(dbName) === db) {
+          this.registry.delete(dbName);
+        }
+      },
+    }).catch((err) => {
+      // Return the rejection to callers while allowing a later open to retry.
+      if (this.registry.get(dbName) === db) {
+        this.registry.delete(dbName);
+      }
+      throw err;
     });
 
     this.registry.set(dbName, db);
-
-    // in case of error while opening, clear the storage to retry
-    db.catch((err) => {
-      this.registry.delete(dbName);
-      throw err;
-    });
 
     return db;
   }
