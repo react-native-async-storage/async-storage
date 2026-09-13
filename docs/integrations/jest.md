@@ -44,7 +44,7 @@ To mock the module for a specific test file, call `jest.mock` at the top of the 
 
 ```js
 jest.mock("@react-native-async-storage/async-storage", () =>
-  require("@react-native-async-storage/async-storage/src/jest/AsyncStorageMock.ts")
+  require("@react-native-async-storage/async-storage/src/jest/AsyncStorageMock")
 );
 ```
 
