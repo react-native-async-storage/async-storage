@@ -32,7 +32,7 @@ __mocks__/@react-native-async-storage/async-storage.js
 With content:
 
 ```js
-module.exports = require("@react-native-async-storage/async-storage/jest");
+module.exports = require("@react-native-async-storage/async-storage/src/jest/AsyncStorageMock");
 ```
 
 Jest resolves files under `__mocks__/` automatically when the module is imported, so no additional configuration is
@@ -44,7 +44,7 @@ To mock the module for a specific test file, call `jest.mock` at the top of the 
 
 ```js
 jest.mock("@react-native-async-storage/async-storage", () =>
-  require("@react-native-async-storage/async-storage/jest")
+  require("@react-native-async-storage/async-storage/src/jest/AsyncStorageMock.ts")
 );
 ```
 
@@ -55,7 +55,7 @@ The mock is a full in-memory implementation of the `AsyncStorage` interface. Add
 Example usage:
 
 ```ts
-import { clearAllMockStorages } from "@react-native-async-storage/async-storage/jest";
+import { clearAllMockStorages } from "@react-native-async-storage/async-storage/src/jest/AsyncStorageMock";
 
 beforeEach(() => {
   clearAllMockStorages();
