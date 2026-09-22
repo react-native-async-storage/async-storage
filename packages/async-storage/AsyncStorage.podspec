@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "13.0", :osx => "12.0", :visionos => "1.0" }
+  s.platforms    = { :ios => "15.0", :osx => "12.0", :visionos => "1.0" }
   s.source       = { :git => "https://github.com/react-native-async-storage/async-storage.git", :tag => "#{s.version}" }
   s.resource_bundles = { "AsyncStorage_resources" => "apple/PrivacyInfo.xcprivacy" }
 
