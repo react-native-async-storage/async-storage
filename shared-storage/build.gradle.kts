@@ -50,7 +50,6 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(libs.androidx.room.runtime)
-                implementation(libs.androidx.sqlite.bundled)
                 implementation(libs.kotlinx.coroutines)
                 implementation(libs.logging.kermit)
             }
@@ -58,7 +57,11 @@ kotlin {
 
         androidMain { dependencies {} }
 
-        appleMain { dependencies {} }
+        appleMain {
+            dependencies {
+                implementation(libs.androidx.sqlite.bundled)
+            }
+        }
 
         commonTest {
             dependencies {
