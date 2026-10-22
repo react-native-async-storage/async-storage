@@ -10,7 +10,12 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "13.0", :osx => "12.0", :visionos => "1.0" }
+  # Follow React Native's minimum iOS version when it is available (RN >= 0.69). React
+  # Native's post_install raises the deployment target of pod targets but not of resource
+  # bundle targets, so the privacy bundle would otherwise keep a deployment target that
+  # newer Xcode versions reject (see issue #1355).
+  ios_deployment_target = defined?(min_ios_version_supported) ? min_ios_version_supported : "13.0"
+  s.platforms    = { :ios => ios_deployment_target, :osx => "12.0", :visionos => "1.0" }
   s.source       = { :git => "https://github.com/react-native-async-storage/async-storage.git", :tag => "#{s.version}" }
   s.resource_bundles = { "AsyncStorage_resources" => "apple/PrivacyInfo.xcprivacy" }
 
