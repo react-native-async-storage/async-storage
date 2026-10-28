@@ -42,7 +42,7 @@ kotlin {
             baseName = xcfName
             isStatic = true
             xcf.add(this)
-            binaryOption("bundleId", "org.asyncstorage.shared_storage")
+            binaryOption("bundleId", "org.asyncstorage.shared-storage")
         }
     }
 

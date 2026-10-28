@@ -25,6 +25,9 @@
     "test:lint": "eslint src/*.{js,ts,tsx}"
   },
   "files": [
+    "Package.swift",
+    "spm-support",
+    "spm-headers",
     "src",
     "lib",
     "android",
@@ -122,5 +125,8 @@
   "author": "Krzysztof Borowy <contact@kborowy.com> (https://www.kborowy.com)",
   "contributors": [
     "Tommy Nguyen <4123478+tido64@users.noreply.github.com> (https://github.com/tido64)"
-  ]
+  ],
+  "swiftpmConfig": {
+    "name": "AsyncStorage"
+  }
 }
