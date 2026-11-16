@@ -46,7 +46,7 @@ let package = Package(
             dependencies: [.target(name: "SharedAsyncStorage")] + reactHeaders,
             path: ".",
             exclude: unusedRootEntries + unusedAppleEntries,
-            sources: ["apple/storage", "spm-support/Foundation.swift"]
+            sources: ["apple/storage", "spm-support/Foundation.swift", "spm-support/SwiftHeaderPin.swift"]
         ),
         .target(
             name: "AsyncStorageObjC",
